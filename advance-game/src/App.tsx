@@ -30,7 +30,7 @@ function App() {
       </div>
       <h1>Vite + Rune</h1>
       <h1>Joy of Coding team</h1>
-      <h2>joy-game</h2>
+      <h2>advance-game</h2>
       <div className="card">
         <button onClick={() => Rune.actions.increment({ amount: 1 })}>
           count is {game.count}
