@@ -87,20 +87,32 @@ const Game: React.FC = () => {
 
     //Pass a die from one player to another player
     const handleGiveAwayDice = (diceFrom: number) => {
-        //get other player's Id.  This works for 2 players. For more than 2 will need a strategy similar to "next player" function
-        const diceTo = Number(!diceFrom)
+        //get other player's Id. strategy is the same as "next player" function, and rolls to the next player
+        //we will want to add the ability to "choose" later
+        const diceTo = (diceFrom + 1) % players.length
 
         //create copies of each dicePool
         const newDicePoolPlayerFrom = players[diceFrom].dicePool.slice() //create copy
         const newDicePoolPlayerTo = players[diceTo].dicePool.slice() //create copy
 
+        // Log the initial values
+        console.log("newDicePoolPlayerFrom:", newDicePoolPlayerFrom);
+        console.log("newDicePoolPlayerTo:", newDicePoolPlayerTo);
+        console.log("sixesToGive:", sixesToGive);
+
+
         //remove dice for each position in 'sixesToGive' array
         //and add dice to diceTO player using push
-        sixesToGive.forEach((die) => {
+        for (let i = sixesToGive.length - 1; i >= 0; i--) {
+            const die = sixesToGive[i];
             const removedDie = newDicePoolPlayerFrom.splice(die, 1)[0];
+            console.log("removedDie:", removedDie);
             newDicePoolPlayerTo.push(removedDie);
-        });
+        }
 
+        // Log the final values
+        console.log("newDicePoolPlayerFrom after splicing:", newDicePoolPlayerFrom);
+        console.log("newDicePoolPlayerTo after pushing:", newDicePoolPlayerTo);
 
         //update players state with new Dice Pools
         const newPlayers = [...players]  //create copy of players
