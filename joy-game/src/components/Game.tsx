@@ -8,12 +8,12 @@ const Game: React.FC = () => {
         {
             id: 0,
             name: 'Rockin Emily',
-            dicePool: [4, 4, 4], // Initial dice pool with 3 dice having value 4
+            dicePool: [1, 2, 3, 4, 5, 6, 1, 2, 3, 4], // Initial dice pool with 10 dice having all values
         },
         {
             id: 1,
             name: 'Dynamite Dana',
-            dicePool: [6, 6, 6], // Initial dice pool with 3 dice having value 6
+            dicePool: [6, 5, 4], // Initial dice pool with 3 dice having value 6 - 4
         },
     ]);
     const [currentPlayerId, setCurrentPlayerId] = useState(0)
