@@ -21,12 +21,9 @@ function App() {
 
   return (
     <>
-      <div>
+
         <Game />
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and Rune logos to learn more
-      </p>
+
     </>
   )
 }
