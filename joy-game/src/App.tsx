@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react"
-import reactLogo from "./assets/rune.svg"
-import viteLogo from "/vite.svg"
 import "./App.css"
 import Game from "./components/Game.tsx"
 import { GameState } from "./logic.ts"
