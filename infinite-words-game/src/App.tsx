@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import reactLogo from "./assets/rune.svg"
-import viteLogo from "/vite.svg"
 import "./App.css"
 import { GameState } from "./logic.ts"
+import Dice from "./components/Dice";
 
 function App() {
   const [game, setGame] = useState<GameState>()
@@ -14,32 +13,29 @@ function App() {
     })
   }, [])
 
+
+
   if (!game) {
     return <div>Loading...</div>
   }
 
+  const handleRoll=() => {
+      const randomNum= Math.floor(Math.random() * 6) + 1;
+      Rune.actions.randomize({ value: randomNum })
+  }
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://developers.rune.ai" target="_blank">
-          <img src={reactLogo} className="logo rune" alt="Rune logo" />
-        </a>
-      </div>
-      <h1>Vite + Rune</h1>
       <h1>Joy of Coding team</h1>
       <h2>infinite-words-game</h2>
       <div className="card">
         <button onClick={() => Rune.actions.increment({ amount: 1 })}>
           count is {game.count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> or <code>src/logic.ts</code> and save to
-          test HMR
-        </p>
       </div>
+        <div>
+            <button onClick={handleRoll}><Dice faceValue={game.die1} /></button>
+        </div>
       <p className="read-the-docs">
         Click on the Vite and Rune logos to learn more
       </p>

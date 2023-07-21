@@ -60,7 +60,7 @@ const Game: React.FC = () => {
     //get next player
     const handleNextPlayer = (playerIndex: number) => {
         //increment by one unless it's the last player
-        //modulus operater wraps around to 0 after the last player
+        //modulus operator wraps around to 0 after the last player
         const nextPlayer = (playerIndex + 1) % players.length;
         setCurrentPlayerId(nextPlayer);
     }
