@@ -2,6 +2,7 @@ import React from 'react';
 import Dice from './Dice';
 
 interface PlayerProps {
+    id: number;
   name: string;
   dicePool: number[];
 }
@@ -9,7 +10,7 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ name, dicePool }) => {
   return (
     <div className="player">
-      <h3>{name}'s Turn</h3>
+      <h3>{name}'s Dice</h3>
       <div className="dice-pool">
         {dicePool.map((diceValue, index) => (
           <Dice key={index} value={diceValue} />
