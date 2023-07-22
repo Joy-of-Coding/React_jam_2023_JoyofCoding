@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import React from "react";
 import "./App.css"
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer"
 import { GameState } from "./logic.ts"
@@ -33,19 +32,15 @@ function App() {
     console.log("clicked button", i)
     const randomNum= Math.floor(Math.random() * 6) + 1;
     Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
-
   }
-  
-
 
 
   return (
     <>
       <div className="card">
-      <div>
         <h4>
           {yourPlayerId ? (
-              <><span>My dice:  </span>
+              <><h3><span>{players[yourPlayerId].displayName}</span></h3>
                   <div>
                   {game.diceArrays[yourPlayerId].map((die, i )=>(
                       <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
@@ -88,8 +83,6 @@ function App() {
         {/*      </button>*/}
         {/*    </>*/}
         {/*): <>Spectators are not able to call actions</>}*/}
-
-      </div>
 
       </div>
     </>
