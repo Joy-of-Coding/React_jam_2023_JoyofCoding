@@ -1,59 +1,90 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import Game from "./components/Game.tsx"
+import type { Players, PlayerId } from "rune-games-sdk/multiplayer"
 import { GameState } from "./logic.ts"
 import Dice from "./components/Dice";
 
 function App() {
   const [game, setGame] = useState<GameState>()
+  const [players, setPlayers] = useState<Players>({})
+  const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
+
+
   useEffect(() => {
     Rune.initClient({
-      onChange: ({ newGame }) => {
-        setGame(newGame)
-      },
-    })
+          onChange: ({ newGame,players, yourPlayerId }) => {
+            {
+              setGame(newGame)
+              setPlayers(players)
+              setYourPlayerId(yourPlayerId)
+            }
+          },
+        }
+    )
   }, [])
 
   if (!game) {
     return <div>Loading...</div>
   }
 
-  const handleRoll = (i: number) =>
+  const handleRoll = (playerId:string, i: number) =>
   {
     console.log("clicked button", i)
     const randomNum= Math.floor(Math.random() * 6) + 1;
-
-    Rune.actions.updateDie({dieValue:randomNum, dieIndex: i})
-    // const updatedGame = {...game, diceArray: [...game.diceArray]}
-      //  updatedGame.diceArray[i] = randomNum
-      // setGame(updatedGame)
+    Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
   }
-  
-
 
 
   return (
     <>
-    <h1>Joy of Coding team</h1>
-    <h2>joy-game</h2>
-
       <div className="card">
-        <button onClick={() => Rune.actions.increment({ amount: 1 })}>
-          count is {game.count}
-        </button>
-      </div>   
+        <h4>
+          {yourPlayerId ? (
+              <><h3><span>{players[yourPlayerId].displayName}</span></h3>
+                  <div>
+                  {game.diceArrays[yourPlayerId].map((die, i )=>(
+                      <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
+                  ))}
+              </div>
+              </>
+          ) : (
+              <>I am a spectator, so I don't have count</>
+          )}
+        </h4>
 
-        <div>
-            {game.diceArray.map((die, i )=>(
-                <button key={i} value={i} onClick={()=>{handleRoll(i)}}><Dice faceValue={die} /></button>
+        <h4>Other Player's Dice Counts</h4>
+        {Object.keys(players)
+            .filter((playerId) => playerId !== yourPlayerId)
+            .map((playerId) => (
+                <div key={playerId}>
+                  {players[playerId].displayName} Dice: {game?.diceArrays[playerId].length}
+                </div>
             ))}
 
-        </div>
+        {/*{yourPlayerId ? (*/}
+        {/*    <>*/}
 
+        {/*      <button*/}
+        {/*          className="increment"*/}
+        {/*          onClick={() =>*/}
+        {/*              Rune.actions.changeCounter({ amount: 1, playerId: yourPlayerId })*/}
+        {/*          }*/}
+        {/*      >*/}
+        {/*        +*/}
+        {/*      </button>*/}
 
+        {/*      <button*/}
+        {/*          className="decrement"*/}
+        {/*          onClick={() =>*/}
+        {/*              Rune.actions.changeCounter({ amount: -1, playerId: yourPlayerId })*/}
+        {/*          }*/}
+        {/*      >*/}
+        {/*        -*/}
+        {/*      </button>*/}
+        {/*    </>*/}
+        {/*): <>Spectators are not able to call actions</>}*/}
 
-        <Game />
-
+      </div>
     </>
   )
 }

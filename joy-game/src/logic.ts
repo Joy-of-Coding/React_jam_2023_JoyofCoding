@@ -1,14 +1,18 @@
 import type { RuneClient } from "rune-games-sdk/multiplayer"
 
 export interface GameState {
-  count: number, 
-  // die1: number,
-  diceArray: number[]
+  count: number,
+  diceArrays: Record<string,number[]>,
+  counters:Record<string, number>
 }
 
 type GameActions = {
-  increment: (params: { amount: number }) => void, 
-  updateDie: (params: {dieValue: number, dieIndex: number}) => void
+  changeCounter: (params: {
+    playerId: string;
+    amount: number;
+  }) => void;
+  increment: (params: { amount: number }) => void,
+  updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void
   // ,
   // rollDice: () => void
 }
@@ -24,32 +28,42 @@ export function getCount(game: GameState) {
 Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 4,
-  setup: (): GameState => {
+  setup: (playerIds): GameState => {
+    const diceArrays = Object.fromEntries(
+        playerIds.map((playerId) => [
+          playerId,
+          Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1),
+        ])
+    );
+
     return {
       count: 0,
-      diceArray: [1,2,6,5,4]
-      // ,
-      // die1: 2
+      counters: Object.fromEntries(playerIds.map(playerId => [playerId, 0])),
+      diceArrays,
     }
   },
   actions: {
     increment: ({ amount }, { game }) => {
       game.count += amount
     },
-    updateDie: ({dieValue, dieIndex}, {game}) => {
-      game.diceArray[dieIndex] = dieValue
+    updatePlayerDie: ({playerId, dieValue, dieIndex },{game}) => {
+      game.diceArrays[playerId][dieIndex] = dieValue
+    },
+    changeCounter({playerId, amount}, {game}) {
+      if (game.counters[playerId] === undefined) {
+        throw Rune.invalidAction(); // incorrect playerId passed to the action
+      }
+      game.counters[playerId] += amount;
     }
-      // ,
-    // rollDice: ({}, { game }) => {
-    //   game.diceArray = game.diceArray.slice().map(() => Math.floor(Math.random() * 6) + 1);
-    // }
   },
   events: {
-    playerJoined: () => {
-      // Handle player joined
+    playerJoined: (playerId, {game}) => {
+      game.counters[playerId] = 0;
+      game.diceArrays[playerId]=Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1)
     },
-    playerLeft() {
-      // Handle player left
+    playerLeft(playerId, {game}) {
+      delete game.counters[playerId];
+      delete game.diceArrays[playerId];
     },
-  },
+  }
 })
