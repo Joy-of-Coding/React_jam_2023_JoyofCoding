@@ -22,9 +22,11 @@ function App() {
   const handleRoll=(i: number) => {
       console.log("clicked button",i)
       const randomNum= Math.floor(Math.random() * 6) + 1;
-      const updatedGame = {...game, diceArray: [...game.diceArray]}
-       updatedGame.diceArray[i] = randomNum
-      setGame(updatedGame)
+
+      Rune.actions.updateDie({dieValue: randomNum, dieIndex: i})
+      // const updatedGame = {...game, diceArray: [...game.diceArray]}
+      //  updatedGame.diceArray[i] = randomNum
+      // setGame(updatedGame)
   }
 
   return (
