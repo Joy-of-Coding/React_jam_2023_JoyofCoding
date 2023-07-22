@@ -13,7 +13,7 @@ const Player: React.FC<PlayerProps> = ({ name, dicePool }) => {
       <h3>{name}'s Dice</h3>
       <div className="dice-pool">
         {dicePool.map((diceValue, index) => (
-          <Dice key={index} value={diceValue} />
+          <Dice key={index} faceValue={diceValue} />
         ))}
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 
 interface DiceProps {
-  value: number;
+  faceValue: number;
 }
 
-const Dice: React.FC<DiceProps> = ({ value }) => {
-  return <div className="dice">{value}</div>;
+const Dice: React.FC<DiceProps> = ({ faceValue }) => {
+  return <div className="dice">{faceValue}</div>;
 };
 
 export default Dice;

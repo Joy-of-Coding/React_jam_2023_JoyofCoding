@@ -1,1 +1,1 @@
-Rune.initLogic({minPlayers:1,maxPlayers:4,setup:()=>({count:0}),actions:{increment:({amount:e},{game:n})=>{n.count+=e}},events:{playerJoined:()=>{},playerLeft(){}}});
+Rune.initLogic({minPlayers:1,maxPlayers:4,setup:()=>({count:0,diceArray:[1,2,6,5,4]}),actions:{increment:({amount:e},{game:n})=>{n.count+=e},updateDie:({dieValue:e,dieIndex:n},{game:r})=>{r.diceArray[n]=e}},events:{playerJoined:()=>{},playerLeft(){}}});
