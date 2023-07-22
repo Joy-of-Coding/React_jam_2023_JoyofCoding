@@ -1,5 +1,6 @@
 import React from 'react';
 import Dice from './Dice';
+import "./Player.css"
 
 interface PlayerProps {
     id: number;
@@ -9,12 +10,14 @@ interface PlayerProps {
 
 const Player: React.FC<PlayerProps> = ({ name, dicePool }) => {
   return (
-    <div className="player">
-      <h3>{name}'s Dice</h3>
-      <div className="dice-pool">
-        {dicePool.map((diceValue, index) => (
-          <Dice key={index} faceValue={diceValue} />
-        ))}
+    <div className='player-dices-container'>
+      <div className="player">
+        <h3>{name}'s Dice</h3>
+        <div className="dice-pool">
+          {dicePool.map((diceValue, index) => (
+            <Dice key={index} faceValue={diceValue} />
+          ))}
+        </div>
       </div>
     </div>
   );

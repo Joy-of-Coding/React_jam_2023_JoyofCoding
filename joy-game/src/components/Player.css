@@ -1,0 +1,40 @@
+.dice-pool{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.player {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  
+  
+
+.player-dices-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  
+}
+
+.controls{
+    display: flex;
+    justify-content: center;
+}
+
+.controls button{
+    padding: 15px;
+}
+
+.player h3{
+    padding: 0;
+    margin: 0;
+}

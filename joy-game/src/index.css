@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color: #213547;
-  background-color: #edeb97;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,6 +28,24 @@ body {
   place-items: center;
   min-height: 100vh;
   overflow-x: hidden;
+
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 300% 300%;
+    animation: gradient 15s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  
+  
 }
 
 h1 {

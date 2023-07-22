@@ -34,18 +34,22 @@ function App() {
 
   return (
     <>
-    <h1>Joy of Coding team</h1>
-    <h2>joy-game</h2>
+    {/* <h1>Joy of Coding team</h1> */}
+    <div className="logo-container">
+    <p>Joy<img className="logoImg" src="src/assets/logo.png" alt="" />Game</p>
+    </div>
+    
+    <div>
+      
+    </div>
 
       <div className="card">
-        <button onClick={() => Rune.actions.increment({ amount: 1 })}>
-          count is {game.count}
-        </button>
+        
       </div>   
 
-        <div>
+        <div className="buttons-container">
             {game.diceArray.map((die, i )=>(
-                <button key={i} value={i} onClick={()=>{handleRoll(i)}}><Dice faceValue={die} /></button>
+                <button className="diceButton" key={i} value={i} onClick={()=>{handleRoll(i)}}><Dice faceValue={die} /></button>
             ))}
 
         </div>
