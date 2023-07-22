@@ -3,10 +3,15 @@ import type { RuneClient } from "rune-games-sdk/multiplayer"
 export interface GameState {
   count: number, 
   // die1: number,
-  diceArray: number[]
+  diceArray: number[],
+  counters:Record<string, number>
 }
 
 type GameActions = {
+  changeCounter: (params: {
+    playerId: string;
+    amount: number;
+  }) => void;
   increment: (params: { amount: number }) => void, 
   updateDie: (params: {dieValue: number, dieIndex: number}) => void
   // ,
@@ -24,12 +29,11 @@ export function getCount(game: GameState) {
 Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 4,
-  setup: (): GameState => {
+  setup: (playerIds): GameState => {
     return {
       count: 0,
-      diceArray: [1,2,6,5,4]
-      // ,
-      // die1: 2
+      diceArray: [1,2,6,5,4],
+      counters: Object.fromEntries(playerIds.map(playerId => [playerId, 0]))
     }
   },
   actions: {
@@ -38,18 +42,20 @@ Rune.initLogic({
     },
     updateDie: ({dieValue, dieIndex}, {game}) => {
       game.diceArray[dieIndex] = dieValue
+    },
+    changeCounter({playerId, amount}, {game}) {
+      if (game.counters[playerId] === undefined) {
+        throw Rune.invalidAction(); // incorrect playerId passed to the action
+      }
+      game.counters[playerId] += amount;
     }
-      // ,
-    // rollDice: ({}, { game }) => {
-    //   game.diceArray = game.diceArray.slice().map(() => Math.floor(Math.random() * 6) + 1);
-    // }
   },
   events: {
-    playerJoined: () => {
-      // Handle player joined
+    playerJoined: (playerId, {game}) => {
+      game.counters[playerId] = 0;
     },
-    playerLeft() {
-      // Handle player left
+    playerLeft(playerId, {game}) {
+      delete game.counters[playerId];
     },
-  },
+  }
 })
