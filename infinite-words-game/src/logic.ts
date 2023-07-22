@@ -2,12 +2,14 @@ import type { RuneClient } from "rune-games-sdk/multiplayer"
 
 export interface GameState {
   count: number,
-  die1: number
+  die1: number,
+  diceArray: number[]
 }
 
 type GameActions = {
   increment: (params: { amount: number }) => void,
-  randomize: (params: {value: number}) => void
+  randomize: (params: {dieValue: number}) => void,
+  rollDice: () => void
 }
 
 declare global {
@@ -24,6 +26,7 @@ Rune.initLogic({
   setup: (): GameState => {
     return {
       count: 0,
+      diceArray: [1,2,6,5,4],
       die1: 2
     }
   },
@@ -31,8 +34,11 @@ Rune.initLogic({
     increment: ({ amount }, { game }) => {
       game.count += amount
     },
-    randomize: ({value}, {game}) => {
-      game.die1 = value
+    randomize: ({dieValue}, {game}) => {
+      game.die1 = dieValue
+    },
+    rollDice: ({}, { game }) => {
+      game.diceArray = game.diceArray.slice().map(() => Math.floor(Math.random() * 6) + 1);
     }
   },
   events: {
@@ -44,4 +50,3 @@ Rune.initLogic({
     },
   },
 })
-    // = Math.floor(Math.random() * 6) + 1;

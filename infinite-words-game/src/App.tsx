@@ -19,9 +19,12 @@ function App() {
     return <div>Loading...</div>
   }
 
-  const handleRoll=() => {
+  const handleRoll=(i: number) => {
+      console.log("clicked button",i)
       const randomNum= Math.floor(Math.random() * 6) + 1;
-      Rune.actions.randomize({ value: randomNum })
+      const updatedGame = {...game, diceArray: [...game.diceArray]}
+       updatedGame.diceArray[i] = randomNum
+      setGame(updatedGame)
   }
 
   return (
@@ -34,7 +37,10 @@ function App() {
         </button>
       </div>
         <div>
-            <button onClick={handleRoll}><Dice faceValue={game.die1} /></button>
+            {game.diceArray.map((die, i )=>(
+                <button key={i} value={i} onClick={()=>{handleRoll(i)}}><Dice faceValue={die} /></button>
+            ))}
+
         </div>
       <p className="read-the-docs">
         Click on the Vite and Rune logos to learn more
