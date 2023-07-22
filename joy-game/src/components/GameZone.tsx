@@ -5,8 +5,6 @@ import Dice from "./Dice";
 interface GameZoneProps {
     players: Record<string, any>,
     yourPlayerId: string,
-
-
 }
 
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
@@ -38,7 +36,22 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
                     ))}
                 </div>
-                <div className="top-left player-area grid-item">Top Left Player Area</div>
+
+                {Object.keys(players)
+                    .filter((playerId) => playerId == yourPlayerId)
+                    .map((playerId, index) => {
+                        const position = 'top-left';
+
+                        return (
+                            <div key={playerId} className={`player-area grid-item ${position.toLowerCase().replace(' ', '-')}`}>
+                              <b> Me:
+                                {game?.diceArrays[playerId].length}</b>
+                            </div>
+                        );
+                    })}
+
+
+                    {/*<div className="top-left player-area grid-item">Top Left Player Area</div>*/}
                 <div className="top-right player-area grid-item">Top Right Player Area</div>
                 <div className="bottom-left player-area grid-item">Bottom Left Player Area</div>
                 <div className="bottom-right player-area grid-item">Bottom Right Player Area</div>

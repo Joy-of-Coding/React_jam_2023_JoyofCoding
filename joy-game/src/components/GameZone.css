@@ -1,7 +1,7 @@
 .grid-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Divide the grid into three equal columns */
-    grid-template-rows: repeat(4, 1fr); /* Divide the grid into four equal rows */
+    grid-template-rows: repeat(2, 1fr); /* Divide the grid into four equal rows */
     gap: 10px; /* Add a gap between grid items */
 }
 
@@ -34,20 +34,20 @@
 
 .bottom-left {
     grid-column: 1;
-    grid-row: 4;
+    grid-row: 3;
     background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
 }
 
 .bottom-right {
     grid-column: 5;
-    grid-row: 4;
+    grid-row: 3;
     background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
 
 }
 
 .bottom-row {
     grid-column: 1 / span 5; /* Take up the entire width of the grid */
-    grid-row: 5; /* Place in the fifth row */
+    grid-row: 4; /* Place in the fifth row */
     background-color: lightpink; /* Add background color to differentiate the bottom row */
 }
 
