@@ -10,6 +10,7 @@ function App() {
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
 
 
+
   useEffect(() => {
     Rune.initClient({
           onChange: ({ newGame,players, yourPlayerId }) => {
@@ -27,6 +28,11 @@ function App() {
     return <div>Loading...</div>
   }
 
+  const advanceTurn = () => {
+    const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+    Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
+  }
+
   const handleRoll = (playerId:string, i: number) =>
   {
     console.log("clicked button", i)
@@ -37,6 +43,7 @@ function App() {
   const handleRollAll = (playerId: string) => {
     console.log("Rolled all dice")
     Rune.actions.rollAllDice({playerId: playerId})
+    advanceTurn()
   }
 
   return (
@@ -50,9 +57,11 @@ function App() {
                       <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
                   ))}
                    </div>
+                {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                 <div>
                   <button onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</button>
                 </div>
+                }
               </>
           ) : (
               <>I am a spectator, so I don't have count</>

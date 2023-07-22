@@ -5,7 +5,8 @@ import type { RuneClient } from "rune-games-sdk/multiplayer"
 export interface GameState {
   count: number,
   diceArrays: Record<string,number[]>,
-  counters:Record<string, number>
+  counters:Record<string, number>,
+  currentPlayerIndex: number
 }
 
 type GameActions = {
@@ -15,7 +16,9 @@ type GameActions = {
   }) => void;
   increment: (params: { amount: number }) => void,
   updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void,
-  rollAllDice: (params: {playerId: string}) => void;
+  rollAllDice: (params: {playerId: string}) => void,
+  nextPlayer: (params:{nextPlayerIndex: number}) => void
+
   // ,
   // rollDice: () => void
 }
@@ -40,6 +43,7 @@ Rune.initLogic({
     );
 
     return {
+      currentPlayerIndex:0,
       count: 0,
       counters: Object.fromEntries(playerIds.map(playerId => [playerId, 0])),
       diceArrays,
@@ -60,6 +64,10 @@ Rune.initLogic({
     },
     rollAllDice: ({playerId}, {game}) => {
       game.diceArrays[playerId] = game.diceArrays[playerId].map(() => Math.floor(Math.random() * 6) + 1);
+    },
+    nextPlayer: ({nextPlayerIndex}, {game}) => {
+
+      game.currentPlayerIndex = nextPlayerIndex;
     }
   },
   events: {
