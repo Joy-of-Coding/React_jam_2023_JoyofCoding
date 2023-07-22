@@ -1,4 +1,6 @@
 import type { RuneClient } from "rune-games-sdk/multiplayer"
+// import {Simulate} from "react-dom/test-utils";
+// import play = Simulate.play;
 
 export interface GameState {
   count: number,
@@ -12,7 +14,8 @@ type GameActions = {
     amount: number;
   }) => void;
   increment: (params: { amount: number }) => void,
-  updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void
+  updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void,
+  rollAllDice: (params: {playerId: string}) => void;
   // ,
   // rollDice: () => void
 }
@@ -54,6 +57,9 @@ Rune.initLogic({
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
       game.counters[playerId] += amount;
+    },
+    rollAllDice: ({playerId}, {game}) => {
+      game.diceArrays[playerId] = game.diceArrays[playerId].map(() => Math.floor(Math.random() * 6) + 1);
     }
   },
   events: {

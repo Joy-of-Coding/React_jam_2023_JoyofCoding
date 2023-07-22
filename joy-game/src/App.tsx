@@ -34,18 +34,25 @@ function App() {
     Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
   }
 
+  const handleRollAll = (playerId: string) => {
+    console.log("Rolled all dice")
+    Rune.actions.rollAllDice({playerId: playerId})
+  }
 
   return (
     <>
       <div className="card">
         <h4>
           {yourPlayerId ? (
-              <><h3><span>{players[yourPlayerId].displayName}</span></h3>
+              <><b><span>{players[yourPlayerId].displayName}</span></b>
                   <div>
                   {game.diceArrays[yourPlayerId].map((die, i )=>(
                       <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
                   ))}
-              </div>
+                   </div>
+                <div>
+                  <button onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</button>
+                </div>
               </>
           ) : (
               <>I am a spectator, so I don't have count</>
