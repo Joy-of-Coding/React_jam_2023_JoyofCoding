@@ -2,6 +2,8 @@
 import './GameZone.css'
 import Dice from "./Dice";
 import { GameState } from "../logic.ts"
+import { motion } from "framer-motion"
+
 interface GameZoneProps {
     numPlayers: number,
     playerIds: string[],
@@ -35,32 +37,74 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 
     return (
-        <div>
-            <b>{`${players[yourPlayerId].displayName}'s Game Board`}</b>
-            <div className="grid-container">
-                <div className="central-area grid-item">
-                    <div>{`${players[yourPlayerId].displayName}'s Dice`}</div>
+        <div className='game-play-container'>
+            
+            <div className="container">
+            <b className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</b>
+                <div className='top-section'>
+
+                    <div className="player-section  right">
+
+                        <div className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
+                        <b>   {players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
+                        </div>
+                    </div>
+
+
+                    <div className="player-section left">
+
+                        <div className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
+                            {numPlayers > 1 ? (
+                                <div>
+                                    <b>{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
+                                </div>
+                            ) : (
+                                <div>
+                                    Waiting for player 2
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    
+
+
+                </div>
+
+
+                <div className='middle-section'>
+                    
+                <div className='player-name'>
+                    
+                    {`${players[yourPlayerId].displayName}'s Dice`}
+                </div>
+                    <div className='dice-container'>
                     {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
+                        <motion.button transition={{ duration: 1 }} animate={{
+                            scale: [1, 1.2, 1.2, 1, 1],
+                            rotate: [0, 0, 270, 0, 0],
+                            opacity:[0,0,1,1]
+                            
+                            
+                          }} className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></motion.button>
                     ))}
+                    </div>
+                    
                 </div>
 
-                <div className={`player-area grid-item top-left ${playerIds[0] === yourPlayerId ? 'red-border' : ''}`}>
-                  <b>   {players[playerIds[0]].displayName}: {game?.diceArrays[playerIds[0]].length}</b>
+                    
                 </div>
 
 
-                <div className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}`}>
-                    {numPlayers > 1 ? (
-                        <div>
-                            <b>{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
-                        </div>
-                    ) : (
-                        <div>
-                            Waiting for player 2
-                        </div>
-                    )}
+                <div className='bottom-section'>
+
+                    
                 </div>
+                <div className="ice-container-parent">
+                
+              
+
+
+               
 
                 <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 2 ? (

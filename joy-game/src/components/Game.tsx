@@ -138,11 +138,13 @@ const Game: React.FC = () => {
 
 
                 <h3>{selectedPlayer.length > 0 ? selectedPlayer[0].name : ''}'s Turn</h3>
-
+            <div className='player-container'>
             {players.map((player) => (
                 <Player key={player.id}  {...player}  />
             ))}
 
+            </div>
+            
 
             <div className="controls">
 
