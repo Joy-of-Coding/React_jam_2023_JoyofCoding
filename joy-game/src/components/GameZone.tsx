@@ -2,6 +2,7 @@
 import './GameZone.css'
 import Dice from "./Dice";
 import { GameState } from "../logic.ts"
+
 interface GameZoneProps {
     numPlayers: number,
     playerIds: string[],
@@ -21,27 +22,23 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
         Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
     }
 
-    const handleRoll = (playerId:string, i: number) =>
-    {
-        console.log("clicked button", i)
-        const randomNum= Math.floor(Math.random() * 6) + 1;
-        Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
-    }
     const handleRollAll = (playerId: string) => {
-        console.log("Rolled all dice")
         Rune.actions.rollAllDice({playerId: playerId})
-        advanceTurn()
+
+
+        // advanceTurn()
     }
 
 
-    return (
+
+        return (
         <div>
             <b>{`${players[yourPlayerId].displayName}'s Game Board`}</b>
             <div className="grid-container">
                 <div className="central-area grid-item">
                     <div>{`${players[yourPlayerId].displayName}'s Dice`}</div>
                     {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
+                        <Dice key={i} faceValue={die} />
                     ))}
                 </div>
 
