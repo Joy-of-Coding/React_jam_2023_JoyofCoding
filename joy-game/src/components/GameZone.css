@@ -1,56 +1,116 @@
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Divide the grid into three equal columns */
-    grid-template-rows: repeat(2, 1fr); /* Divide the grid into four equal rows */
-    gap: 10px; /* Add a gap between grid items */
+
+.game-play-container{
+    width: 95%;
 }
 
-.grid-item {
-    border: 1px solid black; /* Add a border around each grid item */
-    padding: 10px; /* Add padding inside each grid item */
+.container {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
 }
 
-.central-area {
-    grid-column: 2 / span 3; /* Take up all three columns in the first row */
-    grid-row: 1 / span 4; /* Take up the first four rows */
-    background-color: lightgray; /* Add background color to differentiate the central area */
+.player-gameboard-title{
+    margin-bottom: 50px;
 }
 
-.player-area {
-    height: 100%; /* Set the height of the player areas to fill the available space */
+
+.top-section{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.top-left {
-    grid-column: 1;
-    grid-row: 1;
-    background-color: lightblue; /* Add background color to differentiate the top left player area */
+.player-section{
+    width: 50%;
+    display: flex;
+    align-items: center;
 }
 
-.top-right {
-    grid-column: 5;
-    grid-row: 1;
-    background-color: lightgreen; /* Add background color to differentiate the top right player area */
-}
 
-.bottom-left {
-    grid-column: 1;
-    grid-row: 3;
-    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
-}
-
-.bottom-right {
-    grid-column: 5;
-    grid-row: 3;
-    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
+.right{
+   
+    justify-content: start;
+    margin-bottom:  60px;
 
 }
 
-.bottom-row {
-    grid-column: 1 / span 5; /* Take up the entire width of the grid */
-    grid-row: 4; /* Place in the fifth row */
-    background-color: lightpink; /* Add background color to differentiate the bottom row */
+.left{
+   
+    justify-content: end;
+    margin-bottom:  60px;
+ 
+    
 }
 
-.red-border {
-    border: 3px solid red;
+
+
+.player{
+    display: flex;
+    flex-direction: column;
+}
+.middle-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+.player-name{
+   
+    
+}
+.bottom-section{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.red-border{
+    border: solid 1px red;
+}
+
+
+.dice-button{
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+
+.dice-container{
+    display: flex;
+    flex-wrap: wrap;
+     flex-direction: row;
+     justify-content: space-evenly;
+     align-items: center;
+     height: 50% ;
+     width: 100%;
+
+
+}
+
+.dice-container-parent{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 40%;
+    max-height: 80%;
+}
+
+.roll-dice-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 70px;
 }
