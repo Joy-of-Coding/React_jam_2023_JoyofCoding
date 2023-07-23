@@ -4,11 +4,11 @@
   font-weight: 400;
 
   color: #213547;
- background-image: url("src/assets/pngs/wood-table.png");
- background-position: center; /* Center the image */
- background-repeat: no-repeat; /* Do not repeat the image */
+ background-image: url("src/assets/pngs/table1.png");
+ background-position: center; 
+ background-repeat: no-repeat; 
  background-size: cover;
-
+  background-color: #2135472b;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

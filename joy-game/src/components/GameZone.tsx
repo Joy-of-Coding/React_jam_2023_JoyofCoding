@@ -40,20 +40,20 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
         <div className='game-play-container'>
             
             <div className="container">
-            <b className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</b>
+            <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
                 <div className='top-section'>
 
                     <div className="player-section  right">
 
-                        <div className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
+                        <motion.div  transition={{ duration: 1 }} animate={{x:20}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
                         <b>   {players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
-                        </div>
+                        </motion.div>
                     </div>
 
 
                     <div className="player-section left">
 
-                        <div className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
+                        <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
                             {numPlayers > 1 ? (
                                 <div>
                                     <b>{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
@@ -63,7 +63,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                                     Waiting for player 2
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
                     </div>
                     
 
@@ -79,13 +79,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
                     <div className='dice-container'>
                     {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <motion.button transition={{ duration: 1 }} animate={{
-                            scale: [1, 1.2, 1.2, 1, 1],
-                            rotate: [0, 0, 270, 0, 0],
-                            opacity:[0,0,1,1]
-                            
-                            
-                          }} className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></motion.button>
+                        <button className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
                     ))}
                     </div>
                     
@@ -132,17 +126,22 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 {/*Controls area*/}
                 {/*Roll Dice, Challenge, Give away*/}
+                <div className='roll-dice-button-container'>
                 <div className="bottom-row grid-item">{yourPlayerId ? (
                     <>
+                    
                         {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                             <div>
                                 <button onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</button>
                             </div>
                         }
+                   
                     </>
                 ) : (
                     <>I am a spectator, so I don't have count</>
                 )}</div>
+
+                </div>
             </div>
 
 
@@ -155,3 +154,6 @@ export default GameZone;
 
 //grid layout start by ChatGPT
 //typescript editing Chat GPT
+// Image by <a href="https://www.freepik.com/free-vector/top-view-modern-restaurant-table-with-flat-design_2847028.htm#query=dining%20table%20top%20view&position=9&from_view=keyword&track=ais">Freepik</a>
+{/* <a href="https://www.freepik.com/free-photo/faded-gray-wooden-textured-flooring-background_16246476.htm#page=2&query=flooring&position=8&from_view=search&track=sph">Image by rawpixel.com</a> on Freepik */}
+{/* <a href="https://www.freepik.com/free-vector/oak-wood-textured-design-background_16339756.htm#page=2&query=flooring&position=31&from_view=search&track=sph">Image by rawpixel.com</a> on Freepik */}
