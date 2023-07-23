@@ -1,18 +1,18 @@
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Divide the grid into three equal columns */
-    grid-template-rows: repeat(2, 1fr); /* Divide the grid into four equal rows */
-    gap: 10px; /* Add a gap between grid items */
+    grid-template-columns: repeat(3, 33%); /* Divide the grid into three equal columns */
+    grid-template-rows: repeat(3, 33%); /* Divide the grid into four equal rows */
+    /*gap: 0.5px; /* Add a gap between grid items */
 }
 
 .grid-item {
     border: 1px solid black; /* Add a border around each grid item */
-    padding: 10px; /* Add padding inside each grid item */
+    /*padding: 5px; /* Add padding inside each grid item */
 }
 
 .central-area {
-    grid-column: 2 / span 3; /* Take up all three columns in the first row */
-    grid-row: 1 / span 4; /* Take up the first four rows */
+    grid-column: 2 / span 1; /* start in the second of 5 columns and span across three */
+    grid-row: 2 / span 1; /* Take up the first four rows */
     background-color: lightgray; /* Add background color to differentiate the central area */
 }
 
@@ -23,11 +23,17 @@
 .top-left {
     grid-column: 1;
     grid-row: 1;
-    background-color: lightblue; /* Add background color to differentiate the top left player area */
+    background-color: rgb(173, 214, 228); /* Add background color to differentiate the top left player area */
+}
+
+.top-middle {
+    grid-column: 2;
+    grid-row: 1;
+    background-color: rgb(182, 186, 182); /* Add background color to differentiate the top right player area */
 }
 
 .top-right {
-    grid-column: 5;
+    grid-column: 3;
     grid-row: 1;
     background-color: lightgreen; /* Add background color to differentiate the top right player area */
 }
@@ -39,15 +45,15 @@
 }
 
 .bottom-right {
-    grid-column: 5;
+    grid-column: 3;
     grid-row: 3;
     background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
 
 }
 
 .bottom-row {
-    grid-column: 1 / span 5; /* Take up the entire width of the grid */
-    grid-row: 4; /* Place in the fifth row */
+    grid-column: 2 / span 1; /* Take up the entire width of the grid */
+    grid-row: 3; /* Place in the fifth row */
     background-color: lightpink; /* Add background color to differentiate the bottom row */
 }
 

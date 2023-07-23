@@ -51,7 +51,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     })}
 
 
-                    {/*<div className="top-left player-area grid-item">Top Left Player Area</div>*/}
+                    {<div className="top-middle player-area grid-item">Top Left Player Area</div>}
                 <div className="top-right player-area grid-item">Top Right Player Area</div>
                 <div className="bottom-left player-area grid-item">Bottom Left Player Area</div>
                 <div className="bottom-right player-area grid-item">Bottom Right Player Area</div>
