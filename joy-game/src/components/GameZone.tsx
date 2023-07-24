@@ -42,7 +42,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className="player-section  right">
 
                         <motion.div  transition={{ duration: 1 }} animate={{x:20}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
-                        <b>   {players[playerIds[0]].displayName} <br/> <button onClick={() => handleUpdateDiceCount(playerIds[0], 1)}>Dice++</button> <br/> {game?.diceCount[playerIds[0]]}</b>
+                        <b>{players[playerIds[0]].displayName} <br/>
+                        <button onClick={() => handleUpdateDiceCount(playerIds[0], 1)}>Dice++</button> <br/>
+                        <button onClick={() => handleUpdateDiceCount(playerIds[0], -1)}>Dice--</button> <br/>
+                        {game?.diceCount[playerIds[0]]}</b>
                         </motion.div>
                     </div>
 
@@ -52,7 +55,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
                             {numPlayers > 1 ? (
                                 <div>
-                                    <b>   {players[playerIds[1]].displayName} <br/> <button onClick={() => handleUpdateDiceCount(playerIds[1], 1)}>Dice++</button> <br/> {game?.diceCount[playerIds[1]]}</b>
+                                    <b>{players[playerIds[1]].displayName} <br/>
+                                    <button onClick={() => handleUpdateDiceCount(playerIds[1], 1)}>Dice++</button> <br/>
+                                    <button onClick={() => handleUpdateDiceCount(playerIds[1], -1)}>Dice--</button> <br/>
+                                    {game?.diceCount[playerIds[1]]}</b>
                                 </div>
                             ) : (
                                 <div>
@@ -94,7 +100,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                         {numPlayers > 2 ? (
                             <div>
-                                <b>   {players[playerIds[2]].displayName} <br/> <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/> {game?.diceCount[playerIds[2]]}</b>
+                                <b>{players[playerIds[2]].displayName} <br/>
+                                <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
+                                <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
+                                {game?.diceCount[playerIds[2]]}</b>
                             </div>
                         ) : (
                             <div>
@@ -106,7 +115,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className={`bottom-left player-area grid-item ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
                         {numPlayers > 3 ? (
                             <div>
-                                <b>   {players[playerIds[3]].displayName} <br/> <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/> {game?.diceCount[playerIds[3]]}</b>
+                                <b>{players[playerIds[3]].displayName} <br/>
+                                <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
+                                <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
+                                {game?.diceCount[playerIds[3]]}</b>
                             </div>
                         ) : (
                             <div>
