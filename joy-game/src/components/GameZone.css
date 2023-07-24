@@ -29,10 +29,15 @@
 }
 
 
+
+
 .right{
    
     justify-content: start;
     margin-bottom:  60px;
+    
+    width: 25%;
+    
 
 }
 
@@ -42,6 +47,10 @@
     margin-bottom:  60px;
  
     
+}
+
+.handleRoll-button{
+    border: 1px solid black;
 }
 
 
@@ -114,4 +123,29 @@
     flex-direction: column;
     width: 100%;
     height: 70px;
+}
+
+.player-flex{
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.player-1-name{
+    background-color: aquamarine;
+    
+}
+.player-2-name{
+    background-color: aquamarine;
+}
+
+.player-3-name{
+    background-color: aquamarine;
+}
+
+.player-4-name{
+    background-color: aquamarine;
 }
