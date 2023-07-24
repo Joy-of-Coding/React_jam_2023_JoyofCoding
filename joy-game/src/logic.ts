@@ -7,7 +7,8 @@ const startingDiceCount = 10
 export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
-  currentPlayerIndex: number
+  currentPlayerIndex: number,
+  gameOver: boolean
 }
 
 type GameActions = {
@@ -51,6 +52,7 @@ Rune.initLogic({
       gameDice:startingDice,
       diceCount,
       currentPlayerIndex:0,
+      gameOver: false
     }
   },
   actions: {
@@ -65,10 +67,13 @@ Rune.initLogic({
     },
     rollDice: ({nextIndex, numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
-      //Game checks can happen here
-      setTimeout(() => {
-        actions.nextPlayer({nextIndex: nextIndex});
-      }, 1000);
+      // Game checks can happen here
+
+      if (!game.gameOver) {
+        game.currentPlayerIndex = nextIndex;
+      }
+
+
     },
     nextPlayer: ({nextIndex}, {game}) => {
       console.log("taking turns. Current player index:", game.currentPlayerIndex)
