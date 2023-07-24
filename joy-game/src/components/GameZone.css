@@ -1,4 +1,22 @@
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 33%); /* Divide the grid into three equal columns */
+    grid-template-rows: repeat(3, 33%); /* Divide the grid into four equal rows */
+    /*gap: 0.5px; /* Add a gap between grid items */
+}
+
+.grid-item {
+    border: 1px solid black; /* Add a border around each grid item */
+    /*padding: 5px; /* Add padding inside each grid item */
+}
+
+.central-area {
+    grid-column: 2 / span 1; /* start in the second of 5 columns and span across three */
+    grid-row: 2 / span 1; /* Take up the first four rows */
+    background-color: lightgray; /* Add background color to differentiate the central area */
+
+
 .game-play-container{
     width: 95%;
 }
@@ -41,7 +59,7 @@
     justify-content: end;
     margin-bottom:  60px;
  
-    
+
 }
 
 
@@ -58,9 +76,21 @@
     height: 40vh;
 }
 
+
+.top-left {
+    grid-column: 1;
+    grid-row: 1;
+    background-color: rgb(173, 214, 228); /* Add background color to differentiate the top left player area */
+}
+
+.top-middle {
+    grid-column: 2;
+    grid-row: 1;
+    background-color: rgb(182, 186, 182); /* Add background color to differentiate the top right player area */
+
 .player-name{
    
-    
+
 }
 .bottom-section{
     width: 100%;
@@ -70,8 +100,15 @@
 }
 
 
+
+.top-right {
+    grid-column: 3;
+    grid-row: 1;
+    background-color: lightgreen; /* Add background color to differentiate the top right player area */
+
 .red-border{
     border: solid 1px red;
+
 }
 
 
@@ -83,6 +120,19 @@
     border: none;
     border-radius: 5px;
 }
+
+
+.bottom-right {
+    grid-column: 3;
+    grid-row: 3;
+    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
+
+}
+
+.bottom-row {
+    grid-column: 2 / span 1; /* Take up the entire width of the grid */
+    grid-row: 3; /* Place in the fifth row */
+    background-color: lightpink; /* Add background color to differentiate the bottom row */
 
 
 .dice-container{
@@ -104,6 +154,7 @@
     align-items: center;
     min-height: 40%;
     max-height: 80%;
+
 }
 
 .roll-dice-button-container{

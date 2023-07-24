@@ -95,6 +95,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
               
 
 
+
                
 
                 <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>

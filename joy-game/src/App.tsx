@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer"
 import { GameState } from "./logic.ts"
+//import Dice from "./components/Dice";
 import GameZone from "./components/GameZone";
 
 function App() {
