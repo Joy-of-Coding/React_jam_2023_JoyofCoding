@@ -21,8 +21,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const handleRollDice = () => {
         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         const numDice = game.diceCount[yourPlayerId]
-        console.log(players[yourPlayerId], "has", numDice, " dice")
-        Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
+        Rune.actions.rollDice({ playerId: yourPlayerId, nextIndex: nextIndex, numDice: numDice})
     }
 
 

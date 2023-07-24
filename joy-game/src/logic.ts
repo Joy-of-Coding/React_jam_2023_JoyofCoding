@@ -19,20 +19,32 @@ adjustDiceCount: (params: {
   rollDice: (params: {
     nextIndex: number,
     numDice: number
-
   }) => void,
   nextPlayer: (params: {
     nextIndex: number
   }) => void
 }
 
+const countOccurrences = ( array: number[], compare: number) => {
+  let count = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === compare) {
+      count += 1;
+    }
+  }
+  console.log(count)
+  return count;
+}
+
 declare global {
   const Rune: RuneClient<GameState, GameActions>
+
 }
 
 export function getCount(game: GameState) {
-  return game.count
+  return game.currentPlayerIndex
 }
+
 
 
 
@@ -63,16 +75,23 @@ Rune.initLogic({
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
+      console.log("updating dice count:", playerId, amount)
       game.diceCount[playerId] += amount;
     },
-    rollDice: ({nextIndex, numDice}, {game}) => {
+    rollDice: ({ playerId, nextIndex, numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       // Game checks can happen here
+
+      const fives = countOccurrences(game.gameDice, 5);
+
+      if (fives > 0) {
+        console.log(fives, "fives rolled");
+        Rune.actions.updateDiceCount({ playerId: playerId, amount: -fives });
+      }
 
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
       }
-
 
     },
     nextPlayer: ({nextIndex}, {game}) => {
