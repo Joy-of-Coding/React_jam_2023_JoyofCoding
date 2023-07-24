@@ -1,6 +1,6 @@
 # Pass the Joy
 
-This mobile game is an adaptation and expansion of the game ["Pass the Pandas"](https://www.ultraprogames.com/products/pass-the-pandas) by Ken Gruhl and Quentin Weir.
+This ReactJam mobile game is an adaptation and expansion of the game ["Pass the Pandas"](https://www.ultraprogames.com/products/pass-the-pandas) by Ken Gruhl and Quentin Weir.
 
 ## Rules
 

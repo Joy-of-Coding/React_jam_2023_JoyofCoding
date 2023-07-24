@@ -17,10 +17,10 @@ type GameActions = {
   increment: (params: { amount: number }) => void,
   updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void,
   rollAllDice: (params: {playerId: string}) => void,
-  nextPlayer: (params:{nextPlayerIndex: number}) => void
+  nextPlayer: (params:{nextPlayerIndex: number}) => void,
+  // checkGamePlay: (params:{players: Record<string, any>, playerId: string}) => void
+  removeDie:(params:{playerId: string, count: number}) => void
 
-  // ,
-  // rollDice: () => void
 }
 
 declare global {
@@ -30,6 +30,8 @@ declare global {
 export function getCount(game: GameState) {
   return game.count
 }
+
+
 
 Rune.initLogic({
   minPlayers: 1,
@@ -64,10 +66,13 @@ Rune.initLogic({
     },
     rollAllDice: ({playerId}, {game}) => {
       game.diceArrays[playerId] = game.diceArrays[playerId].map(() => Math.floor(Math.random() * 6) + 1);
+      // checkForFives( game.diceArrays[playerId] )
     },
     nextPlayer: ({nextPlayerIndex}, {game}) => {
-
       game.currentPlayerIndex = nextPlayerIndex;
+    },
+    removeDie: ({playerId, count}, {game}) => {
+      console.log("Die to remove", count)
     }
   },
   events: {
