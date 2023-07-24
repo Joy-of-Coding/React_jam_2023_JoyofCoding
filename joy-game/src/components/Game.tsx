@@ -1,4 +1,4 @@
-// src/App.tsx
+/*// src/App.tsx
 import React, {useEffect, useState} from 'react';
 import Player from './Player';
 import "../App.css"
@@ -70,4 +70,4 @@ const Game: React.FC = () => {
 
 
 
-    return ()
+    return () */
