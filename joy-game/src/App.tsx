@@ -36,7 +36,7 @@ function App() {
               setGame(newGame)
               setPlayers(players)
               setYourPlayerId(yourPlayerId)
-              checkForFives(newGame.diceArrays[yourPlayerId]);
+
 
           },
         }

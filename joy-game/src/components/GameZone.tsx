@@ -123,19 +123,19 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 {/*Controls area*/}
                 {/*Roll Dice, Challenge, Give away*/}
                 <div className='roll-dice-button-container'>
-                <div className="bottom-row grid-item">{yourPlayerId ? (
-                    <>
-                    
-                        {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
-                            <div>
-                                <button onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</button>
-                            </div>
-                        }
-                   
-                    </>
-                ) : (
-                    <>I am a spectator, so I don't have count</>
-                )}</div>
+                    <div className="bottom-row grid-item">{yourPlayerId ? (
+                        <>
+
+                            {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
+                                <div>
+                                    <button onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</button>
+                                </div>
+                            }
+
+                        </>
+                    ) : (
+                        <>I am a spectator, so I don't have count</>
+                    )}</div>
 
                 </div>
             </div>
