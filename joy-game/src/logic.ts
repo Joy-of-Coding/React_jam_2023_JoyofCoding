@@ -5,7 +5,8 @@ import type { RuneClient } from "rune-games-sdk/multiplayer"
 export interface GameState {
   count: number,
   diceArrays: Record<string,number[]>,
-  counters:Record<string, number>
+  counters:Record<string, number>,
+  currentPlayerIndex: number
 }
 
 type GameActions = {
@@ -15,9 +16,11 @@ type GameActions = {
   }) => void;
   increment: (params: { amount: number }) => void,
   updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void,
-  rollAllDice: (params: {playerId: string}) => void;
-  // ,
-  // rollDice: () => void
+  rollAllDice: (params: {playerId: string}) => void,
+  nextPlayer: (params:{nextPlayerIndex: number}) => void,
+  // checkGamePlay: (params:{players: Record<string, any>, playerId: string}) => void
+  removeDie:(params:{playerId: string, count: number}) => void
+
 }
 
 declare global {
@@ -27,6 +30,8 @@ declare global {
 export function getCount(game: GameState) {
   return game.count
 }
+
+
 
 Rune.initLogic({
   minPlayers: 1,
@@ -40,6 +45,7 @@ Rune.initLogic({
     );
 
     return {
+      currentPlayerIndex:0,
       count: 0,
       counters: Object.fromEntries(playerIds.map(playerId => [playerId, 0])),
       diceArrays,
@@ -60,6 +66,13 @@ Rune.initLogic({
     },
     rollAllDice: ({playerId}, {game}) => {
       game.diceArrays[playerId] = game.diceArrays[playerId].map(() => Math.floor(Math.random() * 6) + 1);
+      // checkForFives( game.diceArrays[playerId] )
+    },
+    nextPlayer: ({nextPlayerIndex}, {game}) => {
+      game.currentPlayerIndex = nextPlayerIndex;
+    },
+    removeDie: ({playerId, count}, {game}) => {
+      console.log("Die to remove", count)
     }
   },
   events: {
