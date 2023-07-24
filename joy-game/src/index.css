@@ -16,14 +16,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
-
-
+/* 
 gradient-background {
   background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
   background-size: 180% 180%;
   animation: gradient-animation 18s ease infinite;
-}
-
+} */
+/* 
 @keyframes gradient-animation {
   0% {
     background-position: 0% 50%;
@@ -34,16 +33,16 @@ gradient-background {
   100% {
     background-position: 0% 50%;
   }
-}
+} */
 
-a {
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
-}
-a:hover {
+} */
+/* a:hover {
   color: #747bff;
-}
+} */
 
 body {
   margin: 0;
@@ -54,7 +53,6 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
 
 
 
