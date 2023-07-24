@@ -18,8 +18,12 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const playerIds = Object.keys(players)
     const numPlayers = playerIds.length
 
-    
-
+    const handleRollDice = () => {
+        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+        const numDice = game.diceCount[yourPlayerId]
+        console.log(players[yourPlayerId], "has", numDice, " dice")
+        Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
+    }
 
     return (
         <div className='game-play-container'>
@@ -47,7 +51,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
       {numPlayers > 1 ? (
         <div>
           <div className='player-2-name player-flex'>
-            <b>{players[playerIds[1]].displayName}: {game?.diceCount[playerIds[1]]}</b>
+            <b>{players[playerIds[2]].displayName}: {game?.diceCount[playerIds[2]]}</b>
           </div>
         </div>
       ) : (
@@ -86,7 +90,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
       {numPlayers > 1 ? (
         <div>
           <div className='player-2-name player-flex'>
-            <b>{players[playerIds[1]].displayName}: {game?.diceCount[playerIds[1]]}</b>
+            <b>{players[playerIds[2]].displayName}: {game?.diceCount[playerIds[2]]}</b>
           </div>
         </div>
       ) : (
@@ -197,9 +201,19 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 
      
 
-                        {/*Controls area*/}
-                        {/*Roll Dice, Challenge, Give away*/}
-                   
+                            {/*Controls area*/}
+                    {/*Roll Dice, Challenge, Give away*/}
+                    <div className='roll-dice-button-container'>
+                        <div className="bottom-row grid-item">{yourPlayerId ? (
+                            <>
+                   {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
+                                    <div>
+                                        <button onClick={()=>{handleRollDice()}}>Roll Dice</button>
+                                    </div>
+                                }     </>
+                                ) : (
+                                    <>I am a spectator, so I don't have count</>
+                                )}</div>
 
 
                     
@@ -214,8 +228,8 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 export default GameZone;
 
-//grid layout start by ChatGPT
+{/* //grid layout start by ChatGPT
 //typescript editing Chat GPT
-// Image by <a href="https://www.freepik.com/free-vector/top-view-modern-restaurant-table-with-flat-design_2847028.htm#query=dining%20table%20top%20view&position=9&from_view=keyword&track=ais">Freepik</a>
+// Image by <a href="https://www.freepik.com/free-vector/top-view-modern-restaurant-table-with-flat-design_2847028.htm#query=dining%20table%20top%20view&position=9&from_view=keyword&track=ais">Freepik</a> */}
 {/* <a href="https://www.freepik.com/free-photo/faded-gray-wooden-textured-flooring-background_16246476.htm#page=2&query=flooring&position=8&from_view=search&track=sph">Image by rawpixel.com</a> on Freepik */}
 {/* <a href="https://www.freepik.com/free-vector/oak-wood-textured-design-background_16339756.htm#page=2&query=flooring&position=31&from_view=search&track=sph">Image by rawpixel.com</a> on Freepik */}
