@@ -31,7 +31,7 @@ declare global {
 }
 
 export function getCount(game: GameState) {
-  return game.count
+  return game.diceCount
 }
 
 
