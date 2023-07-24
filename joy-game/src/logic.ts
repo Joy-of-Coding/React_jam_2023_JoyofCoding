@@ -25,7 +25,7 @@ adjustDiceCount: (params: {
   }) => void
 }
 
-const countOccurrences = ( array: number[], compare: number) => {
+const countOccurrences = ( array: number[], compare: number, currentPlayerId:string , targetPlayerId: string) => {
   let count = 0;
   for (let i = 0; i < array.length; i++) {
     if (array[i] === compare) {
@@ -33,6 +33,10 @@ const countOccurrences = ( array: number[], compare: number) => {
     }
   }
   console.log(count)
+
+  if (compare === 5) {
+    Rune.actions.updateDiceCount({playerId: currentPlayerId, amount: -count});
+  }
   return count;
 }
 
@@ -82,13 +86,8 @@ Rune.initLogic({
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       // Game checks can happen here
 
-      const fives = countOccurrences(game.gameDice, 5);
-
-      if (fives > 0) {
-        console.log(fives, "fives rolled");
-        Rune.actions.updateDiceCount({ playerId: playerId, amount: -fives });
-
-      }
+      //check for fives
+      countOccurrences(game.gameDice, 5, playerId, null);
 
 
       if (!game.gameOver) {
