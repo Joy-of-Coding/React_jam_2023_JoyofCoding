@@ -23,16 +23,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
         Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
     }
 
-    const handleRoll = (playerId:string, i: number) =>
-    {
-        console.log("clicked button", i)
-        const randomNum= Math.floor(Math.random() * 6) + 1;
-        Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
-    }
     const handleRollAll = (playerId: string) => {
-        console.log("Rolled all dice")
         Rune.actions.rollAllDice({playerId: playerId})
-        advanceTurn()
+
+
+        // advanceTurn()
     }
 
 
@@ -78,9 +73,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     {`${players[yourPlayerId].displayName}'s Dice`}
                 </div>
                     <div className='dice-container'>
+                        
                     {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <button className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
-                    ))}
+                        <Dice key={i} faceValue={die} />
+
+                    )}
                     </div>
                     
                 </div>
