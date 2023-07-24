@@ -17,11 +17,10 @@ adjustDiceCount: (params: {
   count: number
   }) => void,
   rollDice: (params: {
-    playerId: string,
     numPlayers: number
   }) => void,
   nextPlayer: (params: {
-    numPlayers: number
+    nextIndex: number
   }) => void
 }
 
@@ -72,13 +71,14 @@ Rune.initLogic({
       }
       game.diceCount[playerId] += amount;
     },
-    rollDice: ({playerId, numPlayers}, {game}) => {
+    rollDice: ({ nextIndex}, {game}) => {
       game.gameDice = Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1)
       //Game checks can happen here
-      // Rune.actions.nextPlayer(numPlayers)
+      Rune.actions.nextPlayer({nextIndex: nextIndex})
     },
-    nextPlayer: ({numPlayers}, {game}) => {
-      const nextIndex = (game.currentPlayerIndex + 1) % numPlayers
+    nextPlayer: ({nextIndex}, {game}) => {
+      console.log("taking turns. Current player index:", game.currentPlayerIndex)
+      console.log("next player index: ", nextIndex)
       game.currentPlayerIndex = nextIndex;
     }
   },
