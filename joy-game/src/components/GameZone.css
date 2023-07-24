@@ -95,6 +95,32 @@
 }
 
 
+
+.bottom-right {
+    grid-column: 3;
+    grid-row: 3;
+    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
+
+}
+
+
+.bottom-left {
+    grid-column: 1;
+    grid-row: 3;
+    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
+}
+
+
+
+
+
+.bottom-row {
+    grid-column: 2 / span 1; /* Take up the entire width of the grid */
+    grid-row: 3; /* Place in the fifth row */
+    background-color: lightpink; /* Add background color to differentiate the bottom row */
+}
+
+
 .dice-container{
     display: flex;
     flex-wrap: wrap;

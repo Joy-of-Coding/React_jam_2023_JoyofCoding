@@ -1,4 +1,4 @@
-
+import React from "react";
 import './GameZone.css'
 import Dice from "./Dice";
 import { GameState } from "../logic.ts"
@@ -18,21 +18,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const playerIds = Object.keys(players)
     const numPlayers = playerIds.length
 
-    const advanceTurn = () => {
-        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-        Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
-    }
-
-    const handleRoll = (playerId:string, i: number) =>
-    {
-        console.log("clicked button", i)
-        const randomNum= Math.floor(Math.random() * 6) + 1;
-        Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
-    }
-    const handleRollAll = (playerId: string) => {
-        console.log("Rolled all dice")
-        Rune.actions.rollAllDice({playerId: playerId})
-        advanceTurn()
     }
 
 
@@ -48,7 +33,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                         <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
                         <div className='player-1-name player-flex'>
-                        <b >{players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
+                        <b>   {players[playerIds[0]].displayName} <br/> {game?.diceCount[playerIds[0]]}</b>
                         </div>                            
                         
                         </motion.div>
@@ -59,8 +44,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                         <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
                             {numPlayers > 1 ? (
+
+                                <div>
+                                    
+
                                 <div className='player-2-name player-flex'>
-                                    <b >{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
+                                   <b>{players[playerIds[1]].displayName}: {game?.diceCount[playerIds[1]]}</b>
+
                                 </div>
                             ) : (
                                 <div className='player-2-name player-flex'>
@@ -77,9 +67,23 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <div className='middle-section'>
                     
+
+
                     <div className='player-name'>
-                        
-                        {`${players[yourPlayerId].displayName}'s Dice`}
+                     
+                        {`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}
+                        </div>
+                           
+
+               
+                    <div className='dice-container'>
+                    {game.gameDice.map((die, i )=>(
+                        <motion.button transition={{ duration: 1.3 }} animate={{
+                            scale: [1, 2, 2, 1, 1],
+                            rotate: [0, 0, 270, 270, 0],
+                            
+                          }} className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice key={i} faceValue={die} /></motion.button>
+                    ))}
                     </div>
                         <div className='dice-container'>
                         {game.diceArrays[yourPlayerId].map((die, i )=>(
@@ -106,12 +110,12 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             )}</div>
 
              
-             
                             </div>
                         </div>
                         
                     
                 </div>
+
 
 
                 
@@ -124,8 +128,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 2 ? (
+
                         <div className=' player-flex player-3-name'>
                             <b className='player-3-name'>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
+
                         </div>
                     ) : (
                         <div className="player-3-name player-flex">
@@ -137,11 +143,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 3 ? (
+
                         <div className='player-flex player-4-name'>
                             <b className='player-4-name player-flex'>{players[playerIds[3]].displayName}: {game?.diceArrays[playerIds[3]].length}</b>
                         </div>
                     ) : (
                         <div className='player-flex player-4-name'>
+
                            <b> Waiting for player 4</b>
                         </div>
                     )}
@@ -157,12 +165,14 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         {/*Roll Dice, Challenge, Give away*/}
                    
 
+
                     
                 </div>
         
             </div>                           
         
          </div>
+
     );
 }
 
