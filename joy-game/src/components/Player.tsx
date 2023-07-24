@@ -1,5 +1,7 @@
 import React from 'react';
 import Dice from './Dice';
+import './Player.css'
+
 
 interface PlayerProps {
     id: number;

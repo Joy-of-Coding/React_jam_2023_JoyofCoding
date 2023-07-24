@@ -1,3 +1,4 @@
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 33%); /* Divide the grid into three equal columns */
@@ -14,11 +15,67 @@
     grid-column: 2 / span 1; /* start in the second of 5 columns and span across three */
     grid-row: 2 / span 1; /* Take up the first four rows */
     background-color: lightgray; /* Add background color to differentiate the central area */
+
+
+.game-play-container{
+    width: 95%;
 }
 
-.player-area {
-    height: 100%; /* Set the height of the player areas to fill the available space */
+.container {
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
 }
+
+.player-gameboard-title{
+    margin-bottom: 50px;
+}
+
+
+.top-section{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.player-section{
+    width: 50%;
+    display: flex;
+    align-items: center;
+}
+
+
+.right{
+   
+    justify-content: start;
+    margin-bottom:  60px;
+
+}
+
+.left{
+   
+    justify-content: end;
+    margin-bottom:  60px;
+ 
+
+}
+
+
+
+.player{
+    display: flex;
+    flex-direction: column;
+}
+.middle-section{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
 
 .top-left {
     grid-column: 1;
@@ -30,19 +87,40 @@
     grid-column: 2;
     grid-row: 1;
     background-color: rgb(182, 186, 182); /* Add background color to differentiate the top right player area */
+
+.player-name{
+   
+
 }
+.bottom-section{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
 
 .top-right {
     grid-column: 3;
     grid-row: 1;
     background-color: lightgreen; /* Add background color to differentiate the top right player area */
+
+.red-border{
+    border: solid 1px red;
+
 }
 
-.bottom-left {
-    grid-column: 1;
-    grid-row: 3;
-    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
+
+.dice-button{
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
 }
+
 
 .bottom-right {
     grid-column: 3;
@@ -55,5 +133,35 @@
     grid-column: 2 / span 1; /* Take up the entire width of the grid */
     grid-row: 3; /* Place in the fifth row */
     background-color: lightpink; /* Add background color to differentiate the bottom row */
+
+
+.dice-container{
+    display: flex;
+    flex-wrap: wrap;
+     flex-direction: row;
+     justify-content: space-evenly;
+     align-items: center;
+     height: 50% ;
+     width: 100%;
+
+
 }
 
+.dice-container-parent{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    min-height: 40%;
+    max-height: 80%;
+
+}
+
+.roll-dice-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 70px;
+}
