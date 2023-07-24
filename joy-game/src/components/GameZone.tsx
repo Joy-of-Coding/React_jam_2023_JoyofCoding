@@ -125,10 +125,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 2 ? (
                         <div className=' player-flex player-3-name'>
-                            <b className='player-3-name'>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
+                            <b className='player-3-name player-flex'>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
                         </div>
                     ) : (
-                        <div className="player-3-name player-flex">
+                        <div className=" player-flex player-3-name">
                             <b>Waiting for player 3</b>
                         </div>
                     )}
