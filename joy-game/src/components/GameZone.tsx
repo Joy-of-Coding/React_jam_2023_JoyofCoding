@@ -2,6 +2,8 @@
 import './GameZone.css'
 import Dice from "./Dice";
 import { GameState } from "../logic.ts"
+import { motion } from "framer-motion"
+
 interface GameZoneProps {
     numPlayers: number,
     playerIds: string[],
@@ -16,32 +18,78 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const playerIds = Object.keys(players)
     const numPlayers = playerIds.length
 
-    // const advanceTurn = () => {
-    //     const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-    //     Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
-    // }
+    const advanceTurn = () => {
+        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+        Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
+    }
 
+    const handleRoll = (playerId:string, i: number) =>
+    {
+        console.log("clicked button", i)
+        const randomNum= Math.floor(Math.random() * 6) + 1;
+        Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
+    }
     const handleRollAll = (playerId: string) => {
+        console.log("Rolled all dice")
         Rune.actions.rollAllDice({playerId: playerId})
-
-
-        // advanceTurn()
+        advanceTurn()
     }
 
 
     return (
-        <div>
-            <b>{`${players[yourPlayerId].displayName}'s Game Board`}</b>
-            <div className="grid-container">
-                <div className="central-area grid-item">
-                    <div>{`${players[yourPlayerId].displayName}'s Dice`}</div>
-                    {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <button key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
-                    ))}
+        <div className='game-play-container'>
+            
+            <div className="container">
+            <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
+                <div className='top-section'>
+
+                    <div className="player-section  right">
+
+                        <motion.div  transition={{ duration: 1 }} animate={{x:20}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
+                        <div className='player-1-name player-flex'>
+                        <b >{players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
+                        </div>                            
+                        
+                        </motion.div>
+                    </div>
+
+
+                    <div className="player-section left">
+
+                        <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
+                            {numPlayers > 1 ? (
+                                <div className='player-2-name player-flex'>
+                                    <b >{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
+                                </div>
+                            ) : (
+                                <div className='player-2-name'>
+                                   <b>Waiting for player 2</b> 
+                                </div>
+                            )}
+                        </motion.div>
+                    </div>
+                    
+
+
                 </div>
 
-                <div className={`player-area grid-item top-left ${playerIds[0] === yourPlayerId ? 'red-border' : ''}`}>
-                  <b>   {players[playerIds[0]].displayName}: {game?.diceArrays[playerIds[0]].length}</b>
+
+                <div className='middle-section'>
+                    
+                <div className='player-name'>
+                    
+                    {`${players[yourPlayerId].displayName}'s Dice`}
+                </div>
+                    <div className='dice-container'>
+                    {game.diceArrays[yourPlayerId].map((die, i )=>(
+                        <motion.button transition={{ duration: 1.3 }} animate={{
+                            scale: [1, 2, 2, 1, 1],
+                            rotate: [0, 0, 270, 270, 0],
+                            
+                          }} className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></motion.button>
+                    ))}
+                    </div>
+                    
                 </div>
 
                     
