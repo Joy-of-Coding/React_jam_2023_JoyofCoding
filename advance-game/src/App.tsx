@@ -3,6 +3,8 @@ import reactLogo from "./assets/rune.svg"
 import viteLogo from "/vite.svg"
 import "./App.css"
 import { GameState } from "./logic.ts"
+;
+
 
 function App() {
   const [game, setGame] = useState<GameState>()
