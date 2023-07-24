@@ -1,4 +1,4 @@
-
+import React from "react";
 import './GameZone.css'
 import Dice from "./Dice";
 import { GameState } from "../logic.ts"
@@ -18,18 +18,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const playerIds = Object.keys(players)
     const numPlayers = playerIds.length
 
-    // const advanceTurn = () => {
-    //     const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-    //     Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
-    // }
-
-    const handleRollDice = (playerId: string) => {
-        console.log("rolling dice")
-        console.log("numPlayers", numPlayers)
+    const handleRollDice = () => {
         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-        console.log("Next index", nextIndex)
-
-        Rune.actions.rollDice({playerId: playerId, nextIndex: nextIndex})
+        const numDice = game.diceCount[yourPlayerId]
+        console.log(players[yourPlayerId], "has", numDice, " dice")
+        Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
     }
 
 
@@ -71,8 +64,8 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <div className='middle-section'>
                     
                     <div className='player-name'>
-
-                        {`${players[yourPlayerId].displayName}'s Dice`}
+                        {/*Object.keys(players).indexOf(yourPlayerId))*/}
+                        {`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}
                         </div>
                             <div className='dice-container'>
                             {game.gameDice.map((die, i )=>(
@@ -88,59 +81,53 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <div className='bottom-section'>
 
-                    
                 </div>
+
                 <div className="ice-container-parent">
-                
-              
 
+                    <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
+                        {numPlayers > 2 ? (
+                            <div>
+                                <b>{players[playerIds[2]].displayName}: {game?.diceCount[playerIds[2]]}</b>
+                            </div>
+                        ) : (
+                            <div>
+                                Waiting for player 3
+                            </div>
+                        )}
+                    </div>
 
+                    <div className={`bottom-left player-area grid-item ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
+                        {numPlayers > 3 ? (
+                            <div>
+                                <b>{players[playerIds[3]].displayName}: {game?.diceCount[playerIds[3]]}</b>
+                            </div>
+                        ) : (
+                            <div>
+                                Waiting for player 4
+                            </div>
+                        )}
+                    </div>
 
-               
+                    {/*Controls area*/}
+                    {/*Roll Dice, Challenge, Give away*/}
+                    <div className='roll-dice-button-container'>
+                        <div className="bottom-row grid-item">{yourPlayerId ? (
+                            <>
 
-                <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
-                    {numPlayers > 2 ? (
-                        <div>
-                            <b>{players[playerIds[2]].displayName}: {game?.diceCount[playerIds[2]]}</b>
-                        </div>
-                    ) : (
-                        <div>
-                            Waiting for player 3
-                        </div>
-                    )}
+                                {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
+                                    <div>
+                                        <button onClick={()=>{handleRollDice()}}>Roll Dice</button>
+                                    </div>
+                                }
+
+                            </>
+                        ) : (
+                            <>I am a spectator, so I don't have count</>
+                        )}</div>
+
+                    </div>
                 </div>
-
-                <div className={`bottom-left player-area grid-item ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
-                    {numPlayers > 3 ? (
-                        <div>
-                            <b>{players[playerIds[3]].displayName}: {game?.diceCount[playerIds[3]]}</b>
-                        </div>
-                    ) : (
-                        <div>
-                            Waiting for player 4
-                        </div>
-                    )}
-                </div>
-
-                {/*Controls area*/}
-                {/*Roll Dice, Challenge, Give away*/}
-                <div className='roll-dice-button-container'>
-                    <div className="bottom-row grid-item">{yourPlayerId ? (
-                        <>
-
-                            {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
-                                <div>
-                                    <button onClick={()=>{handleRollDice(yourPlayerId)}}>Roll Dice</button>
-                                </div>
-                            }
-
-                        </>
-                    ) : (
-                        <>I am a spectator, so I don't have count</>
-                    )}</div>
-
-                </div>
-            </div>
 
 
         </div>
