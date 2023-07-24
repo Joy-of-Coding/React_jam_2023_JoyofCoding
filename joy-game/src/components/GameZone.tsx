@@ -23,11 +23,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     //     Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
     // }
 
-    const handleRollAll = (playerId: string) => {
-        Rune.actions.rollAllDice({playerId: playerId})
+    const handleRollDice = (playerId: string) => {
+        console.log("rolling dice")
+        Rune.actions.rollDice({playerId: playerId, numPlayers: Object.keys(players).length})
 
-
-        // advanceTurn()
     }
 
 
@@ -41,7 +40,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className="player-section  right">
 
                         <motion.div  transition={{ duration: 1 }} animate={{x:20}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
-                        <b>   {players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
+                        <b>   {players[playerIds[0]].displayName} <br/> {game?.diceCount[playerIds[0]]}</b>
                         </motion.div>
                     </div>
 
@@ -51,7 +50,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`top-right player-area grid-item ${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
                             {numPlayers > 1 ? (
                                 <div>
-                                    <b>{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
+                                    <b>{players[playerIds[1]].displayName}: {game?.diceCount[playerIds[1]]}</b>
                                 </div>
                             ) : (
                                 <div>
@@ -73,7 +72,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         {`${players[yourPlayerId].displayName}'s Dice`}
                         </div>
                             <div className='dice-container'>
-                            {game.diceArrays[yourPlayerId].map((die, i )=>(
+                            {game.gameDice.map((die, i )=>(
                                 <Dice key={i} faceValue={die} />
                             ))}
                             </div>
@@ -99,7 +98,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 2 ? (
                         <div>
-                            <b>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
+                            <b>{players[playerIds[2]].displayName}: {game?.diceCount[playerIds[2]]}</b>
                         </div>
                     ) : (
                         <div>
@@ -111,7 +110,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <div className={`bottom-left player-area grid-item ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 3 ? (
                         <div>
-                            <b>{players[playerIds[3]].displayName}: {game?.diceArrays[playerIds[3]].length}</b>
+                            <b>{players[playerIds[3]].displayName}: {game?.diceCount[playerIds[3]]}</b>
                         </div>
                     ) : (
                         <div>
@@ -128,7 +127,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                             {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                 <div>
-                                    <button onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</button>
+                                    <button onClick={()=>{handleRollDice(yourPlayerId)}}>Roll Dice</button>
                                 </div>
                             }
 

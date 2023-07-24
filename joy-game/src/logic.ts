@@ -2,25 +2,27 @@ import type { RuneClient } from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
+const startingDiceCount = 10
+
 export interface GameState {
+  gameDice: number[],
   count: number,
-  diceArrays: Record<string,number[]>,
-  counters:Record<string, number>,
+  diceCount:Record<string, number>,
   currentPlayerIndex: number
 }
 
 type GameActions = {
-  changeCounter: (params: {
-    playerId: string;
-    amount: number;
-  }) => void;
-  increment: (params: { amount: number }) => void,
-  updatePlayerDie: (params: {playerId: string, dieValue: number, dieIndex: number}) => void,
-  rollAllDice: (params: {playerId: string}) => void,
-  nextPlayer: (params:{nextPlayerIndex: number}) => void,
-  // checkGamePlay: (params:{players: Record<string, any>, playerId: string}) => void
-  removeDie:(params:{playerId: string, count: number}) => void
-
+adjustDiceCount: (params: {
+  playerId: string,
+  count: number
+  }) => void,
+  rollDice: (params: {
+    playerId: string,
+    numPlayers: number
+  }) => void,
+  nextPlayer: (params: {
+    numPlayers: number
+  }) => void
 }
 
 declare global {
@@ -43,8 +45,17 @@ Rune.initLogic({
           Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1),
         ])
     );
+    const diceCount = Object.fromEntries(
+        playerIds.map((playerId) => [
+            playerId,
+            startingDiceCount
+        ])
+    )
+    const gameDice = Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1)
 
     return {
+      gameDice,
+      diceCount,
       currentPlayerIndex:0,
       count: 0,
       counters: Object.fromEntries(playerIds.map(playerId => [playerId, 0])),
@@ -55,34 +66,28 @@ Rune.initLogic({
     increment: ({ amount }, { game }) => {
       game.count += amount
     },
-    updatePlayerDie: ({playerId, dieValue, dieIndex },{game}) => {
-      game.diceArrays[playerId][dieIndex] = dieValue
-    },
-    changeCounter({playerId, amount}, {game}) {
-      if (game.counters[playerId] === undefined) {
+    updateDiceCount({playerId, amount}, {game}) {
+      if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
-      game.counters[playerId] += amount;
+      game.diceCount[playerId] += amount;
     },
-    rollAllDice: ({playerId}, {game}) => {
-      game.diceArrays[playerId] = game.diceArrays[playerId].map(() => Math.floor(Math.random() * 6) + 1);
-      // checkForFives( game.diceArrays[playerId] )
+    rollDice: ({playerId, numPlayers}, {game}) => {
+      game.gameDice = Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1)
+      //Game checks can happen here
+      // Rune.actions.nextPlayer(numPlayers)
     },
-    nextPlayer: ({nextPlayerIndex}, {game}) => {
-      game.currentPlayerIndex = nextPlayerIndex;
-    },
-    removeDie: ({playerId, count}, {game}) => {
-      console.log("Die to remove", count)
+    nextPlayer: ({numPlayers}, {game}) => {
+      const nextIndex = (game.currentPlayerIndex + 1) % numPlayers
+      game.currentPlayerIndex = nextIndex;
     }
   },
   events: {
     playerJoined: (playerId, {game}) => {
-      game.counters[playerId] = 0;
-      game.diceArrays[playerId]=Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1)
+      game.diceCount[playerId] = startingDiceCount;
     },
     playerLeft(playerId, {game}) {
-      delete game.counters[playerId];
-      delete game.diceArrays[playerId];
+      delete game.diceCount[playerId];
     },
   }
 })
