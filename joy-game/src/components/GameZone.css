@@ -15,6 +15,7 @@
     grid-column: 2 / span 1; /* start in the second of 5 columns and span across three */
     grid-row: 2 / span 1; /* Take up the first four rows */
     background-color: lightgray; /* Add background color to differentiate the central area */
+}
 
 
 .game-play-container{
@@ -68,6 +69,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .middle-section{
     display: flex;
     flex-direction: column;
@@ -87,9 +89,10 @@
     grid-column: 2;
     grid-row: 1;
     background-color: rgb(182, 186, 182); /* Add background color to differentiate the top right player area */
+}
 
 .player-name{
-   
+    border: solid 1px red;
 
 }
 .bottom-section{
@@ -105,6 +108,7 @@
     grid-column: 3;
     grid-row: 1;
     background-color: lightgreen; /* Add background color to differentiate the top right player area */
+}
 
 .red-border{
     border: solid 1px red;
@@ -133,7 +137,7 @@
     grid-column: 2 / span 1; /* Take up the entire width of the grid */
     grid-row: 3; /* Place in the fifth row */
     background-color: lightpink; /* Add background color to differentiate the bottom row */
-
+}
 
 .dice-container{
     display: flex;
