@@ -79,7 +79,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
                     <div className='dice-container'>
                     {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <button className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></button>
+                        <motion.button transition={{ duration: 1.3 }} animate={{
+                            scale: [1, 2, 2, 1, 1],
+                            rotate: [0, 0, 270, 270, 0],
+                            
+                          }} className='dice-button' key={i} value={i} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></motion.button>
                     ))}
                     </div>
                     
