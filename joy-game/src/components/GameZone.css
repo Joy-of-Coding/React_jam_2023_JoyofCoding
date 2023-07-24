@@ -1,23 +1,4 @@
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 33%); /* Divide the grid into three equal columns */
-    grid-template-rows: repeat(3, 33%); /* Divide the grid into four equal rows */
-    /*gap: 0.5px; /* Add a gap between grid items */
-}
-
-.grid-item {
-    border: 1px solid black; /* Add a border around each grid item */
-    /*padding: 5px; /* Add padding inside each grid item */
-}
-
-.central-area {
-    grid-column: 2 / span 1; /* start in the second of 5 columns and span across three */
-    grid-row: 2 / span 1; /* Take up the first four rows */
-    background-color: lightgray; /* Add background color to differentiate the central area */
-}
-
-
 .game-play-container{
     width: 95%;
 }
@@ -41,6 +22,7 @@
     justify-content: space-between;
 }
 
+
 .player-section{
     width: 50%;
     display: flex;
@@ -48,19 +30,31 @@
 }
 
 
+
+
+
+
 .right{
    
     justify-content: start;
     margin-bottom:  60px;
+    
+    width: 25%;
+    
 
 }
+
 
 .left{
    
     justify-content: end;
     margin-bottom:  60px;
  
+    
+}
 
+.handleRoll-button{
+    border: 1px solid black;
 }
 
 
@@ -69,7 +63,6 @@
     display: flex;
     flex-direction: column;
 }
-
 .middle-section{
     display: flex;
     flex-direction: column;
@@ -78,23 +71,11 @@
     height: 40vh;
 }
 
+/* .player-name{
+   
 
-.top-left {
-    grid-column: 1;
-    grid-row: 1;
-    background-color: rgb(173, 214, 228); /* Add background color to differentiate the top left player area */
-}
-
-.top-middle {
-    grid-column: 2;
-    grid-row: 1;
-    background-color: rgb(182, 186, 182); /* Add background color to differentiate the top right player area */
-}
-
-.player-name{
-    border: solid 1px red;
-
-}
+    
+} */
 .bottom-section{
     width: 100%;
     display: flex;
@@ -103,16 +84,8 @@
 }
 
 
-
-.top-right {
-    grid-column: 3;
-    grid-row: 1;
-    background-color: lightgreen; /* Add background color to differentiate the top right player area */
-}
-
 .red-border{
     border: solid 1px red;
-
 }
 
 
@@ -125,19 +98,6 @@
     border-radius: 5px;
 }
 
-
-.bottom-right {
-    grid-column: 3;
-    grid-row: 3;
-    background-color: lightyellow; /* Add background color to differentiate the bottom player areas */
-
-}
-
-.bottom-row {
-    grid-column: 2 / span 1; /* Take up the entire width of the grid */
-    grid-row: 3; /* Place in the fifth row */
-    background-color: lightpink; /* Add background color to differentiate the bottom row */
-}
 
 .dice-container{
     display: flex;
@@ -158,7 +118,6 @@
     align-items: center;
     min-height: 40%;
     max-height: 80%;
-
 }
 
 .roll-dice-button-container{
@@ -168,4 +127,29 @@
     flex-direction: column;
     width: 100%;
     height: 70px;
+}
+
+.player-flex{
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.player-1-name{
+    background-color: aquamarine;
+    
+}
+.player-2-name{
+    background-color: aquamarine;
+}
+
+.player-3-name{
+    background-color: aquamarine;
+}
+
+.player-4-name{
+    background-color: aquamarine;
 }

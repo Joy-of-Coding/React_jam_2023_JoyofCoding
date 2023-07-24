@@ -69,5 +69,36 @@ const Game: React.FC = () => {
     }
 
 
+    //filter player array by current player's ID
+    const selectedPlayer = players.filter((player) => player.id === currentPlayerId)
 
-    return () */
+
+    return (
+        <div className="app">
+
+
+                <h3>{selectedPlayer.length > 0 ? selectedPlayer[0].name : ''}'s Turn</h3>
+            <div className='player-container'>
+            {players.map((player) => (
+                <Player key={player.id}  {...player}  />
+            ))}
+
+            </div>
+            
+
+            <div className="controls">
+
+                <div key={currentPlayerId}>
+                    <button onClick={() => handleRollDice(currentPlayerId)}>Roll Dice</button>
+                    {/*<button onClick={() => handleAddDice(currentPlayerId)}>Add Dice</button>*/}
+                    {/*<button onClick={() => handleRemoveDice(currentPlayerId)}>Remove Dice</button>*/}
+                </div>
+                {(sixesToGive.length>0) && <div>
+                    <button onClick={() => handleGiveAwayDice(currentPlayerId)}>Give Away Your 6s?</button>
+                </div>}
+            </div>
+        </div>
+    );
+};
+
+export default Game;

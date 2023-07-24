@@ -1,11 +1,5 @@
-
-.dice{
-    width: 50px;
-}
-
-.dice img{
-    width: 50px;
+.img-container img{
+    width: 30px;
+    height: 30px;
     border-radius: 5px;
- 
-
 }
