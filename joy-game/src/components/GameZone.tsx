@@ -18,10 +18,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const playerIds = Object.keys(players)
     const numPlayers = playerIds.length
 
-    const advanceTurn = () => {
-        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-        Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
-    }
+    // const advanceTurn = () => {
+    //     const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+    //     Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
+    // }
 
     const handleRollAll = (playerId: string) => {
         Rune.actions.rollAllDice({playerId: playerId})
@@ -68,19 +68,17 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <div className='middle-section'>
                     
-                <div className='player-name'>
-                    
-                    {`${players[yourPlayerId].displayName}'s Dice`}
-                </div>
-                    <div className='dice-container'>
-                        
-                    {game.diceArrays[yourPlayerId].map((die, i )=>(
-                        <Dice key={i} faceValue={die} />
+                    <div className='player-name'>
 
-                    )}
+                        {`${players[yourPlayerId].displayName}'s Dice`}
+                        </div>
+                            <div className='dice-container'>
+                            {game.diceArrays[yourPlayerId].map((die, i )=>(
+                                <Dice key={i} faceValue={die} />
+                            ))}
+                            </div>
+
                     </div>
-                    
-                </div>
 
                     
                 </div>
