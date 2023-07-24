@@ -36,6 +36,8 @@ const countOccurrences = ( array: number[], compare: number) => {
   return count;
 }
 
+
+
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 
@@ -44,8 +46,6 @@ declare global {
 export function getCount(game: GameState) {
   return game.currentPlayerIndex
 }
-
-
 
 
 Rune.initLogic({
@@ -87,11 +87,14 @@ Rune.initLogic({
       if (fives > 0) {
         console.log(fives, "fives rolled");
         Rune.actions.updateDiceCount({ playerId: playerId, amount: -fives });
+
       }
+
 
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
       }
+
 
     },
     nextPlayer: ({nextIndex}, {game}) => {
