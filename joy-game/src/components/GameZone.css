@@ -11,7 +11,7 @@
 }
 
 .player-gameboard-title{
-    margin-bottom: 50px;
+    margin-bottom: 80px;
 }
 
 
@@ -22,11 +22,11 @@
     justify-content: space-between;
 }
 
-.player-section{
-    width: 50%;
-    display: flex;
-    align-items: center;
-}
+
+
+
+
+
 
 
 
@@ -131,21 +131,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 15px;
+    padding: 5px;
 }
 
 
 .player-1-name{
-    background-color: aquamarine;
+    background-color: rgba(48, 168, 128, 0.831);
     
 }
 .player-2-name{
-    background-color: aquamarine;
+    background-color: rgba(127, 133, 255, 0.831);
 }
 
 .player-3-name{
-    background-color: aquamarine;
+    background-color: rgba(255, 127, 191, 0.831);
 }
 
 .player-4-name{
-    background-color: aquamarine;
+    background-color: rgba(127, 133, 255, 0.831);
 }
