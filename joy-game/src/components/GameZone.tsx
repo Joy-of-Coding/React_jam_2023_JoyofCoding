@@ -103,81 +103,41 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
             <div className="ice-container-parent">
 
 
-                    {/* <div className={`bottom-right player-area grid-item ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
-                        {numPlayers > 2 ? (
-                            <div>
-                                <b>{players[playerIds[2]].displayName} <br/>
-                                <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
-                                <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
-                                {game?.diceCount[playerIds[2]]}</b>
-                            </div>
+                    
+                <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
+                    {numPlayers > 2 ? (
+                        <div>
+                            <b>{players[playerIds[2]].displayName} <br/>
+                            <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
+                            <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
+                            {game?.diceCount[playerIds[2]]}</b>
+                        </div>
                         ) : (
-                            <div>
-                                Waiting for player 3
-                            </div>
-                        )}
-                    </div> */}
-                            <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
-                            {numPlayers > 2 ? (
-                            <div>
-                                <b>{players[playerIds[2]].displayName} <br/>
-                                <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
-                                <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
-                                {game?.diceCount[playerIds[2]]}</b>
-                            </div>
-                         ) : (
-                          <div className=" player-flex player-3-name">
-                              <b>Waiting for player 3</b>
-                          </div>
+                        <div className=" player-flex player-3-name">
+                            <b>Waiting for player 3</b>
+                        </div>
                       )}
-                  </motion.div>
+                </motion.div>
                             
 
-                    <div className={`bottom-left player-area grid-item ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
-                        {numPlayers > 3 ? (
-                            <div>
-                                <b>{players[playerIds[3]].displayName} <br/>
-                                <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
-                                <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
-                                {game?.diceCount[playerIds[3]]}</b>
-                            </div>
-                        ) : (
-                            <div>
-                                Waiting for player 4
-                            </div>
-                        )}
-                    </div>
+                <div className={`bottom-left player-area grid-item ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
+                    {numPlayers > 3 ? (
+                        <div>
+                            <b>{players[playerIds[3]].displayName} <br/>
+                            <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
+                            <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
+                            {game?.diceCount[playerIds[3]]}</b>
+                        </div>
+                    ) : (
+                        <div>
+                            Waiting for player 4
+                        </div>
+                    )}
+                </div>
 
                 <div className='bottom-section'>
 
-{/* <!-- <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
-    {numPlayers > 2 ? (
-        <div className=' player-flex player-3-name'>
-            <b className='player-3-name player-flex'>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
-        </div>
-    ) : (
-        <div className=" player-flex player-3-name">
-            <b>Waiting for player 3</b>
-        </div>
-    )}
-</motion.div> --> */}
 
-{/* <!-- <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
-                    {numPlayers > 3 ? (
-                        <div className='player-flex player-4-name'>
-                            <b className='player-4-name player-flex'>{players[playerIds[3]].displayName}: {game?.diceArrays[playerIds[3]].length}</b>
-                        </div>
-                    ) : (
-                        <div className='player-flex player-4-name'>
-                           <b> Waiting for player 4</b>
-                        </div>
-                    )}
-                </motion.div>
-                </div> --> */}
-
-
-                    {/*Controls area*/}
-                    {/*Roll Dice, Challenge, Give away*/}
                     <div className='roll-dice-button-container'>
                         <div className="bottom-row grid-item">{yourPlayerId ? (
                             <>
@@ -195,6 +155,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                     </div>
                 </div>
+            </div>
 
 
         </div>
