@@ -12,8 +12,8 @@ interface GameZoneProps {
     yourPlayerId: string,
     avatarUrl: string,
 }
-
-const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
+// const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
+const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
 
     const playerIds = Object.keys(players)
     //const avatarUrl = Object.values(players)
@@ -26,7 +26,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
         Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
     }
 
-    const handleUpdateDiceCount = (playerId, amount) => {
+    const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
         Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
     }
 
@@ -103,13 +103,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             {`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}
                         </div>
                             <div className='dice-container'>
-                            {game.gameDice.map((die, i )=>(
+                                {game.gameDice.map((die, i )=>(
                                 <motion.button transition={{ duration: 1.3 }} animate={{
                                     scale: [1, 2, 2, 1, 1],
                                     rotate: [0, 0, 270, 270, 0],
                                     
                                 }}                         
-                                className='dice-button' key={i} faceValue={die} onClick={()=>{handleRoll(yourPlayerId, i)}}><Dice faceValue={die} /></motion.button>))}
+                                className='dice-button' key={i} ><Dice faceValue={die} /></motion.button>))}
                             </div>
 
                     </div>
@@ -117,16 +117,30 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     
             </div>
 
-
-            <div className='bottom-section'>
-
-            </div>
-
-            <div className="ice-container-parent">
+{/*             
+                                       <div className='roll-dice-button-container'>
+                                <div className="bottom-row grid-item">{yourPlayerId ? (
+                                <>
+                                
+                                    {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
+                                        <div>
+                                            <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }} onClick={()=>{handleRollAll(yourPlayerId)}}>Roll Dice</motion.button>
+                                        </div>
+                                    }
+                            
+                                </>
+                            ) : (
+                                <>I am a spectator, so I don't have count</>
+                            )}</div>
+             */}
+            
+            
+            
 
 
                     
-                <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
+                {/* <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 2 ? (
                         <div>
                             <b>{players[playerIds[2]].displayName} <br/>
@@ -155,9 +169,9 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             Waiting for player 4
                         </div>
                     )}
-                </div>
+                </div> */}
 
-                <div className='bottom-section'>
+            <div className='bottom-section'>
 
 
                     <div className='roll-dice-button-container'>
@@ -166,7 +180,8 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                                 {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                     <div>
-                                        <button onClick={()=>{handleRollDice()}}>Roll Dice</button>
+                                        <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}
+                                                whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>Roll Dice</motion.button>
                                     </div>
                                 }
 
@@ -175,13 +190,69 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             <>I am a spectator, so I don't have count</>
                         )}</div>
 
-                    </div>
-                </div>
-            </div>
+                    </div> {/* end roll dice container */ }
+                    {/* <div className='bottom-section'> */}
+                       
+                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
+                        {numPlayers > 2 ? (
+                            <div className=' player-flex '>
+                                <div>
+                                <img className='avatar' src={players[playerIds[2]].avatarUrl} alt="" />
+                                </div>
+                                    <div className='player-3-name'>
+                                    <b>{players[playerIds[2]].displayName} <br/>
+                                    <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
+                                    <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
+                                    {game?.diceCount[playerIds[2]]}</b>
+                                    </div>
+                            </div> 
+                        ) : (
+                            <div className=" player-flex player-3-name ">
+                                <b>Waiting for player 3</b>
+                            </div>
+                        )}   
+
+                        </motion.div>
+                       
+                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
+                            {numPlayers > 3 ? (
+                            <div className='player-flex'>
+                                <div>
+                                <img className='avatar' src={players[playerIds[3]].avatarUrl} alt="" />
+                                </div>
+                                       <div className='player-4-name'>
+                                       <b>{players[playerIds[3]].displayName} <br/>
+                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
+                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
+                                       {game?.diceCount[playerIds[3]]}</b>
+                                       </div>
+                               </div>
+                           ) : (
+                               <div className='player-flex player-4-name'>
+                                   Waiting for player 4
+                               </div>
+                           )}
+                       </motion.div>
+
+                       <div className="dice-container-parent">
+                
+     
+                                {/*Controls area*/}
+                                {/*Roll Dice, Challenge, Give away*/}
+                        
+                    
+                        </div>
+                    {/* </div> */}
 
 
-        </div>
+                   
 
+
+
+
+            </div> {/* end bottom section container */ }
+           
+        </div> // full container
     );
 }
 
