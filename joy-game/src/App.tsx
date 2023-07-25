@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import type { Players, PlayerId } from "rune-games-sdk/multiplayer"
+import { Players, PlayerId } from "rune-games-sdk/multiplayer"
 import { GameState } from "./logic.ts"
 import GameZone from "./components/GameZone";
 
@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     Rune.initClient({
-          onChange: ({ newGame,players, yourPlayerId }) => {
+          onChange: ({ newGame, players, yourPlayerId }) => {
               setGame(newGame)
               setPlayers(players)
               setYourPlayerId(yourPlayerId)
