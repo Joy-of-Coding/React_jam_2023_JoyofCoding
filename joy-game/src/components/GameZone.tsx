@@ -64,7 +64,9 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     
                     <div className='player-name'>
                         {/*Object.keys(players).indexOf(yourPlayerId))*/}
-                        {`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}
+                        {/*Commented out this name b/c the dice on the table are showing the last person's roll*/}
+                        {/*{`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}*/}
+                        <b>Last player's roll...</b>
                         </div>
                             <div className='dice-container'>
                             {game.gameDice.map((die, i )=>(
@@ -116,7 +118,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                                 {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                     <div>
-                                        <button onClick={()=>{handleRollDice()}}>Roll Dice</button>
+                                        {/*//Updated the button message to make it clear that dice roll hasn't occured yet*/}
+                                        {/*//IE  dice on the table are not *this* roll.  Will also update the message on the table*/}
+                                        {/*//to make the display less confusing*/}
+                                        <button onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll the Dice!</button>
                                     </div>
                                 }
 

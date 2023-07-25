@@ -2,7 +2,7 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
-const startingDiceCount = 10
+const startingDiceCount = 5
 
 export interface GameState {
   gameDice: number[],
@@ -25,22 +25,29 @@ adjustDiceCount: (params: {
   }) => void
 }
 
-const countOccurrences = ( array: number[], compare: number, currentPlayerId:string , targetPlayerId: string) => {
+const countOccurrences = ( array: number[], compare: number) => {
   let count = 0;
   for (let i = 0; i < array.length; i++) {
     if (array[i] === compare) {
       count += 1;
     }
   }
-  console.log(count)
+  console.log("Number of occurances of ", compare, ": ", count)
 
-  if (compare === 5) {
-    Rune.actions.updateDiceCount({playerId: currentPlayerId, amount: -count});
-  }
+  //removing this comparison in order to make each function as granular as posssible
+  //this will become it's own function "compare fives" or something
+  // if (compare === 5) {
+  //   Rune.actions.updateDiceCount({playerId: currentPlayerId, amount: -count});
+  // }
   return count;
 }
 
-
+//New granular function to "float away" the fives/Balloons
+//deduct number of fives from dice count
+const floatAwayFives = ({fivesCount: fivesCount, playerId: playerId }) => {
+    //subtract 5s from diceCount
+    Rune.actions.updateDiceCount({playerId: playerId, amount: -fivesCount});
+}
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
@@ -87,8 +94,11 @@ Rune.initLogic({
       // Game checks can happen here
 
       //check for fives
-      countOccurrences(game.gameDice, 5, playerId, null);
-
+      const fives = countOccurrences(game.gameDice, 5);
+      console.log("num fives", fives)
+      if (fives > 0) {
+        floatAwayFives({fivesCount: fives, playerId: playerId})
+      }
 
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
