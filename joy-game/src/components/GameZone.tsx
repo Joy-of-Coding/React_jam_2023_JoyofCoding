@@ -171,7 +171,25 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div> */}
 
             <div className='bottom-section'>
-
+                    <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
+                    {numPlayers > 3 ? (
+                            <div className='player-flex'>
+                                <div>
+                                <img className='avatar' src={players[playerIds[3]].avatarUrl} alt="" />
+                                </div>
+                                       <div className='player-4-name'>
+                                       <b>{players[playerIds[3]].displayName} <br/>
+                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
+                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
+                                       {game?.diceCount[playerIds[3]]}</b>
+                                       </div>
+                               </div>
+                           ) : (
+                               <div className='player-flex player-4-name'>
+                                   Waiting for player 4
+                               </div>
+                           )}
+                       </motion.div>
 
                     <div className='roll-dice-button-container'>
                         <div className="bottom-row grid-item">{yourPlayerId ? (
@@ -192,8 +210,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     </div> {/* end roll dice container */ }
                     {/* <div className='bottom-section'> */}
                        
-                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
-                        {numPlayers > 2 ? (
+                        
+                       
+                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
+
+                       {numPlayers > 2 ? (
                             <div className=' player-flex '>
                                 <div>
                                 <img className='avatar' src={players[playerIds[2]].avatarUrl} alt="" />
@@ -212,26 +233,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         )}   
 
                         </motion.div>
-                       
-                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
-                            {numPlayers > 3 ? (
-                            <div className='player-flex'>
-                                <div>
-                                <img className='avatar' src={players[playerIds[3]].avatarUrl} alt="" />
-                                </div>
-                                       <div className='player-4-name'>
-                                       <b>{players[playerIds[3]].displayName} <br/>
-                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
-                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
-                                       {game?.diceCount[playerIds[3]]}</b>
-                                       </div>
-                               </div>
-                           ) : (
-                               <div className='player-flex player-4-name'>
-                                   Waiting for player 4
-                               </div>
-                           )}
-                       </motion.div>
+                                                
 
                        <div className="dice-container-parent">
                 
