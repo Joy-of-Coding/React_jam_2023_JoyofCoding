@@ -94,8 +94,6 @@ Rune.initLogic({
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
       }
-
-
     },
     nextPlayer: ({nextIndex}, {game}) => {
       console.log("taking turns. Current player index:", game.currentPlayerIndex)
