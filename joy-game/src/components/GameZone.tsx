@@ -10,9 +10,10 @@ interface GameZoneProps {
     game: GameState,
     players: Record<string, any>,
     yourPlayerId: string,
+    avatarUrl:string,
 }
 
-const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
+const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
 
 
     const playerIds = Object.keys(players)
@@ -47,20 +48,40 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                    
 
                         <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
-                        <div className='player-1-name player-flex'>
-                        <b >{players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
-                        </div>                            
+                        <div className=' player-flex'>
+                            <div >
+                            <img className='avatar' src={players[playerIds[0]].avatarUrl} alt="" />
+                                  
+                            </div>
+
+                            <div>
+                            <b>{players[playerIds[0]].displayName} <br/> {game?.diceArrays[playerIds[0]].length}</b>
+                            </div>
+                        </div>    
+
+                       
+                        
                         
                         </motion.div>
                    
 
-
+                        
                     
 
                         <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
                             {numPlayers > 1 ? (
-                                <div className='player-2-name player-flex'>
+                                <div className='player-flex'>
+
+                                    <div>
+                                    <img className='avatar' src={players[playerIds[1]].avatarUrl} alt="" />
+                                    </div>
+
+                                    <div>
                                     <b >{players[playerIds[1]].displayName}: {game?.diceArrays[playerIds[1]].length}</b>
+                                    </div>
+
+
+                                    
                                 </div>
                             ) : (
                                 <div className='player-2-name player-flex'>
@@ -124,11 +145,18 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 2 ? (
-                        <div className=' player-flex player-3-name'>
-                            <b className='player-3-name player-flex'>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
+                        <div className=' player-flex '>
+                            <div>
+                            <img className='avatar' src={players[playerIds[2]].avatarUrl} alt="" />
+                            </div>
+
+                            <div>
+                                <b>{players[playerIds[2]].displayName}: {game?.diceArrays[playerIds[2]].length}</b>
+                            </div>
+                           
                         </div>
                     ) : (
-                        <div className=" player-flex player-3-name">
+                        <div className=" player-flex player-3-name ">
                             <b>Waiting for player 3</b>
                         </div>
                     )}
@@ -137,8 +165,16 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 3 ? (
-                        <div className='player-flex player-4-name'>
-                            <b className='player-4-name player-flex'>{players[playerIds[3]].displayName}: {game?.diceArrays[playerIds[3]].length}</b>
+                        <div className='player-flex'>
+                            <div>
+                            <img className='avatar' src={players[playerIds[3]].avatarUrl} alt="" />
+                            </div>
+
+                            <div>
+                            <b>{players[playerIds[3]].displayName}: {game?.diceArrays[playerIds[3]].length}</b>
+                            </div>
+
+                           
                         </div>
                     ) : (
                         <div className='player-flex player-4-name'>
