@@ -13,11 +13,10 @@ interface GameZoneProps {
     avatarUrl: string,
 }
 
-const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
-
+const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
 
     const playerIds = Object.keys(players)
-    const avatarUrl = Object.values(players)
+    //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
 
     const handleRollDice = () => {
@@ -31,25 +30,48 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
         Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
     }
 
+    //logic from joels:
+    /*const advanceTurn = () => {
+        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+        Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
+    }
+    const handleRoll = (playerId:string, i: number) =>
+    {
+        console.log("clicked button", i)
+        const randomNum= Math.floor(Math.random() * 6) + 1;
+        Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
+    }
+    const handleRollAll = (playerId: string) => {
+        console.log("Rolled all dice")
+        Rune.actions.rollAllDice({playerId: playerId})
+        advanceTurn()
+    }
+    */
+
 
     return (
         <div className='game-play-container'>
             
             <div className="container">
                 <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
+
                     <div className='top-section'>
+                       
+                        <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
+                            <div className=' player-flex'>
+                                <div >
+                                <img className='avatar' src={players[playerIds[0]].avatarUrl} alt="" />
+                                </div>
+                                    <div className='player-1-name'>
+                                    <b>{players[playerIds[0]].displayName} <br/>
+                                    <button onClick={() => handleUpdateDiceCount(playerIds[0], 1)}>Dice++</button> <br/>
+                                    <button onClick={() => handleUpdateDiceCount(playerIds[0], -1)}>Dice--</button> <br/>
+                                    {game?.diceCount[playerIds[0]]}</b>
+                                    </div>
+                            </div>    
 
-                        <div className="player-section  right">
-
-                            <motion.div  transition={{ duration: 1 }} animate={{x:20}} initial={{x:-150}}   className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
-
-                            <b>{players[playerIds[0]].displayName} <br/>
-                            <button onClick={() => handleUpdateDiceCount(playerIds[0], 1)}>Dice++</button> <br/>
-                            <button onClick={() => handleUpdateDiceCount(playerIds[0], -1)}>Dice--</button> <br/>
-                        {game?.diceCount[playerIds[0]]}</b>
-
-                            </motion.div>
-                        </div>
+                        </motion.div>
+                        
 
 
                         <div className="player-section left">
