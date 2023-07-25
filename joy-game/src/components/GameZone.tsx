@@ -72,26 +72,26 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                         </motion.div>
                         
-
-
-                        <div className="player-section left">
-
-                            <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
-                                {numPlayers > 1 ? (
+                        <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
+                            {numPlayers > 1 ? (
+                                <div className='player-flex'>
                                     <div>
+                                    <img className='avatar' src={players[playerIds[1]].avatarUrl} alt="" />
+                                    </div>
+                                        <div className='player-2-name'>
                                         <b>{players[playerIds[1]].displayName} <br/>
                                         <button onClick={() => handleUpdateDiceCount(playerIds[1], 1)}>Dice++</button> <br/>
                                         <button onClick={() => handleUpdateDiceCount(playerIds[1], -1)}>Dice--</button> <br/>
                                         {game?.diceCount[playerIds[1]]}</b>
-                                    </div>
-                                ) : (
-                                    <div className='player-2-name player-flex'>
-                                        Waiting for player 2
-                                    </div>
-                                )}
-                            </motion.div>
-                        </div>
-                    
+                                        </div>
+                                </div>
+                            ) : (
+                                <div className='player-2-name player-flex'>
+                                    Waiting for player 2
+                                </div>
+                            )}
+                        </motion.div>
+                       
 
 
                     </div>
