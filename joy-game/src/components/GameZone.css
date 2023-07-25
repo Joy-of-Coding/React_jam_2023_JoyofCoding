@@ -49,16 +49,12 @@
 .left{
    
     justify-content: end;
-    margin-bottom:  60px;
- 
-    
+    margin-bottom:  60px; 
 }
 
 .handleRoll-button{
     border: 1px solid black;
 }
-
-
 
 .player{
     display: flex;
@@ -72,11 +68,15 @@
     height: 40vh;
 }
 
-/* .player-name{
-   
-
+.player-name{
     
-} */
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    display: flex;
+    flex-wrap: wrap;
+    color: black;
+    background-color: yellowgreen
+    
+}
 .bottom-section{
     width: 100%;
     display: flex;
@@ -109,7 +109,6 @@
      align-items: center;
      height: 100% ;
      width: 100%;
-
 
 }
 
