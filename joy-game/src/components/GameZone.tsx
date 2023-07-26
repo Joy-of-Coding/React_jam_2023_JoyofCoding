@@ -39,15 +39,15 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 
                        
-                        <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
+                        <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
 
-                            <Player playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
+                            <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
                         </motion.div>
                         
-                        <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
+                        <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}} >
                             {numPlayers > 1 ? (
 
-                                <Player playerId={playerIds[1]} players={players} game={game} playerNum={2}/>
+                                <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} numPlayers={numPlayers}/>
 
                             ) : (
                                 <div className='player-2-name player-flex'>
@@ -72,10 +72,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 
             <div className='bottom-section'>
-                    <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
+                    <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
                     {numPlayers > 3 ? (
 
-                        <Player playerId={playerIds[3]} players={players} game={game} playerNum={4} />
+                        <Player playerId={playerIds[3]} players={players} game={game} playerNum={4} numPlayers={numPlayers} />
 
                     ) : (
                                <div className='player-flex player-4-name'>
@@ -92,11 +92,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                        
 
 
-                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
+                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
 
                        {numPlayers > 2 ? (
 
-                           <Player playerId={playerIds[2]} players={players} game={game} playerNum={3}/>
+                           <Player playerId={playerIds[2]} players={players} game={game} playerNum={3} numPlayers={numPlayers} />
 
                        ) : (
                             <div className=" player-flex player-3-name ">
