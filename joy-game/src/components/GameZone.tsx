@@ -40,7 +40,9 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className='top-section'>
                        
                         <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
+                        {numPlayers > 0 ? (
                             <div className=' player-flex'>
+
                                 <div >
                                 <img className='avatar' src={players[playerIds[0]].avatarUrl} alt="" />
                                 </div>
@@ -50,8 +52,15 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                                     <button onClick={() => handleUpdateDiceCount(playerIds[0], -1)}>Dice--</button> <br/>
                                     {game?.diceCount[playerIds[0]]}</b>
                                     </div>
-                            </div>    
+                                    <div>
 
+                                    </div>
+                            </div>    
+                            ) : (
+                                <div className='player-1-name player-flex'>
+                                    Waiting for player 1
+                                </div>
+                            )}
                         </motion.div>
                         
                         <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
