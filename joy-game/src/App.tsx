@@ -25,7 +25,24 @@ function App() {
     //     }
     // }
 
-
+    // const isGameOver=(game: GameState)=>{
+    //     const playersWithZeroDice = Object.entries(game.diceCount)
+    //         .filter(([playerId, count]) => count === 0)
+    //         .map(([playerId]) => playerId);
+    //
+    //     if (playersWithZeroDice.length > 1) {
+    //         console.log("More than one player has 0 dice.");
+    //         console.log("Player IDs:", playersWithZeroDice);
+    //         // Rune.gameOver()
+    //     } else if (playersWithZeroDice.length === 1) {
+    //         console.log("Only one player has 0 dice.");
+    //         console.log("Player ID:", playersWithZeroDice[0]);
+    //
+    //         Rune.actions.gameOver({playerIds: playersWithZeroDice})
+    //     } else {
+    //         console.log("No player has 0 dice.");
+    //     }
+    // }
 
 
   useEffect(() => {
