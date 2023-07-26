@@ -81,8 +81,8 @@ Rune.initLogic({
     }
   },
   actions: {
-    updateDiceCount: ({playerId, amount}, {game}) => {
 
+    updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }

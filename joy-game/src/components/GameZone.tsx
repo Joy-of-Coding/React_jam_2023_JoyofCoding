@@ -23,7 +23,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const numPlayers = playerIds.length
 
 
-
     return (
         <div className='game-play-container'>
             
@@ -33,10 +32,19 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className='top-section'>
 
 
+
                         <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
 
                             <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
 
+
+                                    </div>
+                            </div>    
+                            ) : (
+                                <div className='player-1-name player-flex'>
+                                    Waiting for player 1
+                                </div>
+                            )}
                         </motion.div>
                         
                         <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}} >
