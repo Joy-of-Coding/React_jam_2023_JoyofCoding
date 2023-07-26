@@ -20,9 +20,10 @@ type GameActions = {
     nextIndex: number,
     numDice: number
   }) => void,
+
   nextPlayer: (params: {
     nextIndex: number
-  }) => void
+    }) => void
 }
 
 const countOccurrences = ( array: number[], compare: number) => {
@@ -79,7 +80,8 @@ Rune.initLogic({
     }
   },
   actions: {
-    updateDiceCount({playerId, amount}, {game}) {
+
+    updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
@@ -102,8 +104,8 @@ Rune.initLogic({
       }
     },
     nextPlayer: ({nextIndex}, {game}) => {
-      console.log("taking turns. Current player index:", game.currentPlayerIndex)
-      console.log("next player index: ", nextIndex)
+      // console.log("taking turns. Current player index:", game.currentPlayerIndex)
+      // console.log("next player index: ", nextIndex)
       game.currentPlayerIndex = nextIndex;
     }
   },
