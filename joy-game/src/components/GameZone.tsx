@@ -12,20 +12,15 @@ interface GameZoneProps {
     playerIds: string[],
     game: GameState,
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
-    yourPlayerId: string,
+    yourPlayerId: string | undefined,
     avatarUrl: string,
 }
 // const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
-
+    if(!yourPlayerId) return <div>loading</div>
     const playerIds = Object.keys(players)
     //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
-
-    //Moved to Players.tsx - OK to delete
-    // const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
-    //     Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
-    // }
 
 
 
@@ -38,10 +33,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className='top-section'>
 
 
-                       
                         <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
 
                             <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
+
                         </motion.div>
                         
                         <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}} >
