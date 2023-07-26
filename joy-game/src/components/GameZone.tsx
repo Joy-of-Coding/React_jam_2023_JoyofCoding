@@ -1,6 +1,6 @@
 import React from "react";
 import './GameZone.css'
-import Dice from "./Dice";
+// import Dice from "./Dice";
 import { GameState } from "../logic.ts"
 import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
@@ -22,10 +22,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
 
-
-    const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
-        Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
-    }
+    //Moved to Players.tsx - OK to delete
+    // const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
+    //     Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
+    // }
 
 
 
