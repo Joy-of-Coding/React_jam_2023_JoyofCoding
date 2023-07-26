@@ -2,7 +2,7 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
-const startingDiceCount = 10
+const startingDiceCount = 5
 
 export interface GameState {
   gameDice: number[],
