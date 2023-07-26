@@ -3,6 +3,7 @@ import './GameZone.css'
 import Dice from "./Dice";
 import { GameState } from "../logic.ts"
 import { motion } from "framer-motion"
+import Controls from "./Controls.tsx";
 
 interface GameZoneProps {
     numPlayers: number,
@@ -19,12 +20,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
 
-    const handleRollDice = () => {
-        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-        const numDice = game.diceCount[yourPlayerId]
-        console.log(players[yourPlayerId], "has", numDice, " dice")
-        Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
-    }
+    //moved handleRollDice function to Controls.tsx. OK to delete this
+    // const handleRollDice = () => {
+    //     const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+    //     const numDice = game.diceCount[yourPlayerId]
+    //     console.log(players[yourPlayerId], "has", numDice, " dice")
+    //     Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
+    // }
 
     const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
         Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
@@ -100,9 +102,9 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <div className='middle-section'>
                     
                         <div className='player-name'>
-                            //I suggest commenting this line out and changing to the following line
-                            //will improve clarity, but this may change with ongoing UI updates
-                          //  {`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}
+                           {/* I suggest commenting this line out and changing to the following line*/}
+                           {/* will improve clarity, but this may change with ongoing UI updates*/}
+                           {/*{`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}*/}
                             <b>Last player's roll...</b>
                         </div>
                             <div className='dice-container'>
@@ -195,23 +197,26 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                            )}
                        </motion.div>
 
-                    <div className='roll-dice-button-container'>
-                        <div className="bottom-row grid-item">{yourPlayerId ? (
-                            <>
+                    {/*Moved this block to Controls Component. OK to remove*/}
+                    {/*<div className='roll-dice-button-container'>*/}
+                    {/*    <div className="bottom-row grid-item">{yourPlayerId ? (*/}
+                    {/*        <>*/}
 
-                                {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
-                                    <div>
-                                        <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll the Dice</motion.button>
-                                    </div>
-                                }
+                    {/*            {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&*/}
+                    {/*                <div>*/}
+                    {/*                    <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}*/}
+                    {/*                            whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll the Dice</motion.button>*/}
+                    {/*                </div>*/}
+                    {/*            }*/}
 
-                            </>
-                        ) : (
-                            <>I am a spectator, so I don't have count</>
-                        )}</div>
+                    {/*        </>*/}
+                    {/*    ) : (*/}
+                    {/*        <>I am a spectator, so I don't have count</>*/}
+                    {/*    )}</div>*/}
 
-                    </div> {/* end roll dice container */ }
+                    {/*</div>*/}
+                    <Controls game={game} players={players} yourPlayerId={yourPlayerId} />
+                {/* end roll dice container */ }
                     {/* <div className='bottom-section'> */}
                        
 

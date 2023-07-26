@@ -10,21 +10,21 @@ function App() {
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
 
 
-    const checkForFives = (diceArray: number[]) => {
-        const countFives = diceArray.reduce((count, element) => {
-            if (element === 5) {
-                return count + 1;
-            }
-            return count;
-        }, 0);
-        if (countFives > 0) {
-            // Rune.actions.removeDie(yourPlayerId, countFives)
-            console.log("The array contains one or more occurrences of 5.");
-            console.log("Number of 5s:", countFives);
-        } else {
-            console.log("The array does not contain 5.");
-        }
-    }
+    // const checkForFives = (diceArray: number[]) => {
+    //     const countFives = diceArray.reduce((count, element) => {
+    //         if (element === 5) {
+    //             return count + 1;
+    //         }
+    //         return count;
+    //     }, 0);
+    //     if (countFives > 0) {
+    //         // Rune.actions.removeDie(yourPlayerId, countFives)
+    //         console.log("The array contains one or more occurrences of 5.");
+    //         console.log("Number of 5s:", countFives);
+    //     } else {
+    //         console.log("The array does not contain 5.");
+    //     }
+    // }
 
 
 
