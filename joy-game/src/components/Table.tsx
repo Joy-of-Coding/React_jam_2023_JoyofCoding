@@ -8,6 +8,7 @@ interface TableProps {
 
 }
 const Table:React.FC<TableProps> = ({game}) => (
+
     <div className='middle-section'>
 
         {/*<div className='player-name'>*/}

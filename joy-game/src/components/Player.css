@@ -1,13 +1,7 @@
-.player{
+.flex {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 100%;
-}
-
-.dice-pool{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
+    width: 100px;
 }
