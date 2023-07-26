@@ -197,25 +197,9 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                            )}
                        </motion.div>
 
-                    {/*Moved this block to Controls Component. OK to remove*/}
-                    {/*<div className='roll-dice-button-container'>*/}
-                    {/*    <div className="bottom-row grid-item">{yourPlayerId ? (*/}
-                    {/*        <>*/}
-
-                    {/*            {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&*/}
-                    {/*                <div>*/}
-                    {/*                    <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}*/}
-                    {/*                            whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll the Dice</motion.button>*/}
-                    {/*                </div>*/}
-                    {/*            }*/}
-
-                    {/*        </>*/}
-                    {/*    ) : (*/}
-                    {/*        <>I am a spectator, so I don't have count</>*/}
-                    {/*    )}</div>*/}
-
-                    {/*</div>*/}
+                    {/*Prior code here was moved to new component!*/}
                     <Controls game={game} players={players} yourPlayerId={yourPlayerId} />
+
                 {/* end roll dice container */ }
                     {/* <div className='bottom-section'> */}
                        

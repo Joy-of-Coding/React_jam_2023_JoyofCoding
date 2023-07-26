@@ -24,7 +24,7 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
                         {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                             <div>
                                 <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}
-                                               whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll the Dice</motion.button>
+                                               whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll!</motion.button>
                             </div>
                         }
 
