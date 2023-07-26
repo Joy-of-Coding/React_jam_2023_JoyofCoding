@@ -4,6 +4,7 @@ import Dice from "./Dice";
 import { GameState } from "../logic.ts"
 import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
+import Table from "./Table.tsx";
 
 interface GameZoneProps {
     numPlayers: number,
@@ -98,26 +99,27 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                     </div>
 
-
-                    <div className='middle-section'>
+                    {/*Added to Table Component*/}
+                    {/*<div className='middle-section'>*/}
                     
-                        <div className='player-name'>
-                           {/* I suggest commenting this line out and changing to the following line*/}
-                           {/* will improve clarity, but this may change with ongoing UI updates*/}
-                           {/*{`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}*/}
-                            <b>Last player's roll...</b>
-                        </div>
-                            <div className='dice-container'>
-                                {game.gameDice.map((die, i )=>(
-                                <motion.button transition={{ duration: 1.3 }} animate={{
-                                    scale: [1, 2, 2, 1, 1],
-                                    rotate: [0, 0, 270, 270, 0],
-                                    
-                                }}                         
-                                className='dice-button' key={i} ><Dice faceValue={die} /></motion.button>))}
-                            </div>
+                    {/*    <div className='player-name'>*/}
+                    {/*       /!* I suggest commenting this line out and changing to the following line*!/*/}
+                    {/*       /!* will improve clarity, but this may change with ongoing UI updates*!/*/}
+                    {/*       /!*{`${players[playerIds[game.currentPlayerIndex]].displayName}'s Turn`}*!/*/}
+                    {/*        <b>Last player's roll...</b>*/}
+                    {/*    </div>*/}
+                    {/*        <div className='dice-container'>*/}
+                    {/*            {game.gameDice.map((die, i )=>(*/}
+                    {/*            <motion.button transition={{ duration: 1.3 }} animate={{*/}
+                    {/*                scale: [1, 2, 2, 1, 1],*/}
+                    {/*                rotate: [0, 0, 270, 270, 0],*/}
+                    {/*                */}
+                    {/*            }}                         */}
+                    {/*            className='dice-button' key={i} ><Dice faceValue={die} /></motion.button>))}*/}
+                    {/*        </div>*/}
 
-                    </div>
+                    {/*</div>*/}
+                    <Table game={game}/>
 
                     
             </div>
@@ -197,7 +199,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                            )}
                        </motion.div>
 
-                    {/*Prior code here was moved to new component!*/}
+                    {/*The prior code here was moved to new component!*/}
                     <Controls game={game} players={players} yourPlayerId={yourPlayerId} />
 
                 {/* end roll dice container */ }
