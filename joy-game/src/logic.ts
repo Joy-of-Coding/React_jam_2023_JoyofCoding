@@ -12,6 +12,7 @@ export interface GameState {
 }
 
 type GameActions = {
+
   updateDiceCount: (params: {
   playerId: string,
     amount: number
