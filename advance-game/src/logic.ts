@@ -1,11 +1,29 @@
-import type { RuneClient } from "rune-games-sdk/multiplayer"
+import type {RuneClient} from "rune-games-sdk/multiplayer"
+// import {Simulate} from "react-dom/test-utils";
+// import play = Simulate.play;
+
+const startingDiceCount = 10
 
 export interface GameState {
-  count: number
+  gameDice: number[],
+  diceCount:Record<string, number>,
+  currentPlayerIndex: number,
+  gameOver: boolean
 }
 
 type GameActions = {
-  increment: (params: { amount: number }) => void
+adjustDiceCount: (params: {
+  playerId: string,
+  count: number
+  }) => void,
+  rollDice: (params: {
+    nextIndex: number,
+    numDice: number
+
+  }) => void,
+  nextPlayer: (params: {
+    nextIndex: number
+  }) => void
 }
 
 declare global {
@@ -16,23 +34,57 @@ export function getCount(game: GameState) {
   return game.count
 }
 
+
+
 Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 4,
-  setup: (): GameState => {
-    return { count: 0 }
+  setup: (playerIds): GameState => {
+    const diceCount = Object.fromEntries(
+        playerIds.map((playerId) => [
+            playerId,
+            startingDiceCount
+        ])
+    )
+    const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
+
+    return {
+      gameDice:startingDice,
+      diceCount,
+      currentPlayerIndex:0,
+      gameOver: false
+    }
   },
   actions: {
     increment: ({ amount }, { game }) => {
       game.count += amount
     },
+    updateDiceCount({playerId, amount}, {game}) {
+      if (game.diceCount[playerId] === undefined) {
+        throw Rune.invalidAction(); // incorrect playerId passed to the action
+      }
+      game.diceCount[playerId] += amount;
+    },
+    rollDice: ({nextIndex, numDice}, {game}) => {
+      game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
+      // Game checks can happen here
+
+      if (!game.gameOver) {
+        game.currentPlayerIndex = nextIndex;
+      }
+    },
+    nextPlayer: ({nextIndex}, {game}) => {
+      console.log("taking turns. Current player index:", game.currentPlayerIndex)
+      console.log("next player index: ", nextIndex)
+      game.currentPlayerIndex = nextIndex;
+    }
   },
   events: {
-    playerJoined: () => {
-      // Handle player joined
+    playerJoined: (playerId, {game}) => {
+      game.diceCount[playerId] = startingDiceCount;
     },
-    playerLeft() {
-      // Handle player left
+    playerLeft(playerId, {game}) {
+      delete game.diceCount[playerId];
     },
-  },
+  }
 })

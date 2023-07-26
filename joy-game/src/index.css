@@ -4,8 +4,11 @@
   font-weight: 400;
 
   color: #213547;
-  background-color: #edeb97;
-
+ background-image: url("src/assets/pngs/table1.png");
+ background-position: center; 
+ background-repeat: no-repeat; 
+ background-size: cover;
+  background-color: #2135472b;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -13,22 +16,46 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
+/* 
+gradient-background {
+  background: linear-gradient(300deg,deepskyblue,darkviolet,blue);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+} */
+/* 
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+} */
+
+/* a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
-}
-a:hover {
+} */
+/* a:hover {
   color: #747bff;
-}
+} */
 
 body {
   margin: 0;
   display: flex;
+  width: 100%;
+  justify-content: center;
   place-items: center;
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+
+
 
 h1 {
   font-size: 3.2em;

@@ -1,69 +1,9 @@
-// src/App.tsx
+/*// src/App.tsx
 import React, {useEffect, useState} from 'react';
 import Player from './Player';
 import "../App.css"
 
 const Game: React.FC = () => {
-    const [players, setPlayers] = useState([
-        {
-            id: 0,
-            name: 'Rockin Emily',
-            dicePool: [1, 2, 3, 4, 5, 6, 1, 2, 3, 4], // Initial dice pool with 10 dice having all values
-        },
-        {
-            id: 1,
-            name: 'Dynamite Dana',
-            dicePool: [6, 5, 4], // Initial dice pool with 3 dice having value 6 - 4
-        },
-    ]);
-    const [currentPlayerId, setCurrentPlayerId] = useState(0)
-    const [sixesToGive, setSixesToGive] = useState<number[]>([])
-
-    const handleRollDice = (playerIndex: number) => {
-        const newPlayers = [...players];
-        const dicePool = newPlayers[playerIndex].dicePool.map(() => Math.floor(Math.random() * 6) + 1);
-        newPlayers[playerIndex].dicePool = dicePool;
-        setPlayers(newPlayers);
-
-        //check for "6s" to give away
-        checkForSixes(dicePool)
-
-    };
-
-    //move to next player each time sixes to give is reset to 0
-    useEffect(() => {
-        if (sixesToGive.length === 0) {
-            handleNextPlayer(currentPlayerId)
-        }
-
-    },[sixesToGive])
-
-    // const handleAddDice = (playerIndex: number) => {
-    //     const newPlayers = [...players];
-    //     newPlayers[playerIndex].dicePool.push(6); // You can add a die with a specific value
-    //     setPlayers(newPlayers);
-    //
-    //     //move to next player
-    //     handleNextPlayer(playerIndex)
-    // };
-    //
-    // const handleRemoveDice = (playerIndex: number) => {
-    //     const newPlayers = [...players];
-    //     newPlayers[playerIndex].dicePool.pop(); // Remove the last die from the pool
-    //     setPlayers(newPlayers);
-    //
-    //     //move to next player
-    //     handleNextPlayer(playerIndex)
-    // };
-
-
-    //get next player
-    const handleNextPlayer = (playerIndex: number) => {
-        //increment by one unless it's the last player
-        //modulus operater wraps around to 0 after the last player
-        const nextPlayer = (playerIndex + 1) % players.length;
-        setCurrentPlayerId(nextPlayer);
-    }
 
     const checkForSixes = (dicePool: number[]) => {
         const indicesOfSixes:number[] = [];
@@ -138,11 +78,13 @@ const Game: React.FC = () => {
 
 
                 <h3>{selectedPlayer.length > 0 ? selectedPlayer[0].name : ''}'s Turn</h3>
-
+            <div className='player-container'>
             {players.map((player) => (
                 <Player key={player.id}  {...player}  />
             ))}
 
+            </div>
+            
 
             <div className="controls">
 

@@ -1,19 +1,42 @@
 import { useEffect, useState } from "react"
-import reactLogo from "./assets/rune.svg"
-import viteLogo from "/vite.svg"
 import "./App.css"
+import { Players, PlayerId } from "rune-games-sdk/multiplayer"
 import { GameState } from "./logic.ts"
-;
-
+import GameZone from "./components/GameZone";
 
 function App() {
   const [game, setGame] = useState<GameState>()
+  const [players, setPlayers] = useState<Players>({})
+  const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
+
+    // const checkForFives = (diceArray: number[]) => {
+    //     const countFives = diceArray.reduce((count, element) => {
+    //         if (element === 5) {
+    //             return count + 1;
+    //         }
+    //         return count;
+    //     }, 0);
+    //     if (countFives > 0) {
+    //         // Rune.actions.removeDie(yourPlayerId, countFives)
+    //         console.log("The array contains one or more occurrences of 5.");
+    //         console.log("Number of 5s:", countFives);
+    //     } else {
+    //         console.log("The array does not contain 5.");
+    //     }
+    // }
+
+
+
+
   useEffect(() => {
     Rune.initClient({
-      onChange: ({ newGame }) => {
-        setGame(newGame)
-      },
-    })
+          onChange: ({ newGame, players, yourPlayerId }) => {
+              setGame(newGame)
+              setPlayers(players)
+              setYourPlayerId(yourPlayerId)
+          },
+        }
+    )
   }, [])
 
   if (!game) {
@@ -22,29 +45,20 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://developers.rune.ai" target="_blank">
-          <img src={reactLogo} className="logo rune" alt="Rune logo" />
-        </a>
-      </div>
-      <h1>Vite + Rune</h1>
-      <h1>Joy of Coding team</h1>
-      <h2>advance-game</h2>
-      <div className="card">
-        <button onClick={() => Rune.actions.increment({ amount: 1 })}>
-          count is {game.count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> or <code>src/logic.ts</code> and save to
-          test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and Rune logos to learn more
-      </p>
+      <GameZone game={game} players={players} yourPlayerId={yourPlayerId}/>
+
+      {/* <div className="card">
+
+        <h4>Other Player's Dice Counts</h4>
+        {Object.keys(players)
+            .filter((playerId) => playerId !== yourPlayerId)
+            .map((playerId) => (
+                <div key={playerId}>
+                  {players[playerId].displayName} Dice: {game?.diceCount[playerId]}
+                </div>
+            ))}
+
+      </div> */}
     </>
   )
 }
