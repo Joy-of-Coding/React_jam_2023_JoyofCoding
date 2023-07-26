@@ -5,6 +5,7 @@ import { GameState } from "../logic.ts"
 import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
 import Table from "./Table.tsx";
+import Player from "./Player.tsx";
 
 interface GameZoneProps {
     numPlayers: number,
@@ -59,35 +60,39 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
 
                     <div className='top-section'>
+
+
                        
                         <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerIds[0] === yourPlayerId ? 'red-border' : ''}player`}>
-                            <div className=' player-flex'>
-                                <div >
-                                <img className='avatar' src={players[playerIds[0]].avatarUrl} alt="" />
-                                </div>
-                                    <div className='player-1-name'>
-                                    <b>{players[playerIds[0]].displayName} <br/>
-                                    <button onClick={() => handleUpdateDiceCount(playerIds[0], 1)}>Dice++</button> <br/>
-                                    <button onClick={() => handleUpdateDiceCount(playerIds[0], -1)}>Dice--</button> <br/>
-                                    {game?.diceCount[playerIds[0]]}</b>
-                                    </div>
-                            </div>    
-
+                        {/*    <div className=' player-flex'>*/}
+                        {/*        <div >*/}
+                        {/*        <img className='avatar' src={players[playerIds[0]].avatarUrl} alt="" />*/}
+                        {/*        </div>*/}
+                        {/*            <div className='player-1-name'>*/}
+                        {/*            <b>{players[playerIds[0]].displayName} <br/>*/}
+                        {/*            <button onClick={() => handleUpdateDiceCount(playerIds[0], 1)}>Dice++</button> <br/>*/}
+                        {/*            <button onClick={() => handleUpdateDiceCount(playerIds[0], -1)}>Dice--</button> <br/>*/}
+                        {/*            {game?.diceCount[playerIds[0]]}</b>*/}
+                        {/*            </div>*/}
+                        {/*    </div>    */}
+                            <Player playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
                         </motion.div>
                         
                         <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}}    className={`${playerIds[1] === yourPlayerId ? 'red-border' : ''}player-section`}>
                             {numPlayers > 1 ? (
-                                <div className='player-flex'>
-                                    <div>
-                                    <img className='avatar' src={players[playerIds[1]].avatarUrl} alt="" />
-                                    </div>
-                                        <div className='player-2-name'>
-                                        <b>{players[playerIds[1]].displayName} <br/>
-                                        <button onClick={() => handleUpdateDiceCount(playerIds[1], 1)}>Dice++</button> <br/>
-                                        <button onClick={() => handleUpdateDiceCount(playerIds[1], -1)}>Dice--</button> <br/>
-                                        {game?.diceCount[playerIds[1]]}</b>
-                                        </div>
-                                </div>
+                                // <div className='player-flex'>
+                                //     <div>
+                                //     <img className='avatar' src={players[playerIds[1]].avatarUrl} alt="" />
+                                //     </div>
+                                //         <div className='player-2-name'>
+                                //         <b>{players[playerIds[1]].displayName} <br/>
+                                //         <button onClick={() => handleUpdateDiceCount(playerIds[1], 1)}>Dice++</button> <br/>
+                                //         <button onClick={() => handleUpdateDiceCount(playerIds[1], -1)}>Dice--</button> <br/>
+                                //         {game?.diceCount[playerIds[1]]}</b>
+                                //         </div>
+                                // </div>
+                                <Player playerId={playerIds[1]} players={players} game={game} playerNum={2}/>
+
                             ) : (
                                 <div className='player-2-name player-flex'>
                                     Waiting for player 2
@@ -181,18 +186,20 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
             <div className='bottom-section'>
                     <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}className={` ${playerIds[3] === yourPlayerId ? 'red-border' : ''}`}>
                     {numPlayers > 3 ? (
-                            <div className='player-flex'>
-                                <div>
-                                <img className='avatar' src={players[playerIds[3]].avatarUrl} alt="" />
-                                </div>
-                                       <div className='player-4-name'>
-                                       <b>{players[playerIds[3]].displayName} <br/>
-                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
-                                       <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
-                                       {game?.diceCount[playerIds[3]]}</b>
-                                       </div>
-                               </div>
-                           ) : (
+                            // <div className='player-flex'>
+                            //     <div>
+                            //     <img className='avatar' src={players[playerIds[3]].avatarUrl} alt="" />
+                            //     </div>
+                            //            <div className='player-4-name'>
+                            //            <b>{players[playerIds[3]].displayName} <br/>
+                            //            <button onClick={() => handleUpdateDiceCount(playerIds[3], 1)}>Dice++</button> <br/>
+                            //            <button onClick={() => handleUpdateDiceCount(playerIds[3], -1)}>Dice--</button> <br/>
+                            //            {game?.diceCount[playerIds[3]]}</b>
+                            //            </div>
+                            //    </div>
+                        <Player playerId={playerIds[3]} players={players} game={game} playerNum={4} />
+
+                    ) : (
                                <div className='player-flex player-4-name'>
                                    Waiting for player 4
                                </div>
@@ -210,18 +217,20 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} className={` ${playerIds[2] === yourPlayerId ? 'red-border' : ''}`}>
 
                        {numPlayers > 2 ? (
-                            <div className=' player-flex '>
-                                <div>
-                                <img className='avatar' src={players[playerIds[2]].avatarUrl} alt="" />
-                                </div>
-                                    <div className='player-3-name'>
-                                    <b>{players[playerIds[2]].displayName} <br/>
-                                    <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
-                                    <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
-                                    {game?.diceCount[playerIds[2]]}</b>
-                                    </div>
-                            </div>
-                        ) : (
+                            // <div className=' player-flex '>
+                            //     <div>
+                            //     <img className='avatar' src={players[playerIds[2]].avatarUrl} alt="" />
+                            //     </div>
+                            //         <div className='player-3-name'>
+                            //         <b>{players[playerIds[2]].displayName} <br/>
+                            //         <button onClick={() => handleUpdateDiceCount(playerIds[2], 1)}>Dice++</button> <br/>
+                            //         <button onClick={() => handleUpdateDiceCount(playerIds[2], -1)}>Dice--</button> <br/>
+                            //         {game?.diceCount[playerIds[2]]}</b>
+                            //         </div>
+                            // </div>
+                           <Player playerId={playerIds[2]} players={players} game={game} playerNum={3}/>
+
+                       ) : (
                             <div className=" player-flex player-3-name ">
                                 <b>Waiting for player 3</b>
                             </div>
