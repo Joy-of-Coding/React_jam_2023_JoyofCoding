@@ -12,18 +12,21 @@ export interface GameState {
 }
 
 type GameActions = {
-adjustDiceCount: (params: {
-  playerId: string,
-  count: number
-  }) => void,
+  // adjustDiceCount: (params: {
+  //   playerId: string,
+  //   count: number
+  //   }) => void,
+  updateDiceCount: (params: {
+    playerId: string,
+    amount: number
+    }) => void,
   rollDice: (params: {
     nextIndex: number,
     numDice: number
-
-  }) => void,
+    }) => void,
   nextPlayer: (params: {
     nextIndex: number
-  }) => void
+    }) => void
 }
 
 declare global {
@@ -31,7 +34,7 @@ declare global {
 }
 
 export function getCount(game: GameState) {
-  return game.count
+  return game.currentPlayerIndex
 }
 
 
@@ -56,10 +59,7 @@ Rune.initLogic({
     }
   },
   actions: {
-    increment: ({ amount }, { game }) => {
-      game.count += amount
-    },
-    updateDiceCount({playerId, amount}, {game}) {
+    updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
@@ -74,8 +74,8 @@ Rune.initLogic({
       }
     },
     nextPlayer: ({nextIndex}, {game}) => {
-      console.log("taking turns. Current player index:", game.currentPlayerIndex)
-      console.log("next player index: ", nextIndex)
+      // console.log("taking turns. Current player index:", game.currentPlayerIndex)
+      // console.log("next player index: ", nextIndex)
       game.currentPlayerIndex = nextIndex;
     }
   },

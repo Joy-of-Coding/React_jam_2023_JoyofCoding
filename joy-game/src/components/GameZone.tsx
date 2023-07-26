@@ -9,12 +9,12 @@ interface GameZoneProps {
     playerIds: string[],
     game: GameState,
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
-    yourPlayerId: string,
+    yourPlayerId: string | undefined,
     avatarUrl: string,
 }
 // const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
-
+    if(!yourPlayerId) return <div>loading</div>
     const playerIds = Object.keys(players)
     //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
@@ -29,24 +29,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
         Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
     }
-
-    //logic from joels:
-    /*const advanceTurn = () => {
-        const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-        Rune.actions.nextPlayer({nextPlayerIndex: nextIndex})
-    }
-    const handleRoll = (playerId:string, i: number) =>
-    {
-        console.log("clicked button", i)
-        const randomNum= Math.floor(Math.random() * 6) + 1;
-        Rune.actions.updatePlayerDie({playerId: playerId, dieValue: randomNum, dieIndex: i})
-    }
-    const handleRollAll = (playerId: string) => {
-        console.log("Rolled all dice")
-        Rune.actions.rollAllDice({playerId: playerId})
-        advanceTurn()
-    }
-    */
 
 
     return (
