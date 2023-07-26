@@ -9,40 +9,7 @@ function App() {
   const [players, setPlayers] = useState<Players>({})
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
 
-    // const checkForFives = (diceArray: number[]) => {
-    //     const countFives = diceArray.reduce((count, element) => {
-    //         if (element === 5) {
-    //             return count + 1;
-    //         }
-    //         return count;
-    //     }, 0);
-    //     if (countFives > 0) {
-    //         // Rune.actions.removeDie(yourPlayerId, countFives)
-    //         console.log("The array contains one or more occurrences of 5.");
-    //         console.log("Number of 5s:", countFives);
-    //     } else {
-    //         console.log("The array does not contain 5.");
-    //     }
-    // }
 
-    // const isGameOver=(game: GameState)=>{
-    //     const playersWithZeroDice = Object.entries(game.diceCount)
-    //         .filter(([playerId, count]) => count === 0)
-    //         .map(([playerId]) => playerId);
-    //
-    //     if (playersWithZeroDice.length > 1) {
-    //         console.log("More than one player has 0 dice.");
-    //         console.log("Player IDs:", playersWithZeroDice);
-    //         // Rune.gameOver()
-    //     } else if (playersWithZeroDice.length === 1) {
-    //         console.log("Only one player has 0 dice.");
-    //         console.log("Player ID:", playersWithZeroDice[0]);
-    //
-    //         Rune.actions.gameOver({playerIds: playersWithZeroDice})
-    //     } else {
-    //         console.log("No player has 0 dice.");
-    //     }
-    // }
 
 
   useEffect(() => {
