@@ -21,18 +21,6 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
     }
 
 
-    // const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerId, players:players}) => {
-    //     const handleRollDice = () => {
-    //         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
-    //         const numDice = game.diceCount[yourPlayerId]
-    //         console.log(players[yourPlayerId], "has", numDice, " dice")
-    //         Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
-    //     }
-    
-    //     const handleEndTurn = () => {
-    
-    //        Rune.actions.nextPlayer
-    //     }
 
 
     return (
@@ -47,19 +35,26 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
                         {/*after roll game.playerPlaying becomes true, playerToRoll becomes false and "End Turn" button appears*/}
                         {/*when End Turn is pressed, next player is called, playerToRoll = true and PlayerPlaying = false and */}
                         {/*Roll button appears*/}
-                        {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
-                            <div>
-                                <motion.button className='handleRoll-button' whileHover={{ scale: 1.1 }}
-                                               whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll!</motion.button>
-                            </div>
-                        }
 
-                        {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
-                            <div>
-                                <motion.button className='handleEndTurn-button' whileHover={{ scale: 1.1 }}
-                                               whileTap={{ scale: 0.9 }} onClick={()=>{handleEndTurn()}}>End Turn</motion.button>
-                            </div>
-                        }
+                        {/*Roll Button*/}
+                        {game.playerToRoll && <div>
+                            {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
+                                <div>
+                                    <motion.button className='handleRoll-button button-green' whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll!</motion.button>
+                                </div>
+                            }
+                        </div>}
+
+                        {/*End Turn Button*/}
+                        {game.playerPlaying && <div>
+                            {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
+                                <div>
+                                    <motion.button className='handleEndTurn-button button-red' whileHover={{ scale: 1.1 }}
+                                                   whileTap={{ scale: 0.9 }} onClick={()=>{handleEndTurn()}}>End Turn</motion.button>
+                                </div>
+                            }
+                        </div>}
 
                     </>
                 ) : (

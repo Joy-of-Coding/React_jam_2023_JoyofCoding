@@ -27,8 +27,8 @@ export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
   currentPlayerIndex: number,
-  playerToRoll: true,
-  playerPlaying: false,
+  playerToRoll: boolean,
+  playerPlaying: boolean,
   gameOver: boolean
 }
 
@@ -90,7 +90,7 @@ Rune.initLogic({
       diceCount,
       currentPlayerIndex:0,
       playerToRoll: true,
-      playerPlaying: true,
+      playerPlaying: false,
       gameOver: false
     }
   },
@@ -110,7 +110,9 @@ Rune.initLogic({
       console.log("Is game over? ", gameOver)
 
       if (gameOver) {
+        console.log("Game Over object", getScores(game))
         Rune.gameOver({
+
           players: getScores(game),
          })
       }
@@ -118,6 +120,9 @@ Rune.initLogic({
     rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       // Game checks can happen here
+      // When dice are rolled, playerToRoll becomes false and playerPlaying becomes true
+      game.playerToRoll = false
+      game.playerPlaying = true
 
       //check for fives
       const fives = countOccurrences(game.gameDice, 5);
@@ -134,6 +139,8 @@ Rune.initLogic({
 
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
+        game.playerToRoll = true
+        game.playerPlaying = false
       }
     },
     //REMOVE THIS CODE FUNCTIONALITY MOVED TO UPDATE ACTION
