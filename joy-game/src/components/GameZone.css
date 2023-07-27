@@ -1,12 +1,32 @@
 
 .game-play-container{
     width: 95%;
+    height: 100%;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
 }
+
+/* .player-flex{
+    width: 80px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 5px;
+   
+} */
 
 .container {
     display: flex;
     flex-direction: column;
-    
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
@@ -20,15 +40,20 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 20%;
+    
 }
 
 
 
-.avatar{
-    width: 40px;
-    height: 40px;
-    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
-    border-radius: 25%;
+.players{
+
+    width: 33.3%;
+
+}
+
+.button-container{
+    
 }
 
 
@@ -54,18 +79,16 @@
 
 .handleRoll-button{
     border: 1px solid black;
+    width: 70%;
 }
 
-.player{
-    display: flex;
-    flex-direction: column;
-}
+
 .middle-section{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 40vh;
+    height:60%;
 }
 
 .player-name{
@@ -82,6 +105,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    height: 25%;
 }
 
 
@@ -112,22 +136,18 @@
 
 }
 
-.dice-container-parent{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    min-height: 40%;
-    max-height: 80%;
-}
+
 
 .roll-dice-button-container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    height: 70px;
+    width: 33.3%;
+ 
+    
+    
+    
 }
 
 .player-flex{
@@ -143,29 +163,3 @@
 }
 
 
-.player-1-name{
-    
-    color: white;
-    background-color:#FF851B
-
-}
-.player-2-name{
-  
-    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
-     color: white;
-    background-color:#001f3f
-}
-
-.player-3-name{
-
-    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
-    color: white;
-    background-color: #3D9970;
-
-}
-
-.player-4-name{
-    background-color: #0074D9;
-    color: white;
-    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
-}

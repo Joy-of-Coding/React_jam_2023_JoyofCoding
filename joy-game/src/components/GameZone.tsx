@@ -26,14 +26,15 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     return (
         <div className='game-play-container'>
             
-            <div className="container">
+        
                 <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
 
                 <div className='top-section'>
 
 
+                {/* <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} > */}
 
-                    <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
+                    <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
 
                         <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
@@ -47,8 +48,10 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             </div>
                         )}
                     </motion.div>
+
+                    {/* </motion.div> */}
                         
-                    <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}} >
+                    <motion.div className="players"  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} >
                         {numPlayers > 1 ? (
 
                             <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} numPlayers={numPlayers}/>
@@ -68,8 +71,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <Table game={game}/>
 
                     
-            </div>
-
+           
 
 
 
@@ -77,7 +79,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
             <div className='bottom-section'>
 
-                    <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
+                    <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
                     {numPlayers > 3 ? (
 
                         <Player playerId={playerIds[3]} players={players} game={game} playerNum={4} numPlayers={numPlayers} />
@@ -97,7 +99,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                        
 
 
-                    <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
+                    <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
 
                     {numPlayers > 2 ? (
 
@@ -112,13 +114,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     </motion.div>
 
 
-                    <div className="dice-container-parent">
-
-
-
-
-                    </div>
-
+                   
 
 
 
