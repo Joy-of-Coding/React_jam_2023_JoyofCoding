@@ -9,6 +9,7 @@ function App() {
   const [players, setPlayers] = useState<Players>({})
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
 
+
     // const checkForFives = (diceArray: number[]) => {
     //     const countFives = diceArray.reduce((count, element) => {
     //         if (element === 5) {
@@ -44,13 +45,14 @@ function App() {
     //     }
     // }
 
-
   useEffect(() => {
     Rune.initClient({
           onChange: ({ newGame, players, yourPlayerId }) => {
               setGame(newGame)
               setPlayers(players)
               setYourPlayerId(yourPlayerId)
+              console.log("onchange occurred")
+
           },
         }
     )

@@ -1,27 +1,42 @@
+import './GameZone.css'
+
 import React from 'react';
-import Dice from './Dice';
 import './Player.css'
+import {motion} from "framer-motion";
+import {GameState} from "../logic.ts";
 
 
 interface PlayerProps {
-    id: number;
-  name: string;
-  dicePool: number[];
+    players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
+    playerId: string;
+    game: GameState,
+    playerNum: number
 }
 
-const Player: React.FC<PlayerProps> = ({ name, dicePool }) => {
-  return (
-    <div className="player">
-      <h3>{name}'s Dice</h3>
-      <div className="dice-pool">
-        {dicePool.map((diceValue, index) => (
-          <Dice key={index} faceValue={diceValue} />
-        ))}
-      </div>
-    </div>
+const Player: React.FC<PlayerProps> = ({ game: game, players, playerId, playerNum }) => {
+    const handleUpdateDiceCount = (playerId: string, amount: number) : void => {
+        Rune.actions.updateDiceCount({ playerId: playerId, amount: amount });
+    }
+
+    return (
+      // <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerId === yourPlayerId ? 'red-border' : ''}player`}>
+          <div className=' player-flex'>
+              <div >
+                  <img className='avatar' src={players[playerId].avatarUrl} alt="" />
+              </div>
+              <div className={`player-${playerNum}-name`}>
+                  <b>{players[playerId].displayName} <br/>
+                      <div className='flex '>
+                          <button onClick={() => handleUpdateDiceCount(playerId, 1)}>Dice++</button> <br/>
+                         <button onClick={() => handleUpdateDiceCount(playerId, -1)}>Dice--</button> <br/>
+                      </div>
+                      {game?.diceCount[playerId]}</b>
+              </div>
+          </div>
+
+      // </motion.div>
   );
 };
 
 export default Player;
 
- // file composed by chatgpt; inserted by euphina
