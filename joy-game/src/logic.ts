@@ -2,33 +2,33 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
+import type { PlayerId} from "rune-games-sdk/multiplayer";
+
 const startingDiceCount = 5
 interface isGameOver {
   game:GameState
 }
-const isGameOver = (game: GameState): void => {
-  const playersWithZeroDice = Object.entries(game.diceCount)
-      .filter(([playerId, count]) => count === 0)
-      .map(([playerId]) => playerId);
 
-  if (playersWithZeroDice.length > 1) {
-    console.log("More than one player has 0 dice.");
-    console.log("Player IDs:", playersWithZeroDice);
-    // Rune.gameOver()
-  } else if (playersWithZeroDice.length === 1) {
-    console.log("Only one player has 0 dice.");
-    console.log("Player ID:", playersWithZeroDice[0]);
 
-    Rune.actions.gameOver({ playerIds: playersWithZeroDice });
-  } else {
-    console.log("No player has 0 dice.");
-  }
+//game is over if any player's score is <=0
+const isGameOver = (game: GameState): boolean => {
+  return Object.values(game.diceCount).some((player: any) => player <= 0);
+};
+
+const getScores = (game: any): Record<string, string> => {
+  return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
+    const winLoss = score <= 0 ? "WON" : "LOST";
+    acc[playerId] = winLoss;
+    return acc;
+  }, {} as Record<string, string>);
 };
 
 export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
   currentPlayerIndex: number,
+  playerToRoll: true,
+  playerPlaying: false,
   gameOver: boolean
 }
 
@@ -39,16 +39,16 @@ type GameActions = {
     amount: number
   }) => void,
   rollDice: (params: {
-    nextIndex: number,
+    //nextIndex: number,
     numDice: number
   }) => void,
 
   nextPlayer: (params: {
     nextIndex: number
     }) => void,
-  gameOver: (params: {
-    playerIds: string[]
-  }) => void
+  // gameOver: (params: {
+  //   playerIds: string[]
+  // }) => void
 }
 
 const countOccurrences = ( array: number[], compare: number) => {
@@ -60,20 +60,8 @@ const countOccurrences = ( array: number[], compare: number) => {
   }
   console.log("Number of occurances of ", compare, ": ", count)
 
-  //removing this comparison in order to make each function as granular as posssible
-  //this will become it's own function "compare fives" or something
-  // if (compare === 5) {
-  //   Rune.actions.updateDiceCount({playerId: currentPlayerId, amount: -count});
-  // }
   return count;
 }
-
-//New granular function to "float away" the fives/Balloons
-//deduct number of fives from dice count
-// const floatAwayFives = ({fivesCount: fivesCount, playerId: playerId }) => {
-//     //subtract 5s from diceCount
-//     Rune.actions.updateDiceCount({playerId: playerId, amount: -fivesCount});
-// }
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
@@ -101,10 +89,13 @@ Rune.initLogic({
       gameDice:startingDice,
       diceCount,
       currentPlayerIndex:0,
+      playerToRoll: true,
+      playerPlaying: true,
       gameOver: false
     }
   },
   actions: {
+
 
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
@@ -113,9 +104,18 @@ Rune.initLogic({
       console.log("updating dice count:", playerId, amount)
       game.diceCount[playerId] += amount;
 
-      isGameOver(game)
+      //game over if 1 or more players has 0 dice after adjusting
+      //this can be moved to an 'end turn' action / button so it doesn't happen automatically
+      const gameOver = isGameOver(game)
+      console.log("Is game over? ", gameOver)
+
+      if (gameOver) {
+        Rune.gameOver({
+          players: getScores(game),
+         })
+      }
     },
-    rollDice: ({ nextIndex, numDice}, {game}) => {
+    rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       // Game checks can happen here
 
@@ -126,19 +126,28 @@ Rune.initLogic({
       //   floatAwayFives({fivesCount: fives, playerId: playerId})
       // }
 
-      if (!game.gameOver) {
-        game.currentPlayerIndex = nextIndex;
-      }
+
     },
     nextPlayer: ({nextIndex}, {game}) => {
       // console.log("taking turns. Current player index:", game.currentPlayerIndex)
       // console.log("next player index: ", nextIndex)
-      game.currentPlayerIndex = nextIndex;
+
+      if (!game.gameOver) {
+        game.currentPlayerIndex = nextIndex;
+      }
     },
-    gameOver:({playerIds}, {game}) => {
-      console.log(" game over")
-      Rune.gameOver()
-    }
+    //REMOVE THIS CODE FUNCTIONALITY MOVED TO UPDATE ACTION
+    // gameOver:({playerIds}) => {
+    //   console.log(" game over")
+      // for now just say the first entry is the winner
+      // const winner = playerIds[0]
+      // Rune.gameOver({
+      //   players: {
+      //     [winner]: "WON",
+      //   },
+      //   delayPopUp: false,
+      // })
+    // }
   },
   events: {
     playerJoined: (playerId, {game}) => {
