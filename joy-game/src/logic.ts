@@ -3,6 +3,27 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import play = Simulate.play;
 
 const startingDiceCount = 5
+interface isGameOver {
+  game:GameState
+}
+const isGameOver = (game: GameState): void => {
+  const playersWithZeroDice = Object.entries(game.diceCount)
+      .filter(([playerId, count]) => count === 0)
+      .map(([playerId]) => playerId);
+
+  if (playersWithZeroDice.length > 1) {
+    console.log("More than one player has 0 dice.");
+    console.log("Player IDs:", playersWithZeroDice);
+    // Rune.gameOver()
+  } else if (playersWithZeroDice.length === 1) {
+    console.log("Only one player has 0 dice.");
+    console.log("Player ID:", playersWithZeroDice[0]);
+
+    Rune.actions.gameOver({ playerIds: playersWithZeroDice });
+  } else {
+    console.log("No player has 0 dice.");
+  }
+};
 
 export interface GameState {
   gameDice: number[],
@@ -24,7 +45,10 @@ type GameActions = {
 
   nextPlayer: (params: {
     nextIndex: number
-    }) => void
+    }) => void,
+  gameOver: (params: {
+    playerIds: string[]
+  }) => void
 }
 
 const countOccurrences = ( array: number[], compare: number) => {
@@ -88,6 +112,8 @@ Rune.initLogic({
       }
       console.log("updating dice count:", playerId, amount)
       game.diceCount[playerId] += amount;
+
+      isGameOver(game)
     },
     rollDice: ({ nextIndex, numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
@@ -108,6 +134,10 @@ Rune.initLogic({
       // console.log("taking turns. Current player index:", game.currentPlayerIndex)
       // console.log("next player index: ", nextIndex)
       game.currentPlayerIndex = nextIndex;
+    },
+    gameOver:({playerIds}, {game}) => {
+      console.log(" game over")
+      Rune.gameOver()
     }
   },
   events: {
