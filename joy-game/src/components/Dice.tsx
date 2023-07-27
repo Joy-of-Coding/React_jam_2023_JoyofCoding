@@ -21,33 +21,10 @@ const Dice: React.FC<DiceProps> = ({ faceValue }) => {
   return (
     <>
 
-        <div className='img-container'> <img  src={dices[faceValue-1]}></img></div>
+        <div  className='img-container'> <img  src={dices[faceValue-1]}></img></div>
+        
       
-      {/* if( {faceValue == 1}){
-        <div className='img-container'> <img  src={dice1}></img></div>
-      }
-      else if({faceValue == 2}){
-        <div className='img-container'> <img  src={dice2}></img></div>
-      }
-
-      else if({faceValue == }){
-        <div className='img-container'> <img  src={dice3}></img></div>
-      }
-
-      else if({faceValue == 2}){
-        <div className='img-container'> <img  src={dice4}></img></div>
-      }
-
-      else if({faceValue == 2}){
-        <div className='img-container'> <img  src={dice5}></img></div>
-      }
-
-else if({faceValue == 2}){
-        <div className='img-container'> <img  src={dice6}></img></div>
-      }
       
-     */}
-    
     </>
   )
 };

@@ -36,10 +36,10 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
 
 
     return (
-        <div>
+        <div className='roll-dice-button-container'>
 
-            <div className='roll-dice-button-container'>
-                <div className="bottom-row grid-item">{yourPlayerId ? (
+           
+                <div className="button-container">{yourPlayerId ? (
                     <>
 
                         {/*First player action is to roll*/}
@@ -66,8 +66,8 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
                     <>I am a spectator, so I don't have count</>
                 )}</div>
 
-            </div>
         </div>
+        
     );
 }
 
