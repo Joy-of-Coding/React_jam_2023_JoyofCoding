@@ -6,6 +6,7 @@ import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
 import Table from "./Table.tsx";
 import Player from "./Player.tsx";
+import Header from "./Header.tsx";
 
 interface GameZoneProps {
     numPlayers: number,
@@ -27,11 +28,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
         <div className='game-play-container'>
             
                 <div>
-                    
-                <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
-             
+
+                <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>
+                    <Header displayName={players[yourPlayerId].displayName} />
+                </motion.b>
+
                 </div>
-                
+
 
                 <div className='top-section'>
 
@@ -41,7 +44,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
 
-                        <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
+                        <Player playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
 
 
                                 
@@ -58,7 +61,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <motion.div className="players"  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} >
                         {numPlayers > 1 ? (
 
-                            <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} numPlayers={numPlayers}/>
+                            <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} />
 
                         ) : (
                             <div className='player-2-name player-flex'>
@@ -86,7 +89,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
                     {numPlayers > 3 ? (
 
-                        <Player playerId={playerIds[3]} players={players} game={game} playerNum={4} numPlayers={numPlayers} />
+                        <Player playerId={playerIds[3]} players={players} game={game} playerNum={4}  />
 
                     ) : (
                                <div className='player-flex player-4-name'>
@@ -107,7 +110,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                     {numPlayers > 2 ? (
 
-                        <Player playerId={playerIds[2]} players={players} game={game} playerNum={3} numPlayers={numPlayers} />
+                        <Player playerId={playerIds[2]} players={players} game={game} playerNum={3} />
 
                     ) : (
                         <div className=" player-flex player-3-name ">
