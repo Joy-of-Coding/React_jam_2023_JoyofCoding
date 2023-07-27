@@ -5,7 +5,6 @@ import './Player.css'
 import {motion} from "framer-motion";
 import {GameState} from "../logic.ts";
 
-
 interface PlayerProps {
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
     playerId: string;
