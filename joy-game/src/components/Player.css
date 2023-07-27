@@ -1,7 +1,131 @@
-.flex {
+
+/* .player-flex{
+    width: 80px;
+    height: 80px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    border-radius: 50%;
+    padding: 5px;
+   
+} */
+
+
+.player-count-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 60px;
+    width: 100%;
+    
 }
+
+
+
+.button-group{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+
+.button-group button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    box-shadow: 3px 3px 1px .5px rgba(0, 0, 0, 0.604);
+    
+    text-align: center;
+}
+
+/* .player{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px;
+} */
+
+.button-group button h2{
+    margin: 0;
+    padding: 0;
+    font-weight: bolder;
+    color: black;
+    
+}
+
+
+.player-1-name{
+    
+    color: white;
+    background-color:#FF851B;
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+    
+
+}
+.player-2-name{
+  
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+     color: white;
+    background-color:#001f3f;
+    border-radius: 10px;
+}
+
+.player-3-name{
+
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    color: white;
+    background-color: #3D9970;
+    border-radius: 10px;
+
+}
+
+.avatar{
+
+    width: 60px;
+    height: 60px;
+    margin-top: 5px;
+}
+
+.avatar-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%
+}
+
+.player-4-name{
+    background-color: #0074D9;
+    color: white;
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+}
+
+.dice-counter{
+    
+    
+    width: 50%;
+}
+
+
+.player-h4{
+    margin: 0;
+    font-weight: 900;
+    font-size: 11px;
+}
+
+.counter-h4{
+    font-size: 2.5rem;
+    
+    font-weight: bold;
+}
+
+
+

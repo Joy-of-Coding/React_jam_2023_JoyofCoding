@@ -15,10 +15,10 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
         Rune.actions.rollDice({ nextIndex: nextIndex, numDice: numDice})
     }
     return (
-        <div>
+        <div className='roll-dice-button-container'>
 
-            <div className='roll-dice-button-container'>
-                <div className="bottom-row grid-item">{yourPlayerId ? (
+           
+                <div className="button-container">{yourPlayerId ? (
                     <>
 
                         {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
@@ -33,8 +33,8 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
                     <>I am a spectator, so I don't have count</>
                 )}</div>
 
-            </div>
         </div>
+        
     );
 }
 

@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
  
 
   text-align: center;
@@ -22,7 +23,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1005;
+  width: 100%;
 }
 
 
@@ -32,10 +33,10 @@
   gap: 5px;
 }
 
-.dice-pool {
+/* .dice-pool {
   display: flex;
   gap: 5px;
-}
+} */
 
 .dice {
   padding: 3px;
