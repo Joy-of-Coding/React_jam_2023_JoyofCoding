@@ -39,7 +39,7 @@ type GameActions = {
     amount: number
   }) => void,
   rollDice: (params: {
-    nextIndex: number,
+    //nextIndex: number,
     numDice: number
   }) => void,
 
@@ -115,7 +115,7 @@ Rune.initLogic({
          })
       }
     },
-    rollDice: ({ nextIndex, numDice}, {game}) => {
+    rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       // Game checks can happen here
 
@@ -126,14 +126,15 @@ Rune.initLogic({
       //   floatAwayFives({fivesCount: fives, playerId: playerId})
       // }
 
-      if (!game.gameOver) {
-        game.currentPlayerIndex = nextIndex;
-      }
+
     },
     nextPlayer: ({nextIndex}, {game}) => {
       // console.log("taking turns. Current player index:", game.currentPlayerIndex)
       // console.log("next player index: ", nextIndex)
-      game.currentPlayerIndex = nextIndex;
+
+      if (!game.gameOver) {
+        game.currentPlayerIndex = nextIndex;
+      }
     },
     //REMOVE THIS CODE FUNCTIONALITY MOVED TO UPDATE ACTION
     // gameOver:({playerIds}) => {
