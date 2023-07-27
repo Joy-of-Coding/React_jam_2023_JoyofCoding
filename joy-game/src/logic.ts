@@ -27,6 +27,8 @@ export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
   currentPlayerIndex: number,
+  playerToRoll: true,
+  playerPlaying: false,
   gameOver: boolean
 }
 
@@ -87,10 +89,13 @@ Rune.initLogic({
       gameDice:startingDice,
       diceCount,
       currentPlayerIndex:0,
+      playerToRoll: true,
+      playerPlaying: true,
       gameOver: false
     }
   },
   actions: {
+
 
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
