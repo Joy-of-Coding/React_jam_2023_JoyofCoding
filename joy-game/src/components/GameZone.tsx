@@ -23,40 +23,49 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     const numPlayers = playerIds.length
 
 
-
     return (
         <div className='game-play-container'>
             
             <div className="container">
                 <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
 
-                    <div className='top-section'>
+                <div className='top-section'>
 
 
-                        <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
 
-                            <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
+                    <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
+                    {numPlayers > 0 ? (
 
-                        </motion.div>
+                        <Player playerId={playerIds[0]} players={players} game={game} playerNum={1} numPlayers={numPlayers}/>
+
+
+                                
+                            
+                        ) : (
+                            <div className='player-1-name player-flex'>
+                                Waiting for player 1
+                            </div>
+                        )}
+                    </motion.div>
                         
-                        <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}} >
-                            {numPlayers > 1 ? (
+                    <motion.div transition={{ duration: 1 }} animate={{x:-20}} initial={{x:150}} >
+                        {numPlayers > 1 ? (
 
-                                <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} numPlayers={numPlayers}/>
+                            <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} numPlayers={numPlayers}/>
 
-                            ) : (
-                                <div className='player-2-name player-flex'>
-                                    Waiting for player 2
-                                </div>
-                            )}
-                        </motion.div>
+                        ) : (
+                            <div className='player-2-name player-flex'>
+                                Waiting for player 2
+                            </div>
+                        )}
+                    </motion.div>
                        
 
 
-                    </div>
+                </div>
 
 
-                    <Table game={game}/>
+                <Table game={game}/>
 
                     
             </div>
@@ -67,6 +76,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 
             <div className='bottom-section'>
+
                     <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
                     {numPlayers > 3 ? (
 
@@ -77,37 +87,37 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                                    Waiting for player 4
                                </div>
                            )}
-                       </motion.div>
+                    </motion.div>
 
 
                     <Controls game={game} players={players} yourPlayerId={yourPlayerId} />
 
-                {/* end roll dice container */ }
-                    {/* <div className='bottom-section'> */}
+                
+                    
                        
 
 
-                        <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
+                    <motion.div  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
 
-                       {numPlayers > 2 ? (
+                    {numPlayers > 2 ? (
 
-                           <Player playerId={playerIds[2]} players={players} game={game} playerNum={3} numPlayers={numPlayers} />
+                        <Player playerId={playerIds[2]} players={players} game={game} playerNum={3} numPlayers={numPlayers} />
 
-                       ) : (
-                            <div className=" player-flex player-3-name ">
-                                <b>Waiting for player 3</b>
-                            </div>
-                        )}
-
-                        </motion.div>
-
-
-                       <div className="dice-container-parent">
-
-
-
-
+                    ) : (
+                        <div className=" player-flex player-3-name ">
+                            <b>Waiting for player 3</b>
                         </div>
+                    )}
+
+                    </motion.div>
+
+
+                    <div className="dice-container-parent">
+
+
+
+
+                    </div>
 
 
 
