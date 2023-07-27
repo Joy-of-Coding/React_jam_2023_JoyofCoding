@@ -17,6 +17,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    height: 60px;
     width: 100%;
     
 }
@@ -42,14 +43,14 @@
     text-align: center;
 }
 
-.player{
+/* .player{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 100%;
     padding: 5px;
-}
+} */
 
 .button-group button h2{
     margin: 0;
@@ -93,6 +94,12 @@
     margin-top: 5px;
 }
 
+.avatar-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%
+}
 
 .player-4-name{
     background-color: #0074D9;
@@ -102,17 +109,23 @@
 }
 
 .dice-counter{
-    margin: 5px;
-    font-size: 2rem;
+    
+    
+    width: 50%;
 }
 
 
 .player-h4{
     margin: 0;
     font-weight: 900;
+    font-size: 11px;
 }
 
 .counter-h4{
-    font-size: 3rem;
+    font-size: 2.5rem;
+    
     font-weight: bold;
 }
+
+
+

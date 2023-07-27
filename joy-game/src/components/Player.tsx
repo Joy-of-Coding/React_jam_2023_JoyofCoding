@@ -21,11 +21,14 @@ const Player: React.FC<PlayerProps> = ({ game: game, players, playerId, playerNu
     return (
       // <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerId === yourPlayerId ? 'red-border' : ''}player`}>
              
-              <div className={`player-${playerNum}-name player`} >
+              <div  className={`player-${playerNum}-name player`} >
                   
 
                    <div className='player-count-section'>
-                        <img className='avatar' src={players[playerId].avatarUrl} alt="" />
+                        <div className='avatar-container'>
+                            <img className='avatar' src={players[playerId].avatarUrl} alt="" />
+                        </div>
+                        
                         <div className='dice-counter'><span className='counter-h4'>{game?.diceCount[playerId]}</span></div>
                    </div>
                     
@@ -36,7 +39,7 @@ const Player: React.FC<PlayerProps> = ({ game: game, players, playerId, playerNu
                         <button onClick={() => handleUpdateDiceCount(playerId, 1)}><h2>+</h2></button> <br/>
                         <button onClick={() => handleUpdateDiceCount(playerId, -1)}><h2>-</h2></button> <br/>
                     </div>
-                    <h4 className='player-h4'><span>{players[playerId].displayName} </span></h4>
+                    <h4 className='player-h4'>{players[playerId].displayName} </h4>
 
                  
                       

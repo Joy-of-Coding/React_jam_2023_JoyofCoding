@@ -26,8 +26,12 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     return (
         <div className='game-play-container'>
             
-        
+                <div>
+                    
                 <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>{`${players[yourPlayerId].displayName}'s Game Board`}</motion.b>
+             
+                </div>
+                
 
                 <div className='top-section'>
 
@@ -43,7 +47,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                                 
                             
                         ) : (
-                            <div className='player-1-name player-flex'>
+                            <div className='player-1-name  player-flex'>
                                 Waiting for player 1
                             </div>
                         )}
