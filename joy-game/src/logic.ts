@@ -2,7 +2,7 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
-import type { PlayerId} from "rune-games-sdk/multiplayer";
+// import type { PlayerId} from "rune-games-sdk/multiplayer";
 
 const startingDiceCount = 5
 interface isGameOver {
@@ -29,7 +29,8 @@ export interface GameState {
   currentPlayerIndex: number,
   playerToRoll: boolean,
   playerPlaying: boolean,
-  gameOver: boolean
+  gameOver: boolean,
+  showHelp: boolean
 }
 
 type GameActions = {
@@ -46,6 +47,9 @@ type GameActions = {
   nextPlayer: (params: {
     nextIndex: number
     }) => void,
+  toggleHelp: (params:{
+
+  }) => void
   // gameOver: (params: {
   //   playerIds: string[]
   // }) => void
@@ -91,7 +95,8 @@ Rune.initLogic({
       currentPlayerIndex:0,
       playerToRoll: true,
       playerPlaying: false,
-      gameOver: false
+      gameOver: false,
+      showHelp: false
     }
   },
   actions: {
@@ -155,6 +160,10 @@ Rune.initLogic({
       //   delayPopUp: false,
       // })
     // }
+    toggleHelp: ({},{game})=>{
+      //toggle help screen open or closed
+      game.showHelp = !game.showHelp
+    },
   },
   events: {
     playerJoined: (playerId, {game}) => {
