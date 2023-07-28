@@ -83,10 +83,11 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
   const currentPlayerId = playerIds.indexOf(playerId);
 
   const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
-    if (!playerId) return;
-    //Trying to disable clicks by player
-        //if (yourPlayerId !== playerId) return
-        // console.log(playerId)
+      //Trying to disable clicks by player
+      if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
+          return
+      }
+       
 
         if (faceValue === 5 ) {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
@@ -106,18 +107,16 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         <div className='middle-section'>
           <div className='dice-container'>
             {game.gameDice.map((die, i) => (
-              <motion.button
-                transition={{ duration: 1.3 }}
-                animate={{
-                  scale: [1, 2, 2, 1, 1],
-                  rotate: [0, 0, 270, 270, 0],
-                }}
+                //moved motion animation inside dice component, cleans up code and functions the same
+                <button
                 onClick={() => handleDiceClick(die, playerId, i, playerIds)}
                 className='dice-button'
                 key={i}
               >
                 <Dice faceValue={die} />
-              </motion.button>
+
+                </button>
+
             ))}
           </div>
         </div>
