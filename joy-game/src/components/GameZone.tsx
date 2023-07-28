@@ -32,7 +32,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <div>
 
                 <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>
-                    <Header displayName={players[yourPlayerId].displayName} game={game} />
+                    <Header displayName={players[yourPlayerId].displayName} />
                 </motion.b>
 
                 </div>
