@@ -119,10 +119,29 @@ Rune.initLogic({
         game.playerPlaying = false
       }
     },
+
+    //REMOVE THIS CODE FUNCTIONALITY MOVED TO UPDATE ACTION
+    // gameOver:({playerIds}) => {
+    //   console.log(" game over")
+      // for now just say the first entry is the winner
+      // const winner = playerIds[0]
+      // Rune.gameOver({
+      //   players: {
+      //     [winner]: "WON",
+      //   },
+      //   delayPopUp: false,
+      // })
+    // }
+    toggleHelp: ({}, {game})=>{
+      //toggle help screen open or closed
+      game.showHelp = !game.showHelp
+    },
+
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)
 
     }
+
   },
   events: {
     playerJoined: (playerId, {game}) => {
