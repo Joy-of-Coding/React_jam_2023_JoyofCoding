@@ -90,7 +90,7 @@
 }
 
 
-.dice-container{
+/* .dice-container{
     display: flex;
     flex-wrap: wrap;
      flex-direction: row;
@@ -99,7 +99,7 @@
      height: 100% ;
      width: 100%;
 
-}
+} */
 
 .dice-container-parent{
     display: flex;
@@ -164,8 +164,20 @@
 /* Gamezone.css */
 .player {
     position: absolute;
-    width: 50px; /* Set the width of the player image */
-    height: 50px; /* Set the height of the player image */
+    width: 100px;
+    height: 100px;
     background-image: url("src/assets/pngs/skeleton-01_run_00ready_00.png");
     background-size: cover;
+    left: 50px; /* Set the left position to 50px to position the player on the left side */
+    top: 50%; /* Set the top position to 50% to center the player vertically */
+    transform: translateY(-50%); /* Center the player vertically using translateY */
   }
+  
+  .floor {
+    position: absolute;
+    bottom: 0; /* Place the floor at the bottom of the container */
+    width: 100%; /* Set the width to cover the entire container */
+    height: 20px; /* Set the height of the floor */
+    background-color: #333; /* Set the background color of the floor */
+  }
+  
