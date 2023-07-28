@@ -39,12 +39,14 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
   return (
     <div className="popup-container">
       <div className="popup-body">
-        <h1> Gameplay </h1>
+            <h1> Gameplay </h1>
             <h2> Object of the Game </h2>
             <p> Be the first player to have zero dice. </p>
-            <h2> Gampplay Loop </h2>
-            <p> Each turn, players roll all of their dice. Each die roll causes diffirent results.</p>
-            <ul><b>Balloons:</b>These dice are removed from the game, as Balloons float away.</ul>
+            <h2> How To Play </h2>
+            <p> When it is your turn, click the green "roll" button</p>
+            <p>Click on the dice to resolve them!</p>
+            <p>Pop the balloons to remove them from the game</p>
+            <p>Send the gifts forward to the next player</p>
         <button onClick={closePopup}>Close</button>
       </div>
     </div>
