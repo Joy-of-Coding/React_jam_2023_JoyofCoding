@@ -17,7 +17,7 @@ const Table:React.FC<TableProps> = ({game, playerId, playerIds, yourPlayerId}) =
         //Trying to disable clicks by player
         //if (yourPlayerId !== playerId) return
         // console.log(playerId)
-        
+
         if (faceValue === 5 ) {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
@@ -29,7 +29,6 @@ const Table:React.FC<TableProps> = ({game, playerId, playerIds, yourPlayerId}) =
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
         }
-
 
     }
 

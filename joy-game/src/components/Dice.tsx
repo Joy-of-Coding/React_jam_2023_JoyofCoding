@@ -26,7 +26,7 @@ const Dice: React.FC<DiceProps> = ({ faceValue }) => {
           scale: [1, 2, 2, 1, 1],
           rotate: [0, 0, 270, 270, 0],
 
-        }} className='img-container'> <img  src={dices[faceValue-1]}></img></motion.div>
+        }} key={faceValue} className='img-container'> <img  src={dices[faceValue-1]}></img></motion.div>
         
       
       
