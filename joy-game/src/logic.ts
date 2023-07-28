@@ -160,7 +160,7 @@ Rune.initLogic({
       //   delayPopUp: false,
       // })
     // }
-    toggleHelp: ({},{game})=>{
+    toggleHelp: ({}, {game})=>{
       //toggle help screen open or closed
       game.showHelp = !game.showHelp
     },
