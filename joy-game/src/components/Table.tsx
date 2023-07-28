@@ -6,18 +6,26 @@ import "./Table.css"
 
 interface TableProps {
     game: GameState,
-    playerId: string
+    playerId: string,
+    playerIds: string[]
 
 }
-const Table:React.FC<TableProps> = ({game, playerId}) => {
-
-    const handleDiceClick = (faceValue, playerId, i) => {
+const Table:React.FC<TableProps> = ({game, playerId, playerIds}) => {
+    const currentPlayerId = playerIds.indexOf(playerId)
+    const handleDiceClick = (faceValue, playerId, i, playerIds) => {
+        console.log(playerId)
         if (faceValue === 5 ) {
-            //pop balloons
-            console.log("pop")
+            Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+            Rune.actions.adjustGameDice({index: i})
+        } else if (faceValue === 6){
+            const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+            console.log(playerId)
+            console.log([nextPlayerId])
+            Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
         }
+
 
     }
 
@@ -37,7 +45,7 @@ const Table:React.FC<TableProps> = ({game, playerId}) => {
                     rotate: [0, 0, 270, 270, 0],
 
                 }}
-                               onClick={()=>handleDiceClick(die, playerId, i)}
+                               onClick={()=>handleDiceClick(die, playerId, i, playerIds)}
                                className='dice-button' key={i} ><Dice faceValue={die} /></motion.button>))}
         </div>
 
