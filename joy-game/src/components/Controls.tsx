@@ -11,7 +11,7 @@ const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerI
     const handleRollDice = () => {
         // const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         const numDice = game.diceCount[yourPlayerId]
-        console.log(players[yourPlayerId], "has", numDice, " dice")
+        //console.log(players[yourPlayerId], "has", numDice, " dice")
         Rune.actions.rollDice({  numDice: numDice})
     }
 

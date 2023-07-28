@@ -13,12 +13,12 @@ const isGameOver = (game: GameState): boolean => {
   return Object.values(game.diceCount).some((player: any) => player <= 0);
 };
 
-const getScores = (game: any): Record<string, string> => {
+const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
   return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
-    const winLoss = score <= 0 ? "WON" : "LOST";
+    const winLoss = score as number <= 0 ? "WON" : "LOST";
     acc[playerId] = winLoss;
     return acc;
-  }, {} as Record<string, string>);
+  }, {} as { [playerId: string]: number | "WON" | "LOST" });
 };
 
 export interface GameState {
@@ -34,7 +34,7 @@ export interface GameState {
 type GameActions = {
 
   updateDiceCount: (params: {
-  playerId: string,
+  playerId: string | undefined,
     amount: number
   }) => void,
   rollDice: (params: {
@@ -84,19 +84,25 @@ Rune.initLogic({
   },
   actions: {
     updateDiceCount: ({playerId, amount}, {game}) => {
+      if (playerId === undefined){
+        playerId= "spectator"
+      }
+        
+      else
+
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
-      console.log("updating dice count:", playerId, amount)
+      //console.log("updating dice count:", playerId, amount)
       game.diceCount[playerId] += amount;
 
       //game over if 1 or more players has 0 dice after adjusting
       //this can be moved to an 'end turn' action / button so it doesn't happen automatically
       const gameOver = isGameOver(game)
-      console.log("Is game over? ", gameOver)
+      //console.log("Is game over? ", gameOver)
 
       if (gameOver) {
-        console.log("Game Over object", getScores(game))
+        //console.log("Game Over object", getScores(game))
         Rune.gameOver({
 
           players: getScores(game),
@@ -132,10 +138,10 @@ Rune.initLogic({
       //   delayPopUp: false,
       // })
     // }
-    toggleHelp: ({}, {game})=>{
-      //toggle help screen open or closed
-      game.showHelp = !game.showHelp
-    },
+    // toggleHelp: ({}, {game})=>{
+    //   //toggle help screen open or closed
+    //   game.showHelp = !game.showHelp
+    // },
 
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)

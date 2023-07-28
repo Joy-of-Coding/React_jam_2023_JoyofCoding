@@ -6,7 +6,7 @@
   font-weight: 400;
 
   color: #213547;
- background-image: url("src/assets/pngs/confetti.jpg");
+ background-image: url("./assets/pngs/confetti.jpg");
  background-position: center; 
  background-repeat: no-repeat; 
  background-size: cover;
