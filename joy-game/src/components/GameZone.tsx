@@ -23,7 +23,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
 
-    const nextPlayerId = players[(game.currentPlayerIndex + 1) % Object.keys(players).length];
+    // const nextPlayerId = players[(game.currentPlayerIndex + 1) % Object.keys(players).length];
     // console.log(typeof(nextPlayerId))
 
     return (
@@ -77,7 +77,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
 
 
-                <Table game={game} playerId={yourPlayerId} playerIds ={playerIds} />
+                <Table game={game} playerId={yourPlayerId} playerIds ={playerIds} yourPlayerId={yourPlayerId} />
 
                     
            
