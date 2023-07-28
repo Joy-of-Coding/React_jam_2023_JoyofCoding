@@ -75,7 +75,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
 
 
-                <Table game={game}/>
+                <Table game={game} playerId={yourPlayerId}/>
 
                     
            

@@ -49,7 +49,10 @@ type GameActions = {
     }) => void,
   toggleHelp: (params:{
 
-  }) => void
+  }) => void,
+  adjustGameDice: (params: {
+    index: number
+  }) => void,
   // gameOver: (params: {
   //   playerIds: string[]
   // }) => void
@@ -164,6 +167,12 @@ Rune.initLogic({
       //toggle help screen open or closed
       game.showHelp = !game.showHelp
     },
+    adjustGameDice: ({index},{game})=>{
+      //toggle help screen open or closed
+      game.gameDice.splice(index, 1)
+      // game.gameDice = newDice
+    console.log (game.gameDice)
+    }
   },
   events: {
     playerJoined: (playerId, {game}) => {
