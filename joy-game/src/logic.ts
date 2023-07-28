@@ -40,35 +40,17 @@ type GameActions = {
     amount: number
   }) => void,
   rollDice: (params: {
-    //nextIndex: number,
     numDice: number
   }) => void,
-
   nextPlayer: (params: {
     nextIndex: number
     }) => void,
-  toggleHelp: (params:{
-
-  }) => void,
   adjustGameDice: (params: {
     index: number
   }) => void,
-  // gameOver: (params: {
-  //   playerIds: string[]
-  // }) => void
+
 }
 
-const countOccurrences = ( array: number[], compare: number) => {
-  let count = 0;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === compare) {
-      count += 1;
-    }
-  }
-  console.log("Number of occurances of ", compare, ": ", count)
-
-  return count;
-}
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
@@ -103,8 +85,6 @@ Rune.initLogic({
     }
   },
   actions: {
-
-
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
@@ -132,10 +112,6 @@ Rune.initLogic({
       game.playerToRoll = false
       game.playerPlaying = true
 
-      //check for fives
-      // const fives = countOccurrences(game.gameDice, 5);
-
-
 
     },
     nextPlayer: ({nextIndex}, {game}) => {
@@ -147,11 +123,6 @@ Rune.initLogic({
         game.playerToRoll = true
         game.playerPlaying = false
       }
-    },
-
-    toggleHelp: ({},{game})=>{
-      //toggle help screen open or closed
-      game.showHelp = !game.showHelp
     },
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)
