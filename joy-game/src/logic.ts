@@ -2,8 +2,6 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
-// import type { PlayerId} from "rune-games-sdk/multiplayer";
-
 const startingDiceCount = 5
 interface isGameOver {
   game:GameState
@@ -115,9 +113,6 @@ Rune.initLogic({
 
     },
     nextPlayer: ({nextIndex}, {game}) => {
-      // console.log("taking turns. Current player index:", game.currentPlayerIndex)
-      // console.log("next player index: ", nextIndex)
-
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
         game.playerToRoll = true
@@ -127,7 +122,6 @@ Rune.initLogic({
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)
 
-    console.log (game.gameDice)
     }
   },
   events: {
