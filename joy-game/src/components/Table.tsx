@@ -66,7 +66,7 @@
 // export default Table;
 
 
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import Dice from "./Dice.tsx";
 import React from "react";
 import { GameState } from "../logic.ts";
@@ -87,7 +87,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
           return
       }
-       
+
 
         if (faceValue === 5 ) {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
