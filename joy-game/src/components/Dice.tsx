@@ -1,4 +1,5 @@
 import React from 'react';
+import {motion} from "framer-motion";
 
 import "./Dice.css"
 import dice1 from "../assets/pngs/dice1.png"
@@ -21,7 +22,11 @@ const Dice: React.FC<DiceProps> = ({ faceValue }) => {
   return (
     <>
 
-        <div  className='img-container'> <img  src={dices[faceValue-1]}></img></div>
+        <motion.div  transition={{ duration: 1.3 }} animate={{
+          scale: [1, 2, 2, 1, 1],
+          rotate: [0, 0, 270, 270, 0],
+
+        }} className='img-container'> <img  src={dices[faceValue-1]}></img></motion.div>
         
       
       
