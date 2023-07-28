@@ -6,15 +6,26 @@ import "./Table.css"
 
 interface TableProps {
     game: GameState,
-    playerId: string
+    playerId: string,
+    playerIds: string[],
+    yourPlayerId: string | undefined
 
 }
-const Table:React.FC<TableProps> = ({game, playerId}) => {
+const Table:React.FC<TableProps> = ({game, playerId, playerIds, yourPlayerId}) => {
+    const currentPlayerId = playerIds.indexOf(playerId)
+    const handleDiceClick = (faceValue, playerId, i, playerIds) => {
+        //Trying to disable clicks by player
+        //if (yourPlayerId !== playerId) return
+        // console.log(playerId)
 
-    const handleDiceClick = (faceValue, playerId, i) => {
         if (faceValue === 5 ) {
-            //pop balloons
-            console.log("pop")
+            Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+            Rune.actions.adjustGameDice({index: i})
+        } else if (faceValue === 6){
+            const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+            console.log(playerId)
+            console.log([nextPlayerId])
+            Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
         }
@@ -31,14 +42,18 @@ const Table:React.FC<TableProps> = ({game, playerId}) => {
         <div className='dice-container'>
 
 
-            {game.gameDice.map((die, i )=>(
-                <motion.button transition={{ duration: 1.3 }} animate={{
-                    scale: [1, 2, 2, 1, 1],
-                    rotate: [0, 0, 270, 270, 0],
 
-                }}
-                               onClick={()=>handleDiceClick(die, playerId, i)}
-                               className='dice-button' key={i} ><Dice faceValue={die} /></motion.button>))}
+                {game.gameDice.map((die, i )=>(
+                    <motion.button transition={{ duration: 1.3 }} animate={{
+                        scale: [1, 2, 2, 1, 1],
+                        rotate: [0, 0, 270, 270, 0],
+
+                    }}
+                                   onClick={()=>handleDiceClick(die, playerId, i, playerIds)}
+                                   className='dice-button' key={i} ><Dice faceValue={die} /></motion.button>))}
+
+
+
         </div>
 
 

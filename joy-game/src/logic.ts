@@ -2,8 +2,6 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
-// import type { PlayerId} from "rune-games-sdk/multiplayer";
-
 const startingDiceCount = 5
 interface isGameOver {
   game:GameState
@@ -40,35 +38,17 @@ type GameActions = {
     amount: number
   }) => void,
   rollDice: (params: {
-    //nextIndex: number,
     numDice: number
   }) => void,
-
   nextPlayer: (params: {
     nextIndex: number
     }) => void,
-  toggleHelp: (params:{
-
-  }) => void,
   adjustGameDice: (params: {
     index: number
   }) => void,
-  // gameOver: (params: {
-  //   playerIds: string[]
-  // }) => void
+
 }
 
-const countOccurrences = ( array: number[], compare: number) => {
-  let count = 0;
-  for (let i = 0; i < array.length; i++) {
-    if (array[i] === compare) {
-      count += 1;
-    }
-  }
-  console.log("Number of occurances of ", compare, ": ", count)
-
-  return count;
-}
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
@@ -103,8 +83,6 @@ Rune.initLogic({
     }
   },
   actions: {
-
-
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
@@ -132,46 +110,18 @@ Rune.initLogic({
       game.playerToRoll = false
       game.playerPlaying = true
 
-      //check for fives
-      const fives = countOccurrences(game.gameDice, 5);
-      console.log("num fives", fives)
-      // if (fives > 0) {
-      //   floatAwayFives({fivesCount: fives, playerId: playerId})
-      // }
-
 
     },
     nextPlayer: ({nextIndex}, {game}) => {
-      // console.log("taking turns. Current player index:", game.currentPlayerIndex)
-      // console.log("next player index: ", nextIndex)
-
       if (!game.gameOver) {
         game.currentPlayerIndex = nextIndex;
         game.playerToRoll = true
         game.playerPlaying = false
       }
     },
-    //REMOVE THIS CODE FUNCTIONALITY MOVED TO UPDATE ACTION
-    // gameOver:({playerIds}) => {
-    //   console.log(" game over")
-      // for now just say the first entry is the winner
-      // const winner = playerIds[0]
-      // Rune.gameOver({
-      //   players: {
-      //     [winner]: "WON",
-      //   },
-      //   delayPopUp: false,
-      // })
-    // }
-    toggleHelp: ({},{game})=>{
-      //toggle help screen open or closed
-      game.showHelp = !game.showHelp
-    },
     adjustGameDice: ({index},{game})=>{
-      //toggle help screen open or closed
       game.gameDice.splice(index, 1)
-      // game.gameDice = newDice
-    console.log (game.gameDice)
+
     }
   },
   events: {

@@ -35,10 +35,10 @@ const Player: React.FC<PlayerProps> = ({ game: game, players, playerId, playerNu
                    
 
                     {/* <h4 className='player-id-name'>{players[playerId].displayName} </h4> */}
-                    <div className='button-group '>
-                        <button onClick={() => handleUpdateDiceCount(playerId, 1)}><h2>+</h2></button> <br/>
-                        <button onClick={() => handleUpdateDiceCount(playerId, -1)}><h2>-</h2></button> <br/>
-                    </div>
+                    {/*<div className='button-group '>*/}
+                    {/*    <button onClick={() => handleUpdateDiceCount(playerId, 1)}><h2>+</h2></button> <br/>*/}
+                    {/*    <button onClick={() => handleUpdateDiceCount(playerId, -1)}><h2>-</h2></button> <br/>*/}
+                    {/*</div>*/}
                     <h4 className='player-h4'>{players[playerId].displayName} </h4>
 
                  
