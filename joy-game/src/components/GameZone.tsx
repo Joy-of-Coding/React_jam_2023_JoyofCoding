@@ -80,7 +80,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
 
 
-                <Table game={game} playerId={yourPlayerId} playerIds ={playerIds} yourPlayerId={yourPlayerId} />
+                <Table
+                    game={game}
+                    playerId={yourPlayerId}
+                    playerIds ={playerIds}
+                    yourPlayerId={yourPlayerId}
+                    previousPlayerId = {playerIds[game.previousPlayerIndex]}
+                />
 
                     
            
