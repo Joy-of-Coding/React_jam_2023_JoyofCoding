@@ -10,8 +10,30 @@ interface isGameOver {
 
 //game is over if any player's score is <=0
 const isGameOver = (game: GameState): boolean => {
+  //can't end game by going to zero while challenging
+  if (game.challengeCounter > 0) {
+    console.log("Can't win before Conquering challenge")
+    return false
+  }
   return Object.values(game.diceCount).some((player: any) => player <= 0);
 };
+
+function countDiceValues(arr: number[]): { [key: number]: number } {
+  const challengeDice: { [key: number]: number } = {};
+
+  for (let i = 1; i <= 6; i++) {
+    challengeDice[i] = 0;
+  }
+
+  arr.forEach((element) => {
+    if (challengeDice.hasOwnProperty(element)) {
+      challengeDice[element]++;
+    }
+  });
+
+  return challengeDice;
+}
+
 
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
   return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
@@ -24,7 +46,11 @@ const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOS
 export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
+  diceHistogram: Record<number, number>
   currentPlayerIndex: number,
+  previousPlayerIndex: number,
+  challengeCounter: number,
+  challengeStatus: boolean,
   playerToRoll: boolean,
   playerPlaying: boolean,
   gameOver: boolean,
@@ -46,6 +72,15 @@ type GameActions = {
   adjustGameDice: (params: {
     index: number
   }) => void,
+  updateChallengeCount: (params: {
+    amount: number
+  }) => void,
+  updateChallengeStatus: (params: {
+    status: boolean
+  }) => boolean,
+  updateDiceHistogram: (params: {
+
+  }) => void
 
 }
 
@@ -70,12 +105,18 @@ Rune.initLogic({
             startingDiceCount
         ])
     )
-    const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
-
+    //Starting Dice Array of Confetti Dice!
+    // const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
+    const startingDice = Array.from({ length: startingDiceCount },()=> 4)
+    const diceHistogram = countDiceValues(startingDice)
     return {
       gameDice:startingDice,
       diceCount,
+      diceHistogram,
       currentPlayerIndex:0,
+      previousPlayerIndex:0,
+      challengeCounter: 0,
+      challengeStatus: false,
       playerToRoll: true,
       playerPlaying: false,
       gameOver: false,
@@ -83,6 +124,9 @@ Rune.initLogic({
     }
   },
   actions: {
+    updateDiceHistogram: ({}, {game}) => {
+      game.diceHistogram = countDiceValues(game.gameDice)
+    },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
@@ -109,6 +153,12 @@ Rune.initLogic({
          })
       }
     },
+    updateChallengeCount: ({amount},  {game}) => {
+      game.challengeCounter += amount;
+    },
+    updateChallengeStatus: ({status}, {game} ) => {
+      game.challengeStatus = status
+    },
     rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       // Game checks can happen here
@@ -120,31 +170,16 @@ Rune.initLogic({
     },
     nextPlayer: ({nextIndex}, {game}) => {
       if (!game.gameOver) {
+        game.previousPlayerIndex = game.currentPlayerIndex
         game.currentPlayerIndex = nextIndex;
         game.playerToRoll = true
         game.playerPlaying = false
       }
     },
 
-    //REMOVE THIS CODE FUNCTIONALITY MOVED TO UPDATE ACTION
-    // gameOver:({playerIds}) => {
-    //   console.log(" game over")
-      // for now just say the first entry is the winner
-      // const winner = playerIds[0]
-      // Rune.gameOver({
-      //   players: {
-      //     [winner]: "WON",
-      //   },
-      //   delayPopUp: false,
-      // })
-    // }
-    // toggleHelp: ({}, {game})=>{
-    //   //toggle help screen open or closed
-    //   game.showHelp = !game.showHelp
-    // },
-
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)
+      game.diceHistogram = countDiceValues(game.gameDice)
 
     }
 

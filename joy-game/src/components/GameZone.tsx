@@ -31,9 +31,12 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
             
                 <div>
 
-                <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>
-                    <Header displayName={players[yourPlayerId].displayName} />
-                </motion.b>
+                    {/*Moved the motion animation into the header to clean up area for challenge dice*/}
+                    <Header
+                        displayName={players[yourPlayerId].displayName}
+                        challengeCounter = {game.challengeCounter}
+                        challengeStatus = {game.challengeStatus}
+                    />
 
                 </div>
 
@@ -77,7 +80,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
 
 
-                <Table game={game} playerId={yourPlayerId} playerIds ={playerIds} yourPlayerId={yourPlayerId} />
+                <Table
+                    game={game}
+                    playerId={yourPlayerId}
+                    playerIds ={playerIds}
+                    yourPlayerId={yourPlayerId}
+                    previousPlayerId = {playerIds[game.previousPlayerIndex]}
+                />
 
                     
            
