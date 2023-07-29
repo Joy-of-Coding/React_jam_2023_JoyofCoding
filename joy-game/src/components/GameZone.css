@@ -42,7 +42,14 @@
 /*New CSS for header layout wiht challenge dice*/
 .header-container {
     display: flex;
-    alignItems: center;
+    align-items: center;
+}
+
+.challenge-dice {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .challenge-dice, .help-button {
     margin-bottom: 10px;
@@ -56,6 +63,26 @@
     width: 30px;
     height: 30px;
 }
+    .challenge-notification {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: red;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .challenge-counter {
+        color: white;
+        font-weight: bold;
+    }
+
+
+
 
 /*End CSS for header layout with challenge dice*/
 

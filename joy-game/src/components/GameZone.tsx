@@ -32,7 +32,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 <div>
 
                     {/*Moved the motion animation into the header to clean up area for challenge dice*/}
-                    <Header displayName={players[yourPlayerId].displayName} />
+                    <Header
+                        displayName={players[yourPlayerId].displayName}
+                        challengeCounter = {game.challengeCounter}
+                        challengeStatus = {game.challengeStatus}
+                    />
 
                 </div>
 

@@ -68,7 +68,7 @@
 
 // import { motion } from "framer-motion";
 import Dice from "./Dice.tsx";
-import React from "react";
+import React, {useState} from "react";
 import { GameState } from "../logic.ts";
 import "./Table.css"
 
@@ -80,6 +80,9 @@ interface TableProps {
 }
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
+  // const [diceCount, setDiceCount] => useState()
+
+
   const currentPlayerId = playerIds.indexOf(playerId);
 
   const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
@@ -89,10 +92,14 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
       }
 
 
-        if (faceValue === 5 ) {
+      //Created individual if statements as they are not exclusive
+      if (faceValue === 5 ) {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
-        } else if (faceValue === 6){
+        }
+
+        //Created individual if statements as they are not exclusive
+        if (faceValue === 6){
             const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
            // console.log(playerId)
            // console.log([nextPlayerId])
@@ -101,7 +108,28 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             Rune.actions.adjustGameDice({index: i})
         }
 
-    }
+      //Created individual if statements as they are not exclusive
+        if (faceValue===1) {
+            if (game.challengeStatus === false) {
+                //setup new challenge by adding dice to challenge zone
+                Rune.actions.updateChallengeCount({amount: 1})
+
+                //decrement players dice (but can't win game with this action)
+                Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+
+                //remove the challenge dice from game board
+                Rune.actions.adjustGameDice({index: i})
+
+                //if there are no more challenge dice, create challenge!
+                console.log("Dice Histogram: ", game.diceHistogram)
+                Rune.actions.updateDiceHistogram({})
+                if (game.diceHistogram[4]===0) {
+                    Rune.actions.updateChallengeStatus({status: true})
+                }
+            }
+        }
+
+  }
 
     return (
         <div className='middle-section'>
