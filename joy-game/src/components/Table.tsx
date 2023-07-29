@@ -1,7 +1,7 @@
 
 // import { motion } from "framer-motion";
 import Dice from "./Dice.tsx";
-import React, {useState} from "react";
+import React from "react";
 import { GameState } from "../logic.ts";
 import "./Table.css"
 
