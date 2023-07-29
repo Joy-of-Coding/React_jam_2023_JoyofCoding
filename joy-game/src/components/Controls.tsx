@@ -9,6 +9,7 @@ interface ControlProps {
 }
 const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerId, players:players}) => {
     const handleRollDice = () => {
+        console.log('Rolling')
         // const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         const numDice = game.diceCount[yourPlayerId]
         //console.log(players[yourPlayerId], "has", numDice, " dice")

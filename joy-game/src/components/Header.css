@@ -1,5 +1,26 @@
 .player-gameboard-title p{
     
+    margin-bottom: 10px;
+    padding: 8px;
+    color: rgb(0, 0, 0);
+    font-weight: bolder;
+    background-color: rgba(240, 248, 255, 0.621);
+    border-radius: 20px;
+}
 
-    color: white;
+
+@media only screen and (max-width: 480px) {
+  
+}
+
+@media only screen and (max-width: 768px) {
+  
+}
+
+@media only screen and (max-width: 1024px) {
+  
+}
+
+@media only screen and (max-width: 600px) {
+  
 }
