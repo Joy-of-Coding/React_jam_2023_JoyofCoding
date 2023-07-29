@@ -19,19 +19,15 @@
   
 }
 
-.player-container{
+/* .player-container{
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-}
+} */
 
 
-.player {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
+
 
 /* .dice-pool {
   display: flex;

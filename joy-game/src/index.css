@@ -56,6 +56,9 @@ body {
   overflow-x: hidden;
 }
 
+*{
+  padding: 0
+}
 
 
 

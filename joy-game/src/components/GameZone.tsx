@@ -7,6 +7,8 @@ import Controls from "./Controls.tsx";
 import Table from "./Table.tsx";
 import Player from "./Player.tsx";
 import Header from "./Header.tsx";
+import {useState} from  'react'
+import {HelpPopup} from './HelpPopup.tsx'
 
 interface GameZoneProps {
     numPlayers: number,
@@ -18,6 +20,7 @@ interface GameZoneProps {
 }
 // const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
+    const [open, setOpen] = useState(false);
     if(!yourPlayerId) return <div>loading</div>
     const playerIds = Object.keys(players)
     //const avatarUrl = Object.values(players)
@@ -29,19 +32,20 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     return (
         <div className='game-play-container'>
             
-                <div>
 
-                <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}}   className='player-gameboard-title'>
+               
+
+                <motion.div transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >
+                    
                     <Header displayName={players[yourPlayerId].displayName} />
-                </motion.b>
+                </motion.div>
 
-                </div>
+                
 
 
                 <div className='top-section'>
 
 
-                {/* <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} > */}
 
                     <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
@@ -59,7 +63,14 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         )}
                     </motion.div>
 
-                    {/* </motion.div> */}
+                 
+
+
+                     <div>
+                        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+                        <button className="helpButton" onClick={() => setOpen(true)}>?</button>
+                    </div>       
+                    
                         
                     <motion.div className="players"  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} >
                         {numPlayers > 1 ? (

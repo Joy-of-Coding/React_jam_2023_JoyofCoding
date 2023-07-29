@@ -68,6 +68,7 @@
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
     border-radius: 10px;
     
+    
 
 }
 .player-2-name{
@@ -89,9 +90,8 @@
 
 .avatar{
 
-    width: 60px;
-    height: 60px;
-    margin-top: 5px;
+    width: 80%;
+    
 }
 
 .avatar-container{
@@ -109,9 +109,8 @@
 }
 
 .dice-counter{
-    
-    
-    width: 50%;
+
+    width: 40%;
 }
 
 
@@ -127,5 +126,37 @@
     font-weight: bold;
 }
 
+.challenges{
+    display: flex;
+    font-size: 1.2rem;
+    padding: 1px;
+    justify-content: center;
+}
+
+.challenges img{
+    width: 25px;
+}
 
 
+hr{
+    border: .5px solid rgb(255, 255, 255);
+    opacity: .3;
+}
+
+
+.challenge-text{
+    font-size: 10px;
+}
+
+.user-name{
+    position: relative;
+    top: -15px;
+    left: 40px;
+    z-index: -1;
+    border-radius: 10px 10px 0 0;
+    background-color: white;
+    color: black;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}

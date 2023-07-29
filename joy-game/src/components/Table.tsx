@@ -81,7 +81,7 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
   const currentPlayerId = playerIds.indexOf(playerId);
-
+  let randomNumber = Math.random()*1000
   const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
       //Trying to disable clicks by player
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
@@ -105,15 +105,18 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
     return (
         <div className='middle-section'>
-          <div className='dice-container'>
+          <div  className='dice-container'>
             {game.gameDice.map((die, i) => (
                 //moved motion animation inside dice component, cleans up code and functions the same
                 <button
                 onClick={() => handleDiceClick(die, playerId, i, playerIds)}
                 className='dice-button'
                 key={i}
-              >
-                <Dice faceValue={die} />
+              > 
+             
+                  <Dice faceValue={die} />
+               
+                
 
                 </button>
 
