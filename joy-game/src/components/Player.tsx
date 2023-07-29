@@ -2,6 +2,7 @@ import './GameZone.css';
 import React from 'react';
 import './Player.css';
 import { GameState } from '../logic.ts';
+import {motion} from "framer-motion";
 
 interface PlayerProps {
   players: Record<string, { playerId: string; displayName: string; avatarUrl: string }>;
@@ -16,10 +17,27 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
              
               <div  className={`player-${playerNum}-name player`} >
                   
-
+                   
                    <div className='player-count-section'>
+                    
                         <div className='avatar-container'>
-                            <img className='avatar' src={players[playerId].avatarUrl} alt="" />
+                          {game.currentPlayerIndex===Object.keys(players).indexOf(playerId)? <motion.img
+                            
+                            animate={{
+                              
+                              rotate: [0, 0, -50, 30, 0],
+                              scale:[1,1.05,1,1.05,1]
+                             
+                            }}
+                            transition={{
+                              duration: 2.5,
+                              ease: "easeInOut",
+                              times: [0, 0.2, 0.5, 0.8, 1],
+                              repeat: Infinity,
+                              repeatDelay: 1
+                            }}  className='avatar' src={players[playerId].avatarUrl} alt="" ></motion.img> : 
+                            
+                            <img className='avatar' src={players[playerId].avatarUrl} alt="" />}
                         </div>
                         
                         <div className='dice-counter'><span className='counter-h4'>{game?.diceCount[playerId]}</span></div>

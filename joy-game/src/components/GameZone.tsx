@@ -45,7 +45,8 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                     <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
-
+                        
+                            
                         <Player playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
 
 
