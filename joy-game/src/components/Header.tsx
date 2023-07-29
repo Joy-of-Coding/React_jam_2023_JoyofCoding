@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> =({ displayName, challengeCounter, challenge
             </div>
 
 
-            {/*Challenge Zone*/}
+                {/*Challenge Zone*/}
                 <div className='challenge-dice'>
                     {challengeStatus &&
                         <div style={{fontSize: '30px'}}>&#x1F6E1;</div>
