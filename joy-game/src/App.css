@@ -1,22 +1,11 @@
 #root {
-  width:95%;
+  width:100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
- 
-
   text-align: center;
-}
-
-.app {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 20px;
-  
 }
 
 /* .player-container{
@@ -34,26 +23,9 @@
   gap: 5px;
 } */
 
-.dice {
-  padding: 3px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 15px;
-  height: 15px;
-  border: 1px solid #000;
-  font-size: 16px;
-}
 
-.controls {
-  display: flex;
-  gap: 20px;
-}
 
-button {
-  padding: 8px 12px;
-  font-size: 16px;
-}
+
 
 
 
