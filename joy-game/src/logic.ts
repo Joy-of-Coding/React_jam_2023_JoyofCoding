@@ -12,28 +12,28 @@ interface isGameOver {
 const isGameOver = (game: GameState): boolean => {
   //can't end game by going to zero while challenging
   if (game.challengeCounter > 0) {
-    console.log("Can't win before Conquering challenge")
+    //console.log("Can't win before Conquering challenge")
     return false
   }
   return Object.values(game.diceCount).some((player: any) => player <= 0);
 };
 
-function countDiceValues(arr: number[]): { [key: number]: number } {
-  const challengeDice: { [key: number]: number } = {};
+// function countDiceValues(arr: number[]): { [key: number]: number } {
+//   const challengeDice: { [key: number]: number } = {};
 
-  for (let i = 1; i <= 6; i++) {
-    challengeDice[i] = 0;
-  }
+//   for (let i = 1; i <= 6; i++) {
+//     challengeDice[i] = 0;
+//   }
 
-  arr.forEach((element) => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (challengeDice.hasOwnProperty(element)) {
-      challengeDice[element]++;
-    }
-  });
+//   arr.forEach((element) => {
+//     // eslint-disable-next-line no-prototype-builtins
+//     if (challengeDice.hasOwnProperty(element)) {
+//       challengeDice[element]++;
+//     }
+//   });
 
-  return challengeDice;
-}
+//   return challengeDice;
+// }
 
 
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
