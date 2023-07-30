@@ -15,9 +15,9 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
       <AnimatePresence>
       <motion.div transition={{ duration: .5 }} animate={{x:0}}initial={{x:250}}
 
-
       className="popup-body">
-<h2>Share the Joy!</h2>
+
+      <h2>Share the Joy!</h2>
           <h3><b>Object of the Game:</b>  Get rid of all of your dice.</h3>
           <h2>How To Play</h2>
           <p>Click the green "roll" button on your turn & tap the dice:</p>

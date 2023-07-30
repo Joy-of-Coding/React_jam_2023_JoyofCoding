@@ -24,13 +24,21 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
     const [showSelectPlayer, setShowSelectPlayer] = useState(false)
+    const [playerSelected, setPlayerSelected] = useState(false)
 
+    const giveGifts = ({i}) => {
+        const randomGift = Math.floor((Math.random() * 4)-1)
+        const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+        Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
+        Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+        Rune.actions.adjustGameDice({index: i})
+    }
 
   const currentPlayerId = playerIds.indexOf(playerId);
     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
     const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
 
-
+    // useEffect(()=>{}, [playerSelected])
       //Trying to disable clicks by player
     
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
@@ -39,7 +47,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
           //Created individual if statements as they are not exclusive
 
-        if (faceValue === 5 ) {
+        if (faceValue === 5 ) {  //balloons
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
             
@@ -48,18 +56,20 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         }
 
         //Created individual if statements as they are not exclusive
-        if (faceValue === 6){
-            const randomGift = Math.floor((Math.random() * 4)-1)
-
-            const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-            Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
-            Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
-            Rune.actions.adjustGameDice({index: i})
+        if (faceValue === 6){  //gifts
+            setShowSelectPlayer(true)
+            console.log("Show select player?", showSelectPlayer)
+             giveGifts({i})
+            // const randomGift = Math.floor((Math.random() * 4)-1)
+            // const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+            // Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
+            // Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+            // Rune.actions.adjustGameDice({index: i})
         }
 
       //Cake goes forwards & backwards
-      if (faceValue === 2){
-          // setShowSelectPlayer(true)
+      if (faceValue === 2){  //cake
+
 
           if (game.previousPlayerIndex===-1 ) {
               const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
@@ -82,7 +92,9 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
         <div className='middle-section'>
           <div  className='dice-container'>
+
               {showSelectPlayer && <SelectPlayer closePopup={() => setShowSelectPlayer(false)} />}
+
             {game.gameDice.map((die, i) => (
                 //moved motion animation inside dice component, cleans up code and functions the same
                 
