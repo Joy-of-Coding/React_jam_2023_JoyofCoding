@@ -26,11 +26,15 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
     return (
         <div className='game-play-container'>
-            
-                <motion.div className="display-player-name" transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >
-                    
-                    <Header displayName={players[yourPlayerId].displayName} challengeCounter={0} challengeStatus={false} />
-                </motion.div>
+
+
+               
+
+                {/*<motion.div className="display-player-name" transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >*/}
+                {/*    */}
+                {/*    <Header displayName={players[yourPlayerId].displayName} challengeCounter={0} challengeStatus={false} />*/}
+                {/*</motion.div>*/}
+
 
 
                 <div className='top-section'>

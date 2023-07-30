@@ -8,6 +8,8 @@ import "./Table.css"
 import { motion } from "framer-motion";
 import {Simulate} from "react-dom/test-utils";
 import play = Simulate.play;
+import {useState} from "react";
+import SelectPlayer from "./SelectPlayer.tsx";
 
 interface TableProps {
   game: GameState;
@@ -19,9 +21,13 @@ interface TableProps {
 
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
+    const [showSelectPlayer, setShowSelectPlayer] = useState(false)
+
+
   const currentPlayerId = playerIds.indexOf(playerId);
     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
     const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
+
 
       //Trying to disable clicks by player
     
@@ -41,25 +47,26 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
         //Created individual if statements as they are not exclusive
         if (faceValue === 6){
+            const randomGift = Math.floor((Math.random() * 4)-1)
+
             const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-            Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
+            Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
         }
 
       //Cake goes forwards & backwards
       if (faceValue === 2){
-          const randomNext = Math.floor((Math.random() * 5)-2)
-          const randomPrevious = Math.floor((Math.random() * 5)-2)
+          // setShowSelectPlayer(true)
 
           if (game.previousPlayerIndex===null ) {
               const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
-              Rune.actions.updateDiceCount({playerId: playerIds[previousPlayerIndex] , amount: randomPrevious})
+              Rune.actions.updateDiceCount({playerId: playerIds[previousPlayerIndex] , amount: 1})
           } else {
-              Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: randomPrevious})
+              Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
           }
 
-          Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomNext})
+          Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
           Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
           Rune.actions.adjustGameDice({index: i})
       }
@@ -73,6 +80,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
         <div className='middle-section'>
           <div  className='dice-container'>
+              {showSelectPlayer && <SelectPlayer closePopup={() => setShowSelectPlayer(false)} />}
             {game.gameDice.map((die, i) => (
                 //moved motion animation inside dice component, cleans up code and functions the same
                 
