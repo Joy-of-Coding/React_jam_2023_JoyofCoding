@@ -18,28 +18,10 @@ const isGameOver = (game: GameState): boolean => {
   return Object.values(game.diceCount).some((player: any) => player <= 0);
 };
 
-// function countDiceValues(arr: number[]): { [key: number]: number } {
-//   const challengeDice: { [key: number]: number } = {};
-
-//   for (let i = 1; i <= 6; i++) {
-//     challengeDice[i] = 0;
-//   }
-
-//   arr.forEach((element) => {
-//     // eslint-disable-next-line no-prototype-builtins
-//     if (challengeDice.hasOwnProperty(element)) {
-//       challengeDice[element]++;
-//     }
-//   });
-
-//   return challengeDice;
-// }
-
 
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
   return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
-    const winLoss = score as number <= 0 ? "WON" : "LOST";
-    acc[playerId] = winLoss;
+    acc[playerId] = score as number <= 0 ? "WON" : "LOST";
     return acc;
   }, {} as { [playerId: string]: number | "WON" | "LOST" });
 };
@@ -60,6 +42,11 @@ export interface GameState {
 }
 
 type GameActions = {
+  shareCake: (params: {
+    playerId: string | undefined,
+    playerIds: (string | undefined)[],
+    dieIndex: number
+  }) => void,
   setSelectedPlayerId: (params: {
     playerId: string
   }) => void,
@@ -105,10 +92,6 @@ declare global {
 
 }
 
-export function getCount(game: GameState) {
-  return game.currentPlayerIndex
-}
-
 
 Rune.initLogic({
   minPlayers: 2,
@@ -142,6 +125,35 @@ Rune.initLogic({
     }
   },
   actions: {
+    shareCake: ({playerId, playerIds,  dieIndex}, {game}) => {
+      if (playerId === undefined){
+        playerId= "spectator"
+      } else  if (game.diceCount[playerId] === undefined) {
+        throw Rune.invalidAction(); // incorrect playerId passed to the action
+      }
+
+      // Filter playerIds
+      const otherPlayers = playerIds.filter((id) => id !== playerId );
+      console.log("Other players", otherPlayers.length, otherPlayers)
+
+
+      //and add 1 to diceCount of each other player
+      otherPlayers.forEach((id) => {
+        console.log("Before decrement: PlayerId is:", id, "dice count is ", game.diceCount[id as string])
+
+        if (id === undefined || game.diceCount[id] === undefined) {
+          throw Rune.invalidAction(); // incorrect playerId passed to the action
+        }
+
+         game.diceCount[id] += 1;
+
+
+      });
+
+      // Remove Die
+      game.gameDice.splice(dieIndex, 1)
+
+},
     popBalloons: ({playerId, dieIndex}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
