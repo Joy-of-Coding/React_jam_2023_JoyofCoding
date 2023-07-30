@@ -38,7 +38,7 @@ const Controls: React.FC<ControlProps> = ({
     const handleEndTurn = () => {
         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         Rune.actions.nextPlayer({ nextIndex: nextIndex})
-      
+
     }
 
 
@@ -62,7 +62,7 @@ const Controls: React.FC<ControlProps> = ({
                             {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                 <div>
                                     <motion.button className='handleRoll-button button-green' whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll!</motion.button>
+                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>Roll!</motion.button>
                                 </div>
                             }
                         </div>}

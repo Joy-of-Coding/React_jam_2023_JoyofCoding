@@ -15,8 +15,7 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) => {
     const handlePlayerClick = (playerId: string) => {
         console.log("clicked Player ",playerId )
-        Rune.actions.setSelectedPlayerId(playerId)
-
+        Rune.actions.setSelectedPlayerId({playerId: playerId})
     }
 
 
