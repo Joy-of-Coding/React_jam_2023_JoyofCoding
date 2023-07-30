@@ -15,17 +15,13 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
       <AnimatePresence>
       <motion.div transition={{ duration: .5 }} animate={{x:0}}initial={{x:250}}
 
-
       className="popup-body">
-            <h1> Share the Joy </h1>
-            <h2> Object of the Game </h2>
-            <p> Be the first player to have zero dice. </p>
-            <h2> How To Play </h2>
-            <p> When it is your turn, click the green "roll" button</p>
-            <p>Click on the dice to resolve them:
-            Pop the balloons to remove them from the game,
-            send the gifts forward to the next player, and pass the cake backwards to the prior player</p>
-            <p> When theres nothing but confetti left, click the red "end turn" button</p>
+          <h2>Share the Joy!</h2>
+          <h3>Object of the Game:  Get rid of all of your dice.</h3>
+          <h2>How To Play</h2>
+          <p>Click the green "roll" button on your turn & tap the dice:</p>
+          <p>1) Pop balloons to remove them 2) Send gifts forward 3) Pass the cake around. </p>
+          <p>When only confetti is left, click the red "end turn" button.</p>
         <button onClick={closePopup}>Close</button>
       </motion.div>
       </AnimatePresence>

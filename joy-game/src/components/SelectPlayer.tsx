@@ -13,7 +13,7 @@ const SelectPlayer: React.FC<SelectPlayerProps> = ({ closePopup }) => {
             <AnimatePresence>
                 <motion.div transition={{ duration: .5 }} animate={{x:0}}initial={{x:250}}
                 className="popup-body">
-                    <h2>Choose who to share your cake with! </h2>
+                    <h2>Choose who to share your gifts with! </h2>
                     <button onClick={closePopup}>Close</button>
                 </motion.div>
             </AnimatePresence>

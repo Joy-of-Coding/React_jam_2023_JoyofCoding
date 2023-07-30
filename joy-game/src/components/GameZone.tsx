@@ -34,9 +34,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
     return (
         <div className='game-play-container'>
-            
 
-               
 
                 {/*<motion.div className="display-player-name" transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >*/}
                 {/*    */}
@@ -55,7 +53,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         <Player  playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
 
 
-                                
                             
                         ) : (
                             <div className='player-1-name  player-flex'>
