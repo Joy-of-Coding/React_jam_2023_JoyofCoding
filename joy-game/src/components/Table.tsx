@@ -44,8 +44,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             Rune.actions.adjustGameDice({index: i})
         }
 
-
-
       //Cake goes forwards & backwards
       if (faceValue === 2){
           const randomNext = Math.floor((Math.random() * 5)-2)
@@ -57,7 +55,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
           } else {
               Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: randomPrevious})
           }
-
 
           Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomNext})
           Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
@@ -80,22 +77,13 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
                 
                 initial={{opacity:0,rotate:0}} animate={{opacity:1,rotate:360,}} transition={{duration:.3,delay:i * 0.3}}
                 
-
-
-
                 onClick={() => handleDiceClick(die, playerId, i, playerIds)}
                 className='dice-button'
                 key={i}
               > 
-
-                
+               
                 <Dice faceValue={die} />
               
-             
-                 
-               
-                
-
                 </motion.button>
 
             ))}
