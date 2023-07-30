@@ -20,11 +20,11 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
   const currentPlayerId = playerIds.indexOf(playerId);
+    const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+    const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
 
-  
-  const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
       //Trying to disable clicks by player
-      
+    
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
           return
       }
@@ -37,9 +37,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
         //Created individual if statements as they are not exclusive
         if (faceValue === 6){
-            const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-           // console.log(playerId)
-           // console.log([nextPlayerId])
+           
            
             // window.navigator.vibrate([100]);
             Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
@@ -51,22 +49,17 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
       //Cake goes backwards
       if (faceValue === 2){
-          console.log(game.previousPlayerIndex)
-          if (game.previousPlayerIndex===null && playerIds.length>1) {
+   
+          if (game.previousPlayerIndex===null ) {
               const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
-              console.log("prev player index: ", previousPlayerIndex)
-              console.log(typeof(playerIds.indexOf(playerIds[previousPlayerIndex])))
-              Rune.actions.setPreviousPlayer({playerIndex: previousPlayerIndex})
-
-              console.log("set first previous player, ", game.previousPlayerIndex)
-
+              Rune.actions.updateDiceCount({playerId: playerIds[previousPlayerIndex] , amount: 1})
+          } else {
+              Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
           }
 
-          // const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-          // console.log(playerId)
-          // console.log([nextPlayerId])
-          window.navigator.vibrate([100]);
-          Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
+        
+     
+          Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
           Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
           Rune.actions.adjustGameDice({index: i})
       }

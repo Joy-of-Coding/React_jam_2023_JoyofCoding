@@ -47,7 +47,6 @@ const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOS
 export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
-  diceHistogram: Record<number, number>
   currentPlayerIndex: number,
   previousPlayerIndex: number | null,
   challengeCounter: number,
@@ -59,7 +58,7 @@ export interface GameState {
 }
 
 type GameActions = {
-  clearDice: () => void,
+  clearDice: ({}) => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
     amount: number
@@ -80,9 +79,6 @@ type GameActions = {
     status: boolean
   }) => boolean,
   // eslint-disable-next-line @typescript-eslint/ban-types
-  updateDiceHistogram: (params: {
-
-  }) => void,
   setPreviousPlayer: (params:
   {playerIndex: number}) => void
 }
@@ -130,9 +126,6 @@ Rune.initLogic({
   actions: {
     clearDice: ({},{game}) => {
       game.gameDice = []
-    },
-    updateDiceHistogram: ({}, {game}) => {
-      game.diceHistogram = countDiceValues(game.gameDice)
     },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
