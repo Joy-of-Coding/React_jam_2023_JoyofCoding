@@ -59,7 +59,7 @@ export interface GameState {
 }
 
 type GameActions = {
-
+  clearDice: () => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
     amount: number
@@ -83,7 +83,8 @@ type GameActions = {
   updateDiceHistogram: (params: {
 
   }) => void,
-  setPreviousPlayer: (params: number) => void
+  setPreviousPlayer: (params:
+  {playerIndex: number}) => void
 }
 
 
@@ -111,12 +112,11 @@ Rune.initLogic({
 
     //Starting Dice Array of Confetti Dice!
     // const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
-    const startingDice = Array.from({ length: startingDiceCount },()=> 4)
-    const diceHistogram = countDiceValues(startingDice)
+    // const startingDice = Array.from({ length: startingDiceCount },()=> 4)
+    // const diceHistogram = countDiceValues(startingDice)
     return {
-      gameDice:startingDice,
+      gameDice:[],
       diceCount,
-      diceHistogram,
       currentPlayerIndex:0,
       previousPlayerIndex: null,
       challengeCounter: 0,
@@ -128,6 +128,9 @@ Rune.initLogic({
     }
   },
   actions: {
+    clearDice: ({},{game}) => {
+      game.gameDice = []
+    },
     updateDiceHistogram: ({}, {game}) => {
       game.diceHistogram = countDiceValues(game.gameDice)
     },
@@ -186,8 +189,8 @@ Rune.initLogic({
       game.diceHistogram = countDiceValues(game.gameDice)
 
     },
-    setPreviousPlayer: ({index}, {game})=> {
-      game.previousPlayerIndex = index
+    setPreviousPlayer: ({playerIndex}, {game})=> {
+      game.previousPlayerIndex = playerIndex
     }
   },
   events: {
