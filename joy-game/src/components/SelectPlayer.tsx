@@ -3,6 +3,8 @@ import {AnimatePresence, motion} from "framer-motion";
 import './SelectPlayer.css'
 
 
+
+
 interface SelectPlayerProps {
     yourPlayerId: string | undefined,
     playerIds: (string  | undefined)[]
@@ -19,6 +21,7 @@ const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, cl
         console.log("User Id: ", playerId)
         closePopup();
         Rune.actions.giveGifts({playerId: yourPlayerId, opponentId: playerId, dieIndex: selectedDieIndex})
+
     }
 
     return (

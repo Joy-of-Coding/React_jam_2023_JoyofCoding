@@ -9,6 +9,9 @@ import { motion } from "framer-motion";
 
 import {useState} from "react";
 import SelectPlayer from "./SelectPlayer.tsx";
+import cake from "../assets/sounds/cake/heavy_swallowwav-14682.mp3";
+
+
 
 
 interface TableProps {
@@ -29,7 +32,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
 
         Rune.actions.setSelectedDieIndex({dieIndex: i})
 
-
       //Trying to disable clicks by player
         //this may be fully moved into logic.ts, haven't tested it yet so leave this check in place for now
     
@@ -49,9 +51,11 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
             setShowSelectPlayer(true)
         }
 
-      //Cake goes forwards & backwards
+      //EVeryone gets a bite of cake
       if (faceValue === 2){  //cake
             Rune.actions.shareCake({playerId: playerId, playerIds: playerIds, dieIndex: i})
+          const cakeAudio = new Audio(cake)
+          cakeAudio.play()
       }
 
     }
