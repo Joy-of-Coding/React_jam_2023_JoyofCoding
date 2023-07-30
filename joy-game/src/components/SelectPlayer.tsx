@@ -30,9 +30,9 @@ const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, cl
                         {playerIds.map((playerId, i) => {
                                 if (playerId !== undefined && playerId != yourPlayerId) {
                                     return (
-                                        <div className='opponent' key={i} onClick={() => handleClick({playerId: playerId})}>
-                                            <img alt='player-avator' className='avatar-container' src={players[playerId].avatarUrl}/>
-                                            <p className='opponent-name'>{players[playerId].displayName}</p>
+                                        <div className='opponent avatar-container' key={i} onClick={() => handleClick({playerId: playerId})}>
+                                            <img alt='player-avator'  className='player-avatar' src={players[playerId].avatarUrl}/>
+                                            <p className='opponent-name'>{players[playerId].displayName.split(" ")[0]}</p>
                                         </div>
                                     )
                             } else {
