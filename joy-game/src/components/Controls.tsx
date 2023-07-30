@@ -38,7 +38,7 @@ const Controls: React.FC<ControlProps> = ({
     const handleEndTurn = () => {
         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         Rune.actions.nextPlayer({ nextIndex: nextIndex})
-      
+
     }
 
 
