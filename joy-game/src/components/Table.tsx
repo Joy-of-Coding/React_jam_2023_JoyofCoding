@@ -3,7 +3,7 @@
 import Dice from "./Dice.tsx";
 
 import { GameState } from "../logic.ts";
-
+import pop from  "../assets/sounds/pop.mp3"
 import "./Table.css"
 import { motion } from "framer-motion";
 
@@ -32,6 +32,9 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         if (faceValue === 5 ) {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
+            
+            let popAudio = new Audio(pop)
+            popAudio.play()
         }
 
         //Created individual if statements as they are not exclusive

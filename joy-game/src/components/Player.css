@@ -161,6 +161,13 @@ hr{
     justify-content: center;
 }
 
+.splat{
+    width: 70px;
+    position: absolute;
+    left:30px;
+    z-index: 10;
+  
+}
 
 
 @media only screen and (max-width: 480px) {

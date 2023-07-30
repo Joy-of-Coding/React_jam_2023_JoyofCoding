@@ -4,6 +4,7 @@ import './Player.css';
 import { GameState } from '../logic.ts';
 import {motion} from "framer-motion";
 import partying from "../assets/partying.gif"
+// import splat from "../assets/pngs/splat.png"
 
 interface PlayerProps {
   players: Record<string, { playerId: string; displayName: string; avatarUrl: string }>;
@@ -23,8 +24,9 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
                   
                    
                    <div className='player-count-section'>
-                    
+
                         <div className='avatar-container'>
+                          
                           {game.currentPlayerIndex===Object.keys(players).indexOf(playerId)? <motion.img
                             
                             animate={{
@@ -42,6 +44,8 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
                             }}  className='avatar' src={players[playerId].avatarUrl} alt="" ></motion.img> : 
                             
                             <img className='avatar' src={players[playerId].avatarUrl} alt="" />}
+                          
+
                         </div>
 
                         
@@ -88,3 +92,4 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
 
 export default Player;
 
+{/* <motion.img animate={{scale:[5,1], opacity:[0,1,1,.5,0]}} transition={{duration:1,delay:2}}  className='splat' src={splat}  alt="" /> */}
