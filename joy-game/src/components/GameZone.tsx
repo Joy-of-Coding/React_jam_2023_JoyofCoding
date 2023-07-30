@@ -78,7 +78,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     playerId={yourPlayerId}
                     playerIds ={playerIds}
                     yourPlayerId={yourPlayerId}
-                    previousPlayerId = {playerIds[game.previousPlayerIndex]}
                     players = {players}
                 />
 
