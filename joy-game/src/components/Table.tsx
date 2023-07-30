@@ -9,6 +9,9 @@ import { motion } from "framer-motion";
 
 import {useState} from "react";
 import SelectPlayer from "./SelectPlayer.tsx";
+import cake from "../assets/sounds/cake/heavy_swallowwav-14682.mp3";
+
+
 
 
 interface TableProps {
@@ -48,9 +51,11 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
             setShowSelectPlayer(true)
         }
 
-      //Cake goes forwards & backwards
+      //EVeryone gets a bite of cake
       if (faceValue === 2){  //cake
             Rune.actions.shareCake({playerId: playerId, playerIds: playerIds, dieIndex: i})
+          const cakeAudio = new Audio(cake)
+          cakeAudio.play()
       }
 
     }
