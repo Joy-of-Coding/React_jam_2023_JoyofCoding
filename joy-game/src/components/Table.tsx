@@ -29,7 +29,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
 
         Rune.actions.setSelectedDieIndex({dieIndex: i})
 
-
       //Trying to disable clicks by player
         //this may be fully moved into logic.ts, haven't tested it yet so leave this check in place for now
     
