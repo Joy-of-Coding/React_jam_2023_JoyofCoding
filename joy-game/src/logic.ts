@@ -216,6 +216,9 @@ Rune.initLogic({
     },
     rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
+      game.gameDice.forEach((die, i)=> {
+        if (die === 2) { game.gameDice[i] = Math.floor(Math.random() * 6) +1 }
+      })
       // Game checks can happen here
       // When dice are rolled, playerToRoll becomes false and playerPlaying becomes true
       game.playerToRoll = false
