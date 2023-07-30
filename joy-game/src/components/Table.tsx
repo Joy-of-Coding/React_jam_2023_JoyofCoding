@@ -23,12 +23,10 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, previousPlayerId, players }) => {
     const [showSelectPlayer, setShowSelectPlayer] = useState(false)
-    // const [selectedDieIndex, setSelectedDieIndex] = useState(-1)
 
   const currentPlayerId = playerIds.indexOf(playerId);
     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
     const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
-        // setSelectedDieIndex(i)
 
         Rune.actions.setSelectedDieIndex({dieIndex: i})
 
