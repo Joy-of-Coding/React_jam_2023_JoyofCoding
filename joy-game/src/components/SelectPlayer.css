@@ -1,13 +1,9 @@
 
 .popup-container {
     position: fixed;
-    width: 50%;
-    height: 30%;
+    width: 90%;
+    height: 90%;
     z-index: 2;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     background-color: rgba(0, 0, 0, 0.5); /* Darken the background with alpha transparency */
     display: flex;
     justify-content: center;
@@ -15,17 +11,49 @@
 }
 
 .popup-body {
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 80%;
     max-width: 300px;
     text-align: center;
     color: white; /* Set the text color to white */
     padding: 20px;
     border-radius: 15px;
-    background: rgb(0, 171, 255); /* Semi-transparent dark background for the popup body */
+    background: rgba(0, 171, 255, 0.8); /* Semi-transparent dark background for the popup body */
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
 }
 
+.playerSelect {
+    display: flex;
+    justify-content: space-between;
+}
 
+.opponent {
+    width: 80px; /* Adjust the width as needed */
+    height: 80px; /* Adjust the height as needed */
+    flex-grow: 1;
+
+
+}
+
+.player-avatar {
+    width: 70px; /* Adjust the width as needed */
+    height: 70px; /* Adjust the height as needed */
+}
+
+.opponent-name {
+    font-weight: bold;
+    color: white;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 
 

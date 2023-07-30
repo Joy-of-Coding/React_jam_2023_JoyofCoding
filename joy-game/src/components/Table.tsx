@@ -7,8 +7,6 @@ import pop from  "../assets/sounds/pop.mp3"
 import "./Table.css"
 import { motion } from "framer-motion";
 
-import {Simulate} from "react-dom/test-utils";
-import play = Simulate.play;
 import {useState} from "react";
 import SelectPlayer from "./SelectPlayer.tsx";
 
@@ -19,10 +17,11 @@ interface TableProps {
   playerIds: (string | undefined)[];
   yourPlayerId: string | undefined;
   previousPlayerId: string | undefined;
+  players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
 }
 
 
-const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
+const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, previousPlayerId, players }) => {
     const [showSelectPlayer, setShowSelectPlayer] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(false)
 
@@ -60,11 +59,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             setShowSelectPlayer(true)
             console.log("Show select player?", showSelectPlayer)
              giveGifts({i})
-            // const randomGift = Math.floor((Math.random() * 4)-1)
-            // const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-            // Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
-            // Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
-            // Rune.actions.adjustGameDice({index: i})
         }
 
       //Cake goes forwards & backwards
@@ -93,7 +87,8 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         <div className='middle-section'>
           <div  className='dice-container'>
 
-              {showSelectPlayer && <SelectPlayer closePopup={() => setShowSelectPlayer(false)} />}
+              {showSelectPlayer &&
+                  <SelectPlayer yourPlayerId= {yourPlayerId} players={players} playerIds={playerIds}  closePopup={() => setShowSelectPlayer(false)} />}
 
             {game.gameDice.map((die, i) => (
                 //moved motion animation inside dice component, cleans up code and functions the same
