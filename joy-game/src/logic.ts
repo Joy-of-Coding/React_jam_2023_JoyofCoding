@@ -49,6 +49,7 @@ export interface GameState {
   diceCount:Record<string, number>,
   currentPlayerIndex: number,
   previousPlayerIndex: number | null,
+  selectedPlayerId: string ,
   challengeCounter: number,
   challengeStatus: boolean,
   playerToRoll: boolean,
@@ -58,6 +59,10 @@ export interface GameState {
 }
 
 type GameActions = {
+  setSelectedPlayerId: (params: {
+    playerId: string
+  }) => void,
+
   clearDice: ({}) => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
@@ -115,6 +120,7 @@ Rune.initLogic({
       diceCount,
       currentPlayerIndex:0,
       previousPlayerIndex: null,
+      selectedPlayerId: '',
       challengeCounter: 0,
       challengeStatus: false,
       playerToRoll: true,
@@ -179,11 +185,13 @@ Rune.initLogic({
 
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)
-      //game.diceHistogram = countDiceValues(game.gameDice)
 
     },
     setPreviousPlayer: ({playerIndex}, {game})=> {
       game.previousPlayerIndex = playerIndex
+    },
+    setSelectedPlayerId: ({playerId }, {game} ) => {
+      game.selectedPlayerId = playerId
     }
   },
   events: {
