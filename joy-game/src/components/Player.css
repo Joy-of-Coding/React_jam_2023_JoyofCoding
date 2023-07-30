@@ -17,7 +17,7 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 60px;
+    height: 75px;
     width: 100%;
     
 }
@@ -75,7 +75,7 @@
   
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
      color: white;
-    background-color:#001f3f;
+    background-color:#4542b1;
     border-radius: 10px;
 }
 
@@ -126,7 +126,7 @@
     font-weight: bold;
 }
 
-.challenges{
+/* .challenges{
     display: flex;
     font-size: 1.2rem;
     padding: 1px;
@@ -135,7 +135,7 @@
 
 .challenges img{
     width: 25px;
-}
+} */
 
 
 hr{

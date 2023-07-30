@@ -6,10 +6,12 @@ import { GameState } from "../logic.ts";
 import pop from  "../assets/sounds/pop.mp3"
 import "./Table.css"
 import { motion } from "framer-motion";
+
 import {Simulate} from "react-dom/test-utils";
 import play = Simulate.play;
 import {useState} from "react";
 import SelectPlayer from "./SelectPlayer.tsx";
+
 
 interface TableProps {
   game: GameState;
@@ -59,7 +61,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
       if (faceValue === 2){
           // setShowSelectPlayer(true)
 
-          if (game.previousPlayerIndex===null ) {
+          if (game.previousPlayerIndex===-1 ) {
               const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
               Rune.actions.updateDiceCount({playerId: playerIds[previousPlayerIndex] , amount: 1})
           } else {
