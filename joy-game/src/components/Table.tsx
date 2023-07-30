@@ -20,8 +20,9 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
   const currentPlayerId = playerIds.indexOf(playerId);
-    
-  const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
+    const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+
+    const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
       //Trying to disable clicks by player
       
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
@@ -36,7 +37,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
         //Created individual if statements as they are not exclusive
         if (faceValue === 6){
-            const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+            // const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
            // console.log(playerId)
            // console.log([nextPlayerId])
             window.navigator.vibrate([100]);
@@ -61,7 +62,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
           // console.log(playerId)
           // console.log([nextPlayerId])
           window.navigator.vibrate([100]);
-          Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
+          Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
           Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
           Rune.actions.adjustGameDice({index: i})
       }
