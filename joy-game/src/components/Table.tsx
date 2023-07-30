@@ -5,6 +5,7 @@ import Dice from "./Dice.tsx";
 import { GameState } from "../logic.ts";
 
 import "./Table.css"
+import { motion } from "framer-motion";
 
 interface TableProps {
   game: GameState;
@@ -14,9 +15,6 @@ interface TableProps {
   previousPlayerId: string | undefined;
 }
 
-function lastIndexOf(playerIds: (string | undefined)[]) {
-  throw new Error("Function not implemented.");
-}
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
   const currentPlayerId = playerIds.indexOf(playerId);

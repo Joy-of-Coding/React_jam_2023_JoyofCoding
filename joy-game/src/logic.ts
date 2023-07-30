@@ -26,6 +26,7 @@ function countDiceValues(arr: number[]): { [key: number]: number } {
   }
 
   arr.forEach((element) => {
+    // eslint-disable-next-line no-prototype-builtins
     if (challengeDice.hasOwnProperty(element)) {
       challengeDice[element]++;
     }
@@ -78,6 +79,7 @@ type GameActions = {
   updateChallengeStatus: (params: {
     status: boolean
   }) => boolean,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   updateDiceHistogram: (params: {
 
   }) => void
