@@ -1,7 +1,7 @@
 import {motion} from "framer-motion";
 import React from "react";
 import { GameState } from "../logic.ts"
-
+import "./Control.css"
 
 //count challenge dice
 
@@ -38,7 +38,7 @@ const Controls: React.FC<ControlProps> = ({
     const handleEndTurn = () => {
         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         Rune.actions.nextPlayer({ nextIndex: nextIndex})
-        Rune.actions.clearDice({})
+      
     }
 
 
@@ -62,7 +62,7 @@ const Controls: React.FC<ControlProps> = ({
                             {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                 <div>
                                     <motion.button className='handleRoll-button button-green' whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>{players[yourPlayerId].displayName}, Roll!</motion.button>
+                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>Roll!</motion.button>
                                 </div>
                             }
                         </div>}
@@ -71,7 +71,7 @@ const Controls: React.FC<ControlProps> = ({
                         {game.playerPlaying && <div>
                             {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                 <div>
-                                    <motion.button className='handleEndTurn-button button-red' whileHover={{ scale: 1.1 }}
+                                    <motion.button className=' handleEndTurn-button button-red' whileHover={{ scale: 1.1 }}
                                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleEndTurn()}}>End Turn</motion.button>
                                 </div>
                             }

@@ -63,7 +63,7 @@ type GameActions = {
     playerId: string
   }) => void,
 
-  clearDice: ({}) => void,
+  // clearDice: ({}) => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
     amount: number
@@ -100,7 +100,7 @@ export function getCount(game: GameState) {
 
 
 Rune.initLogic({
-  minPlayers: 1,
+  minPlayers: 2,
   maxPlayers: 4,
   setup: (playerIds): GameState => {
     const diceCount = Object.fromEntries(
@@ -130,9 +130,9 @@ Rune.initLogic({
     }
   },
   actions: {
-    clearDice: ({},{game}) => {
-      game.gameDice = []
-    },
+    // clearDice: ({},{game}) => {
+    //   game.gameDice = []
+    // },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
@@ -180,6 +180,7 @@ Rune.initLogic({
         game.currentPlayerIndex = nextIndex;
         game.playerToRoll = true
         game.playerPlaying = false
+        game.gameDice = []
       }
     },
 
