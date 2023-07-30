@@ -54,7 +54,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
               const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
               console.log("prev player index: ", previousPlayerIndex)
               console.log(typeof(playerIds.indexOf(playerIds[previousPlayerIndex])))
-              Rune.actions.setPreviousPlayer(previousPlayerIndex)
+              Rune.actions.setPreviousPlayer({playerIndex: previousPlayerIndex})
 
               console.log("set first previous player, ", game.previousPlayerIndex)
 
