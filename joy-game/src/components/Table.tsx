@@ -23,47 +23,35 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, previousPlayerId, players }) => {
     const [showSelectPlayer, setShowSelectPlayer] = useState(false)
-    const [playerSelected, setPlayerSelected] = useState(false)
-    const [selectedDieIndex, setSelectedDieIndex] = useState(-1)
-    // const giveGifts = ({i}) => {
-    //     const randomGift = Math.floor((Math.random() * 4)-1)
-    //     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-    //     Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
-    //     Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
-    //     Rune.actions.adjustGameDice({index: i})
-    // }
+    // const [selectedDieIndex, setSelectedDieIndex] = useState(-1)
 
   const currentPlayerId = playerIds.indexOf(playerId);
     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
     const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
-        setSelectedDieIndex(i)
+        // setSelectedDieIndex(i)
 
         Rune.actions.setSelectedDieIndex({dieIndex: i})
 
-    // useEffect(()=>{}, [playerSelected])
+
       //Trying to disable clicks by player
+        //this may be fully moved into logic.ts, havn't tested it yet so leave this check in place for now
     
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
           return
       }
 
-          //Created individual if statements as they are not exclusive
 
         if (faceValue === 5 ) {  //balloons
             const popAudio = new Audio(pop)
             popAudio.play()
             Rune.actions.popBalloons({playerId: playerId, dieIndex: i})
-            // Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
-            // Rune.actions.adjustGameDice({index: i})
-            //
+
 
         }
 
-        //Created individual if statements as they are not exclusive
+
         if (faceValue === 6){  //gifts
             setShowSelectPlayer(true)
-            // console.log("Show select player?", showSelectPlayer)
-            //  giveGifts({i})
         }
 
       //Cake goes forwards & backwards
