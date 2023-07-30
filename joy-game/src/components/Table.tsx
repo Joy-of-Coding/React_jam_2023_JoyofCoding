@@ -26,7 +26,15 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         
           return
       }
-       
+
+          //Created individual if statements as they are not exclusive
+          if (faceValue === 2){
+            const prevPlayerId = playerIds[game.previousPlayerIndex]
+
+            Rune.actions.updateDiceCount({playerId: prevPlayerId, amount: 1})
+            Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+            Rune.actions.adjustGameDice({index: i})
+        }
 
         if (faceValue === 5 ) {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
@@ -36,9 +44,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         //Created individual if statements as they are not exclusive
         if (faceValue === 6){
             const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-           // console.log(playerId)
-           // console.log([nextPlayerId])
-            window.navigator.vibrate([100]);
             Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})

@@ -31,18 +31,6 @@ function App() {
     <>
       <GameZone game={game} players={players} yourPlayerId={yourPlayerId} numPlayers={0} playerIds={[]} avatarUrl={""}/>
 
-      {/* <div className="card">
-
-        <h4>Other Player's Dice Counts</h4>
-        {Object.keys(players)
-            .filter((playerId) => playerId !== yourPlayerId)
-            .map((playerId) => (
-                <div key={playerId}>
-                  {players[playerId].displayName} Dice: {game?.diceCount[playerId]}
-                </div>
-            ))}
-
-      </div> */}
     </>
   )
 }

@@ -12,28 +12,28 @@ interface isGameOver {
 const isGameOver = (game: GameState): boolean => {
   //can't end game by going to zero while challenging
   if (game.challengeCounter > 0) {
-    console.log("Can't win before Conquering challenge")
+    //console.log("Can't win before Conquering challenge")
     return false
   }
   return Object.values(game.diceCount).some((player: any) => player <= 0);
 };
 
-function countDiceValues(arr: number[]): { [key: number]: number } {
-  const challengeDice: { [key: number]: number } = {};
+// function countDiceValues(arr: number[]): { [key: number]: number } {
+//   const challengeDice: { [key: number]: number } = {};
 
-  for (let i = 1; i <= 6; i++) {
-    challengeDice[i] = 0;
-  }
+//   for (let i = 1; i <= 6; i++) {
+//     challengeDice[i] = 0;
+//   }
 
-  arr.forEach((element) => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (challengeDice.hasOwnProperty(element)) {
-      challengeDice[element]++;
-    }
-  });
+//   arr.forEach((element) => {
+//     // eslint-disable-next-line no-prototype-builtins
+//     if (challengeDice.hasOwnProperty(element)) {
+//       challengeDice[element]++;
+//     }
+//   });
 
-  return challengeDice;
-}
+//   return challengeDice;
+// }
 
 
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
@@ -47,7 +47,7 @@ const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOS
 export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
-  diceHistogram: Record<number, number>
+ // diceHistogram: Record<number, number>
   currentPlayerIndex: number,
   previousPlayerIndex: number,
   challengeCounter: number,
@@ -78,11 +78,7 @@ type GameActions = {
   }) => void,
   updateChallengeStatus: (params: {
     status: boolean
-  }) => boolean,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  updateDiceHistogram: (params: {
-
-  }) => void
+  }) => boolean
 
 }
 
@@ -110,11 +106,11 @@ Rune.initLogic({
     //Starting Dice Array of Confetti Dice!
     // const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
     const startingDice = Array.from({ length: startingDiceCount },()=> 4)
-    const diceHistogram = countDiceValues(startingDice)
+    //const diceHistogram = countDiceValues(startingDice)
     return {
       gameDice:startingDice,
       diceCount,
-      diceHistogram,
+      //diceHistogram,
       currentPlayerIndex:0,
       previousPlayerIndex:0,
       challengeCounter: 0,
@@ -126,9 +122,6 @@ Rune.initLogic({
     }
   },
   actions: {
-    updateDiceHistogram: ({}, {game}) => {
-      game.diceHistogram = countDiceValues(game.gameDice)
-    },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
@@ -181,7 +174,7 @@ Rune.initLogic({
 
     adjustGameDice: ({index},{game})=>{
       game.gameDice.splice(index, 1)
-      game.diceHistogram = countDiceValues(game.gameDice)
+      //game.diceHistogram = countDiceValues(game.gameDice)
 
     }
 
