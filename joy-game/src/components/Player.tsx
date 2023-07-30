@@ -15,7 +15,7 @@ interface PlayerProps {
 
 const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) => {
     const handlePlayerClick = (playerId: string) => {
-        console.log("clicked Player ",playerId )
+        //console.log("clicked Player ",playerId )
         Rune.actions.setSelectedPlayerId({playerId})
 
     }
@@ -68,12 +68,12 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
                     <div>
 
                         <hr />
-                        <div className='challenge-text'>
+                        {/* <div className='challenge-text'>
                           <small>Challenges</small>
                         </div>
                         <div className='challenges'>
                             <img src={`${partying}`} alt="" />
-                        </div>
+                        </div> */}
 
                         
 

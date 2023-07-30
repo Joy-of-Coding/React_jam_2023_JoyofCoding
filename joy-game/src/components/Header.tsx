@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> =({ displayName, challengeCounter, challenge
         <div className='header-container'>
                 {open && <HelpPopup closePopup={() => setOpen(false)} />
                     }
-                <button className="help-button"  onClick={() => setOpen(true)}>?</button>
+                {/* <button className="help-button"  onClick={() => setOpen(true)}><b>Rules?</b></button> */}
                 {/*Wrapped this title in Motion to format header space better*/}
             <div style={{ flex: 1, textAlign: 'center' }}>
             <motion.b transition={{ duration: 1.2 }} animate={{y:20}} initial={{y:-150}} className='player-gameboard-title'>{`${displayName}'s Game Board`}</motion.b>
