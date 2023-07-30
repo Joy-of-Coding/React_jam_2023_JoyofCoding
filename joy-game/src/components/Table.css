@@ -50,7 +50,7 @@
 
 .dice-button{
     width: 58px;
-    
+    background-color: white;
     padding: 0;
     margin: 5px;
     border: none;
@@ -59,3 +59,18 @@
 }
 
 
+@media only screen and (max-width: 480px) {
+  
+}
+
+@media only screen and (max-width: 768px) {
+  
+}
+
+@media only screen and (max-width: 1024px) {
+  
+}
+
+@media only screen and (max-width: 600px) {
+  
+}

@@ -31,13 +31,7 @@
     width: 100%;
 }
 
-.player-gameboard-title{
-    margin-bottom: 10px;
-    color: black;
-    background-color: rgba(255, 255, 255, 0.575);
-    padding: 5px;
-    border-radius: 5px;
-} 
+
 
 /*New CSS for header layout wiht challenge dice*/
 .header-container {
@@ -121,10 +115,20 @@
 
 }
 
+.display-player-name{
+    
+}
+
 .left{
    
     justify-content: end;
     margin-bottom:  60px; 
+}
+
+.top-header{
+    display: flex;
+    flex-direction: row;
+
 }
 
 .handleRoll-button{
@@ -135,13 +139,18 @@
 /*Player Turn button colors for visual clarity*/
 /*SMA*/
 .button-red {
-    background-color: lightcoral;
+    color: white;
+    background-color: rgba(234, 97, 97, 0.986);
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border: none;
 }
 
 .button-green {
-    background-color: yellowgreen;
+    color: black;
+    font-weight: 500;
+    background-color: rgba(153, 205, 50, 0.863);
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border: none;
 }
 /*End Player Turn button colors for visual clarity*/
 
@@ -165,7 +174,7 @@
 
 
 .red-border{
-    border: solid 1px red;
+    border: solid 1px rgb(255, 0, 0);
 }
 
 
@@ -187,18 +196,54 @@
 }
 
 .player-flex{
-    width: 100%;
+   
     height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    padding: 5px;
+
    
+}
+
+
+.helpButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    font-weight: bolder;
+    font-size: large;
+    text-align: center;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.771);
+    transition: all .2s ease-in;
+}
+
+.helpButton:hover{
+    background-color: rgb(255, 255, 255);
 }
 
 
 
 
 
+@media only screen and (max-width: 480px) {
+  
+}
+
+@media only screen and (max-width: 768px) {
+  
+}
+
+@media only screen and (max-width: 1024px) {
+  
+}
+
+@media only screen and (max-width: 600px) {
+  
+}

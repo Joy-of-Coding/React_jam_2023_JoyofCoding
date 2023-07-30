@@ -30,6 +30,8 @@
 
 import React from 'react';
 import './HelpPopup.css';
+import { motion,AnimatePresence} from "framer-motion"
+
 
 interface HelpPopupProps {
   closePopup: () => void;
@@ -38,7 +40,11 @@ interface HelpPopupProps {
 export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
   return (
     <div className="popup-container">
-      <div className="popup-body">
+      <AnimatePresence>
+      <motion.div transition={{ duration: .5 }} animate={{x:0}}initial={{x:250}}
+
+
+      className="popup-body">
             <h1> Share the Joy </h1>
             <h2> Object of the Game </h2>
             <p> Be the first player to have zero dice. </p>
@@ -49,7 +55,8 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
             Send the gifts forward to the next player</p>
             <p> When theres nothing but confetti left, click the red "end turn" button</p>
         <button onClick={closePopup}>Close</button>
-      </div>
+      </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

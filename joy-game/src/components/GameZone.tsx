@@ -7,6 +7,8 @@ import Controls from "./Controls.tsx";
 import Table from "./Table.tsx";
 import Player from "./Player.tsx";
 import Header from "./Header.tsx";
+import {useState} from  'react'
+import {HelpPopup} from './HelpPopup.tsx'
 
 interface GameZoneProps {
     numPlayers: number,
@@ -18,6 +20,7 @@ interface GameZoneProps {
 }
 // const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
+    const [open, setOpen] = useState(false);
     if(!yourPlayerId) return <div>loading</div>
     const playerIds = Object.keys(players)
     //const avatarUrl = Object.values(players)
@@ -29,26 +32,23 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     return (
         <div className='game-play-container'>
             
-                <div>
 
-                    {/*Moved the motion animation into the header to clean up area for challenge dice*/}
-                    <Header
-                        displayName={players[yourPlayerId].displayName}
-                        challengeCounter = {game.challengeCounter}
-                        challengeStatus = {game.challengeStatus}
-                    />
+               
 
-                </div>
+                <motion.div className="display-player-name" transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >
+                    
+                    <Header displayName={players[yourPlayerId].displayName} challengeCounter={0} challengeStatus={false} />
+                </motion.div>
 
 
                 <div className='top-section'>
 
 
-                {/* <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} > */}
 
                     <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
-
+                        
+                            
                         <Player playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
 
 
@@ -61,7 +61,14 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                         )}
                     </motion.div>
 
-                    {/* </motion.div> */}
+                 
+
+
+                     <div>
+                        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+                        <button className="helpButton" onClick={() => setOpen(true)}>?</button>
+                    </div>       
+                    
                         
                     <motion.div className="players"  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} >
                         {numPlayers > 1 ? (

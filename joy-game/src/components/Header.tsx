@@ -1,6 +1,7 @@
-import {useState} from  'react'
-import {HelpPopup} from './HelpPopup.tsx'
+import { useState } from "react";
+import "./Header.css"
 import {motion} from "framer-motion";
+import HelpPopup from "./HelpPopup";
 
 
 interface HeaderProps {
