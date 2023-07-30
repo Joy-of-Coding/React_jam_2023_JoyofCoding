@@ -9,15 +9,13 @@ function App() {
   const [players, setPlayers] = useState<Players>({})
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
 
-
-
-
   useEffect(() => {
     Rune.initClient({
           onChange: ({ newGame, players, yourPlayerId }) => {
               setGame(newGame)
               setPlayers(players)
               setYourPlayerId(yourPlayerId)
+
           },
         }
     )

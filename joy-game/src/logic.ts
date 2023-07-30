@@ -49,7 +49,7 @@ export interface GameState {
   diceCount:Record<string, number>,
  // diceHistogram: Record<number, number>
   currentPlayerIndex: number,
-  previousPlayerIndex: number,
+  previousPlayerIndex: number | null,
   challengeCounter: number,
   challengeStatus: boolean,
   playerToRoll: boolean,
@@ -59,7 +59,7 @@ export interface GameState {
 }
 
 type GameActions = {
-
+  clearDice: () => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
     amount: number
@@ -78,8 +78,13 @@ type GameActions = {
   }) => void,
   updateChallengeStatus: (params: {
     status: boolean
-  }) => boolean
+  }) => boolean,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  updateDiceHistogram: (params: {
 
+  }) => void,
+  setPreviousPlayer: (params:
+  {playerIndex: number}) => void
 }
 
 
@@ -103,16 +108,17 @@ Rune.initLogic({
             startingDiceCount
         ])
     )
+
+
     //Starting Dice Array of Confetti Dice!
     // const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
-    const startingDice = Array.from({ length: startingDiceCount },()=> 4)
-    //const diceHistogram = countDiceValues(startingDice)
+    // const startingDice = Array.from({ length: startingDiceCount },()=> 4)
+    // const diceHistogram = countDiceValues(startingDice)
     return {
-      gameDice:startingDice,
+      gameDice:[],
       diceCount,
-      //diceHistogram,
       currentPlayerIndex:0,
-      previousPlayerIndex:0,
+      previousPlayerIndex: null,
       challengeCounter: 0,
       challengeStatus: false,
       playerToRoll: true,
@@ -122,6 +128,12 @@ Rune.initLogic({
     }
   },
   actions: {
+    clearDice: ({},{game}) => {
+      game.gameDice = []
+    },
+    updateDiceHistogram: ({}, {game}) => {
+      game.diceHistogram = countDiceValues(game.gameDice)
+    },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
@@ -176,8 +188,10 @@ Rune.initLogic({
       game.gameDice.splice(index, 1)
       //game.diceHistogram = countDiceValues(game.gameDice)
 
+    },
+    setPreviousPlayer: ({playerIndex}, {game})=> {
+      game.previousPlayerIndex = playerIndex
     }
-
   },
   events: {
     playerJoined: (playerId, {game}) => {
