@@ -63,7 +63,7 @@ type GameActions = {
     playerId: string
   }) => void,
 
-  clearDice: ({}) => void,
+  // clearDice: ({}) => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
     amount: number
@@ -130,9 +130,9 @@ Rune.initLogic({
     }
   },
   actions: {
-    clearDice: ({},{game}) => {
-      game.gameDice = []
-    },
+    // clearDice: ({},{game}) => {
+    //   game.gameDice = []
+    // },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
@@ -180,6 +180,7 @@ Rune.initLogic({
         game.currentPlayerIndex = nextIndex;
         game.playerToRoll = true
         game.playerPlaying = false
+        game.gameDice = []
       }
     },
 
