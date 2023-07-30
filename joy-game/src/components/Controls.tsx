@@ -2,20 +2,38 @@ import {motion} from "framer-motion";
 import React from "react";
 import { GameState } from "../logic.ts"
 
+
+//count challenge dice
+
+
 interface ControlProps {
     game: GameState,
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
     yourPlayerId: string
 }
-const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerId, players:players}) => {
+const Controls: React.FC<ControlProps> = ({
+      game: game,
+      yourPlayerId: yourPlayerId,
+      players:players}) => {
+
     const handleRollDice = () => {
         window.navigator.vibrate([50,50,50,50,50,50]);
         console.log('Rolling')
         // const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         const numDice = game.diceCount[yourPlayerId]
-        //console.log(players[yourPlayerId], "has", numDice, " dice")
         Rune.actions.rollDice({  numDice: numDice})
-    }
+        //Check for challenge & resolution
+
+           //there is a challenge in play
+           //check for number of challenges rolled
+           //
+           //if challenge dice < challenge count
+           // -- current player gets the difference in dice
+           // if challenge dice > challenge count
+           // --
+
+
+       }
 
     const handleEndTurn = () => {
         const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;

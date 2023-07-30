@@ -41,6 +41,16 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </motion.div>
 
                 
+                <div>
+
+                    {/*Moved the motion animation into the header to clean up area for challenge dice*/}
+                    <Header
+                        displayName={players[yourPlayerId].displayName}
+                        challengeCounter = {game.challengeCounter}
+                        challengeStatus = {game.challengeStatus}
+                    />
+
+                </div>
 
 
                 <div className='top-section'>
@@ -89,7 +99,13 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 </div>
 
 
-                <Table game={game} playerId={yourPlayerId} playerIds ={playerIds} yourPlayerId={yourPlayerId} />
+                <Table
+                    game={game}
+                    playerId={yourPlayerId}
+                    playerIds ={playerIds}
+                    yourPlayerId={yourPlayerId}
+                    previousPlayerId = {playerIds[game.previousPlayerIndex]}
+                />
 
                     
            
