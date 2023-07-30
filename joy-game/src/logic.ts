@@ -49,7 +49,7 @@ export interface GameState {
   diceCount:Record<string, number>,
   diceHistogram: Record<number, number>
   currentPlayerIndex: number,
-  previousPlayerIndex: number,
+  previousPlayerIndex: number | null,
   challengeCounter: number,
   challengeStatus: boolean,
   playerToRoll: boolean,
@@ -82,8 +82,8 @@ type GameActions = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   updateDiceHistogram: (params: {
 
-  }) => void
-
+  }) => void,
+  setPreviousPlayer: (params: number) => void
 }
 
 
@@ -107,6 +107,8 @@ Rune.initLogic({
             startingDiceCount
         ])
     )
+
+
     //Starting Dice Array of Confetti Dice!
     // const startingDice = Array.from({ length: startingDiceCount }, () => Math.floor(Math.random() * 6) + 1)
     const startingDice = Array.from({ length: startingDiceCount },()=> 4)
@@ -116,7 +118,7 @@ Rune.initLogic({
       diceCount,
       diceHistogram,
       currentPlayerIndex:0,
-      previousPlayerIndex:0,
+      previousPlayerIndex: null,
       challengeCounter: 0,
       challengeStatus: false,
       playerToRoll: true,
@@ -183,8 +185,10 @@ Rune.initLogic({
       game.gameDice.splice(index, 1)
       game.diceHistogram = countDiceValues(game.gameDice)
 
+    },
+    setPreviousPlayer: ({index}, {game})=> {
+      game.previousPlayerIndex = index
     }
-
   },
   events: {
     playerJoined: (playerId, {game}) => {
