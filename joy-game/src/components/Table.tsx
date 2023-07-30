@@ -13,6 +13,10 @@ interface TableProps {
   previousPlayerId: string | undefined;
 }
 
+function lastIndexOf(playerIds: (string | undefined)[]) {
+  throw new Error("Function not implemented.");
+}
+
 const Table: React.FC<TableProps> = ({
          game,
          playerId,
@@ -27,7 +31,20 @@ const Table: React.FC<TableProps> = ({
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
           return
       }
-
+        //Created individual if statements as they are not exclusive
+        if (faceValue === 2){
+          //const prevPlayerId = playerIds[(currentPlayerId - 1) % Object.keys(playerIds).length];
+          const prevPlayerId = previousPlayerId
+          console.log(playerId)
+          console.log([prevPlayerId])
+          if (prevPlayerId === undefined ) {
+            //prevPlayerId == playerIds[Object.keys(playerIds).length] 
+            prevPlayerId == lastIndexOf(playerIds);
+          }
+          Rune.actions.updateDiceCount({playerId: prevPlayerId, amount: 1})
+          Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+          Rune.actions.adjustGameDice({index: i})
+      }
 
       //Created individual if statements as they are not exclusive
       if (faceValue === 5 ) {
@@ -122,3 +139,5 @@ const Table: React.FC<TableProps> = ({
     }
     
     export default Table;
+
+
