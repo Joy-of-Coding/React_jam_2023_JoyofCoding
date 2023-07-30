@@ -6,8 +6,8 @@ import { GameState } from "../logic.ts";
 
 import "./Table.css"
 import { motion } from "framer-motion";
-import {Simulate} from "react-dom/test-utils";
-import play = Simulate.play;
+//import {Simulate} from "react-dom/test-utils";
+//import play = Simulate.play;
 
 interface TableProps {
   game: GameState;
@@ -49,7 +49,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
           const randomNext = Math.floor((Math.random() * 5)-2)
           const randomPrevious = Math.floor((Math.random() * 5)-2)
 
-          if (game.previousPlayerIndex===null ) {
+          if (game.previousPlayerIndex===-1 ) {
               const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
               Rune.actions.updateDiceCount({playerId: playerIds[previousPlayerIndex] , amount: randomPrevious})
           } else {

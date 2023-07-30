@@ -15,7 +15,7 @@ interface PlayerProps {
 const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) => {
     const handlePlayerClick = (playerId: string) => {
         console.log("clicked Player ",playerId )
-        Rune.actions.setSelectedPlayerId(playerId)
+        Rune.actions.setSelectedPlayerId({playerId})
 
     }
 
@@ -60,13 +60,6 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
                         </div>
                    </div>
                     
-                   
-
-                    {/* <h4 className='player-id-name'>{players[playerId].displayName} </h4> */}
-                    {/*<div className='button-group '>*/}
-                    {/*    <button onClick={() => handleUpdateDiceCount(playerId, 1)}><h2>+</h2></button> <br/>*/}
-                    {/*    <button onClick={() => handleUpdateDiceCount(playerId, -1)}><h2>-</h2></button> <br/>*/}
-                    {/*</div>*/}
 
                     <div>
 
