@@ -18,7 +18,8 @@ interface TableProps {
 
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
   const currentPlayerId = playerIds.indexOf(playerId);
-    
+
+  
   const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
       //Trying to disable clicks by player
       
@@ -38,7 +39,8 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
            // console.log(playerId)
            // console.log([nextPlayerId])
-            window.navigator.vibrate([100]);
+           
+            // window.navigator.vibrate([100]);
             Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
@@ -49,6 +51,8 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
 
 
     return (
+
+
         <div className='middle-section'>
           <div  className='dice-container'>
             {game.gameDice.map((die, i) => (
