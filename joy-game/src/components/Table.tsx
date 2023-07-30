@@ -24,18 +24,21 @@ interface TableProps {
 const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, previousPlayerId, players }) => {
     const [showSelectPlayer, setShowSelectPlayer] = useState(false)
     const [playerSelected, setPlayerSelected] = useState(false)
-
-    const giveGifts = ({i}) => {
-        const randomGift = Math.floor((Math.random() * 4)-1)
-        const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
-        Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
-        Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
-        Rune.actions.adjustGameDice({index: i})
-    }
+    const [selectedDieIndex, setSelectedDieIndex] = useState(-1)
+    // const giveGifts = ({i}) => {
+    //     const randomGift = Math.floor((Math.random() * 4)-1)
+    //     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+    //     Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: randomGift})
+    //     Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+    //     Rune.actions.adjustGameDice({index: i})
+    // }
 
   const currentPlayerId = playerIds.indexOf(playerId);
     const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
     const handleDiceClick = (faceValue: number, playerId: string | undefined, i: number, playerIds: (string | undefined)[]) => {
+        setSelectedDieIndex(i)
+
+        Rune.actions.setSelectedDieIndex({dieIndex: i})
 
     // useEffect(()=>{}, [playerSelected])
       //Trying to disable clicks by player
@@ -47,18 +50,20 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
           //Created individual if statements as they are not exclusive
 
         if (faceValue === 5 ) {  //balloons
-            Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
-            Rune.actions.adjustGameDice({index: i})
-            
-            let popAudio = new Audio(pop)
+            const popAudio = new Audio(pop)
             popAudio.play()
+            Rune.actions.popBalloons({playerId: playerId, dieIndex: i})
+            // Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+            // Rune.actions.adjustGameDice({index: i})
+            //
+
         }
 
         //Created individual if statements as they are not exclusive
         if (faceValue === 6){  //gifts
             setShowSelectPlayer(true)
-            console.log("Show select player?", showSelectPlayer)
-             giveGifts({i})
+            // console.log("Show select player?", showSelectPlayer)
+            //  giveGifts({i})
         }
 
       //Cake goes forwards & backwards
@@ -88,7 +93,13 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
           <div  className='dice-container'>
 
               {showSelectPlayer &&
-                  <SelectPlayer yourPlayerId= {yourPlayerId} players={players} playerIds={playerIds}  closePopup={() => setShowSelectPlayer(false)} />}
+                  <SelectPlayer
+                      selectedDieIndex= {game.selectedDieIndex}
+                      yourPlayerId= {yourPlayerId}
+                      players={players}
+                      playerIds={playerIds}
+                      closePopup={() => setShowSelectPlayer(false)}
+                  />}
 
             {game.gameDice.map((die, i) => (
                 //moved motion animation inside dice component, cleans up code and functions the same

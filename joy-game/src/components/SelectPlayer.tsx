@@ -8,15 +8,17 @@ interface SelectPlayerProps {
     playerIds: (string  | undefined)[]
     closePopup: () => void;
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
+    selectedDieIndex: number
 }
 
 
 
-const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, closePopup, players }) => {
+const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, closePopup, players , selectedDieIndex}) => {
 
     const handleClick = ({playerId}: {playerId: string, closePopup: () => void}) => {
         console.log("User Id: ", playerId)
         closePopup();
+        Rune.actions.giveGifts({playerId: yourPlayerId, opponentId: playerId, dieIndex: selectedDieIndex})
     }
 
     return (

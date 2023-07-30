@@ -55,15 +55,26 @@ export interface GameState {
   playerToRoll: boolean,
   playerPlaying: boolean,
   gameOver: boolean,
-  showHelp: boolean
+  showHelp: boolean,
+  selectedDieIndex: number;
 }
 
 type GameActions = {
   setSelectedPlayerId: (params: {
     playerId: string
   }) => void,
-
-  // clearDice: ({}) => void,
+  setSelectedDieIndex: (params: {
+    dieIndex: number;
+  }) => void,
+  giveGifts: (params: {
+    playerId: string|undefined,
+    opponentId:string,
+    dieIndex: number
+  }) => void,
+  popBalloons: (params: {
+    playerId: string | undefined,
+    dieIndex: number
+  }) => void,
   updateDiceCount: (params: {
   playerId: string | undefined,
     amount: number
@@ -126,13 +137,39 @@ Rune.initLogic({
       playerToRoll: true,
       playerPlaying: false,
       gameOver: false,
-      showHelp: false
+      showHelp: false,
+      selectedDieIndex: -1
     }
   },
   actions: {
-    // clearDice: ({},{game}) => {
-    //   game.gameDice = []
-    // },
+    popBalloons: ({playerId, dieIndex}, {game}) => {
+      if (playerId === undefined){
+        playerId= "spectator"
+      } else  if (game.diceCount[playerId] === undefined) {
+        throw Rune.invalidAction(); // incorrect playerId passed to the action
+      }
+      game.diceCount[playerId] += -1
+      game.gameDice.splice(dieIndex, 1)
+    },
+    setSelectedDieIndex:({dieIndex}, {game}) => {
+      game.selectedDieIndex = dieIndex
+      console.log("Selected Die Index", game.selectedDieIndex)
+},
+    giveGifts: ({playerId, opponentId, dieIndex }, {game}) => {
+    console.log("exchanging gifts")
+
+      if (playerId === undefined){
+        playerId= "spectator"
+      } else  if (game.diceCount[playerId] === undefined) {
+        throw Rune.invalidAction(); // incorrect playerId passed to the action
+      }
+        let randomGift = Math.floor((Math.random() * 4)-1)
+        if (randomGift===0) randomGift = 1
+        game.diceCount[opponentId] += randomGift;
+        game.diceCount[playerId] += -1
+        game.gameDice.splice(dieIndex, 1)
+
+},
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
