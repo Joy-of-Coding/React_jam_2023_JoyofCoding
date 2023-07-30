@@ -13,10 +13,17 @@ interface PlayerProps {
 }
 
 const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) => {
-  return (
+    const handlePlayerClick = (playerNum:number) => {
+        console.log("clicked Player ",playerNum )
+
+    }
+
+
+
+    return (
       // <motion.div transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} className= { `${playerId === yourPlayerId ? 'red-border' : ''}player`}>
              
-              <div  className={`player-${playerNum}-name player`} >
+              <div  onClick={() => handlePlayerClick(playerId)} className={`player-${playerNum}-name player`} >
                   <div className='user-name'>
                       <h4 className='player-h4'>{players[playerId].displayName} </h4>
                   </div>

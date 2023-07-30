@@ -29,6 +29,9 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
     // const nextPlayerId = players[(game.currentPlayerIndex + 1) % Object.keys(players).length];
     // console.log(typeof(nextPlayerId))
 
+
+
+
     return (
         <div className='game-play-container'>
             
@@ -49,7 +52,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     {numPlayers > 0 ? (
                         
                             
-                        <Player playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
+                        <Player  playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
 
 
                                 
