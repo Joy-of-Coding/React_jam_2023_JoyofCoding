@@ -6,6 +6,8 @@ import { GameState } from "../logic.ts";
 
 import "./Table.css"
 import { motion } from "framer-motion";
+import {Simulate} from "react-dom/test-utils";
+import play = Simulate.play;
 
 interface TableProps {
   game: GameState;
@@ -23,7 +25,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
       //Trying to disable clicks by player
       
       if (game.currentPlayerIndex !== playerIds.indexOf(playerId)) {
-        
           return
       }
        
@@ -43,6 +44,30 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
         }
+
+
+
+      //Cake goes backwards
+      if (faceValue === 2){
+          console.log(game.previousPlayerIndex)
+          if (game.previousPlayerIndex===null && playerIds.length>1) {
+              const previousPlayerIndex = game.currentPlayerIndex === 0 ? playerIds.length - 1 : game.currentPlayerIndex - 1;
+              console.log("prev player index: ", previousPlayerIndex)
+              console.log(typeof(playerIds.indexOf(playerIds[previousPlayerIndex])))
+              Rune.actions.setPreviousPlayer(previousPlayerIndex)
+
+              console.log("set first previous player, ", game.previousPlayerIndex)
+
+          }
+
+          // const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
+          // console.log(playerId)
+          // console.log([nextPlayerId])
+          window.navigator.vibrate([100]);
+          Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
+          Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
+          Rune.actions.adjustGameDice({index: i})
+      }
 
     }
 

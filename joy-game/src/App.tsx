@@ -9,15 +9,13 @@ function App() {
   const [players, setPlayers] = useState<Players>({})
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>()
 
-
-
-
   useEffect(() => {
     Rune.initClient({
           onChange: ({ newGame, players, yourPlayerId }) => {
               setGame(newGame)
               setPlayers(players)
               setYourPlayerId(yourPlayerId)
+
           },
         }
     )
@@ -30,19 +28,6 @@ function App() {
   return (
     <>
       <GameZone game={game} players={players} yourPlayerId={yourPlayerId} numPlayers={0} playerIds={[]} avatarUrl={""}/>
-
-      {/* <div className="card">
-
-        <h4>Other Player's Dice Counts</h4>
-        {Object.keys(players)
-            .filter((playerId) => playerId !== yourPlayerId)
-            .map((playerId) => (
-                <div key={playerId}>
-                  {players[playerId].displayName} Dice: {game?.diceCount[playerId]}
-                </div>
-            ))}
-
-      </div> */}
     </>
   )
 }
