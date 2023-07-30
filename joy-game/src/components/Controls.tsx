@@ -9,6 +9,7 @@ interface ControlProps {
 }
 const Controls: React.FC<ControlProps> = ({game: game, yourPlayerId: yourPlayerId, players:players}) => {
     const handleRollDice = () => {
+        window.navigator.vibrate([50,50,50,50,50,50]);
         console.log('Rolling')
         // const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
         const numDice = game.diceCount[yourPlayerId]

@@ -30,7 +30,7 @@
 
 import React from 'react';
 import './HelpPopup.css';
-import { motion,AnimatePresence, animate } from "framer-motion"
+import { motion,AnimatePresence} from "framer-motion"
 
 
 interface HelpPopupProps {

@@ -94,6 +94,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
        
 
         if (faceValue === 5 ) {
+            window.navigator.vibrate([100]);
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
         } else if (faceValue === 6){
@@ -101,6 +102,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
            // console.log(playerId)
            // console.log([nextPlayerId])
+            window.navigator.vibrate([100]);
             Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
