@@ -1,6 +1,5 @@
 import React from "react";
 import './GameZone.css'
-// import Dice from "./Dice";
 import { GameState } from "../logic.ts"
 import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
@@ -18,22 +17,16 @@ interface GameZoneProps {
     yourPlayerId: string | undefined,
     avatarUrl: string,
 }
-// const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId, avatarUrl:avatarUrl})=> {
+
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
     const [open, setOpen] = useState(false);
     if(!yourPlayerId) return <div>loading</div>
     const playerIds = Object.keys(players)
-    //const avatarUrl = Object.values(players)
     const numPlayers = playerIds.length
-
-    // const nextPlayerId = players[(game.currentPlayerIndex + 1) % Object.keys(players).length];
-    // console.log(typeof(nextPlayerId))
-
-
-
 
     return (
         <div className='game-play-container'>
+
 
 
                 {/*<motion.div className="display-player-name" transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >*/}
@@ -42,9 +35,8 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                 {/*</motion.div>*/}
 
 
+
                 <div className='top-section'>
-
-
 
                     <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
@@ -52,16 +44,12 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             
                         <Player  playerId={playerIds[0]} players={players} game={game} playerNum={1}/>
 
-
-                            
                         ) : (
                             <div className='player-1-name  player-flex'>
                                 Waiting for player 1
                             </div>
                         )}
                     </motion.div>
-
-                 
 
 
                      <div>
@@ -81,8 +69,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                             </div>
                         )}
                     </motion.div>
-                       
-
 
                 </div>
 
@@ -95,13 +81,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     previousPlayerId = {playerIds[game.previousPlayerIndex]}
                 />
 
-                    
-           
-
-
-
-
-
+             
             <div className='bottom-section'>
 
                     <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
@@ -119,10 +99,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                     <Controls game={game} players={players} yourPlayerId={yourPlayerId} />
 
-                
-                    
-                       
-
 
                     <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
 
@@ -137,14 +113,6 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     )}
 
                     </motion.div>
-
-
-                   
-
-
-
-
-
 
 
             </div> {/* end bottom section container */ }

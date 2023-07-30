@@ -100,7 +100,7 @@ export function getCount(game: GameState) {
 
 
 Rune.initLogic({
-  minPlayers: 1,
+  minPlayers: 2,
   maxPlayers: 4,
   setup: (playerIds): GameState => {
     const diceCount = Object.fromEntries(

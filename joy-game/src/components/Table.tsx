@@ -3,7 +3,7 @@
 import Dice from "./Dice.tsx";
 
 import { GameState } from "../logic.ts";
-
+import pop from  "../assets/sounds/pop.mp3"
 import "./Table.css"
 import { motion } from "framer-motion";
 import {Simulate} from "react-dom/test-utils";
@@ -48,6 +48,9 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
         if (faceValue === 5 ) {  //balloons
             Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
             Rune.actions.adjustGameDice({index: i})
+            
+            let popAudio = new Audio(pop)
+            popAudio.play()
         }
 
         //Created individual if statements as they are not exclusive
@@ -62,8 +65,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
             // Rune.actions.adjustGameDice({index: i})
         }
 
-
-
       //Cake goes forwards & backwards
       if (faceValue === 2){  //cake
 
@@ -74,7 +75,6 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
           } else {
               Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
           }
-
 
           Rune.actions.updateDiceCount({playerId: nextPlayerId, amount: 1})
           Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
@@ -100,22 +100,13 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
                 
                 initial={{opacity:0,rotate:0}} animate={{opacity:1,rotate:360,}} transition={{duration:.3,delay:i * 0.3}}
                 
-
-
-
                 onClick={() => handleDiceClick(die, playerId, i, playerIds)}
                 className='dice-button'
                 key={i}
               > 
-
-                
+               
                 <Dice faceValue={die} />
               
-             
-                 
-               
-                
-
                 </motion.button>
 
             ))}
