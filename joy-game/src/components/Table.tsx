@@ -60,7 +60,8 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds }) => {
           // const nextPlayerId = playerIds[(currentPlayerId + 1) % Object.keys(playerIds).length];
           // console.log(playerId)
           // console.log([nextPlayerId])
-
+          window.navigator.vibrate([100]);
+          Rune.actions.updateDiceCount({playerId: playerIds[game.previousPlayerIndex], amount: 1})
           Rune.actions.updateDiceCount({playerId: playerId, amount: -1})
           Rune.actions.adjustGameDice({index: i})
       }
