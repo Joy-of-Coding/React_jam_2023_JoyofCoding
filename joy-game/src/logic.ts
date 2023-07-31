@@ -7,20 +7,31 @@ interface isGameOver {
   game:GameState
 }
 
+// const isGameOver = (game: GameState): boolean => {
+//   let gameOver = false;
+//   Object.keys(game.diceCount).forEach((player) => {
+//     if (game.diceCount[player] <= 0) {
+//       gameOver = true;
+//     }
+//   });
+//   return gameOver;
+// };
 
-//game is over if any player's score is <=0
 const isGameOver = (game: GameState): boolean => {
   //can't end game by going to zero while challenging
   // if (game.challengeCounter > 0) {
   //   //console.log("Can't win before Conquering challenge")
   //   return false
   // }
-  // if (game.challengeCounter > 0) {
-  //   //console.log("Can't win before Conquering challenge")
-  //   return false
-  // }
-  return Object.values(game.diceCount).some((player: any) => player <= 0);
-};
+  // return Object.values(game.diceCount).some((player: any) => player <= 0);
+
+    for (const player in game.diceCount) {
+      if (game.diceCount[player] <= 0) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 
@@ -290,10 +301,10 @@ Rune.initLogic({
     // },
     rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
-      game.gameDice.forEach((die, i)=> {
-        if (die === 6) {
-          game.gameDice[i] = Math.random() < 0.5 ? 5 : 6;
-        }      })
+     // game.gameDice.forEach(die, i)=> {
+        // if (die === 6) {
+        //   game.gameDice[i] = Math.random() < 0.5 ? 5 : 6;
+        // }      })
       // Game checks can happen here
       // When dice are rolled, playerToRoll becomes false and playerPlaying becomes true
       game.playerToRoll = false

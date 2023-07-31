@@ -1,1 +1,173 @@
-const l=i=>Object.values(i.diceCount).some(e=>e<=0),s=i=>Object.entries(i.diceCount).reduce((e,[t,n])=>{const o=n<=0?"WON":"LOST";return e[t]=o,e},{});Rune.initLogic({minPlayers:1,maxPlayers:4,setup:i=>{const e=Object.fromEntries(i.map(t=>[t,5]));return{gameDice:[],diceCount:e,currentPlayerIndex:0,previousPlayerIndex:-1,selectedPlayerId:"",playerToRoll:!0,playerPlaying:!1,gameOver:!1,showHelp:!1,selectedDieIndex:-1}},actions:{shareCake:({playerId:i,playerIds:e,dieIndex:t},{game:n})=>{if(i===void 0)i="spectator";else if(n.diceCount[i]===void 0)throw Rune.invalidAction();const o=[];for(let r=0;r<e.length;r++){const c=e[r];c!==i&&c!=null&&o.push(c)}for(let r=0;r<o.length;r++){const c=o[r];if(c===void 0||n.diceCount[c]===void 0)throw Rune.invalidAction();n.diceCount[c]+=1}n.diceCount[i]+=-1,n.gameDice.splice(t,1),l(n)&&Rune.gameOver({players:s(n)})},popBalloons:({playerId:i,dieIndex:e},{game:t})=>{if(i===void 0)i="spectator";else if(t.diceCount[i]===void 0)throw Rune.invalidAction();t.diceCount[i]+=-1,t.gameDice.splice(e,1),l(t)&&Rune.gameOver({players:s(t)})},setSelectedDieIndex:({dieIndex:i},{game:e})=>{e.selectedDieIndex=i},giveGifts:({playerId:i,opponentId:e,dieIndex:t},{game:n})=>{if(i===void 0)i="spectator";else if(n.diceCount[i]===void 0)throw Rune.invalidAction();let o=Math.floor(Math.random()*4-1);o===0&&(o=1),n.diceCount[e]+=o,n.diceCount[i]+=-1,n.gameDice.splice(t,1),l(n)&&Rune.gameOver({players:s(n)})},updateDiceCount:({playerId:i,amount:e},{game:t})=>{if(i===void 0)i="spectator";else if(t.diceCount[i]===void 0)throw Rune.invalidAction();t.diceCount[i]+=e,l(t)&&Rune.gameOver({players:s(t)})},rollDice:({numDice:i},{game:e})=>{e.gameDice=Array.from({length:i},()=>Math.floor(Math.random()*6)+1),e.gameDice.forEach((t,n)=>{t===6&&(e.gameDice[n]=Math.random()<.5?5:6)}),e.playerToRoll=!1,e.playerPlaying=!0},nextPlayer:({nextIndex:i},{game:e})=>{e.gameOver||(e.previousPlayerIndex=e.currentPlayerIndex,e.currentPlayerIndex=i,e.playerToRoll=!0,e.playerPlaying=!1,e.gameDice=[])},adjustGameDice:({index:i},{game:e})=>{e.gameDice.splice(i,1)},setPreviousPlayer:({playerIndex:i},{game:e})=>{e.previousPlayerIndex=i},setSelectedPlayerId:({playerId:i},{game:e})=>{e.selectedPlayerId=i}},events:{playerJoined:(i,{game:e})=>{e.diceCount[i]=5},playerLeft(i,{game:e}){delete e.diceCount[i],e.currentPlayerIndex=Object.keys(e.diceCount).length-1,e.playerToRoll=!0,e.playerPlaying=!1,e.gameDice=[]}}});
+const startingDiceCount = 5;
+const isGameOver = (game) => {
+  for (const player in game.diceCount) {
+    if (game.diceCount[player] <= 0) {
+      return true;
+    }
+  }
+  return false;
+};
+const getScores = (game) => {
+  return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
+    const winLoss = score <= 0 ? "WON" : "LOST";
+    acc[playerId] = winLoss;
+    return acc;
+  }, {});
+};
+Rune.initLogic({
+  minPlayers: 1,
+  maxPlayers: 4,
+  setup: (playerIds) => {
+    const diceCount = Object.fromEntries(
+      playerIds.map((playerId) => [
+        playerId,
+        startingDiceCount
+      ])
+    );
+    return {
+      gameDice: [],
+      diceCount,
+      currentPlayerIndex: 0,
+      previousPlayerIndex: -1,
+      selectedPlayerId: "",
+      // challengeCounter: 0,
+      // challengeStatus: false,
+      // challengeCounter: 0,
+      // challengeStatus: false,
+      playerToRoll: true,
+      playerPlaying: false,
+      gameOver: false,
+      showHelp: false,
+      selectedDieIndex: -1
+    };
+  },
+  actions: {
+    shareCake: ({ playerId, playerIds, dieIndex }, { game }) => {
+      if (playerId === void 0) {
+        playerId = "spectator";
+      } else if (game.diceCount[playerId] === void 0) {
+        throw Rune.invalidAction();
+      }
+      const otherPlayers = [];
+      for (let i = 0; i < playerIds.length; i++) {
+        const id = playerIds[i];
+        if (id !== playerId && id != null) {
+          otherPlayers.push(id);
+        }
+      }
+      for (let i = 0; i < otherPlayers.length; i++) {
+        const id = otherPlayers[i];
+        if (id === void 0 || game.diceCount[id] === void 0) {
+          throw Rune.invalidAction();
+        }
+        game.diceCount[id] += 1;
+      }
+      game.diceCount[playerId] += -1;
+      game.gameDice.splice(dieIndex, 1);
+      const gameOver = isGameOver(game);
+      if (gameOver) {
+        Rune.gameOver({
+          players: getScores(game)
+        });
+      }
+    },
+    popBalloons: ({ playerId, dieIndex }, { game }) => {
+      if (playerId === void 0) {
+        playerId = "spectator";
+      } else if (game.diceCount[playerId] === void 0) {
+        throw Rune.invalidAction();
+      }
+      game.diceCount[playerId] += -1;
+      game.gameDice.splice(dieIndex, 1);
+      const gameOver = isGameOver(game);
+      if (gameOver) {
+        Rune.gameOver({
+          players: getScores(game)
+        });
+      }
+    },
+    setSelectedDieIndex: ({ dieIndex }, { game }) => {
+      game.selectedDieIndex = dieIndex;
+    },
+    giveGifts: ({ playerId, opponentId, dieIndex }, { game }) => {
+      if (playerId === void 0) {
+        playerId = "spectator";
+      } else if (game.diceCount[playerId] === void 0) {
+        throw Rune.invalidAction();
+      }
+      let randomGift = Math.floor(Math.random() * 4 - 1);
+      if (randomGift === 0)
+        randomGift = 1;
+      game.diceCount[opponentId] += randomGift;
+      game.diceCount[playerId] += -1;
+      game.gameDice.splice(dieIndex, 1);
+      const gameOver = isGameOver(game);
+      if (gameOver) {
+        Rune.gameOver({
+          players: getScores(game)
+        });
+      }
+    },
+    updateDiceCount: ({ playerId, amount }, { game }) => {
+      if (playerId === void 0) {
+        playerId = "spectator";
+      } else if (game.diceCount[playerId] === void 0) {
+        throw Rune.invalidAction();
+      }
+      game.diceCount[playerId] += amount;
+      const gameOver = isGameOver(game);
+      if (gameOver) {
+        Rune.gameOver({
+          players: getScores(game)
+        });
+      }
+    },
+    // updateChallengeCount: ({amount},  {game}) => {
+    //   game.challengeCounter += amount;
+    // },
+    // updateChallengeStatus: ({status}, {game} ) => {
+    //   game.challengeStatus = status
+    // },
+    // updateChallengeCount: ({amount},  {game}) => {
+    //   game.challengeCounter += amount;
+    // },
+    // updateChallengeStatus: ({status}, {game} ) => {
+    //   game.challengeStatus = status
+    // },
+    rollDice: ({ numDice }, { game }) => {
+      game.gameDice = Array.from({ length: numDice }, () => Math.floor(Math.random() * 6) + 1);
+      game.playerToRoll = false;
+      game.playerPlaying = true;
+    },
+    nextPlayer: ({ nextIndex }, { game }) => {
+      if (!game.gameOver) {
+        game.previousPlayerIndex = game.currentPlayerIndex;
+        game.currentPlayerIndex = nextIndex;
+        game.playerToRoll = true;
+        game.playerPlaying = false;
+        game.gameDice = [];
+      }
+    },
+    adjustGameDice: ({ index }, { game }) => {
+      game.gameDice.splice(index, 1);
+    },
+    setPreviousPlayer: ({ playerIndex }, { game }) => {
+      game.previousPlayerIndex = playerIndex;
+    },
+    setSelectedPlayerId: ({ playerId }, { game }) => {
+      game.selectedPlayerId = playerId;
+    }
+  },
+  events: {
+    playerJoined: (playerId, { game }) => {
+      game.diceCount[playerId] = startingDiceCount;
+    },
+    playerLeft(playerId, { game }) {
+      delete game.diceCount[playerId];
+      game.currentPlayerIndex = Object.keys(game.diceCount).length - 1;
+      game.playerToRoll = true;
+      game.playerPlaying = false;
+      game.gameDice = [];
+    }
+  }
+});

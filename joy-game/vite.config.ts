@@ -6,4 +6,5 @@ import rune from "vite-plugin-rune"
 export default defineConfig({
   base: "", // Makes paths relative
   plugins: [react(), rune({ logicPath: "./src/logic.ts" })],
+  build :{ minify:false}
 })
