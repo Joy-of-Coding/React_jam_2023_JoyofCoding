@@ -135,7 +135,16 @@ Rune.initLogic({
       }
 
       // Filter playerIds
-      const otherPlayers = playerIds.filter((id) => id !== playerId );
+      // const otherPlayers = playerIds.filter((id) => id !== playerId );
+      const otherPlayers: string[] = [];
+
+      for (const id of playerIds) {
+        if (id !== playerId) {
+          otherPlayers.push(id);
+        }
+      }
+
+
       console.log("Other players", otherPlayers.length, otherPlayers)
 
 
