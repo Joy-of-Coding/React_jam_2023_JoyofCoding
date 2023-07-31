@@ -15,8 +15,16 @@ const isGameOver = (game: GameState): boolean => {
   //   //console.log("Can't win before Conquering challenge")
   //   return false
   // }
-  return Object.values(game.diceCount).some((player: any) => player <= 0);
-};
+  // return Object.values(game.diceCount).some((player: any) => player <= 0);
+
+    for (const player in game.diceCount) {
+      if (game.diceCount[player] <= 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
 
 
