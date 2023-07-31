@@ -19,6 +19,7 @@ const isGameOver = (game: GameState): boolean => {
 };
 
 
+
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
   return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
     acc[playerId] = score as number <= 0 ? "WON" : "LOST";
@@ -291,7 +292,17 @@ Rune.initLogic({
       game.diceCount[playerId] = startingDiceCount;
     },
     playerLeft(playerId, {game}) {
+      const playerIndex = Object.keys(game.diceCount).indexOf(playerId)
+      console.log("Player leaving index", playerIndex)
+      console.log("current player", game.currentPlayerIndex)
       delete game.diceCount[playerId];
+
+
+      game.currentPlayerIndex = Object.keys(game.diceCount).length-1;
+      game.playerToRoll = true
+      game.playerPlaying = false
+      game.gameDice = []
+
     },
   }
 })
