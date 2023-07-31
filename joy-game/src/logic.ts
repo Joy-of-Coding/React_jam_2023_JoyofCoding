@@ -26,6 +26,7 @@ const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOS
   }, {} as { [playerId: string]: number | "WON" | "LOST" });
 };
 
+
 export interface GameState {
   gameDice: number[],
   diceCount:Record<string, number>,
@@ -150,10 +151,21 @@ Rune.initLogic({
 
       });
 
+      //remove 1 from player
+      game.diceCount[playerId] += -1
+
       // Remove Die
       game.gameDice.splice(dieIndex, 1)
 
-},
+      //check for game over
+      const gameOver = isGameOver(game)
+
+      if (gameOver) {
+        Rune.gameOver({
+          players: getScores(game),
+        })
+      }
+    },
     popBalloons: ({playerId, dieIndex}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
@@ -162,6 +174,16 @@ Rune.initLogic({
       }
       game.diceCount[playerId] += -1
       game.gameDice.splice(dieIndex, 1)
+
+      //check for game over
+      const gameOver = isGameOver(game)
+
+      if (gameOver) {
+        Rune.gameOver({
+
+          players: getScores(game),
+        })
+      }
     },
     setSelectedDieIndex:({dieIndex}, {game}) => {
       game.selectedDieIndex = dieIndex
@@ -181,12 +203,22 @@ Rune.initLogic({
         game.diceCount[playerId] += -1
         game.gameDice.splice(dieIndex, 1)
 
+      //check for game over
+      const gameOver = isGameOver(game)
+
+      if (gameOver) {
+        Rune.gameOver({
+
+          players: getScores(game),
+        })
+      }
+
 },
     updateDiceCount: ({playerId, amount}, {game}) => {
       if (playerId === undefined){
         playerId= "spectator"
       }
-        
+
       else
 
       if (game.diceCount[playerId] === undefined) {
@@ -217,8 +249,9 @@ Rune.initLogic({
     rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
       game.gameDice.forEach((die, i)=> {
-        if (die === 2) { game.gameDice[i] = Math.floor(Math.random() * 6) +1 }
-      })
+        if (die === 6) {
+          game.gameDice[i] = Math.random() < 0.5 ? 5 : 6;
+        }      })
       // Game checks can happen here
       // When dice are rolled, playerToRoll becomes false and playerPlaying becomes true
       game.playerToRoll = false
