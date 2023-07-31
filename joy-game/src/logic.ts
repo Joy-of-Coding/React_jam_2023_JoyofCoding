@@ -26,7 +26,8 @@ const isGameOver = (game: GameState): boolean => {
 
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
   return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
-    acc[playerId] = score as number <= 0 ? "WON" : "LOST";
+    const winLoss = score as number <= 0 ? "WON" : "LOST";
+    acc[playerId] = winLoss;
     return acc;
   }, {} as { [playerId: string]: number | "WON" | "LOST" });
 };
@@ -152,30 +153,33 @@ Rune.initLogic({
       // const otherPlayers = playerIds.filter((id) => id !== playerId );
       const otherPlayers: string[] = [];
 
-      for (const id of playerIds) {
-        if (id !== playerId) {
-          if (id != null) {
-            otherPlayers.push(id);
-          }
+      // for (const id of playerIds) {
+      //   if (id !== playerId) {
+      //     if (id != null) {
+      //       otherPlayers.push(id);
+      //     }
+      //   }
+      // }
+      for (let i = 0; i < playerIds.length; i++) {
+        const id = playerIds[i];
+        if (id !== playerId && id != null) {
+          otherPlayers.push(id);
         }
       }
-
 
       //console.log("Other players", otherPlayers.length, otherPlayers)
 
 
       //and add 1 to diceCount of each other player
-      otherPlayers.forEach((id) => {
-        //console.log("Before decrement: PlayerId is:", id, "dice count is ", game.diceCount[id as string])
-
+      for (let i = 0; i < otherPlayers.length; i++) {
+        const id = otherPlayers[i];
+      
         if (id === undefined || game.diceCount[id] === undefined) {
           throw Rune.invalidAction(); // incorrect playerId passed to the action
         }
-
-         game.diceCount[id] += 1;
-
-
-      });
+      
+        game.diceCount[id] += 1;
+      }
 
       //remove 1 from player
       game.diceCount[playerId] += -1
