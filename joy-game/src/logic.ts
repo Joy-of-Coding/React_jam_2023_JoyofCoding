@@ -197,6 +197,12 @@ Rune.initLogic({
       } else  if (game.diceCount[playerId] === undefined) {
         throw Rune.invalidAction(); // incorrect playerId passed to the action
       }
+
+      // if (playerId===opponentId) {
+      //
+      //   return
+      // }
+
         let randomGift = Math.floor((Math.random() * 4)-1)
         if (randomGift===0) randomGift = 1
         game.diceCount[opponentId] += randomGift;

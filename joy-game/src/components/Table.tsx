@@ -51,7 +51,12 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
 
 
         if (faceValue === 6){  //gifts
-            setShowSelectPlayer(true)
+            if (playerIds.length>1) {
+                setShowSelectPlayer(true)
+            } else {
+                Rune.actions.giveGifts({playerId: yourPlayerId, opponentId: yourPlayerId as string, dieIndex: i})
+
+            }
         }
 
       //EVeryone gets a bite of cake
@@ -71,7 +76,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
         <div className='middle-section'>
           <div  className='dice-container'>
 
-              {showSelectPlayer &&
+              {(showSelectPlayer && playerIds.length>1) &&
                   <SelectPlayer
                       selectedDieIndex= {game.selectedDieIndex}
                       yourPlayerId= {yourPlayerId}
