@@ -38,8 +38,18 @@ const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, cl
                         {playerIds.map((playerId, i) => {
                                 if (playerId !== undefined && playerId != yourPlayerId) {
                                     return (
-                                        <div  className='opponent avatar-container' key={i} onClick={() => handleClick({playerId: playerId, closePopup: closePopup})}>
-                                            <img alt='player-avator'  className='player-avatar' src={players[playerId].avatarUrl}/>
+                                        <div  className="opponent avatar-container "
+                                           key={i} onClick={() => handleClick({playerId: playerId, closePopup: closePopup}) }>
+                                            <motion.img animate={{x:[3,-3,3]}}
+                                            transition={{
+                                                duration: 2.5,
+                                                ease: "easeInOut",
+                                               
+                                                repeat: Infinity,
+                                                repeatDelay: 0
+                                              }} 
+                                            
+                                            alt='player-avator'  className='player-avatar' src={players[playerId].avatarUrl}></motion.img>
                                             <p className='opponent-name'>{players[playerId].displayName.split(" ")[0]}</p>
                                         </div>
                                     )
