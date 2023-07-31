@@ -140,7 +140,9 @@ Rune.initLogic({
 
       for (const id of playerIds) {
         if (id !== playerId) {
-          otherPlayers.push(id);
+          if (id != null) {
+            otherPlayers.push(id);
+          }
         }
       }
 
