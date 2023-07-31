@@ -54,7 +54,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                      <div>
                         {open && <HelpPopup closePopup={() => setOpen(false)} />}
-                        <button className="helpButton" onClick={() => setOpen(true)}><b>Rules?</b></button>
+                        <button className="helpButton" onClick={() => setOpen(true)}><b>Info</b></button>
                     </div>       
                     
                         
