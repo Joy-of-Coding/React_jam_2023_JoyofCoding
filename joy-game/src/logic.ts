@@ -15,6 +15,10 @@ const isGameOver = (game: GameState): boolean => {
   //   //console.log("Can't win before Conquering challenge")
   //   return false
   // }
+  // if (game.challengeCounter > 0) {
+  //   //console.log("Can't win before Conquering challenge")
+  //   return false
+  // }
   return Object.values(game.diceCount).some((player: any) => player <= 0);
 };
 
@@ -34,6 +38,8 @@ export interface GameState {
   currentPlayerIndex: number,
   previousPlayerIndex: number,
   selectedPlayerId: string ,
+  // challengeCounter: number,
+  // challengeStatus: boolean,
   // challengeCounter: number,
   // challengeStatus: boolean,
   playerToRoll: boolean,
@@ -83,6 +89,12 @@ type GameActions = {
   // updateChallengeStatus: (params: {
   //   status: boolean
   // }) => boolean,
+  // updateChallengeCount: (params: {
+  //   amount: number
+  // }) => void,
+  // updateChallengeStatus: (params: {
+  //   status: boolean
+  // }) => boolean,
   // eslint-disable-next-line @typescript-eslint/ban-types
   setPreviousPlayer: (params:
   {playerIndex: number}) => void
@@ -119,6 +131,8 @@ Rune.initLogic({
       selectedPlayerId: '',
       // challengeCounter: 0,
       // challengeStatus: false,
+      // challengeCounter: 0,
+      // challengeStatus: false,
       playerToRoll: true,
       playerPlaying: false,
       gameOver: false,
@@ -135,6 +149,7 @@ Rune.initLogic({
       }
 
       // Filter playerIds
+      // const otherPlayers = playerIds.filter((id) => id !== playerId );
       const otherPlayers: string[] = [];
 
       for (const id of playerIds) {
@@ -144,7 +159,9 @@ Rune.initLogic({
           }
         }
       }
-      //console.log("Other players", otherPlayers.length, otherPlayers)
+
+
+      console.log("Other players", otherPlayers.length, otherPlayers)
 
 
       //and add 1 to diceCount of each other player
@@ -255,6 +272,12 @@ Rune.initLogic({
          })
       }
     },
+    // updateChallengeCount: ({amount},  {game}) => {
+    //   game.challengeCounter += amount;
+    // },
+    // updateChallengeStatus: ({status}, {game} ) => {
+    //   game.challengeStatus = status
+    // },
     // updateChallengeCount: ({amount},  {game}) => {
     //   game.challengeCounter += amount;
     // },
