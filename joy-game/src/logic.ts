@@ -161,7 +161,7 @@ Rune.initLogic({
       }
 
 
-      console.log("Other players", otherPlayers.length, otherPlayers)
+      //console.log("Other players", otherPlayers.length, otherPlayers)
 
 
       //and add 1 to diceCount of each other player
