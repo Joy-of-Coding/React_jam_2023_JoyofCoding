@@ -1,7 +1,7 @@
 import React from "react";
 import {AnimatePresence, motion} from "framer-motion";
 import './SelectPlayer.css'
-import paper from "../assets/sounds/crumple-92100.mp3"
+import paper from "../assets/sounds/082229_pinkie-pie-39surprise39wav-86428.mp3"
 
 
 
@@ -19,7 +19,7 @@ interface SelectPlayerProps {
 const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, closePopup, players , selectedDieIndex}) => {
 
     const handleClick = ({playerId}: {playerId: string, closePopup: () => void}) => {
-        console.log("User Id: ", playerId)
+        //console.log("User Id: ", playerId)
         closePopup();
         Rune.actions.giveGifts({playerId: yourPlayerId, opponentId: playerId, dieIndex: selectedDieIndex})
         const paperAudio = new Audio(paper)

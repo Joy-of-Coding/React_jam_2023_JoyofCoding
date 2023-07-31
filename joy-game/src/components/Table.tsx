@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 import {useState} from "react";
 import SelectPlayer from "./SelectPlayer.tsx";
-import cake from "../assets/sounds/cake/heavy_swallowwav-14682.mp3";
+import cake from "../assets/sounds/cake/nom_c_06-89142.mp3";
 
 
 
