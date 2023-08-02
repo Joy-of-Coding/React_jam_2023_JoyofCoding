@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
 import Table from "./Table.tsx";
 import Player from "./Player.tsx";
-import Header from "./Header.tsx";
+//import Header from "./Header.tsx";
 import {useState} from  'react'
 import {HelpPopup} from './HelpPopup.tsx'
 

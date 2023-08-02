@@ -18,10 +18,10 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
       className="popup-body">
 
       <h2>Share the Joy!</h2>
-          <h3><b>Object of the Game:</b>  Get rid of all of your dice.</h3>
+          <h3>Get rid of all of your dice to win!</h3>
           <h2>How To Play</h2>
           <p>Click the green "roll" button on your turn & tap the dice:</p>
-          <p>1: Pop balloons to remove them <p>2: Send gifts forward </p>3: Share the cake </p>
+          <p>1: Pop balloons to remove them <p>2: Gifts have a random amount of dice, choose who gets them </p>3: Share the cake with everyone else </p>
           <p>When only confetti is left, click the red "end turn" button.</p>
         <button onClick={closePopup}>Close</button>
       </motion.div>

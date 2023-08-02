@@ -38,4 +38,36 @@ Follow the provided link using control+click or command+click to open the projec
 >
 > Dice only game
 
+Credits:
+
+Created by students of the Joy of Coding Academy
+www link to joc here
+
+Project Consultant:
+Dr. Dana
+
+Head Engineeer:
+Suzanne 
+
+Head UI/UX Engineer:
+Joel Davila
+
+Artist:
+Kassandra "Chase" Tramel
+
+Project Lead:
+Katrina Wright
+
+Additional software development:
+Alyssa
+Andrew
+Kassandra "Chase" Tramel
+Katrina Wright
+
+Thank you testers:
+David 
+Jen Shaw
+Bobe
+
+
 

@@ -7,22 +7,38 @@ interface isGameOver {
   game:GameState
 }
 
+// const isGameOver = (game: GameState): boolean => {
+//   let gameOver = false;
+//   Object.keys(game.diceCount).forEach((player) => {
+//     if (game.diceCount[player] <= 0) {
+//       gameOver = true;
+//     }
+//   });
+//   return gameOver;
+// };
 
-//game is over if any player's score is <=0
 const isGameOver = (game: GameState): boolean => {
   //can't end game by going to zero while challenging
   // if (game.challengeCounter > 0) {
   //   //console.log("Can't win before Conquering challenge")
   //   return false
   // }
-  return Object.values(game.diceCount).some((player: any) => player <= 0);
-};
+  // return Object.values(game.diceCount).some((player: any) => player <= 0);
+
+    for (const player in game.diceCount) {
+      if (game.diceCount[player] <= 0) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 
 
 const getScores = (game: GameState): { [playerId: string]: number | "WON" | "LOST" } => {
   return Object.entries(game.diceCount).reduce((acc, [playerId, score]) => {
-    acc[playerId] = score as number <= 0 ? "WON" : "LOST";
+    const winLoss = score as number <= 0 ? "WON" : "LOST";
+    acc[playerId] = winLoss;
     return acc;
   }, {} as { [playerId: string]: number | "WON" | "LOST" });
 };
@@ -34,6 +50,8 @@ export interface GameState {
   currentPlayerIndex: number,
   previousPlayerIndex: number,
   selectedPlayerId: string ,
+  // challengeCounter: number,
+  // challengeStatus: boolean,
   // challengeCounter: number,
   // challengeStatus: boolean,
   playerToRoll: boolean,
@@ -83,6 +101,12 @@ type GameActions = {
   // updateChallengeStatus: (params: {
   //   status: boolean
   // }) => boolean,
+  // updateChallengeCount: (params: {
+  //   amount: number
+  // }) => void,
+  // updateChallengeStatus: (params: {
+  //   status: boolean
+  // }) => boolean,
   // eslint-disable-next-line @typescript-eslint/ban-types
   setPreviousPlayer: (params:
   {playerIndex: number}) => void
@@ -119,6 +143,8 @@ Rune.initLogic({
       selectedPlayerId: '',
       // challengeCounter: 0,
       // challengeStatus: false,
+      // challengeCounter: 0,
+      // challengeStatus: false,
       playerToRoll: true,
       playerPlaying: false,
       gameOver: false,
@@ -138,30 +164,33 @@ Rune.initLogic({
       // const otherPlayers = playerIds.filter((id) => id !== playerId );
       const otherPlayers: string[] = [];
 
-      for (const id of playerIds) {
-        if (id !== playerId) {
-          if (id != null) {
-            otherPlayers.push(id);
-          }
+      // for (const id of playerIds) {
+      //   if (id !== playerId) {
+      //     if (id != null) {
+      //       otherPlayers.push(id);
+      //     }
+      //   }
+      // }
+      for (let i = 0; i < playerIds.length; i++) {
+        const id = playerIds[i];
+        if (id !== playerId && id != null) {
+          otherPlayers.push(id);
         }
       }
 
-
-      console.log("Other players", otherPlayers.length, otherPlayers)
+      //console.log("Other players", otherPlayers.length, otherPlayers)
 
 
       //and add 1 to diceCount of each other player
-      otherPlayers.forEach((id) => {
-        console.log("Before decrement: PlayerId is:", id, "dice count is ", game.diceCount[id as string])
-
+      for (let i = 0; i < otherPlayers.length; i++) {
+        const id = otherPlayers[i];
+      
         if (id === undefined || game.diceCount[id] === undefined) {
           throw Rune.invalidAction(); // incorrect playerId passed to the action
         }
-
-         game.diceCount[id] += 1;
-
-
-      });
+      
+        game.diceCount[id] += 1;
+      }
 
       //remove 1 from player
       game.diceCount[playerId] += -1
@@ -199,10 +228,10 @@ Rune.initLogic({
     },
     setSelectedDieIndex:({dieIndex}, {game}) => {
       game.selectedDieIndex = dieIndex
-      console.log("Selected Die Index", game.selectedDieIndex)
+      //console.log("Selected Die Index", game.selectedDieIndex)
 },
     giveGifts: ({playerId, opponentId, dieIndex }, {game}) => {
-    console.log("exchanging gifts")
+    //console.log("exchanging gifts")
 
       if (playerId === undefined){
         playerId= "spectator"
@@ -264,12 +293,18 @@ Rune.initLogic({
     // updateChallengeStatus: ({status}, {game} ) => {
     //   game.challengeStatus = status
     // },
+    // updateChallengeCount: ({amount},  {game}) => {
+    //   game.challengeCounter += amount;
+    // },
+    // updateChallengeStatus: ({status}, {game} ) => {
+    //   game.challengeStatus = status
+    // },
     rollDice: ({  numDice}, {game}) => {
       game.gameDice = Array.from({length: numDice}, () => Math.floor(Math.random() * 6) + 1)
-      game.gameDice.forEach((die, i)=> {
-        if (die === 6) {
-          game.gameDice[i] = Math.random() < 0.5 ? 5 : 6;
-        }      })
+     // game.gameDice.forEach(die, i)=> {
+        // if (die === 6) {
+        //   game.gameDice[i] = Math.random() < 0.5 ? 5 : 6;
+        // }      })
       // Game checks can happen here
       // When dice are rolled, playerToRoll becomes false and playerPlaying becomes true
       game.playerToRoll = false
@@ -303,9 +338,9 @@ Rune.initLogic({
       game.diceCount[playerId] = startingDiceCount;
     },
     playerLeft(playerId, {game}) {
-      // const playerIndex = Object.keys(game.diceCount).indexOf(playerId)
-      // console.log("Player leaving index", playerIndex)
-      // console.log("current player", game.currentPlayerIndex)
+      //const playerIndex = Object.keys(game.diceCount).indexOf(playerId)
+      //console.log("Player leaving index", playerIndex)
+      //console.log("current player", game.currentPlayerIndex)
       delete game.diceCount[playerId];
 
 
