@@ -24,6 +24,7 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
           <p>1: Pop balloons to remove them <p>2: Gifts have a random amount of dice, choose who gets them </p>3: Share the cake with everyone else </p>
           <p>When only confetti is left, click the red "end turn" button.</p>
         <button onClick={closePopup}>Close</button>
+        {/* <button onClick={closePopup}>Credits</button> to add credits */}
       </motion.div>
       </AnimatePresence>
     </div>
