@@ -1,70 +1,47 @@
 # React_jam_2023_JoyofCoding
 
-### To run the development server:
+## Three projects:
 
-Navigate into the correct project using:
+### advance-game:"Untitiled" Title
+undetermined set up, a space for more advanced students to build a combat platformer if desired
 
-`cd advance-game`   **OR**   `cd infinite-words-game` **OR** `cd joy-game`
+### infinite-words-game: "Infinite Wordsearch" Title
+word search combined with match 3 replacement of letters functionality
 
-Once inside the game project folder, install the needed packages using:
+could have timed games to challenge in multiplayer
 
-`npm i`
+could add blank unusable blocks to increase difficulty (stretch)
 
-Then start the develpment build and run it on your local web browser using:
+### joy-game: "Share The Joy" Title
+This ReactJam mobile game is an adaptation and expansion of the game ["Pass the Pandas"](https://www.ultraprogames.com/products/pass-the-pandas) by Ken Gruhl and Quentin Weir.
 
-`npm run dev`
+The latest playtest build is available [here](https://app.rune.ai/?__cli=1&gameUrl=https%3A%2F%2Fgames-production.rune.ai%2F120%2F10&multiplayer=1&playtest=1).
+#### Credits
 
-Follow the provided link using control+click or command+click to open the project locally
+Created by students of the [Joy of Coding Academy](https://joyofcoding.academy/)
 
-
-
-# Three projects:
-
-## 1. advance-game
->### "Untitiled" Title
-> undetermined set up, a space for more advanced students to build a combat platformer if desired
-
-## 2. infinite-words-game
->### "Infinite Wordsearch" Title
-> word search combined with match 3 replacement of letters functionality
->
-> could have timed games to challenge in multiplayer
->
-> could add blank unusable blocks to increase difficulty (stretch)
-
-## 3. joy-game
-> ### "Share The Joy" Title
-> Pass the pandas reference game
->
-> Dice only game
-
-Credits:
-
-Created by students of the Joy of Coding Academy
-www link to joc here
-
-Project Consultant:
+**Project Consultant:**
 Dr. Dana
 
-Head Engineeer:
+**Head Engineeer:**
 Suzanne 
 
-Head UI/UX Engineer:
+**Head UI/UX Engineer:**
 Joel Davila
 
-Artist:
+**Artist:**
 Kassandra "Chase" Tramel
 
-Project Lead:
+**Project Lead:**
 Katrina Wright
 
-Additional software development:
+**Additional Software Development:**
 Alyssa
 Andrew
 Kassandra "Chase" Tramel
 Katrina Wright
 
-Thank you testers:
+**Playtesters:**
 David 
 Jen Shaw
 Bobe
