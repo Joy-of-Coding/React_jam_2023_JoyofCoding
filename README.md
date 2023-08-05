@@ -36,15 +36,15 @@ Kassandra "Chase" Tramel
 Katrina Wright
 
 **Additional Software Development:**
-Alyssa
-Andrew
-Kassandra "Chase" Tramel
-Katrina Wright
+Alyssa  
+Andrew  
+Kassandra "Chase" Tramel  
+Katrina Wright  
 
 **Playtesters:**
-David 
-Jen Shaw
-Bobe
+David  
+Jen Shaw  
+Bobe  
 
 
 
