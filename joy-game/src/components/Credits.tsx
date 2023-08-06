@@ -28,7 +28,7 @@ export const Credits: React.FC<Credits> = ({ closePopup }) => {
 
            
             <motion.p transition={{ duration: .5, delay:.5 }} animate={{x:0,opacity: 100}}initial={{x:'-100vw',opacity:0}}>Project Lead: Katrina Wright</motion.p> 
-            <motion.p transition={{ duration: .5, delay:1  }} animate={{x:0,opacity: 100}}initial={{x:'100vw',opacity:0}}>Head Engineeer: Suzanne</motion.p> 
+            <motion.p transition={{ duration: .5, delay:1  }} animate={{x:0,opacity: 100}}initial={{x:'100vw',opacity:0}}>Head Engineeer: Suzanne Atkinson</motion.p> 
             <motion.p transition={{ duration: .5, delay:1.5  }} animate={{x:0,opacity: 100}}initial={{x:'-100vw',opacity:0}}>Head UI/UX Engineer: Joel Davila</motion.p> 
             <motion.p transition={{ duration: .5, delay:2  }} animate={{x:0,opacity: 100}}initial={{x:'100vw',opacity:0}}>Artist: Kassandra "Chase" Tramel</motion.p> 
             <motion.p transition={{ duration: .5, delay:2.5  }} animate={{x:0,opacity: 100}}initial={{x:'-100vw',opacity:0}}>Project Consultant: Dr. Dana</motion.p> 
