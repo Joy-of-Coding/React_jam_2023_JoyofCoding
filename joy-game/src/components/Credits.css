@@ -45,6 +45,28 @@
     font-weight: bolder;
   }
 
+ .credits p{
+    margin: 8px;
+ }
+
+ h2{
+    margin: 0;
+    padding: 0;
+ }
+
+  .developers{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+   
+  }
+
+  .software-developers{
+    width: 50%;
+  }
+
 .h1 {
   color: yellow
 }
