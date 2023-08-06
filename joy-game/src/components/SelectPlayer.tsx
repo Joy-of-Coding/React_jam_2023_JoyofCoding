@@ -31,7 +31,7 @@ const SelectPlayer: React.FC<SelectPlayerProps> = ({ yourPlayerId, playerIds, cl
             <AnimatePresence>
                 <motion.div transition={{ duration: .5 }} animate={{x:0}}initial={{x:250}}
                 className="popup-body">
-                    <span><b>To whom would you like to gift a random number of dice (including taking one away)?</b></span>
+                    <span><b>To whom would you like to gift a random number of dice (including taking some away)?</b></span>
 
                     <div className='playerSelect'>
 
