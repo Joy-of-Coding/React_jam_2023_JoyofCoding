@@ -27,15 +27,14 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
           <p>1: Pop balloons to remove them</p> 
           <p>2: Gifts have a random amount of dice, choose who gets them </p>
           <p>3: Share the cake with everyone else </p>
-          <p>When only confetti is left, click the red "end turn" button.</p>
-          {/* <p>Made for fun by students of Emily Hill's Joy of Coding Academy - visit JoyofCoding.Academy for program details</p> */}
+          <p>When only confetti is left, click the red "end turn" button</p>
+          <p>*inspired by “Pass the Pandas” and built by Joy of Coding Academy students </p>
 
         <div>
           {open && <Credits closePopup={() => setOpen(false)} />}
           <motion.button  whileHover={{ scale: 1.1 }}  onClick={() => setOpen(true)}><b>Credits</b></motion.button>
         </div>      
         <motion.button  whileHover={{ scale: 1.1 }} onClick={closePopup}>Close</motion.button>
-        {/* <button onClick={closePopup}>Credits</button> to add credits */}
       </motion.div>
       </AnimatePresence>
     </div>
