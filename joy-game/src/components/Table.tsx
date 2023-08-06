@@ -43,7 +43,7 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
       }
 
 
-        if (faceValue === 5 ) {  //balloons
+        if (faceValue === 5 || faceValue === 4) {  //balloons
             const popAudio = new Audio(pop)
             popAudio.play()
             Rune.actions.popBalloons({playerId: playerId, dieIndex: i})

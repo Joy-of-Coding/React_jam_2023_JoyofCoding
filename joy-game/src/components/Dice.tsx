@@ -21,7 +21,7 @@ const Dice: React.FC<DiceProps> = ({ faceValue }) => {
 
   return (
     <>
-       {faceValue === 5 ? 
+       {faceValue === 5 || faceValue === 4 ? 
         <motion.div animate={{scale:[1,1.2,1]}} transition={{duration:1.7,delay: 0.3, repeat:Infinity}} className='img-container'>
             <img  src={dices[faceValue-1]}></img>
      

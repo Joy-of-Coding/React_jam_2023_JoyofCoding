@@ -2,7 +2,7 @@ import type {RuneClient} from "rune-games-sdk/multiplayer"
 // import {Simulate} from "react-dom/test-utils";
 // import play = Simulate.play;
 
-const startingDiceCount = 5
+const startingDiceCount = 10
 interface isGameOver {
   game:GameState
 }
@@ -190,6 +190,8 @@ Rune.initLogic({
         }
       
         game.diceCount[id] += 1;
+              //remove 1 from player per player
+        // game.diceCount[playerId] += -1
       }
 
       //remove 1 from player
@@ -244,7 +246,7 @@ Rune.initLogic({
       //   return
       // }
 
-        let randomGift = Math.floor((Math.random() * 4)-1)
+        let randomGift = Math.floor((Math.random() * 5)-2)
         if (randomGift===0) randomGift = 1
         game.diceCount[opponentId] += randomGift;
         game.diceCount[playerId] += -1
