@@ -8,7 +8,7 @@ import React from "react"
 
 const MainLayout  = () => {
 
-    const dicePool = [ 6,6,6,6,6,6]
+    const dicePool = [ 20,6,6,6,6,6]
     const [diceValue, setDiceValue] = useState(dicePool)
 
     const rollDice = () => {
