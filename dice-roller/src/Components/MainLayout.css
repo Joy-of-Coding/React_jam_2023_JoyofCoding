@@ -11,20 +11,31 @@
 
 .top {
     flex-grow: 1;
-    background-color: powderblue;
+    color: white;
+    /*padding: 5px;*/
+    text-align: center;
     width: 100%;
+    background: linear-gradient(to top right, #510e9a, #ded5fc);
 }
 
 .middle {
-    flex-grow: 2;
-    background-color: skyblue;
+    color: white;
+    /*padding: 5px;*/
+    text-align: center;
+    flex-grow: 3;
+    background: linear-gradient(to top right, #510e9a, #ded5fc);
     width: 100%;
+
 }
 
 .bottom {
-    flex-grow: 3;
-    background-color: deepskyblue;
+    color: white;
+    /*padding: 5px;*/
+    text-align: center;
+    flex-grow: 2;
+    /*background-color: deepskyblue;*/
     width: 100%;
+    background: linear-gradient(to bottom right, #510e9a, #ded5fc);
 
 }
 
