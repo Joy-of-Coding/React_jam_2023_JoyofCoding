@@ -1,0 +1,17 @@
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: tan;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 3px 3px 2px darkslategray;
+}
+
+span {
+    align-self: center;
+}

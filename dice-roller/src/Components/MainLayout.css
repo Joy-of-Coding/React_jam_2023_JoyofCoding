@@ -1,0 +1,63 @@
+
+.container {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+
+
+.top {
+    flex-grow: 1;
+    background-color: powderblue;
+    width: 100%;
+}
+
+.middle {
+    flex-grow: 2;
+    background-color: skyblue;
+    width: 100%;
+}
+
+.bottom {
+    flex-grow: 3;
+    background-color: deepskyblue;
+    width: 100%;
+
+}
+
+.diceHolder, .tileHolder {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.rollDiceDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+
+}
+
+.rollDiceButton {
+    padding: 10px 20px;
+    font-size: large;
+    font-weight: bold;
+    background-color: mediumseagreen;
+    color: aliceblue;
+    border-radius: 5px;
+    box-shadow: 5px 5px 2px darkslategray;
+    transition: box-shadow 0.3s ease;
+}
+
+.rollDiceButton:hover {
+    box-shadow: 8px 8px 4px darkslategray;
+}
+
+.result {
+    align-self: center;
+}
