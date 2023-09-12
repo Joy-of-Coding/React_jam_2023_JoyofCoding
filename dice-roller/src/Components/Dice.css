@@ -1,12 +1,9 @@
 .dice {
     position: relative; /* Set the container to relative positioning */
     display: inline-block; /* Allow the container to size according to content */
-    /*border: 1px solid gray;*/
     border-radius: 5px;
-    height: 80px; /* Adjusted height */
-    width: 80px; /* Adjusted width */
-    /*background-color: white;*/
-    /*box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1); !* Inset shadow for the "inset" effect *!*/
+    height: 80px;
+    width: 80px;
    padding: 5px;
     margin: 10px;
 
@@ -17,8 +14,6 @@
     top: 50%; /* Center vertically */
     left: 50%; /* Center horizontally */
     transform: translate(-50%, -50%); /* Center both horizontally and vertically */
-    height: 80px;
-    width: 80px;
     opacity: 0.9;
 
 }

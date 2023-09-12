@@ -14,16 +14,13 @@ import d4Line from "../assets/dice/d4-lineart-blank.png"
 import d4Yellow from "../assets/dice/d4-yellow-blank.png"
 import {useState} from "react";
 
-const Dice = ({value, position, numDice, diceClick}) => {
+const Dice = ({value, diceClick, height, width}) => {
     const [style, setStyle] = useState("color")
-    // const [thisDiceNum, setThisDiceNum] = useState(numDice)
 
-    // const handleClick = () => {
-    //     console.log("Clicked d" , {value})
-    //     let newNum = numDice
-    //     setThisDiceNum(newNum+1)
-    //     diceClick(value, numDice)
-    // }
+    const handleClick = () => {
+        console.log("Clicked d" ,value)
+        diceClick(value)
+    }
 
     const diceObject = {
         20: {
@@ -53,18 +50,15 @@ const Dice = ({value, position, numDice, diceClick}) => {
     };
 
 
-    console.log(diceObject);
-
-    console.log(diceObject[value].color)
-
     return (
-            <div
+            <div onClick={handleClick}
                   className="dice">
                 <div className="diceImage">
-                    <img  height="64" width="64" src={diceObject[value].color} alt={`d${value}`}></img>
+                    <img  height={parseInt(height, 10)} width={parseInt(width, 10)}  src={diceObject[value].color} alt={`d${value}`}></img>
                 </div>
-               <div className="diceValue">d{value}</div>
-                {/*<div className="numDice">{numDice}</div>*/}
+                {value &&
+                    <div className="diceValue">d{value}</div>
+                }
             </div>
     )
 }

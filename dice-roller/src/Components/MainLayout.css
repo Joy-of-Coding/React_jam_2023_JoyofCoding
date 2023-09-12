@@ -18,22 +18,31 @@
     background: linear-gradient(to top right, #510e9a, #ded5fc);
 }
 
-.middle {
-    color: white;
-    /*padding: 5px;*/
-    text-align: center;
-    flex-grow: 3;
-    background: linear-gradient(to top right, #510e9a, #ded5fc);
-    width: 100%;
-
-}
-
-.bottom {
+.dicePoolContainer {
     color: white;
     /*padding: 5px;*/
     text-align: center;
     flex-grow: 2;
-    /*background-color: deepskyblue;*/
+    background: linear-gradient(to top right, #510e9a, #ded5fc);
+    width: 100%;
+}
+
+/*update class name to reflect function, rather than position*/
+.resultContainer {
+    color: white;
+    /*padding: 5px;*/
+    text-align: center;
+    flex-grow: 2;
+    background: linear-gradient(to bottom right, #510e9a, #ded5fc);
+    width: 100%;
+
+}
+
+/*update class name to reflect function, rather than position*/
+.diceSet {
+    color: white;
+    text-align: center;
+    flex-grow: 2;
     width: 100%;
     background: linear-gradient(to bottom right, #510e9a, #ded5fc);
 
