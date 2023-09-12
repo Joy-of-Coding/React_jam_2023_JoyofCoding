@@ -1,0 +1,13 @@
+.dice {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 5px;
+    height: 60px;
+    width: 60px;
+    background-color: aliceblue;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 5px 5px 2px darkslategray;
+}
