@@ -1,9 +1,24 @@
 # React_jam_2023_JoyofCoding
 
-## Three projects:
+## Game Projects:
 
 ### advance-game:"Untitiled" Title
 undetermined set up, a space for more advanced students to build a combat platformer if desired
+
+### battle-sweep:"Untitiled" Title
+Fall 2023 Entry, Classic games with a twist theme
+
+Minesweeper/battleship crossover
+
+Credits:
+Game Producer: Katrina Wright
+Game Development: 
+
+### dice-roller:"Untitiled" Title
+this is a mini dice counter project
+
+Credits:
+Game Development: Suzanne
 
 ### infinite-words-game: "Infinite Wordsearch" Title
 word search combined with match 3 replacement of letters functionality
