@@ -1,0 +1,10 @@
+
+.board {
+    display: inline-grid;
+    padding: 10px;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 4px;
+    border: darkblue solid 1px;
+    background-color: aqua;
+}
