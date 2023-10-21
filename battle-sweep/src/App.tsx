@@ -6,12 +6,25 @@ import { GameState } from "./logic.ts"
 
 function App() {
   const [game, setGame] = useState<GameState>()
+
+  const [timer, setTimer] = useState(60) //Added timer to countdown
+
   useEffect(() => {
     Rune.initClient({
       onChange: ({ game }) => {
         setGame(game)
       },
     })
+
+    // Start the countdown timer when the component mounts
+    const interval = setInterval(() => {
+      if (timer > 0) {
+        setTimer(timer - 1) //Decrement the timer directly
+      }
+    }, 1000) // Timer will decrement every 1 second
+
+    // Clean up the timer when the component unmounts
+    return () => clearInterval(interval)
   }, [])
 
   if (!game) {
@@ -33,6 +46,7 @@ function App() {
         <button onClick={() => Rune.actions.increment({ amount: 1 })}>
           count is {game.count}
         </button>
+        <p>Timer: {timer} second(s)</p>
         <p>
           Edit <code>src/App.tsx</code> or <code>src/logic.ts</code> and save to
           test HMR
