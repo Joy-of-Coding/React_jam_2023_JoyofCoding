@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import Tile from "./Tile";
 import './Board.css'
-import {GameState} from "../logic.ts";
+
 
 interface BoardProps {
   //remove original props from interface
   // width: number;
   // height: number;
 
-  //add gameprops
-      game: GameState,
+  //add boardprops
+      board: Array<any>
 
 
 }
 
+//moved this to logic.ts
 // function createBoard(height: number, width: number) {
 //   const matrix = [];
 //   for (let row = 0; row < height; row++) {
@@ -35,7 +36,7 @@ interface BoardProps {
 
 //can remove height & width props from Board it is created in logic.tsx
 //add game props from rune SDK
-function Board({game}) {
+function Board({board}) {
 
   //board state is created in logic.tsx
   // const [board, setBoard] = useState(() => {
@@ -69,13 +70,16 @@ function Board({game}) {
   // }, [board]);
 
   return (
-    <div className="board">
-      {game.board.map((row) =>
-          row.map((tile) =>
-              <Tile key={tile.id} {...tile} />
-          )
-      )}
-    </div>
+      <>
+      <h1>Battle Sweeper</h1>
+        <div className="board">
+          {board.map((row) =>
+              row.map((tile) =>
+                  <Tile key={tile.id} {...tile} />
+              )
+          )}
+        </div>
+      </>
   );
 }
 

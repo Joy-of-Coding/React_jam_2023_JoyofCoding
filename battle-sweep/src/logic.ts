@@ -1,4 +1,5 @@
-import type { RuneClient } from "rune-games-sdk/multiplayer"
+import type {RuneClient} from "rune-games-sdk/multiplayer"
+import board from "./components/Board.tsx";
 
 const boardWidth = 9
 const boardHeight = 9
@@ -15,7 +16,6 @@ function createBoard(height: number, width: number) {
         isFlipped: false,
         isMarked: false,
         value: 0,
-
       });
     }
     matrix.push(newRow);
@@ -61,17 +61,14 @@ Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 4,
   setup: (allPlayerIds): GameState => {
-    const game = {
+    return {
       count: 0,
       board: createBoard(boardHeight, boardWidth),
-
     }
-
-    return game
 
     //starting code
     // for (const playerId of allPlayerIds) {
-    //   game.scores[playerId] = 0
+    //   game.boards[playerId] = createBoard(boardHeight,boardWidth)
     // }
     // game.count = 0
     // return { count: 0 }
