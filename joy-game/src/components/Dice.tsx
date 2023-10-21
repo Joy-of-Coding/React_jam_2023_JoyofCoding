@@ -2,7 +2,7 @@ import React from 'react';
 import {motion} from "framer-motion";
 
 import "./Dice.css"
-import dice1 from "../assets/pngs/dice1.png"
+import dice1 from "../assets/pngs/dice1Alt.png"
 import dice2 from "../assets/pngs/dice2.png"
 import dice3 from "../assets/pngs/dice3.png"
 import dice4 from "../assets/pngs/dice4.png"

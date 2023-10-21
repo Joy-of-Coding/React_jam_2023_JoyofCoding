@@ -59,12 +59,22 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
             }
         }
 
-      //EVeryone gets a bite of cake
+        if (faceValue ===1 ) {
+            if (playerIds.length>1) {
+                setShowSelectPlayer(true)
+            }
+            Rune.actions.challenge({playerId: playerId, opponentId: ydieIndex: i})
+        }
+
+
+        //EVeryone gets a bite of cake
       if (faceValue === 2){  //cake
             Rune.actions.shareCake({playerId: playerId, playerIds: playerIds, dieIndex: i})
           const cakeAudio = new Audio(cake)
           cakeAudio.play()
       }
+
+      //Challenge Dice!
 
     }
 

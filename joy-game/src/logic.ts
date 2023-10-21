@@ -52,8 +52,6 @@ export interface GameState {
   selectedPlayerId: string ,
   // challengeCounter: number,
   // challengeStatus: boolean,
-  // challengeCounter: number,
-  // challengeStatus: boolean,
   playerToRoll: boolean,
   playerPlaying: boolean,
   gameOver: boolean,

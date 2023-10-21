@@ -3,7 +3,7 @@ import React from 'react';
 import './Player.css';
 import { GameState } from '../logic.ts';
 import {motion} from "framer-motion";
-// import partying from "../assets/partying.gif"
+import partying from "../assets/partying.gif"
 // import splat from "../assets/pngs/splat.png"
 
 interface PlayerProps {
@@ -73,12 +73,12 @@ const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) =
                     <div>
 
                         <hr />
-                        {/* <div className='challenge-text'>
+                         <div className='challenge-text'>
                           <small>Challenges</small>
                         </div>
                         <div className='challenges'>
                             <img src={`${partying}`} alt="" />
-                        </div> */}
+                        </div>
 
                         
 

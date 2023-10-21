@@ -47,7 +47,6 @@
     background: linear-gradient(to bottom right, #510e9a, #ded5fc);
 
 }
-
 .diceHolder, .tileHolder {
     display: flex;
     flex-direction: row;

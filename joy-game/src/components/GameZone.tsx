@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import Controls from "./Controls.tsx";
 import Table from "./Table.tsx";
 import Player from "./Player.tsx";
-//import Header from "./Header.tsx";
+// import Header from "./Header.tsx";
 import {useState} from  'react'
 import {HelpPopup} from './HelpPopup.tsx'
 
@@ -30,8 +30,8 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 
                 {/*<motion.div className="display-player-name" transition={{ duration: 1.2 }} animate={{y:0}} initial={{y:-150}}   >*/}
-                {/*    */}
-                {/*    <Header displayName={players[yourPlayerId].displayName} challengeCounter={0} challengeStatus={false} />*/}
+
+                {/*    <Header displayName={players[yourPlayerId].displayName} challengeCounter={0} challengeStatus={true} />*/}
                 {/*</motion.div>*/}
 
 

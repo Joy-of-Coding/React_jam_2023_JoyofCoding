@@ -1,17 +1,17 @@
 import './Dice.css'
 
-import d20Blue  from "../assets/dice/d20-blue-blank.png"
-import d20Line from "../assets/dice/d20-lineart-blank.png"
-import d12Line from "../assets/dice/d12-lineart-blank.png"
-import d12Green from "../assets/dice/d12-green-blank.png"
-import d10Line from "../assets/dice/d10-lineart-blank.png"
-import d10Orange from "../assets/dice/d10-orange-blank.png"
-import d8Line from "../assets/dice/d8-lineart-blank.png"
-import d8Purple from "../assets/dice/d8-purple-blank.png"
-import d6Line from "../assets/dice/d6-lineart-blank.png"
-import d6Red from "../assets/dice/d6-red-blank.png"
-import d4Line from "../assets/dice/d4-lineart-blank.png"
-import d4Yellow from "../assets/dice/d4-yellow-blank.png"
+import d20Blue  from "../assets/blank_dice/d20-blue-blank.png"
+import d20Line from "../assets/blank_dice/d20-lineart-blank.png"
+import d12Line from "../assets/blank_dice/d12-lineart-blank.png"
+import d12Green from "../assets/blank_dice/d12-green-blank.png"
+import d10Line from "../assets/blank_dice/d10-lineart-blank.png"
+import d10Orange from "../assets/blank_dice/d10-orange-blank.png"
+import d8Line from "../assets/blank_dice/d8-lineart-blank.png"
+import d8Purple from "../assets/blank_dice/d8-purple-blank.png"
+import d6Line from "../assets/blank_dice/d6-lineart-blank.png"
+import d6Red from "../assets/blank_dice/d6-red-blank.png"
+import d4Line from "../assets/blank_dice/d4-lineart-blank.png"
+import d4Yellow from "../assets/blank_dice/d4-yellow-blank.png"
 import {useState} from "react";
 
 const Dice = ({value, diceClick, height, width}) => {

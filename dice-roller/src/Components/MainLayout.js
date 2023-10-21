@@ -7,31 +7,22 @@ import React from "react"
 
 
 const MainLayout  = () => {
-    //changed name of constant to dice Set since this won't change
+    //changed name of constant to blank_dice Set since this won't change
     const diceSet = [4,6,8,10,12,20]
-    // const dicePool = [4,6,8,10,12,20]
 
-    //start with zero (or 1 d20) dice on in dice pool, and make it a state variable
+    //start with 1 d20 blank_dice on in blank_dice pool, and make it a state variable
     const [dicePool, setDicePool] = useState([20])
 
-    //holds the current value of the selected dice from the pool, starts as a d20...why not?
+    //holds the current value of the selected blank_dice from the pool
     const [diceValue, setDiceValue] = useState(dicePool)
-
-    //numDice not needed since it can be calculated from the dicePool
-    // const [numDice, setNumDice] = useState([0,0,0,0,0,0])
-
-    useEffect(() => {
-
-    }, [dicePool]);
 
     const diceAddClick = (value) => {
         let newDicePool = [...dicePool]
-        newDicePool.push(value)
-        console.log(newDicePool)
+        //splice dice
+        newDicePool.splice(0,0,value)
+        // newDicePool.push(value)
         setDicePool(newDicePool)
-
     }
-
 
     const diceSubtractClick = (value) => {
         let newDicePool = [...dicePool]
@@ -40,20 +31,16 @@ const MainLayout  = () => {
         setDicePool(newDicePool)
     }
 
-
     const rollDice = () => {
         console.log("Rolling Dice")
         if(dicePool.length > 0 ) {
             let newRoll = []
-
             dicePool.forEach((faces) => {
                 newRoll.push(Math.floor(Math.random() * faces + 1))
             })
-            console.log(newRoll)
-
             setDiceValue(newRoll)
         } else {
-            return "No dice selected"
+            return "No blank_dice selected"
         }
     }
 
@@ -82,11 +69,7 @@ const MainLayout  = () => {
                            />
                         </>
                     )}
-
                 </div>
-
-
-
 
             </div>
 
@@ -113,7 +96,6 @@ const MainLayout  = () => {
             </div>
 
 
-            {/*update class name to reflect function, rather than position*/}
             <div className="resultContainer">
                 <h2>Roll Result</h2>
 
