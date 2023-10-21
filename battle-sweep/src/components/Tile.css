@@ -16,3 +16,7 @@
     border-color: rgb(3, 3, 63) rgb(58, 58, 246) rgb(58, 58, 246) rgb(3, 3, 63);
     border-radius: 4px;
 }
+
+.zero {
+    color: darkblue;
+}
