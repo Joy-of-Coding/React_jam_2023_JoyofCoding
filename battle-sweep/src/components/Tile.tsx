@@ -16,7 +16,7 @@ function Tile({ id, isBomb, isFlipped, isMarked, value }: TileProps) {
         isMarked && "isMarked"
       }`}
     >
-      {isBomb ? "B" : value}
+      {isBomb ? "B" : value > 0 && value}
     </div>
   );
 }

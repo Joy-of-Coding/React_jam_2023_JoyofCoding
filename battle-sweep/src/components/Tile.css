@@ -1,5 +1,5 @@
 .isBomb {
-    background-color: red;
+    background-color: #e3172f;
 }
 
 .isMarked {
@@ -11,5 +11,8 @@
 }
 
 .tile {
-    padding: 8px;
+    padding: 8px 12px;
+    border: solid 1.5px darkblue;
+    border-color: rgb(3, 3, 63) rgb(58, 58, 246) rgb(58, 58, 246) rgb(3, 3, 63);
+    border-radius: 4px;
 }
