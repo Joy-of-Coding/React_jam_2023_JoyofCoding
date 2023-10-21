@@ -14,12 +14,15 @@ export interface TileProp {
 }
 
 export interface GameState {
-  count: number
-  board: Array<Array<TileProp>>
+  playerState: {
+    [playerId: string]: {
+      board: Array<Array<TileProp>>
+    }
+  }
 }
 
 type GameActions = {
-  increment: (params: { amount: number }) => void,
+  // increment: (params: { amount: number }) => void,
   addBombs: () => void
 }
 
@@ -27,38 +30,48 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
+/*
 export function getCount(game: GameState) {
   return game.count
 }
+*/
 
 Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 2,
-  setup: (allPlayerIds): GameState => {
-    return {
-      count: 0,
-      board: createBoard(boardHeight, boardWidth),
-    }
-
+  setup: (playerIds) => ({
+    playerState: playerIds.reduce<GameState["playerState"]>(
+      (acc, playerId) => ({
+        ...acc,
+        [playerId]: {
+          board: createBoard(boardHeight, boardWidth),
+        },
+      }),
+      {}
+    )
+    
     //starting code
-    // for (const playerId of allPlayerIds) {
+    // for (const playerId of playerIds) {
     //   game.boards[playerId] = createBoard(boardHeight,boardWidth)
     // }
     // game.count = 0
     // return { count: 0 }
-  },
+  }),
   actions: {
+    /*
     increment: ({ amount }, { game }) => {
       game.count += amount
     },
-    addBombs: (_,{game}) => {
-      const oldBoard = game.board
+    */
+    addBombs: (_,{ game, playerId }) => {
+      const oldBoard = game.playerState[playerId].board
       const newBoard = insertBombs(oldBoard, bombs)
-      game.board = newBoard
+      game.playerState[playerId].board = newBoard
     }
     
 
-  },
+  }
+  /*,
   events: {
     playerJoined: (playerId, {game}) => {
      //some actions
@@ -67,4 +80,5 @@ Rune.initLogic({
      //some actions
     },
   }
+  */
 })

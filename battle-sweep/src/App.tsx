@@ -7,8 +7,8 @@ function App() {
   const [game, setGame] = useState<GameState>();
   useEffect(() => {
     Rune.initClient({
-      onChange: ({ game }) => {
-        setGame(game);
+      onChange: ({ game, playerIds, yourPlayerId }) => {
+        setGame({ game, playerIds, yourPlayerId });
       },
     });
   }, []);
@@ -20,7 +20,7 @@ function App() {
     <>
       {/*<button onClick={() => Rune.actions.increment({ amount: 1 })}></button>*/}
       <button onClick={() => Rune.actions.addBombs()}>Add Bombs</button>
-      <Board board={game.board} />
+      <Board board={game.playerState[yourPlayerId].board} />
     </>
   );
 }
