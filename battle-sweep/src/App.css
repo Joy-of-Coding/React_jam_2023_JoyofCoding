@@ -15,24 +15,5 @@ body {
   color: white;
 }
 
-.board {
-  display: inline-grid;
-  padding: 10px;
-  grid-template-columns: repeat(9, 12px);
-  grid-template-rows: repeat(9, 12px);
-  gap: 4px;
-  border: darkblue solid 1px;
-  background-color: aqua;
-}
 
-.isBomb {
-  background-color: red;
-}
 
-.isMarked {
-  background-color: yellow;
-}
-
-.isFlipped {
-  background-color: grey;
-}

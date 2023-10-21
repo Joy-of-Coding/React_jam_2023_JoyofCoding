@@ -1,3 +1,5 @@
+import './Tile.css'
+
 interface TileProps {
   id: number;
   isBomb: boolean;
@@ -15,7 +17,7 @@ isBomb &&
 
 function Tile({ id, isBomb, isFlipped, isMarked, value }: TileProps) {
   return (
-    <div id={id.toString()} className={isBomb ? "isBomb" : ""}>
+    <div id={id.toString()} className={`tile ${isBomb ? "isBomb" : ""}`}>
       {value && value}
     </div>
   );

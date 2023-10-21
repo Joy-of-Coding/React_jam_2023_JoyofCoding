@@ -1,0 +1,15 @@
+.isBomb {
+    background-color: red;
+}
+
+.isMarked {
+    background-color: yellow;
+}
+
+.isFlipped {
+    background-color: grey;
+}
+
+.tile {
+    padding: 8px;
+}

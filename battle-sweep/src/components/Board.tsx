@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Tile from "./Tile";
+import './Board.css'
 
 interface BoardProps {
   width: number;
