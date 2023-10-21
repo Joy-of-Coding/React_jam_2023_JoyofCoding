@@ -1,3 +1,5 @@
+import { TileProp } from "../logic";
+
 const emptyCell = {
   isBomb: false,
   isFlipped: false,
@@ -17,7 +19,7 @@ export function createBoard(height: number, width: number) {
   return matrix;
 }
 
-export function insertBombs(matrix: Array<any>, bombs: number) {
+export function insertBombs(matrix: Array<Array<TileProp>>, bombs: number) {
   let bombsToInsert = bombs;
   const refreshBoard = createBoard(matrix.length, matrix[0].length);
 
@@ -37,7 +39,7 @@ export function insertBombs(matrix: Array<any>, bombs: number) {
   return refreshBoard;
 }
 
-export function increaseNums(matrix: Array<any>) {
+export function increaseNums(matrix: Array<Array<TileProp>>) {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[row].length; col++) {
       if (matrix[row][col].isBomb) {
@@ -52,7 +54,11 @@ export function increaseNums(matrix: Array<any>) {
   }
 }
 
-export function getNeighbors(row: number, col: number, matrix: Array<any>) {
+export function getNeighbors(
+  row: number,
+  col: number,
+  matrix: Array<Array<TileProp>>
+) {
   const height = matrix.length;
   const width = matrix[row].length;
   const neighbors = [];
