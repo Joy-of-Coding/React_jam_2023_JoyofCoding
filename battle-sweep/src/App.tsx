@@ -13,20 +13,16 @@ function App() {
     });
   }, []);
 
-
-
   if (!game) {
     return <div>Loading...</div>;
   }
- return (
-
-     <>
-       {console.log(game.boards)}
+  return (
+    <>
       {/*<button onClick={() => Rune.actions.increment({ amount: 1 })}></button>*/}
-      <button onClick={() => Rune.actions.addBombs({ number: 10 })}>Add Bombs</button>
-       <Board board = {game.board}/>;
-     </>
-)
+      <button onClick={() => Rune.actions.addBombs()}>Add Bombs</button>
+      <Board board={game.board} />
+    </>
+  );
 }
 
 export default App;
