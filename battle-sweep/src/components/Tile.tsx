@@ -12,9 +12,11 @@ function Tile({ id, isBomb, isFlipped, isMarked, value }: TileProps) {
   return (
     <div
       id={id.toString()}
-      className={`tile ${isBomb && "isBomb"} ${isFlipped && "isFlipped"} ${isMarked && "isMarked"} ${value == 0 && !isBomb && "zero"}`}
+      className={`tile ${
+        isBomb && isFlipped ? "isBomb" : isFlipped ? "isFlipped" : "hidden"
+      } ${isMarked && "isMarked"}`}
     >
-      {isBomb ? "" : value===0 ? "" :  value}
+      {isBomb ? "" : value === 0 ? "" : value}
     </div>
   );
 }
