@@ -5,15 +5,23 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
+import Timer from "./timer.tsx"; // Import the Timer component
 
 function App() {
-  const [game, setGame] = useState<GameState>();
+  const [game, setGame] = useState<GameState | undefined>();
   const [players, setPlayers] = useState<Players>({});
-  const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
+  const [yourPlayerId, setYourPlayerId] = useState<PlayerId | undefined>();
   const playerIds = Object.keys(players);
 
+  const [timerDuration, setTimerDuration] = useState(10); // Set the initial timer duration
+  const [gameFinished, setGameFinished] = useState(false); // Initialize gameFinished state
 
-  const [timer, setTimer] = useState(60) //Added timer to countdown
+  // Function to handle what happens when the timer reaches 0
+  const handleTimerEnd = () => {
+    const [gameFinished, setGameFinished] = useState(false);
+  // Update the game state to mark it as finished.
+  setGameFinished(true);
+  };
 
   useEffect(() => {
     Rune.initClient({
@@ -23,27 +31,26 @@ function App() {
         setYourPlayerId(yourPlayerId);
       },
     })
-
-    // Start the countdown timer when the component mounts
-    const interval = setInterval(() => {
-      if (timer > 0) {
-        setTimer(timer - 1) //Decrement the timer directly
-      }
-    }, 1000) // Timer will decrement every 1 second
-
-    // Clean up the timer when the component unmounts
-    return () => clearInterval(interval)
   }, [])
 
   if (!game) {
     return <div>Loading...</div>;
   }
+
+  // Conditionally render the "FINISHED!" message
+  const finishedMessage = gameFinished ? (
+    <div style={{ fontSize: "36px" }}>FINISHED!</div>
+  ) : null;
+
   return (
     <>
-<p>Timer: {timer} second(s)</p>
-
+      
       {playerIds.map((id) => (
           <>
+            <Timer 
+              initialTime={timerDuration} 
+              onTimerEnd={handleTimerEnd} 
+            />
             <Player
                 players={players}
                 playerId={id}
