@@ -5,25 +5,25 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+body {
+  margin: 0;
+  background-color: #405FAF;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  flex-direction: column;
+  color: white;
+
 }
 
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.button {
+  margin-top: 8px;
+  background-color: #FF8A65;
+  color: #FFFFFF;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.logo.rune:hover {
-  filter: drop-shadow(0 0 2em #a72cebaa);
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
