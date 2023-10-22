@@ -1,4 +1,4 @@
-import type {RuneClient} from "rune-games-sdk/multiplayer"
+import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
 import { createBoard, insertBombs } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9
@@ -14,6 +14,7 @@ export interface TileProp {
 }
 
 export interface GameState {
+  playerIds: PlayerId[],
   playerState: {
     [playerId: string]: {
       board: Array<Array<TileProp>>
@@ -40,6 +41,7 @@ Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 2,
   setup: (playerIds) => ({
+    playerIds: playerIds,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -71,14 +73,16 @@ Rune.initLogic({
     
 
   }
-  /*,
+  ,
   events: {
     playerJoined: (playerId, {game}) => {
-     //some actions
+      game.playerIds.push(playerId)
+      game.playerState[playerId] = {
+        board: createBoard(boardHeight, boardWidth)
+      }
    },
     playerLeft:(playerId, {game}) => {
-     //some actions
+      delete game.playerState[playerId]
     },
   }
-  */
 })
