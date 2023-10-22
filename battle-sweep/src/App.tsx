@@ -3,6 +3,8 @@ import { GameState } from "./logic.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
 import "./App.css";
+import Player from "./components/Player.tsx";
+import Controls from "./components/Controls.tsx";
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -25,15 +27,26 @@ function App() {
   }
   return (
     <>
-      {/*<button onClick={() => Rune.actions.increment({ amount: 1 })}></button>*/}
-      <button onClick={() => Rune.actions.addBombs()}>Add Bombs</button>
+
+
       {playerIds.map((id) => (
-        <Board
-          key={id}
-          display={id == yourPlayerId}
-          board={game.playerState[`${id}`].board}
-        />
+          <>
+            <Player
+                players={players}
+                playerId={id}
+                game={game}
+                yourPlayerId={yourPlayerId}
+                key={id+"-player"}
+            />
+              <Board
+                key={id}
+                display={id == yourPlayerId}
+                board={game.playerState[`${id}`].board}
+              />
+          </>
       ))}
+
+      <Controls />
     </>
   );
 }

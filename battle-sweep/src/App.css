@@ -17,4 +17,13 @@ body {
 }
 
 
+.button {
+  margin-top: 8px;
+  background-color: #FF8A65;
+  color: #FFFFFF;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
 
