@@ -2,7 +2,7 @@ import { TileProp } from "../logic";
 
 const emptyCell = {
   isBomb: false,
-  isFlipped: false,
+  isFlipped: true,
   isMarked: false,
   value: 0,
 };
@@ -74,4 +74,19 @@ export function getNeighbors(
   if (row + 1 < height && col - 1 >= 0) neighbors.push([row + 1, col - 1]); // DOWN-LEFT
 
   return neighbors;
+}
+
+export function flipAll(board: Array<Array<TileProp>>, flipState: boolean) {
+  const newBoard = board.slice();
+  for (let row = 0; row < newBoard.length; row++) {
+    for (let col = 0; col < newBoard[row].length; col++) {
+      const cell = newBoard[row][col];
+      const newCell = {
+        ...cell,
+        isFlipped: flipState,
+      };
+      newBoard[row][col] = newCell;
+    }
+  }
+  return newBoard;
 }

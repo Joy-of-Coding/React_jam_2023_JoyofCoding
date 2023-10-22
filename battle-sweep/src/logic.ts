@@ -1,5 +1,5 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, insertBombs } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9
 const boardHeight = 9
@@ -73,7 +73,12 @@ Rune.initLogic({
       const newBoard = insertBombs(oldBoard, bombs)
       game.playerState[playerId].board = newBoard
     },
-    swap: (_,{ game }) => {
+    swap: (_,{ game, allPlayerIds }) => {
+      allPlayerIds.map((player) => {
+        const oldBoard = game.playerState[player].board
+        const newBoard = flipAll(oldBoard, !game.onboarding)
+        game.playerState[player].board = newBoard
+      })
       game.onboarding = !game.onboarding;
     },
   }
