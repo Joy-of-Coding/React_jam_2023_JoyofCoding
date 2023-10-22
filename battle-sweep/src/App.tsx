@@ -34,6 +34,8 @@ function App() {
             <Player
                 players={players}
                 playerId={id}
+                game={game}
+                yourPlayerId={yourPlayerId}
                 key={id+"-player"}
             />
               <Board
