@@ -7,12 +7,13 @@
 
 body {
   margin: 0;
-  background-color: darkblue;
+  background-color: #405FAF;
   display: flex;
   align-items: center;
   font-size: 1rem;
   flex-direction: column;
   color: white;
+
 }
 
 
