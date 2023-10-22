@@ -1,8 +1,16 @@
 import './Player.css'
+import { React } from 'react'
 
-const Player = () => {
+interface PlayerProps {
+    players: Record<string, { playerId: string; displayName: string; avatarUrl: string }>;
+    playerId: string;
+}
+
+
+const Player:React.FC<PlayerProps> = ({players, playerId}) => {
+    console.log(players)
     return (
-        <div>Player Container</div>
+        <div><h3>{players[playerId].displayName}'s Board</h3></div>
     )
 }
 
