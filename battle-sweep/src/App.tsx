@@ -27,23 +27,21 @@ function App() {
   }
   return (
     <>
-
-
       {playerIds.map((id) => (
-          <>
-            <Player
-                players={players}
-                playerId={id}
-                game={game}
-                yourPlayerId={yourPlayerId}
-                key={id+"-player"}
-            />
-              <Board
-                key={id}
-                display={id == yourPlayerId}
-                board={game.playerState[`${id}`].board}
-              />
-          </>
+        <>
+          <Player
+            key={id + "-player"}
+            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            players={players}
+            playerId={id}
+            game={game}
+          />
+          <Board
+            key={id}
+            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            board={game.playerState[`${id}`].board}
+          />
+        </>
       ))}
 
       <Controls />

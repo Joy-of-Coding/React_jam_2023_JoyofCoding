@@ -1,30 +1,35 @@
-import './Player.css'
-import { React } from 'react'
-import {GameState} from "../logic.ts";
-
+import "./Player.css";
+import { GameState } from "../logic.ts";
 
 interface PlayerProps {
-    players: Record<string, { playerId: string; displayName: string; avatarUrl: string }>;
-    playerId: string;
-    game: GameState;
-    yourPlayerId: string;
+  players: Record<
+    string,
+    { playerId: string; displayName: string; avatarUrl: string }
+  >;
+  playerId: string;
+  display: boolean;
+  game: GameState;
 }
 
-
-const Player:React.FC<PlayerProps> = ({players, playerId, game, yourPlayerId}) => {
-    console.log(playerId)
-    return (
-        <div>
-
-            {playerId === yourPlayerId ?
-            <>
-            <h3>{players[playerId].displayName}'s Board</h3>
-            <img className='avatar' src={players[playerId].avatarUrl} alt="" />
-            </>
-                : ""}
-        </div>
-    )
-}
-
+const Player = ({ players, playerId, display, game }: PlayerProps) => {
+  return (
+    <div>
+      {display ? (
+        <>
+          <h3>Battle Sweeper</h3>
+          <img className="avatar" src={players[playerId].avatarUrl} alt="" />
+          <h3>
+            {game.onboarding
+              ? players[playerId].displayName
+              : "Opponents Board"}
+            's Board
+          </h3>
+        </>
+      ) : (
+        ""
+      )}
+    </div>
+  );
+};
 
 export default Player;

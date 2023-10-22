@@ -15,6 +15,7 @@ export interface TileProp {
 
 export interface GameState {
   playerIds: PlayerId[],
+  onboarding: boolean,
   playerState: {
     [playerId: string]: {
       board: Array<Array<TileProp>>
@@ -24,7 +25,8 @@ export interface GameState {
 
 type GameActions = {
   // increment: (params: { amount: number }) => void,
-  addBombs: () => void
+  addBombs: () => void,
+  swap: () => void
 }
 
 declare global {
@@ -42,6 +44,7 @@ Rune.initLogic({
   maxPlayers: 2,
   setup: (playerIds) => ({
     playerIds: playerIds,
+    onboarding: true,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -69,9 +72,10 @@ Rune.initLogic({
       const oldBoard = game.playerState[playerId].board
       const newBoard = insertBombs(oldBoard, bombs)
       game.playerState[playerId].board = newBoard
-    }
-    
-
+    },
+    swap: (_,{ game }) => {
+      game.onboarding = !game.onboarding;
+    },
   }
   ,
   events: {
