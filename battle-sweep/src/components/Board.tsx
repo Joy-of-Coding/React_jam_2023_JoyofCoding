@@ -5,20 +5,23 @@ import "./Board.css";
 
 interface BoardProps {
   board: Array<Array<TileProp>>;
+  display: boolean;
 }
 
 //add game props from rune SDK
-function Board({ board }: BoardProps) {
-  return (
-    <>
-      <h1>Battle Sweeper</h1>
-      <div className="board">
-        {board.map((row) =>
-          row.map((tile) => <Tile key={tile.id} {...tile} />)
-        )}
-      </div>
-    </>
-  );
+function Board({ board, display }: BoardProps) {
+  if (display) {
+    return (
+      <>
+        <h1>Battle Sweeper</h1>
+        <div className="board">
+          {board.map((row) =>
+            row.map((tile) => <Tile key={tile.id} {...tile} />)
+          )}
+        </div>
+      </>
+    );
+  }
 }
 
 export default Board;
