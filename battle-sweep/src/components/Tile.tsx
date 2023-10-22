@@ -8,10 +8,6 @@ interface TileProps {
   value: number;
 }
 
-// isFlipped true means revealed
-// isFlipped false means hidden
-// default rn is false/revealed
-
 function Tile({ id, isBomb, isFlipped, isMarked, value }: TileProps) {
   return (
     <div
