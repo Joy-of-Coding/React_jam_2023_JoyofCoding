@@ -1,18 +1,26 @@
-import { useEffect, useState } from "react"
-import reactLogo from "./assets/rune.svg"
-import viteLogo from "/vite.svg"
-import "./App.css"
-import { GameState } from "./logic.ts"
+import { useEffect, useState } from "react";
+import { GameState } from "./logic.ts";
+import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
+import Board from "./components/Board.tsx";
+import "./App.css";
+import Player from "./components/Player.tsx";
+import Controls from "./components/Controls.tsx";
 
 function App() {
-  const [game, setGame] = useState<GameState>()
+  const [game, setGame] = useState<GameState>();
+  const [players, setPlayers] = useState<Players>({});
+  const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
+  const playerIds = Object.keys(players);
+
 
   const [timer, setTimer] = useState(60) //Added timer to countdown
 
   useEffect(() => {
     Rune.initClient({
-      onChange: ({ game }) => {
-        setGame(game)
+      onChange: ({ game, players, yourPlayerId }) => {
+        setGame(game);
+        setPlayers(players);
+        setYourPlayerId(yourPlayerId);
       },
     })
 
@@ -28,35 +36,32 @@ function App() {
   }, [])
 
   if (!game) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://developers.rune.ai" target="_blank">
-          <img src={reactLogo} className="logo rune" alt="Rune logo" />
-        </a>
-      </div>
-      <h1>Vite + Rune</h1>
-      <div className="card">
-        <button onClick={() => Rune.actions.increment({ amount: 1 })}>
-          count is {game.count}
-        </button>
-        <p>Timer: {timer} second(s)</p>
-        <p>
-          Edit <code>src/App.tsx</code> or <code>src/logic.ts</code> and save to
-          test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and Rune logos to learn more
-      </p>
+<p>Timer: {timer} second(s)</p>
+
+      {playerIds.map((id) => (
+          <>
+            <Player
+                players={players}
+                playerId={id}
+                game={game}
+                yourPlayerId={yourPlayerId}
+                key={id+"-player"}
+            />
+              <Board
+                key={id}
+                display={id == yourPlayerId}
+                board={game.playerState[`${id}`].board}
+              />
+          </>
+      ))}
+
+      <Controls />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

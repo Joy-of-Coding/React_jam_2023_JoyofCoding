@@ -1,0 +1,39 @@
+
+.isMarked {
+    background-color: yellow;
+}
+
+.isFlipped {
+    background-color: grey;
+}
+
+.tile {
+    aspect-ratio: 1 / 1;
+    background-color: #2C4EA4;
+    border: solid 1.5px;
+    border-color: #2D4C9F #3D5AAC #3D5AAC #2D4C9F;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+
+
+    /*!*padding: 5px 6px; !* Increase the padding for a cleaner look *!*!*/
+    /*border: none; !* Remove the border *!*/
+    /*background-color: #ffffff; !* White background for tiles *!*/
+    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); !* Add a subtle shadow *!*/
+    /*border-radius: 2px; !* Add some rounded corners to the tiles *!*/
+}
+
+.isBomb {
+    /*background-color: #9D0814;*/
+    /*background-image: url('../assets/png/Bomb-80.png');*/
+    background-image: url('../assets/png/red-bomb.png');
+    /*background-image: url('../assets/png/Bomb-20.png');*/
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.zero {
+    color: darkblue;
+}
