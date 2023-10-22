@@ -10,7 +10,10 @@ interface PlayerProps {
 const Player:React.FC<PlayerProps> = ({players, playerId}) => {
     console.log(players)
     return (
-        <div><h3>{players[playerId].displayName}'s Board</h3></div>
+        <div>
+            <h3>{players[playerId].displayName}'s Board</h3>
+            <img className='avatar' src={players[playerId].avatarUrl} alt="" />
+        </div>
     )
 }
 
