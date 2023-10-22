@@ -22,6 +22,10 @@ function App() {
     });
   }, []);
 
+  const handleTilePress = (row: number, col: number) => {
+    Rune.actions.flip({ row, col });
+  };
+
   if (!game) {
     return <div>Loading...</div>;
   }
@@ -38,6 +42,7 @@ function App() {
           />
           <Board
             key={id}
+            onPress={handleTilePress}
             display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
