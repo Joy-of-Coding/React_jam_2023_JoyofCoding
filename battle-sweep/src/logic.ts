@@ -74,13 +74,13 @@ Rune.initLogic({
       const oldBoard = game.playerState[playerId].board
       const newBoard = insertBombs(oldBoard, game.setBombs)
       game.playerState[playerId].board = newBoard;
-      game.playerState[playerId].bombsPlaced = 10;
+      game.playerState[playerId].bombsPlaced = game.setBombs;
     },
     userAddBomb: ({row, col}, { game, playerId }) =>{
       const oldBoard = game.playerState[playerId].board;
       const isBomb = oldBoard[row][col].isBomb;
       const userBombs = game.playerState[playerId].bombsPlaced;
-      if ( !isBomb && userBombs < 10) {
+      if ( !isBomb && userBombs < game.setBombs) {
         const newBoard = userInsertBomb(row, col, oldBoard, true);
         game.playerState[playerId].board = newBoard;
         game.playerState[playerId].bombsPlaced = userBombs + 1;
