@@ -17,6 +17,7 @@ export interface TileProp {
 export interface GameState {
   playerIds: PlayerId[],
   onboarding: boolean,
+  isGameOver: boolean,
   playerState: {
     [playerId: string]: {
       board: Array<Array<TileProp>>
@@ -41,8 +42,9 @@ export function getCount(game: GameState) {
 }
 */
 
-const flipHandler = (oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
+const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
   if (oldBoard[row][col].isBomb) {
+    game.isGameOver = true
      return flipAll(oldBoard, true)
     //isGameOver: true
   } else if (oldBoard[row][col].value === 0) {
@@ -58,6 +60,7 @@ Rune.initLogic({
   setup: (playerIds) => ({
     playerIds: playerIds,
     onboarding: true,
+    isGameOver: false,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -98,8 +101,17 @@ Rune.initLogic({
       allPlayerIds.map((player) => {
         if (player != playerId) {
           const oldBoard = game.playerState[player].board
-          const newBoard = flipHandler(oldBoard, row, col)
+          const newBoard = flipHandler(game, oldBoard, row, col)
           game.playerState[player].board = newBoard
+          if (game.isGameOver) {
+            Rune.gameOver({
+              players: {
+                [player]: "WON",
+                [playerId]: "LOST",
+              },
+              delayPopUp: false,
+            })
+          }
         }
       })
     },
