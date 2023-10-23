@@ -1,5 +1,5 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -32,6 +32,7 @@ type GameActions = {
   userAddBomb: (args: { row: number ; col: number }) => void,
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
+  flag: (args: { row: number ; col: number }) => void,
 }
 
 declare global {
@@ -115,6 +116,14 @@ Rune.initLogic({
           }
         }
       })
+    },
+    flag:({row, col}, { game, allPlayerIds, playerId }) => {
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const newBoard = toggleFlag(row, col, oldBoard)
+          game.playerState[player].board = newBoard
+        }})
     },
   }
   ,

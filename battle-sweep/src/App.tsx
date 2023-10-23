@@ -14,6 +14,7 @@ function App() {
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
   const [open, setOpen] = useState(false);
+  const [useFlag, setUseFlag] = useState(false);
 
   useEffect(() => {
     Rune.initClient({
@@ -25,12 +26,27 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    if (game?.isGameOver) {
+      setUseFlag(false);
+      setOpen(false);
+    }
+  }, [game]);
+
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
       Rune.actions.userAddBomb({ row, col });
+      return;
+    }
+    if (useFlag) {
+      Rune.actions.flag({ row, col });
     } else {
       Rune.actions.flip({ row, col });
     }
+  };
+
+  const toggleFlagState = () => {
+    setUseFlag(!useFlag);
   };
 
   if (!game) {
@@ -56,7 +72,7 @@ function App() {
         </>
       ))}
 
-      <Controls />
+      <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} />
       <div>
         {open && <HelpPopup closePopup={() => setOpen(false)} />}
         <motion.button
