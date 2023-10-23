@@ -1,5 +1,5 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs, toggleFlag, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -33,6 +33,7 @@ type GameActions = {
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
   flag: (args: { row: number ; col: number }) => void,
+  reveal: (args: { row: number ; col: number }) => void,
 }
 
 declare global {
@@ -50,6 +51,10 @@ const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number
   } else {
     return flipCell(row, col, oldBoard)
   }}
+
+  const revealHandler = () => {
+    //
+  }
 
 Rune.initLogic({
   minPlayers: 1,
@@ -125,6 +130,30 @@ Rune.initLogic({
           game.playerState[player].board = newBoard
         }})
     },
+    reveal: ({row, col}, { game, allPlayerIds, playerId }) => {
+      const newBoard = board.slice();
+      const cell = newBoard[row][col];
+      const isFlipped = cell.isFlipped
+      if (!isFlipped) {/* return and show neighbor grids only */}
+      const value = cell.value;
+      const flags = [];
+      const bombs = [];
+
+      const neighbors = getNeighbors(row, col, newBoard);
+      for (const neighbor of neighbors) {
+          const [row, col] = neighbor;
+          if (newBoard[row][col].isBomb) {bombs.push([row, col])}
+          if (newBoard[row][col].isMarked) {flags.push([row, col])}
+      }
+
+      if (flags.length != value ) {{/* return and show neighbor grids only */}}
+
+      for (let coord = 0; row < flags.length; coord++) {
+          if (flags[coord] != bombs[coord]) {
+              // return false? flip the bomb cell using flip action
+          }
+      }
+    }
   }
   ,
   events: {
