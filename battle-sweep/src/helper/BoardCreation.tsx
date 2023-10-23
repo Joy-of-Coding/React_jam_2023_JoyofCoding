@@ -105,6 +105,24 @@ export function getNeighbors(
   return neighbors;
 }
 
+export function toggleFlag(
+  row: number,
+  col: number,
+  board: Array<Array<TileProp>>
+) {
+  const newBoard = board.slice();
+  const cell = newBoard[row][col];
+  const flagState = cell.isMarked;
+  const flipState = cell.isFlipped;
+  if (flipState) return newBoard;
+  const newCell = {
+    ...cell,
+    isMarked: !flagState,
+  };
+  newBoard[row][col] = newCell;
+  return newBoard;
+}
+
 export function flipCell(
   row: number,
   col: number,
