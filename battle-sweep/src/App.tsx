@@ -5,12 +5,15 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
+import {HelpPopup} from "./components/HelpPopup.tsx";
+import { motion } from "framer-motion"
 
 function App() {
   const [game, setGame] = useState<GameState>();
   const [players, setPlayers] = useState<Players>({});
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     Rune.initClient({
@@ -50,6 +53,10 @@ function App() {
       ))}
 
       <Controls />
+      <div>
+        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+        <motion.button  whileHover={{ scale: 1.1 }} className="helpButton" onClick={() => setOpen(true)}><b>Info</b></motion.button>
+      </div>  
     </>
   );
 }
