@@ -12,7 +12,7 @@ export function createBoard(height: number, width: number) {
   for (let row = 0; row < height; row++) {
     const newRow = [];
     for (let col = 0; col < width; col++) {
-      newRow.push({ ...emptyCell, id: row + col });
+      newRow.push({ ...emptyCell, row: row, col: col });
     }
     matrix.push(newRow);
   }
@@ -74,6 +74,48 @@ export function getNeighbors(
   if (row + 1 < height && col - 1 >= 0) neighbors.push([row + 1, col - 1]); // DOWN-LEFT
 
   return neighbors;
+}
+
+export function flipCell(
+  row: number,
+  col: number,
+  board: Array<Array<TileProp>>
+) {
+  const newBoard = board.slice();
+  const cell = newBoard[row][col];
+  const newCell = {
+    ...cell,
+    isFlipped: true,
+  };
+  newBoard[row][col] = newCell;
+  return newBoard;
+}
+
+export function expand(
+  row: number,
+  col: number,
+  board: Array<Array<TileProp>>
+) {
+  const newBoard = board.slice();
+  const stack = [[row, col]];
+
+  while (stack.length > 0) {
+    const [row, col] = stack.pop();
+    const neighbors = getNeighbors(row, col, newBoard);
+
+    for (const neighbor of neighbors) {
+      const [row, col] = neighbor;
+      if (newBoard[row][col].isFlipped) continue;
+      if (!newBoard[row][col].isBomb) {
+        newBoard[row][col].isFlipped = true;
+        if (newBoard[row][col].value > 0) {
+          continue;
+        }
+        stack.push(neighbor);
+      }
+    }
+  }
+  return newBoard;
 }
 
 export function flipAll(board: Array<Array<TileProp>>, flipState: boolean) {
