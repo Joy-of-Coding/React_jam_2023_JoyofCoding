@@ -29,13 +29,42 @@ export function insertBombs(matrix: Array<Array<TileProp>>, bombs: number) {
 
     if (!refreshBoard[row][col].isBomb) {
       refreshBoard[row][col].isBomb = true;
+    } else {
+      continue;
     }
     bombsToInsert--;
+  }
+  // increase nums
+  increaseNums(refreshBoard);
+
+  return refreshBoard;
+}
+
+export function userInsertBomb(
+  row: number,
+  col: number,
+  board: Array<Array<TileProp>>,
+  bombState: boolean
+) {
+  const newBoard = board.slice();
+  const cell = newBoard[row][col];
+  const newCell = {
+    ...cell,
+    isBomb: bombState,
+  };
+  newBoard[row][col] = newCell;
+
+  const refreshBoard = [];
+  for (let row = 0; row < newBoard.length; row++) {
+    const newRow = [];
+    for (let col = 0; col < newBoard[0].length; col++) {
+      newRow.push({ ...newBoard[row][col], value: 0 });
+    }
+    refreshBoard.push(newRow);
   }
 
   // increase nums
   increaseNums(refreshBoard);
-
   return refreshBoard;
 }
 

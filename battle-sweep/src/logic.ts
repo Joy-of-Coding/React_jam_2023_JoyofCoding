@@ -1,9 +1,8 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
-const boardWidth = 9
-const boardHeight = 9
-const bombs = 10
+const boardWidth = 9;
+const boardHeight = 9;
 
 export interface TileProp {
   row: number,
@@ -18,9 +17,11 @@ export interface GameState {
   playerIds: PlayerId[],
   onboarding: boolean,
   isGameOver: boolean,
+  setBombs: number,
   playerState: {
     [playerId: string]: {
-      board: Array<Array<TileProp>>
+      board: Array<Array<TileProp>>,
+      bombsPlaced: number,
     }
   }
 }
@@ -28,6 +29,7 @@ export interface GameState {
 type GameActions = {
   // increment: (params: { amount: number }) => void,
   addBombs: () => void,
+  userAddBomb: (args: { row: number ; col: number }) => void,
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
 }
@@ -35,12 +37,6 @@ type GameActions = {
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
-
-/*
-export function getCount(game: GameState) {
-  return game.count
-}
-*/
 
 const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
   if (oldBoard[row][col].isBomb) {
@@ -61,33 +57,38 @@ Rune.initLogic({
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
+    setBombs: 10,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
         [playerId]: {
           board: createBoard(boardHeight, boardWidth),
+          bombsPlaced: 0,
         },
       }),
       {}
     )
-    
-    //starting code
-    // for (const playerId of playerIds) {
-    //   game.boards[playerId] = createBoard(boardHeight,boardWidth)
-    // }
-    // game.count = 0
-    // return { count: 0 }
   }),
   actions: {
-    /*
-    increment: ({ amount }, { game }) => {
-      game.count += amount
-    },
-    */
     addBombs: (_,{ game, playerId }) => {
       const oldBoard = game.playerState[playerId].board
-      const newBoard = insertBombs(oldBoard, bombs)
-      game.playerState[playerId].board = newBoard
+      const newBoard = insertBombs(oldBoard, game.setBombs)
+      game.playerState[playerId].board = newBoard;
+      game.playerState[playerId].bombsPlaced = game.setBombs;
+    },
+    userAddBomb: ({row, col}, { game, playerId }) =>{
+      const oldBoard = game.playerState[playerId].board;
+      const isBomb = oldBoard[row][col].isBomb;
+      const userBombs = game.playerState[playerId].bombsPlaced;
+      if ( !isBomb && userBombs < game.setBombs) {
+        const newBoard = userInsertBomb(row, col, oldBoard, true);
+        game.playerState[playerId].board = newBoard;
+        game.playerState[playerId].bombsPlaced = userBombs + 1;
+      } else if (isBomb) {
+        const newBoard = userInsertBomb(row, col, oldBoard, false);
+        game.playerState[playerId].board = newBoard;
+        game.playerState[playerId].bombsPlaced = userBombs - 1;
+      }
     },
     swap: (_,{ game, allPlayerIds }) => {
       allPlayerIds.map((player) => {
@@ -121,7 +122,8 @@ Rune.initLogic({
     playerJoined: (playerId, {game}) => {
       game.playerIds.push(playerId)
       game.playerState[playerId] = {
-        board: createBoard(boardHeight, boardWidth)
+        board: createBoard(boardHeight, boardWidth),
+        bombsPlaced: 0,
       }
    },
     playerLeft:(playerId, {game}) => {

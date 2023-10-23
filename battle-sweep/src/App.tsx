@@ -5,8 +5,8 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
-import {HelpPopup} from "./components/HelpPopup.tsx";
-import { motion } from "framer-motion"
+import { HelpPopup } from "./components/HelpPopup.tsx";
+import { motion } from "framer-motion";
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -26,7 +26,11 @@ function App() {
   }, []);
 
   const handleTilePress = (row: number, col: number) => {
-    Rune.actions.flip({ row, col });
+    if (game?.onboarding) {
+      Rune.actions.userAddBomb({ row, col });
+    } else {
+      Rune.actions.flip({ row, col });
+    }
   };
 
   if (!game) {
@@ -55,8 +59,14 @@ function App() {
       <Controls />
       <div>
         {open && <HelpPopup closePopup={() => setOpen(false)} />}
-        <motion.button  whileHover={{ scale: 1.1 }} className="helpButton" onClick={() => setOpen(true)}><b>Info</b></motion.button>
-      </div>  
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpen(true)}
+        >
+          <b>Info</b>
+        </motion.button>
+      </div>
     </>
   );
 }
