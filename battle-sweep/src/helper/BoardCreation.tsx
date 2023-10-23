@@ -98,9 +98,10 @@ export function expand(
 ) {
   const newBoard = board.slice();
   const stack = [[row, col]];
+  const start = [row, col];
 
   while (stack.length > 0) {
-    const [row, col] = stack.pop();
+    const [row, col] = stack.pop() || start;
     const neighbors = getNeighbors(row, col, newBoard);
 
     for (const neighbor of neighbors) {
