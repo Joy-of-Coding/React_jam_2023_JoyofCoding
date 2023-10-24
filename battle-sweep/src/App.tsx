@@ -58,7 +58,7 @@ function App() {
       Rune.actions.revealReset();
       clearTimeout(timerRef.current || 0);
       timerRef.current = 0;
-    }, 2000);
+    }, 1500);
 
     Rune.actions.reveal({ row, col });
   };
