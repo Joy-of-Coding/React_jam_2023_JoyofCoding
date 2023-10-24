@@ -14,8 +14,8 @@ function App() {
   const [players, setPlayers] = useState<Players>({});
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
-  const [open, setOpen] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [openHelp, setOpenHelp] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
 
   useEffect(() => {
@@ -31,8 +31,8 @@ function App() {
   useEffect(() => {
     if (game?.isGameOver) {
       setUseFlag(false);
-      setOpen(false);
-      setOpen2(false);
+      setOpenHelp(false);
+      setOpenSettings(false);
     }
   }, [game]);
 
@@ -77,25 +77,33 @@ function App() {
 
       <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} />
       <div>
-        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
         <motion.button
           whileHover={{ scale: 1.1 }}
           className="helpButton"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenHelp(true)}
         >
           <b>Info</b>
         </motion.button>
-      </div>
+      </div> 
       <div>
-        {open2 && <Config closePopup={() => setOpen2(false)} />}
+        {openSettings && <Config closePopup={() => setOpenSettings(false)} />}
         <motion.button
           whileHover={{ scale: 1.1 }}
           className="helpButton"
-          onClick={() => setOpen2(true)}
+          onClick={() => setOpenSettings(true)}
         >
           <b>Settings</b>
         </motion.button>
       </div>
+
+      {/* <div>
+        <p>Current Bombs: {game?.playerState[`${id}`].bombsPlaced}</p>
+      </div> */}
+
+      <div>
+      <p>Total Bombs: {game.setBombs} </p>
+    </div>
     </>
   );
 }

@@ -18,10 +18,29 @@ export const Config: React.FC<ConfigProps> = ({ closePopup }) => {
 
       className="popup-body">
 
-      <h2>Battle Sweep</h2>
-          <p>Competative Minesweeper!</p>
-          <h2>How To Play</h2>
-          <p>Classic Minesweeper with a twist! You place mines then send the field to your opponent for them to sweep. </p>
+    <div>
+    <button className="button" onClick={() => Rune.actions.userSetBombCount("5")}>
+          Swap Boards
+        </button>
+    </div>
+
+
+    {/* <script>
+        function saveConfig() {
+            const bombCount = parseInt(document.getElementById("bombCount").value);
+            const gameTimer = parseInt(document.getElementById("gameTimer").value);
+            const turnTimer = parseInt(document.getElementById("turnTimer").value);
+            const fieldSize = document.getElementById("fieldSize").value;
+
+            // You can use these values in your JavaScript game code
+            console.log("Max Lives: " + maxLives);
+            console.log("Bomb Count: " + bombCount);
+            console.log("Game Timer: " + gameTimer + " seconds");
+            console.log("Turn Timer: " + turnTimer + " seconds");
+            console.log("Field Size: " + fieldSize);
+        {'}'}
+}
+    </script> */}
 
         {/* <div>
           {open && <Credits closePopup={() => setOpen(false)} />}
