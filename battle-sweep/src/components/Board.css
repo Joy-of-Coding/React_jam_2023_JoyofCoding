@@ -11,7 +11,7 @@
     display: grid;
 
     /*background-color: #f0f0f0; !* Light gray background color *!*/
-    max-width: 350px; /* Adjust the max width as per your design */
+    max-width: 300px; /* Adjust the max width as per your design */
     margin: 0 auto; /* Center the board */
     padding: 16px; /* Add some padding around the board */
     border-radius: 8px; /* Add some rounded corners to the board */

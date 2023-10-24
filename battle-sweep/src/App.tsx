@@ -7,6 +7,7 @@ import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
+import Header from "./components/Header.tsx";
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -56,6 +57,11 @@ function App() {
     <>
       {playerIds.map((id) => (
         <>
+          <Header  key={id + "-header"}
+                   display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+                   playerId={id}
+                   players={players}
+                   game={game}/>
           <Player
             key={id + "-player"}
             display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}

@@ -1,0 +1,14 @@
+.header {
+    display: flex;
+    margin-bottom:  8px;
+    width: 350px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(107, 156, 248);
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    height: 50px;
+
+}
