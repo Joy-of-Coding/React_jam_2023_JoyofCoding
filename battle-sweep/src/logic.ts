@@ -1,12 +1,12 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
-const boardWidth = 9
-const boardHeight = 9
-const bombs = 10
+const boardWidth = 9;
+const boardHeight = 9;
 
 export interface TileProp {
-  id: number;
+  row: number,
+  col: number,
   isBomb: boolean;
   isFlipped: boolean;
   isMarked: boolean;
@@ -16,9 +16,12 @@ export interface TileProp {
 export interface GameState {
   playerIds: PlayerId[],
   onboarding: boolean,
+  isGameOver: boolean,
+  setBombs: number,
   playerState: {
     [playerId: string]: {
-      board: Array<Array<TileProp>>
+      board: Array<Array<TileProp>>,
+      bombsPlaced: number,
     }
   }
 }
@@ -26,18 +29,27 @@ export interface GameState {
 type GameActions = {
   // increment: (params: { amount: number }) => void,
   addBombs: () => void,
-  swap: () => void
+  userAddBomb: (args: { row: number ; col: number }) => void,
+  swap: () => void,
+  flip: (args: { row: number ; col: number }) => void,
+  flag: (args: { row: number ; col: number }) => void,
 }
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-/*
-export function getCount(game: GameState) {
-  return game.count
-}
-*/
+const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
+  if (oldBoard[row][col].isBomb) {
+    game.isGameOver = true
+     return flipAll(oldBoard, true)
+    //isGameOver: true
+  } else if (oldBoard[row][col].value === 0) {
+    // expand
+    return expand(row, col, oldBoard)
+  } else {
+    return flipCell(row, col, oldBoard)
+  }}
 
 Rune.initLogic({
   minPlayers: 1,
@@ -45,33 +57,39 @@ Rune.initLogic({
   setup: (playerIds) => ({
     playerIds: playerIds,
     onboarding: true,
+    isGameOver: false,
+    setBombs: 10,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
         [playerId]: {
           board: createBoard(boardHeight, boardWidth),
+          bombsPlaced: 0,
         },
       }),
       {}
     )
-    
-    //starting code
-    // for (const playerId of playerIds) {
-    //   game.boards[playerId] = createBoard(boardHeight,boardWidth)
-    // }
-    // game.count = 0
-    // return { count: 0 }
   }),
   actions: {
-    /*
-    increment: ({ amount }, { game }) => {
-      game.count += amount
-    },
-    */
     addBombs: (_,{ game, playerId }) => {
       const oldBoard = game.playerState[playerId].board
-      const newBoard = insertBombs(oldBoard, bombs)
-      game.playerState[playerId].board = newBoard
+      const newBoard = insertBombs(oldBoard, game.setBombs)
+      game.playerState[playerId].board = newBoard;
+      game.playerState[playerId].bombsPlaced = game.setBombs;
+    },
+    userAddBomb: ({row, col}, { game, playerId }) =>{
+      const oldBoard = game.playerState[playerId].board;
+      const isBomb = oldBoard[row][col].isBomb;
+      const userBombs = game.playerState[playerId].bombsPlaced;
+      if ( !isBomb && userBombs < game.setBombs) {
+        const newBoard = userInsertBomb(row, col, oldBoard, true);
+        game.playerState[playerId].board = newBoard;
+        game.playerState[playerId].bombsPlaced = userBombs + 1;
+      } else if (isBomb) {
+        const newBoard = userInsertBomb(row, col, oldBoard, false);
+        game.playerState[playerId].board = newBoard;
+        game.playerState[playerId].bombsPlaced = userBombs - 1;
+      }
     },
     swap: (_,{ game, allPlayerIds }) => {
       allPlayerIds.map((player) => {
@@ -81,13 +99,40 @@ Rune.initLogic({
       })
       game.onboarding = !game.onboarding;
     },
+    flip:({row, col}, { game, allPlayerIds, playerId }) => {
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const newBoard = flipHandler(game, oldBoard, row, col)
+          game.playerState[player].board = newBoard
+          if (game.isGameOver) {
+            Rune.gameOver({
+              players: {
+                [player]: "WON",
+                [playerId]: "LOST",
+              },
+              delayPopUp: false,
+            })
+          }
+        }
+      })
+    },
+    flag:({row, col}, { game, allPlayerIds, playerId }) => {
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const newBoard = toggleFlag(row, col, oldBoard)
+          game.playerState[player].board = newBoard
+        }})
+    },
   }
   ,
   events: {
     playerJoined: (playerId, {game}) => {
       game.playerIds.push(playerId)
       game.playerState[playerId] = {
-        board: createBoard(boardHeight, boardWidth)
+        board: createBoard(boardHeight, boardWidth),
+        bombsPlaced: 0,
       }
    },
     playerLeft:(playerId, {game}) => {
