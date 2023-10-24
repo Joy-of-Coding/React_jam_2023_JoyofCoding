@@ -43,7 +43,7 @@ declare global {
 const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
   if (oldBoard[row][col].isBomb) {
     game.isGameOver = true
-     return flipAll(oldBoard, true)
+    return flipAll(oldBoard, true)
     //isGameOver: true
   } else if (oldBoard[row][col].value === 0) {
     // expand
@@ -52,8 +52,44 @@ const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number
     return flipCell(row, col, oldBoard)
   }}
 
-  const revealHandler = () => {
-    //
+  const revealHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
+    
+    const refreshBoard = [];
+    for (let row = 0; row < oldBoard.length; row++) {
+      const newRow = [];
+      for (let col = 0; col < oldBoard[0].length; col++) {
+        newRow.push({ ...oldBoard[row][col], value: 0 }); // change to revealed
+      }
+      refreshBoard.push(newRow);
+    
+    const cell = refreshBoard[row][col];
+    const isFlipped = cell.isFlipped
+    const neighbors = getNeighbors(row, col, refreshBoard);
+
+    // if (!isFlipped) {/* return and show neighbor grids only */}
+    const value = cell.value;
+    const flags = [];
+    const bombs = [];
+
+    for (const neighbor of neighbors) {
+        const [row, col] = neighbor;
+        if (refreshBoard[row][col].isBomb) {bombs.push([row, col])}
+        if (refreshBoard[row][col].isMarked) {flags.push([row, col])}
+    }
+
+    // if (flags.length != value ) {{/* return and show neighbor grids only */}}
+    const endGame = [];
+    for (let coord = 0; row < flags.length; coord++) {
+        if (flags[coord] != bombs[coord]) {
+            // flip the bomb cell using flip action
+            const [row, col] = bombs[coord]
+            endGame.push([row, col]);
+            Rune.actions.flip({row, col})
+        }
+    }
+
+      return [endGame || cell, refreshBoard]
+
   }
 
 Rune.initLogic({
@@ -131,28 +167,15 @@ Rune.initLogic({
         }})
     },
     reveal: ({row, col}, { game, allPlayerIds, playerId }) => {
-      const newBoard = board.slice();
-      const cell = newBoard[row][col];
-      const isFlipped = cell.isFlipped
-      if (!isFlipped) {/* return and show neighbor grids only */}
-      const value = cell.value;
-      const flags = [];
-      const bombs = [];
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const [endGame, newBoard] = revealHandler(game, oldBoard, row, col);
+          game.playerState[player].board = newBoard
 
-      const neighbors = getNeighbors(row, col, newBoard);
-      for (const neighbor of neighbors) {
-          const [row, col] = neighbor;
-          if (newBoard[row][col].isBomb) {bombs.push([row, col])}
-          if (newBoard[row][col].isMarked) {flags.push([row, col])}
-      }
-
-      if (flags.length != value ) {{/* return and show neighbor grids only */}}
-
-      for (let coord = 0; row < flags.length; coord++) {
-          if (flags[coord] != bombs[coord]) {
-              // return false? flip the bomb cell using flip action
-          }
-      }
+          if (endGame) {Rune.actions.flip({row, col})}
+        }
+      })
     }
   }
   ,
