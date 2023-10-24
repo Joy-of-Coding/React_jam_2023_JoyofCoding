@@ -1,5 +1,5 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs, toggleFlag, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -10,6 +10,7 @@ export interface TileProp {
   isBomb: boolean;
   isFlipped: boolean;
   isMarked: boolean;
+  setReveal: boolean;
   value: number;
 }
 
@@ -34,6 +35,7 @@ type GameActions = {
   flip: (args: { row: number ; col: number }) => void,
   flag: (args: { row: number ; col: number }) => void,
   reveal: (args: { row: number ; col: number }) => void,
+  revealReset: () => void,
 }
 
 declare global {
@@ -51,46 +53,6 @@ const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number
   } else {
     return flipCell(row, col, oldBoard)
   }}
-
-  const revealHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
-    
-    const refreshBoard = [];
-    for (let row = 0; row < oldBoard.length; row++) {
-      const newRow = [];
-      for (let col = 0; col < oldBoard[0].length; col++) {
-        newRow.push({ ...oldBoard[row][col], value: 0 }); // change to revealed
-      }
-      refreshBoard.push(newRow);
-    
-    const cell = refreshBoard[row][col];
-    const isFlipped = cell.isFlipped
-    const neighbors = getNeighbors(row, col, refreshBoard);
-
-    // if (!isFlipped) {/* return and show neighbor grids only */}
-    const value = cell.value;
-    const flags = [];
-    const bombs = [];
-
-    for (const neighbor of neighbors) {
-        const [row, col] = neighbor;
-        if (refreshBoard[row][col].isBomb) {bombs.push([row, col])}
-        if (refreshBoard[row][col].isMarked) {flags.push([row, col])}
-    }
-
-    // if (flags.length != value ) {{/* return and show neighbor grids only */}}
-    const endGame = [];
-    for (let coord = 0; row < flags.length; coord++) {
-        if (flags[coord] != bombs[coord]) {
-            // flip the bomb cell using flip action
-            const [row, col] = bombs[coord]
-            endGame.push([row, col]);
-            Rune.actions.flip({row, col})
-        }
-    }
-
-      return [endGame || cell, refreshBoard]
-
-  }
 
 Rune.initLogic({
   minPlayers: 1,
@@ -170,13 +132,56 @@ Rune.initLogic({
       allPlayerIds.map((player) => {
         if (player != playerId) {
           const oldBoard = game.playerState[player].board
-          const [endGame, newBoard] = revealHandler(game, oldBoard, row, col);
-          game.playerState[player].board = newBoard
+          const refreshBoard = resetReveal(oldBoard)
+    
+          const cell = refreshBoard[row][col];
+          const neighbors = getNeighbors(row, col, refreshBoard);
+          if (!cell.isFlipped) {game.playerState[player].board = refreshBoard}
 
-          if (endGame) {Rune.actions.flip({row, col})}
+          const value = cell.value;
+          const flags = [];
+          const bombs = [];
+          for (const neighbor of neighbors) {
+              const [row, col] = neighbor;
+              refreshBoard[row][col] = {...refreshBoard[row][col], setReveal: true}
+              if (refreshBoard[row][col].isBomb) {bombs.push([row, col])}
+              if (refreshBoard[row][col].isMarked) {flags.push([row, col])}
+          }
+
+          console.log("pre loop")
+          if (flags.length != value ) {game.playerState[player].board = refreshBoard}
+          const bombCoord = []
+          for (let coord = 0; row < flags.length; coord++) {
+              console.log("flags:", flags[coord], "bombs:", bombs[coord])
+              if (flags[coord] != bombs[coord]) {
+                  // flip the bomb cell using flip action
+                  bombCoord.push(bombs[coord])
+                  //const [bombRow, bombCol] = bombs[coord]
+                  console.log("loop one", bombs[coord])
+                  //const newBoard = flipHandler(game, oldBoard, bombRow, bombCol)
+                  //game.playerState[player].board = newBoard
+              }
+            }
+            if (bombCoord.length > 0) {
+              console.log("check two", bombCoord[0])
+              const [bombRow, bombCol] = bombCoord[0]
+              const newBoard = flipHandler(game, oldBoard, bombRow, bombCol)
+              game.playerState[player].board = newBoard
+            } else {
+              game.playerState[player].board = refreshBoard
+            }
         }
       })
-    }
+    },
+    revealReset: (_, { game, allPlayerIds, playerId }) => {
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const refreshBoard = resetReveal(oldBoard)
+          game.playerState[player].board = refreshBoard
+        }
+      })
+    },
   }
   ,
   events: {
