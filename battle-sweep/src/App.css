@@ -7,13 +7,23 @@
 
 body {
   margin: 0;
-  background-color: darkblue;
+  background-color: #405FAF;
   display: flex;
   align-items: center;
   font-size: 1rem;
   flex-direction: column;
   color: white;
+
 }
 
+
+.button {
+  margin-top: 8px;
+  background-color: #FF8A65;
+  color: #FFFFFF;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
 
 

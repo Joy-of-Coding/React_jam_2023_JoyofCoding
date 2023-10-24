@@ -1,10 +1,18 @@
 
 .board {
-    display: inline-grid;
-    padding: 10px;
+    display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    gap: 4px;
-    border: darkblue solid 1px;
-    background-color: aqua;
+    gap: 2px;
+    background-color: #2C4EA4;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+
+    display: grid;
+
+    /*background-color: #f0f0f0; !* Light gray background color *!*/
+    max-width: 350px; /* Adjust the max width as per your design */
+    margin: 0 auto; /* Center the board */
+    padding: 16px; /* Add some padding around the board */
+    border-radius: 8px; /* Add some rounded corners to the board */
 }

@@ -1,24 +1,38 @@
-import './Tile.css'
+import "./Tile.css";
 
 interface TileProps {
-  id: number;
+  row: number;
+  col: number;
   isBomb: boolean;
   isFlipped: boolean;
   isMarked: boolean;
   value: number;
+  onPress: (row: number, col: number) => void;
 }
 
-/*
-isBomb &&
-        "isBomb " + isFlipped &&
-        "isFlipped " + isMarked &&
-        "isMarked "
-*/
-
-function Tile({ id, isBomb, isFlipped, isMarked, value }: TileProps) {
+function Tile({
+  row,
+  col,
+  isBomb,
+  isFlipped,
+  isMarked,
+  value,
+  onPress,
+}: TileProps) {
   return (
-    <div id={id.toString()} className={`tile ${isBomb ? "isBomb" : ""}`}>
-      {value && value}
+    <div
+      onClick={() => onPress(row, col)}
+      className={`tile ${
+        isBomb && isFlipped
+          ? "isBomb"
+          : isFlipped
+          ? "isFlipped"
+          : isMarked
+          ? "isMarked"
+          : "hidden"
+      }`}
+    >
+      {isBomb ? "" : value === 0 ? "" : value}
     </div>
   );
 }
