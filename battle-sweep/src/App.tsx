@@ -5,6 +5,7 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
+import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 
@@ -14,6 +15,7 @@ function App() {
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
   const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
 
   useEffect(() => {
@@ -30,6 +32,7 @@ function App() {
     if (game?.isGameOver) {
       setUseFlag(false);
       setOpen(false);
+      setOpen2(false);
     }
   }, [game]);
 
@@ -81,6 +84,16 @@ function App() {
           onClick={() => setOpen(true)}
         >
           <b>Info</b>
+        </motion.button>
+      </div>
+      <div>
+        {open2 && <Config closePopup={() => setOpen2(false)} />}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpen2(true)}
+        >
+          <b>Settings</b>
         </motion.button>
       </div>
     </>
