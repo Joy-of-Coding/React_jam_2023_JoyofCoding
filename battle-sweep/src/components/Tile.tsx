@@ -1,5 +1,5 @@
 import "./Tile.css";
-import useLongPress from "../helper/UseLongPress";
+import useLongPress from "../helper/useLongPress";
 
 interface TileProps {
   row: number;
