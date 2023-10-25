@@ -20,9 +20,9 @@ export interface GameState {
   isGameOver: boolean,
   setBombs: number,
   playerState: {
-    [playerId: string]: {
-      board: Array<Array<TileProp>>,
-      bombsPlaced: number,
+    [key: string]: {
+      board: TileProp[][];
+      bombsPlaced: number;
     }
   }
 }
