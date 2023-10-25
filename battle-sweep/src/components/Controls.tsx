@@ -1,12 +1,12 @@
 import "./Controls.css";
 
 interface ControlsProps {
-  // setTimerDuration: (newDuration: number) => void;
   onboarding: boolean;
   toggleFlag: () => void;
+  useFlag: boolean;
 }
 
-const Controls = ({ onboarding }: ControlsProps) => {
+const Controls = ({ onboarding, toggleFlag, useFlag }: ControlsProps) => {
   if (onboarding) {
     return (
       <>
@@ -16,10 +16,13 @@ const Controls = ({ onboarding }: ControlsProps) => {
         <button className="button" onClick={() => Rune.actions.swap()}>
           Swap Boards
         </button>
-        <div>
-
-        </div>
       </>
+    );
+  } else {
+    return (
+      <button className={`button ${useFlag ? 'flagged' : ""}`} onClick={() => toggleFlag()}>
+        Flag
+      </button>
     );
   }
 };
