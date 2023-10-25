@@ -62,6 +62,8 @@ Rune.initLogic({
     onboarding: true,
     isGameOver: false,
     setBombs: 10,
+    onBoardTimer: 20,
+    playClock: 5,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -133,7 +135,7 @@ Rune.initLogic({
         if (player != playerId) {
           const oldBoard = game.playerState[player].board
           const refreshBoard = resetReveal(oldBoard)
-    
+
           const cell = refreshBoard[row][col];
           const neighbors = getNeighbors(row, col, refreshBoard);
 
@@ -150,7 +152,7 @@ Rune.initLogic({
           // reveal animation
           if (!cell.isFlipped) { return game.playerState[player].board = refreshBoard}
           if (flags.length != value ) {return game.playerState[player].board = refreshBoard}
-          
+
           // bomb check begin
           const bombCoord = []
           for (let coord = 0; coord < bombs.length; coord++) {
