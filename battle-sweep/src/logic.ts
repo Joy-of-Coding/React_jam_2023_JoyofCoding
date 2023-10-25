@@ -1,5 +1,5 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs, toggleFlag, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -10,6 +10,7 @@ export interface TileProp {
   isBomb: boolean;
   isFlipped: boolean;
   isMarked: boolean;
+  setReveal: boolean;
   value: number;
 }
 
@@ -19,9 +20,9 @@ export interface GameState {
   isGameOver: boolean,
   setBombs: number,
   playerState: {
-    [playerId: string]: {
-      board: Array<Array<TileProp>>,
-      bombsPlaced: number,
+    [key: string]: {
+      board: TileProp[][];
+      bombsPlaced: number;
     }
   }
 }
@@ -33,17 +34,28 @@ type GameActions = {
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
   flag: (args: { row: number ; col: number }) => void,
+  reveal: (args: { row: number ; col: number }) => void,
+  revealReset: () => void,
 }
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
+function endGame(playerWin:string, playerLose:string) {
+  Rune.gameOver({
+    players: {
+      [playerWin]: "WON",
+      [playerLose]: "LOST",
+    },
+    delayPopUp: false,
+  })
+} 
+
 const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
-  if (oldBoard[row][col].isBomb) {
+  if (oldBoard[row][col].isBomb && !oldBoard[row][col].isMarked) {
     game.isGameOver = true
-     return flipAll(oldBoard, true)
-    //isGameOver: true
+    return flipAll(oldBoard, true)
   } else if (oldBoard[row][col].value === 0) {
     // expand
     return expand(row, col, oldBoard)
@@ -106,13 +118,7 @@ Rune.initLogic({
           const newBoard = flipHandler(game, oldBoard, row, col)
           game.playerState[player].board = newBoard
           if (game.isGameOver) {
-            Rune.gameOver({
-              players: {
-                [player]: "WON",
-                [playerId]: "LOST",
-              },
-              delayPopUp: false,
-            })
+            endGame(player, playerId)
           }
         }
       })
@@ -124,6 +130,64 @@ Rune.initLogic({
           const newBoard = toggleFlag(row, col, oldBoard)
           game.playerState[player].board = newBoard
         }})
+    },
+    reveal: ({row, col}, { game, allPlayerIds, playerId }) => {
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const refreshBoard = resetReveal(oldBoard)
+    
+          const cell = refreshBoard[row][col];
+          const neighbors = getNeighbors(row, col, refreshBoard);
+
+          const value = cell.value;
+          const flags = [];
+          const bombs = [];
+          for (const neighbor of neighbors) {
+              const [row, col] = neighbor;
+              refreshBoard[row][col] = {...refreshBoard[row][col], setReveal: true}
+              if (refreshBoard[row][col].isMarked) {flags.push([row, col])}
+              if (refreshBoard[row][col].isBomb && !refreshBoard[row][col].isMarked) {bombs.push([row, col])}
+          }
+
+          // reveal animation
+          if (!cell.isFlipped) { return game.playerState[player].board = refreshBoard}
+          if (flags.length != value ) {return game.playerState[player].board = refreshBoard}
+          
+          //bomb check
+          if (bombs.length > 0) {
+            const [bombRow, bombCol] = bombs[0]
+            const newBoard = flipHandler(game, oldBoard, bombRow, bombCol)
+            game.playerState[player].board = newBoard
+            if (game.isGameOver) {
+              endGame(player, playerId)
+            }
+          } else {
+            let newBoard = refreshBoard
+            for (const neighbor of neighbors) {
+              const [row, col] = neighbor;
+              newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
+              if(refreshBoard[row][col].value == 0) {
+                newBoard = expand(row, col, newBoard)
+              }
+            }
+            game.isGameOver = gameEndCheck(newBoard, game.setBombs)
+            game.playerState[player].board = newBoard
+            if (game.isGameOver) {
+              endGame(playerId, player)
+            }
+          }
+        }
+      })
+    },
+    revealReset: (_, { game, allPlayerIds, playerId }) => {
+      allPlayerIds.map((player) => {
+        if (player != playerId) {
+          const oldBoard = game.playerState[player].board
+          const refreshBoard = resetReveal(oldBoard)
+          game.playerState[player].board = refreshBoard
+        }
+      })
     },
   }
   ,

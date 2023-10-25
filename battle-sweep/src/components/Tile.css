@@ -24,7 +24,6 @@
     height: 20px;
     padding: 2px;
 
-
     /*!*padding: 5px 6px; !* Increase the padding for a cleaner look *!*!*/
     /*border: none; !* Remove the border *!*/
     /*background-color: #ffffff; !* White background for tiles *!*/
@@ -32,9 +31,46 @@
     /*border-radius: 2px; !* Add some rounded corners to the tiles *!*/
 }
 
+.gradient-border {  
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &::after {
+      position: absolute;
+      content: "";
+      top: calc(-1 * 2px);
+      left: calc(-1 * 2px);
+      z-index: -1;
+      width: calc(100% + 2px * 2);
+      height: calc(100% + 2px * 2);
+      background: linear-gradient(
+        60deg,
+        hsl(224, 85%, 66%),
+        hsl(269, 85%, 66%),
+        hsl(314, 85%, 66%),
+        hsl(359, 85%, 66%),
+        hsl(44, 85%, 66%),
+        hsl(89, 85%, 66%),
+        hsl(134, 85%, 66%),
+        hsl(179, 85%, 66%)
+      );
+      background-size: 300% 300%;
+      background-position: 0 50%;
+      border-radius: calc(2 * 2px);
+      animation: moveGradient 4s alternate infinite;
+    }
+  }
+  
+  @keyframes moveGradient {
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
 .isBomb {
     /*background-color: #9D0814;*/
-    /*background-image: url('../assets/png/Bomb-80.png');*/
     /*background-image: url('../assets/png/red-bomb.png');*/
     /*background-image: url('../assets/png/Bomb-20.png');*/
     background-image: url('../assets/png/explode.png');

@@ -4,9 +4,10 @@ interface ControlsProps {
   updateTimerDuration: (newDuration: number) => void;
   onboarding: boolean;
   toggleFlag: () => void;
+  useFlag: boolean;
 }
 
-const Controls = ({ updateTimerDuration, onboarding }: ControlsProps) => {
+const Controls = ({ updateTimerDuration, onboarding, useFlag }: ControlsProps) => {
   if (onboarding) {
     return (
       <>
@@ -28,6 +29,12 @@ const Controls = ({ updateTimerDuration, onboarding }: ControlsProps) => {
           <button onClick={() => updateTimerDuration(60)}>Set Timer</button>
         </div>
       </>
+    );
+  } else {
+    return (
+      <button className="button" onClick={() => toggleFlag()}>
+        Flag
+      </button>
     );
   }
 };

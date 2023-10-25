@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GameState } from "./logic.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
@@ -21,6 +21,7 @@ function App() {
   const [gameFinished, setGameFinished] = useState(false); // Declare and initialize gameFinished
 
   
+  const timerRef = useRef<number>(0);
 
   useEffect(() => {
     Rune.initClient({
@@ -36,6 +37,7 @@ function App() {
     if (game?.isGameOver) {
       setUseFlag(false);
       setOpen(false);
+      clearTimeout(timerRef.current || 0);
     }
   }, [game]);
 
@@ -49,6 +51,38 @@ function App() {
     } else {
       Rune.actions.flip({ row, col });
     }
+  };
+
+  const handleLongTilePress = (row: number, col: number) => {
+    if (game?.onboarding) {
+      return;
+    }
+    clearTimeout(timerRef.current || 0);
+    timerRef.current = 0;
+
+    timerRef.current = setTimeout(() => {
+      Rune.actions.revealReset();
+      clearTimeout(timerRef.current || 0);
+      timerRef.current = 0;
+    }, 1500);
+
+    Rune.actions.reveal({ row, col });
+  };
+
+  const handleLongTilePress = (row: number, col: number) => {
+    if (game?.onboarding) {
+      return;
+    }
+    clearTimeout(timerRef.current || 0);
+    timerRef.current = 0;
+
+    timerRef.current = setTimeout(() => {
+      Rune.actions.revealReset();
+      clearTimeout(timerRef.current || 0);
+      timerRef.current = 0;
+    }, 1500);
+
+    Rune.actions.reveal({ row, col });
   };
 
   const toggleFlag = () => {
@@ -89,6 +123,7 @@ function App() {
           <Board
             key={id}
             onPress={handleTilePress}
+            onLongPress={handleLongTilePress}
             display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
@@ -107,7 +142,17 @@ function App() {
         </>
       ))}
 
-    
+      <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} useFlag={useFlag}/>
+      <div>
+        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpen(true)}
+        >
+          <b>Info</b>
+        </motion.button>
+      </div>
     </>
   );
 }

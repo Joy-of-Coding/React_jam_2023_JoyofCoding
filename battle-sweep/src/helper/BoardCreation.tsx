@@ -4,10 +4,11 @@ const emptyCell = {
   isBomb: false,
   isFlipped: true,
   isMarked: false,
+  setReveal: false,
   value: 0,
 };
 
-export function createBoard(height: number, width: number) {
+export function createBoard(height: number, width: number): TileProp[][] {
   const matrix = [];
   for (let row = 0; row < height; row++) {
     const newRow = [];
@@ -19,7 +20,7 @@ export function createBoard(height: number, width: number) {
   return matrix;
 }
 
-export function insertBombs(matrix: Array<Array<TileProp>>, bombs: number) {
+export function insertBombs(matrix: TileProp[][], bombs: number) {
   let bombsToInsert = bombs;
   const refreshBoard = createBoard(matrix.length, matrix[0].length);
 
@@ -43,7 +44,7 @@ export function insertBombs(matrix: Array<Array<TileProp>>, bombs: number) {
 export function userInsertBomb(
   row: number,
   col: number,
-  board: Array<Array<TileProp>>,
+  board: TileProp[][],
   bombState: boolean
 ) {
   const newBoard = board.slice();
@@ -68,7 +69,7 @@ export function userInsertBomb(
   return refreshBoard;
 }
 
-export function increaseNums(matrix: Array<Array<TileProp>>) {
+export function increaseNums(matrix: TileProp[][]) {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[row].length; col++) {
       if (matrix[row][col].isBomb) {
@@ -83,11 +84,7 @@ export function increaseNums(matrix: Array<Array<TileProp>>) {
   }
 }
 
-export function getNeighbors(
-  row: number,
-  col: number,
-  matrix: Array<Array<TileProp>>
-) {
+export function getNeighbors(row: number, col: number, matrix: TileProp[][]) {
   const height = matrix.length;
   const width = matrix[row].length;
   const neighbors = [];
@@ -105,11 +102,36 @@ export function getNeighbors(
   return neighbors;
 }
 
-export function toggleFlag(
-  row: number,
-  col: number,
-  board: Array<Array<TileProp>>
-) {
+export function resetReveal(board: TileProp[][]) {
+  const refreshBoard = [];
+  for (let row = 0; row < board.length; row++) {
+    const newRow = [];
+    for (let col = 0; col < board[0].length; col++) {
+      newRow.push({ ...board[row][col], setReveal: false });
+    }
+    refreshBoard.push(newRow);
+  }
+  return refreshBoard;
+}
+
+export function gameEndCheck(board: TileProp[][], gameBombs: number) {
+  let count = 0;
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[0].length; col++) {
+      if (board[row][col].isBomb && board[row][col].isFlipped) {
+        count += 1;
+      }
+    }
+  }
+
+  if (count == gameBombs) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export function toggleFlag(row: number, col: number, board: TileProp[][]) {
   const newBoard = board.slice();
   const cell = newBoard[row][col];
   const flagState = cell.isMarked;
@@ -123,11 +145,7 @@ export function toggleFlag(
   return newBoard;
 }
 
-export function flipCell(
-  row: number,
-  col: number,
-  board: Array<Array<TileProp>>
-) {
+export function flipCell(row: number, col: number, board: TileProp[][]) {
   const newBoard = board.slice();
   const cell = newBoard[row][col];
   const newCell = {
@@ -138,11 +156,7 @@ export function flipCell(
   return newBoard;
 }
 
-export function expand(
-  row: number,
-  col: number,
-  board: Array<Array<TileProp>>
-) {
+export function expand(row: number, col: number, board: TileProp[][]) {
   const newBoard = board.slice();
   const stack = [[row, col]];
   const start = [row, col];
@@ -166,7 +180,7 @@ export function expand(
   return newBoard;
 }
 
-export function flipAll(board: Array<Array<TileProp>>, flipState: boolean) {
+export function flipAll(board: TileProp[][], flipState: boolean) {
   const newBoard = board.slice();
   for (let row = 0; row < newBoard.length; row++) {
     for (let col = 0; col < newBoard[row].length; col++) {
