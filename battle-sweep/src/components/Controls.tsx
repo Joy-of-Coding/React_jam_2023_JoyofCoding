@@ -3,9 +3,10 @@ import "./Controls.css";
 interface ControlsProps {
   onboarding: boolean;
   toggleFlag: () => void;
+  useFlag: boolean;
 }
 
-const Controls = ({ onboarding, toggleFlag }: ControlsProps) => {
+const Controls = ({ onboarding, toggleFlag, useFlag }: ControlsProps) => {
   if (onboarding) {
     return (
       <>
@@ -19,7 +20,7 @@ const Controls = ({ onboarding, toggleFlag }: ControlsProps) => {
     );
   } else {
     return (
-      <button className="button" onClick={() => toggleFlag()}>
+      <button className={`button ${useFlag ? 'flagged' : ""}`} onClick={() => toggleFlag()}>
         Flag
       </button>
     );

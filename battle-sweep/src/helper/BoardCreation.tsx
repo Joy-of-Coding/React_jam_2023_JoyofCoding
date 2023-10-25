@@ -4,10 +4,11 @@ const emptyCell = {
   isBomb: false,
   isFlipped: true,
   isMarked: false,
+  setReveal: false,
   value: 0,
 };
 
-export function createBoard(height: number, width: number) {
+export function createBoard(height: number, width: number): TileProp[][] {
   const matrix = [];
   for (let row = 0; row < height; row++) {
     const newRow = [];
@@ -103,6 +104,18 @@ export function getNeighbors(
   if (row + 1 < height && col - 1 >= 0) neighbors.push([row + 1, col - 1]); // DOWN-LEFT
 
   return neighbors;
+}
+
+export function resetReveal(board: Array<Array<TileProp>>) {
+  const refreshBoard = [];
+  for (let row = 0; row < board.length; row++) {
+    const newRow = [];
+    for (let col = 0; col < board[0].length; col++) {
+      newRow.push({ ...board[row][col], setReveal: false });
+    }
+    refreshBoard.push(newRow);
+  }
+  return refreshBoard;
 }
 
 export function toggleFlag(
