@@ -1,42 +1,10 @@
-import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
+import type { RuneClient } from "rune-games-sdk/multiplayer"
+import { TileProp, GameActions, GameState } from "./helper/Types.ts";
 import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
-
-export interface TileProp {
-  row: number,
-  col: number,
-  isBomb: boolean;
-  isFlipped: boolean;
-  isMarked: boolean;
-  setReveal: boolean;
-  value: number;
-}
-
-export interface GameState {
-  playerIds: PlayerId[],
-  onboarding: boolean,
-  isGameOver: boolean,
-  setBombs: number,
-  playerState: {
-    [key: string]: {
-      board: TileProp[][];
-      bombsPlaced: number;
-    }
-  }
-}
-
-type GameActions = {
-  // increment: (params: { amount: number }) => void,
-  addBombs: () => void,
-  userAddBomb: (args: { row: number ; col: number }) => void,
-  swap: () => void,
-  flip: (args: { row: number ; col: number }) => void,
-  flag: (args: { row: number ; col: number }) => void,
-  reveal: (args: { row: number ; col: number }) => void,
-  revealReset: () => void,
-}
+const baselineScore = 100;
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
@@ -52,7 +20,15 @@ function endGame(playerWin:string, playerLose:string) {
   })
 } 
 
-const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
+function scoring(game:GameState, player:string) {
+  const bombsFound = game.playerState[player].bombsFound;
+  
+  
+  
+  //let playerScore = game.playerState[player].score;
+}
+
+const flipHandler = (game:GameState, oldBoard:TileProp[][], row:number, col:number ) => {
   if (oldBoard[row][col].isBomb && !oldBoard[row][col].isMarked) {
     game.isGameOver = true
     return flipAll(oldBoard, true)
@@ -77,6 +53,8 @@ Rune.initLogic({
         [playerId]: {
           board: createBoard(boardHeight, boardWidth),
           bombsPlaced: 0,
+          bombsFound: 0,
+          score: baselineScore,
         },
       }),
       {}
@@ -197,6 +175,8 @@ Rune.initLogic({
       game.playerState[playerId] = {
         board: createBoard(boardHeight, boardWidth),
         bombsPlaced: 0,
+        bombsFound: 0,
+        score: baselineScore,
       }
    },
     playerLeft:(playerId, {game}) => {
