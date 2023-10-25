@@ -1,5 +1,5 @@
 import type { RuneClient, PlayerId } from "rune-games-sdk/multiplayer"
-import { createBoard, flipAll, insertBombs, toggleFlag, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -42,11 +42,20 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
+function endGame(playerWin:string, playerLose:string) {
+  Rune.gameOver({
+    players: {
+      [playerWin]: "WON",
+      [playerLose]: "LOST",
+    },
+    delayPopUp: false,
+  })
+} 
+
 const flipHandler = (game:GameState, oldBoard:Array<Array<TileProp>>, row:number, col:number ) => {
   if (oldBoard[row][col].isBomb && !oldBoard[row][col].isMarked) {
     game.isGameOver = true
     return flipAll(oldBoard, true)
-    //isGameOver: true
   } else if (oldBoard[row][col].value === 0) {
     // expand
     return expand(row, col, oldBoard)
@@ -109,13 +118,7 @@ Rune.initLogic({
           const newBoard = flipHandler(game, oldBoard, row, col)
           game.playerState[player].board = newBoard
           if (game.isGameOver) {
-            Rune.gameOver({
-              players: {
-                [player]: "WON",
-                [playerId]: "LOST",
-              },
-              delayPopUp: false,
-            })
+            endGame(player, playerId)
           }
         }
       })
@@ -157,13 +160,7 @@ Rune.initLogic({
             const newBoard = flipHandler(game, oldBoard, bombRow, bombCol)
             game.playerState[player].board = newBoard
             if (game.isGameOver) {
-              Rune.gameOver({
-                players: {
-                  [player]: "WON",
-                  [playerId]: "LOST",
-                },
-                delayPopUp: false,
-              })
+              endGame(player, playerId)
             }
           } else {
             let newBoard = refreshBoard
@@ -174,7 +171,11 @@ Rune.initLogic({
                 newBoard = expand(row, col, newBoard)
               }
             }
+            game.isGameOver = gameEndCheck(newBoard, game.setBombs)
             game.playerState[player].board = newBoard
+            if (game.isGameOver) {
+              endGame(playerId, player)
+            }
           }
         }
       })
