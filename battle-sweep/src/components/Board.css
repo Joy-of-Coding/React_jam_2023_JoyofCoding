@@ -7,8 +7,9 @@
     background-color: #2C4EA4;
     font-family: "Courier New", monospace;
     font-weight: bold;
-
-    display: grid;
+    position: relative;
+    z-index: 1;
+    align-items: center;
 
     /*background-color: #f0f0f0; !* Light gray background color *!*/
     max-width: 300px; /* Adjust the max width as per your design */
