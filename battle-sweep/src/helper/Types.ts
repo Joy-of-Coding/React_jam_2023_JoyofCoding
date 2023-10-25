@@ -15,12 +15,12 @@ export interface TileProp {
     onboarding: boolean,
     isGameOver: boolean,
     setBombs: number,
+    baselineScore: number,
     playerState: {
       [key: string]: {
         board: TileProp[][];
         bombsPlaced: number;
         bombsFound: number;
-        score: number;
       }
     }
   }
