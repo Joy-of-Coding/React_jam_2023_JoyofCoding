@@ -143,43 +143,39 @@ Rune.initLogic({
           for (const neighbor of neighbors) {
               const [row, col] = neighbor;
               refreshBoard[row][col] = {...refreshBoard[row][col], setReveal: true}
-              if (refreshBoard[row][col].isBomb) {bombs.push([row, col])}
               if (refreshBoard[row][col].isMarked) {flags.push([row, col])}
+              if (refreshBoard[row][col].isBomb && !refreshBoard[row][col].isMarked) {bombs.push([row, col])}
           }
 
           // reveal animation
           if (!cell.isFlipped) { return game.playerState[player].board = refreshBoard}
           if (flags.length != value ) {return game.playerState[player].board = refreshBoard}
           
-          // bomb check begin
-          const bombCoord = []
-          for (let coord = 0; coord < bombs.length; coord++) {
-              const [rowCoord, colCoord] = bombs[coord]
-              if (refreshBoard[rowCoord][colCoord].isBomb && !refreshBoard[rowCoord][colCoord].isMarked){
-                bombCoord.push([rowCoord, colCoord])
+          //bomb check
+          if (bombs.length > 0) {
+            const [bombRow, bombCol] = bombs[0]
+            const newBoard = flipHandler(game, oldBoard, bombRow, bombCol)
+            game.playerState[player].board = newBoard
+            if (game.isGameOver) {
+              Rune.gameOver({
+                players: {
+                  [player]: "WON",
+                  [playerId]: "LOST",
+                },
+                delayPopUp: false,
+              })
+            }
+          } else {
+            let newBoard = refreshBoard
+            for (const neighbor of neighbors) {
+              const [row, col] = neighbor;
+              newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
+              if(refreshBoard[row][col].value == 0) {
+                newBoard = expand(row, col, newBoard)
               }
             }
-
-            if (bombCoord.length > 0) {
-              const [bombRow, bombCol] = bombCoord[0]
-              const newBoard = flipHandler(game, oldBoard, bombRow, bombCol)
-              game.playerState[player].board = newBoard
-              if (game.isGameOver) {
-                Rune.gameOver({
-                  players: {
-                    [player]: "WON",
-                    [playerId]: "LOST",
-                  },
-                  delayPopUp: false,
-                })
-              }
-            } else {
-              for (const neighbor of neighbors) {
-                const [row, col] = neighbor;
-                refreshBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
-            }
-              game.playerState[player].board = refreshBoard
-            }
+            game.playerState[player].board = newBoard
+          }
         }
       })
     },
