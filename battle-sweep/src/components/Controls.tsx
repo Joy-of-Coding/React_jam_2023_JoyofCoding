@@ -1,12 +1,12 @@
 import "./Controls.css";
 
 interface ControlsProps {
-  updateTimerDuration: (newDuration: number) => void;
+  // setTimerDuration: (newDuration: number) => void;
   onboarding: boolean;
   toggleFlag: () => void;
 }
 
-const Controls = ({ updateTimerDuration, onboarding }: ControlsProps) => {
+const Controls = ({ onboarding }: ControlsProps) => {
   if (onboarding) {
     return (
       <>
@@ -17,15 +17,7 @@ const Controls = ({ updateTimerDuration, onboarding }: ControlsProps) => {
           Swap Boards
         </button>
         <div>
-          <input
-            type="number"
-            placeholder="New Timer Duration"
-            onChange={(e) => {
-              const newDuration = parseInt(e.target.value, 10);
-              updateTimerDuration(newDuration);
-            }}
-          />
-          <button onClick={() => updateTimerDuration(60)}>Set Timer</button>
+
         </div>
       </>
     );

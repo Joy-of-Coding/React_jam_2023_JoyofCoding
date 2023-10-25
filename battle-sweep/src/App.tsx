@@ -7,7 +7,7 @@ import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import Timer from "./timer.tsx"; // Import the Timer component with correct casing
+import Timer from "./components/Timer.tsx"; // Import the Timer component with correct casing
 
 
 function App() {
@@ -17,10 +17,10 @@ function App() {
   const playerIds = Object.keys(players);
   const [useFlag, setUseFlag] = useState(false); // Add useFlag state
   const [open, setOpen] = useState(false); // Add open state
-  const [timerDuration, setTimerDuration] = useState<number>(20); // Define and initialize the timer duration
-  const [gameFinished, setGameFinished] = useState(false); // Declare and initialize gameFinished
+  // const [timerDuration, setTimerDuration] = useState<number>(10); // Define and initialize the timer duration
+  // const [gameFinished, setGameFinished] = useState(false); // Declare and initialize gameFinished
 
-  
+  // console.log(timerDuration)
 
   useEffect(() => {
     Rune.initClient({
@@ -59,20 +59,6 @@ function App() {
     return <div>Loading...</div>;
   }
 
-  const handleTimerEnd = () => {
-    // Set the game as finished when the timer ends
-    setGame((prevGame) => {
-      if (prevGame) {
-        return {
-          ...prevGame,
-          isGameOver: true, // Set a property in your game state to indicate that the game is finished
-          playerIds: prevGame ? prevGame.playerIds || [] : [], // Ensure playerIds is an array
-          onboarding: prevGame.onboarding || false, // Ensure onboarding is a boolean
-        };
-      }
-      return prevGame;  // Return the original state if it's undefined
-    });
-  };
   
 
   return (
@@ -92,20 +78,29 @@ function App() {
             display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
-          <Timer
-            key={id + "-timer"}
-            initialTime={timerDuration}
-            onTimerEnd={handleTimerEnd}
-          />
-          {gameFinished && <p>FINISHED!</p>}
-          
+
           <Controls 
-            updateTimerDuration={setTimerDuration}
+            // setTimerDuration={setTimerDuration}
             onboarding={game.onboarding}
             toggleFlag={toggleFlag}
           />
         </>
       ))}
+      {/*//Onboard timer*/}
+      <Timer
+          key={"-onboardtimer"}
+          initialTime={game.onBoardTimer}
+          endFunction={Rune.actions.swap}
+          // setTimerDuration={setTimerDuration}
+      />
+
+      {/*//Playclock timer*/}
+      {/*<Timer*/}
+      {/*    key={ "-playtimer"}*/}
+      {/*    initialTime={game.playClock}*/}
+      {/*    endFunction={()=>{console.log("Make a move you dirty rat!")}}*/}
+      {/*    // setTimerDuration={setTimerDuration}*/}
+      {/*/>*/}
 
     
     </>

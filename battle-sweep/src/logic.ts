@@ -18,6 +18,8 @@ export interface GameState {
   onboarding: boolean,
   isGameOver: boolean,
   setBombs: number,
+  onBoardTimer: number,
+  playClock: number,
   playerState: {
     [playerId: string]: {
       board: Array<Array<TileProp>>,
@@ -33,6 +35,7 @@ type GameActions = {
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
   flag: (args: { row: number ; col: number }) => void,
+  timerEnd: () => void
 }
 
 declare global {
@@ -59,6 +62,8 @@ Rune.initLogic({
     onboarding: true,
     isGameOver: false,
     setBombs: 10,
+    onBoardTimer: 20,
+    playClock: 5,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -125,6 +130,20 @@ Rune.initLogic({
           game.playerState[player].board = newBoard
         }})
     },
+    timerEnd:(_, {game, allPlayerIds, playerId }) => {
+      console.log("Timer Ended")
+      allPlayerIds.map((player) => {
+            // if (player != playerId) {
+              Rune.gameOver({
+                players: {
+                  [player]: "WON",
+                  [playerId]: "LOST",
+                },
+                delayPopUp: false,
+              })
+            // }
+    })
+    }
   }
   ,
   events: {
