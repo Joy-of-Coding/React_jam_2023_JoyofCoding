@@ -20,6 +20,7 @@ export interface GameState {
   isGameOver: boolean,
   setBombs: number,
   onBoardTimer: number,
+  gameStart: number,
   playClock: number,
   playerState: {
     [key: string]: {
@@ -65,7 +66,8 @@ Rune.initLogic({
     onboarding: true,
     isGameOver: false,
     setBombs: 10,
-    onBoardTimer: 20,
+    gameStart: Rune.gameTime(),
+    onBoardTimer: 10,
     playClock: 5,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
@@ -197,20 +199,6 @@ Rune.initLogic({
         }
       })
     },
-    timerEnd:(_, {game, allPlayerIds, playerId }) => {
-      console.log("Timer Ended")
-      allPlayerIds.map((player) => {
-            // if (player != playerId) {
-              Rune.gameOver({
-                players: {
-                  [player]: "WON",
-                  [playerId]: "LOST",
-                },
-                delayPopUp: false,
-              })
-            // }
-    })
-    }
   }
   ,
   events: {
@@ -224,5 +212,8 @@ Rune.initLogic({
     playerLeft:(playerId, {game}) => {
       delete game.playerState[playerId]
     },
+  },
+  update : ({game})=>{
+    game.onBoardTimer = 10-(Rune.gameTime()/1000  - game.gameStart)
   }
 })

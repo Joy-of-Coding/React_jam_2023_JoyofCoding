@@ -7,7 +7,7 @@ import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import Timer from "./components/Timer.tsx";
+// import Timer from "./components/Timer.tsx";
 
 
 function App() {
@@ -30,12 +30,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (game?.isGameOver) {
+    if (game && game?.isGameOver) {
       setUseFlag(false);
       setOpen(false);
       clearTimeout(timerRef.current || 0);
     }
+
   }, [game]);
+
+  useEffect(() => {
+    if (game && game.onBoardTimer <= 0) { // Check if game is defined before accessing its properties
+      Rune.actions.swap
+      //More actions here like set play timer, cleanup onBoardTimer if needed or let it run.
+      //Rune.actions.setPlayTimer
+    }
+  }, [game]);
+
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -93,11 +103,19 @@ function App() {
               />
             </React.Fragment>
         ))}
-        <Timer
-            key="-onboardtimer"
-            initialTime={game.onBoardTimer}
-            endFunction={Rune.actions.swap}
-        />
+        {/*<Timer*/}
+        {/*    key="-onboardtimer"*/}
+        {/*    initialTime={game.onBoardTimer}*/}
+        {/*    endFunction={Rune.actions.swap}*/}
+        {/*/>*/}
+
+
+        {game.onBoardTimer} Seconds remaining
+
+
+
+
+
         <Controls
             onboarding={game.onboarding}
             toggleFlag={toggleFlagState}
