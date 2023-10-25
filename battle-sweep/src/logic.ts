@@ -9,12 +9,12 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-function endGame(game:GameState, playerOne: string, playerTwo:string) {
+function endGame(game:GameState) {
   Rune.gameOver({
-    players: {
-      [playerOne]: getScores(game, playerOne),
-      [playerTwo]: getScores(game, playerTwo),
-    },
+    players: Object.keys(game.playerState).reduce(
+      (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
+      {}
+    ),
     delayPopUp: false,
   })
 } 
@@ -37,6 +37,7 @@ const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:
     return flipAll(oldBoard, true)
   } else if (oldBoard[row][col].isBomb && oldBoard[row][col].isMarked) {
     game.playerState[player].bombsFound += 1;
+    console.log("add bomb found", game.playerState[player].bombsFound)
     return flipCell(row, col, oldBoard)
   } else if (oldBoard[row][col].value === 0) {
     // expand
@@ -102,7 +103,7 @@ Rune.initLogic({
           const newBoard = flipHandler(game, player, oldBoard, row, col)
           game.playerState[player].board = newBoard
           if (game.isGameOver) {
-            endGame(game, player, playerId)
+            endGame(game)
           }
         }
       })
@@ -144,16 +145,17 @@ Rune.initLogic({
             const newBoard = flipHandler(game, player, oldBoard, bombRow, bombCol)
             game.playerState[player].board = newBoard
             if (game.isGameOver) {
-              endGame(game, player, playerId)
+              endGame(game)
             }
           } else {
             let newBoard = refreshBoard
             for (const neighbor of neighbors) {
               const [row, col] = neighbor;
-              newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
-              if (refreshBoard[row][col].isBomb && refreshBoard[row][col].isMarked) {
-                game.playerState[player].bombsFound += 1
+              if (refreshBoard[row][col].isBomb && refreshBoard[row][col].isMarked && !refreshBoard[row][col].isFlipped) {
+                game.playerState[player].bombsFound += 1;
+                console.log("add bomb found", game.playerState[player].bombsFound)
               }
+              newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
               if(refreshBoard[row][col].value == 0) {
                 newBoard = expand(row, col, newBoard)
               }
@@ -161,7 +163,7 @@ Rune.initLogic({
             game.isGameOver = gameEndCheck(newBoard, game.setBombs)
             game.playerState[player].board = newBoard
             if (game.isGameOver) {
-              endGame(game, playerId, player)
+              endGame(game)
             }
           }
         }
