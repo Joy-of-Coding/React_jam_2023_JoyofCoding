@@ -8,7 +8,7 @@ const emptyCell = {
   value: 0,
 };
 
-export function createBoard(height: number, width: number) {
+export function createBoard(height: number, width: number): TileProp[][] {
   const matrix = [];
   for (let row = 0; row < height; row++) {
     const newRow = [];
