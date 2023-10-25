@@ -91,7 +91,7 @@ function App() {
         </>
       ))}
 
-      <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} />
+      <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} useFlag={useFlag}/>
       <div>
         {open && <HelpPopup closePopup={() => setOpen(false)} />}
         <motion.button
