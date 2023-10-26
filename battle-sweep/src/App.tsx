@@ -69,22 +69,6 @@ function App() {
     Rune.actions.reveal({ row, col });
   };
 
-  const handleLongTilePress = (row: number, col: number) => {
-    if (game?.onboarding) {
-      return;
-    }
-    clearTimeout(timerRef.current || 0);
-    timerRef.current = 0;
-
-    timerRef.current = setTimeout(() => {
-      Rune.actions.revealReset();
-      clearTimeout(timerRef.current || 0);
-      timerRef.current = 0;
-    }, 1500);
-
-    Rune.actions.reveal({ row, col });
-  };
-
   const toggleFlag = () => {
     setUseFlag((prevUseFlag) => !prevUseFlag);
   };
@@ -97,6 +81,8 @@ function App() {
     // Set the game as finished when the timer ends
     setGame((prevGame) => {
       if (prevGame) {
+        setGameFinished(true); // Update the gameFinished state
+        
         return {
           ...prevGame,
           isGameOver: true, // Set a property in your game state to indicate that the game is finished
@@ -108,7 +94,6 @@ function App() {
     });
   };
   
-
   return (
     <>
       {playerIds.map((id) => (
@@ -137,12 +122,19 @@ function App() {
           <Controls 
             updateTimerDuration={setTimerDuration}
             onboarding={game.onboarding}
-            toggleFlag={toggleFlag}
+            toggleFlag={toggleFlag} // Pass the toggleFlag function
+            useFlag={false}          
           />
         </>
       ))}
 
-      <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} useFlag={useFlag}/>
+      <Controls 
+        onboarding={game.onboarding}
+        toggleFlag={toggleFlag}
+        useFlag={useFlag} updateTimerDuration={function (): void {
+          throw new Error("Function not implemented.");
+        }}      
+      />
       <div>
         {open && <HelpPopup closePopup={() => setOpen(false)} />}
         <motion.button

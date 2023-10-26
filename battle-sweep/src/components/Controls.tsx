@@ -7,7 +7,7 @@ interface ControlsProps {
   useFlag: boolean;
 }
 
-const Controls = ({ updateTimerDuration, onboarding, useFlag }: ControlsProps) => {
+const Controls = ({ updateTimerDuration, onboarding, toggleFlag }: ControlsProps) => {
   if (onboarding) {
     return (
       <>

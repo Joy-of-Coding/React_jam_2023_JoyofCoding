@@ -24,7 +24,7 @@ function Timer({ initialTime, onTimerEnd }: TimerProps) {
       // Timer has reached 0, trigger a callback
       onTimerEnd();
     }
-  }, [timer, onTimerEnd]);
+  }, [onTimerEnd, timer]);
 
   return <p>Timer: {timer} second(s)</p>;
 }
