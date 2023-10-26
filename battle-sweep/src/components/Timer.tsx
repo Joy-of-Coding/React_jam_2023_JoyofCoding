@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GameState, endGame } from "../logic.ts";
+import { endGame } from "../logic.ts";
+import { GameState } from "../helper/Types.ts"
 import "./Timer.css"
 
 interface TimerProps {

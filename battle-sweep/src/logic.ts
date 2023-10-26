@@ -5,48 +5,48 @@ import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetRevea
 const boardWidth = 9;
 const boardHeight = 9;
 
-export interface TileProp {
-  row: number,
-  col: number,
-  isBomb: boolean;
-  isFlipped: boolean;
-  isMarked: boolean;
-  setReveal: boolean;
-  value: number;
-}
+// export interface TileProp {
+//   row: number,
+//   col: number,
+//   isBomb: boolean;
+//   isFlipped: boolean;
+//   isMarked: boolean;
+//   setReveal: boolean;
+//   value: number;
+// }
 
-export interface GameState {
-  onBoardTimer: number,
-  gameStart: number,
-  playerIds: PlayerId[],
-  onboarding: boolean,
-  isGameOver: boolean,
-  setBombs: number,
-  playerState: {
-    [key: string]: {
-      board: TileProp[][];
-      bombsPlaced: number;
-    }
-  }
-}
+// export interface GameState {
+//   onBoardTimer: number,
+//   gameStart: number,
+//   playerIds: PlayerId[],
+//   onboarding: boolean,
+//   isGameOver: boolean,
+//   setBombs: number,
+//   playerState: {
+//     [key: string]: {
+//       board: TileProp[][];
+//       bombsPlaced: number;
+//     }
+//   }
+// }
 
-type GameActions = {
-  // increment: (params: { amount: number }) => void,
-  addBombs: () => void,
-  userAddBomb: (args: { row: number ; col: number }) => void,
-  swap: () => void,
-  flip: (args: { row: number ; col: number }) => void,
-  flag: (args: { row: number ; col: number }) => void,
-  reveal: (args: { row: number ; col: number }) => void,
-  revealReset: () => void,
-  timerEnd: () => void,
-}
+// type GameActions = {
+//   // increment: (params: { amount: number }) => void,
+//   addBombs: () => void,
+//   userAddBomb: (args: { row: number ; col: number }) => void,
+//   swap: () => void,
+//   flip: (args: { row: number ; col: number }) => void,
+//   flag: (args: { row: number ; col: number }) => void,
+//   reveal: (args: { row: number ; col: number }) => void,
+//   revealReset: () => void,
+//   timerEnd: () => void,
+// }
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-export function endGame(playerWin:string, playerLose:string) {
+export function endGame(game: GameState) {
   Rune.gameOver({
     players: Object.keys(game.playerState).reduce(
       (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
@@ -87,7 +87,7 @@ Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 2,
   setup: (playerIds) => ({
-    onBoardTimer: 10,
+    onBoardTimer: 20,
     gameStart: Rune.gameTime(),
     playerIds: playerIds,
     onboarding: true,
@@ -217,9 +217,9 @@ Rune.initLogic({
         }
       })
     },
-    endTimer: (_, {_}) => {
-      console.log("Time!");
-    }
+    // endTimer: (_, {_}) => {
+    //   console.log("Time!");
+    // }
   }
   ,
   events: {
@@ -236,7 +236,7 @@ Rune.initLogic({
     },
   }, 
   update : ({game})=>{
-    game.onBoardTimer = 10-(Rune.gameTime()/1000  - game.gameStart)
+    game.onBoardTimer = 20-(Rune.gameTime()/1000  - game.gameStart)
   }
 })
 

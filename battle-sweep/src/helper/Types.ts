@@ -11,6 +11,8 @@ export interface TileProp {
   }
   
   export interface GameState {
+    onBoardTimer: number,
+    gameStart: number,
     playerIds: PlayerId[],
     onboarding: boolean,
     isGameOver: boolean,
