@@ -1,10 +1,10 @@
 // import { useEffect, useState } from "react";
-import { TileProp } from "../logic";
+import { TileProp } from "../helper/Types";
 import Tile from "./Tile";
 import "./Board.css";
 
 interface BoardProps {
-  board: Array<Array<TileProp>>;
+  board: TileProp[][];
   display: boolean;
   onPress: (row: number, col: number) => void;
   onLongPress: (row: number, col: number) => void;

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { GameState } from "./logic.ts";
+import { GameState } from "./helper/Types.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
 import "./App.css";
