@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { endGame } from "./logic.ts";
+import "./timer.css"
 
 interface TimerProps {
   initialTime: number;

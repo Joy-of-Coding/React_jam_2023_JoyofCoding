@@ -1,5 +1,19 @@
+
 .timer-red-bold {
     font-weight: bold;
     color: red;
-  }
-  
+    background-color: darkblue;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05); /* Scale up by 5% at 50% of the animation */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
