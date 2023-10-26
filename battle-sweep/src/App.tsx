@@ -117,10 +117,6 @@ function App() {
         </motion.button>
       </div>
 
-      {/* <div>
-        <p>Current Bombs: {game?.playerState[`${id}`].bombsPlaced}</p>
-      </div> */}
-
       <div>
       <p>Total Bombs: {game.setBombs} </p>
     </div>
