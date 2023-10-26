@@ -1,5 +1,5 @@
 import "./Player.css";
-import { GameState } from "../logic.ts";
+import { GameState } from "../helper/Types";
 
 interface PlayerProps {
   players: Record<
