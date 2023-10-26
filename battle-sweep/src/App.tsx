@@ -117,6 +117,7 @@ function App() {
         </>
       ))}
       <Timer
+        game={game}
         initialTime={timerDuration}
         onTimerEnd={handleTimerEnd}
         playerWin="YOU WIN!!!" // Replace with the actual value

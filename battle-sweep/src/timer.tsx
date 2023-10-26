@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { endGame } from "./logic.ts";
+import { GameState, endGame } from "./logic.ts";
 import "./timer.css"
 
 interface TimerProps {
+  game: GameState;
   initialTime: number;
   onTimerEnd: () => void;
   playerWin: string; // Add this prop
@@ -11,35 +12,43 @@ interface TimerProps {
 
 }
 
-function Timer({ initialTime, onTimerEnd, playerWin, playerLose }: TimerProps) {
+function Timer({ game, initialTime, onTimerEnd, playerWin, playerLose }: TimerProps) {
   const [timer, setTimer] = useState<number>(initialTime);
 
-  useEffect(() => {
-    if (timer > 0) {
-      const interval = setInterval(() => {
-        setTimer((prevTimer) => {
-          if (prevTimer > 0) {
-            return prevTimer - 1;
-          } else {
-            clearInterval(interval);
-            onTimerEnd(); // Call the onTimerEnd function when the timer reaches zero
-            endGame(playerWin, playerLose); // Call endGame function to end the game
-            return 0; // Ensure the timer remains at 0
-          }
-        });
-      }, 1000);
+  // useEffect(() => {
+  //   if (timer > 0) {
+  //     const interval = setInterval(() => {
+  //       setTimer((prevTimer) => {
+  //         if (prevTimer > 0) {
+  //           return prevTimer - 1;
+  //         } else {
+  //           clearInterval(interval);
+  //           onTimerEnd(); // Call the onTimerEnd function when the timer reaches zero
+  //           endGame(playerWin, playerLose); // Call endGame function to end the game
+  //           return 0; // Ensure the timer remains at 0
+  //         }
+  //       });
+  //     }, 1000);
 
-      // Clean up the timer when the component unmounts or when the timer reaches zero
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [onTimerEnd, playerLose, playerWin, timer]);
+  //     // Clean up the timer when the component unmounts or when the timer reaches zero
+  //     return () => {
+  //       clearInterval(interval);
+  //     };
+  //   } else {
+  //     console.log("Time's Up")
+  //   }
+  // }, [onTimerEnd, playerLose, playerWin, timer]);
+
+  // useEffect(() => {
+
+  // }, [])
 
   return (
-  <p className={timer <= 5 ? "timer-red-bold" : "timer"}>
-    Timer: {timer} second(s)
-  </p>
+    game.onBoardTimer > 0 ? 
+      <div className={game.onBoardTimer <= 5 ? "timer-red-bold" : "timer"}>
+        Timer: {game.onBoardTimer} second(s)
+      </div> : 
+      <p>Game Over</p>
   );
 }
 

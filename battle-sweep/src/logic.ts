@@ -15,6 +15,8 @@ export interface TileProp {
 }
 
 export interface GameState {
+  onBoardTimer: number,
+  gameStart: number,
   playerIds: PlayerId[],
   onboarding: boolean,
   isGameOver: boolean,
@@ -67,6 +69,8 @@ Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 2,
   setup: (playerIds) => ({
+    onBoardTimer: 10,
+    gameStart: Rune.gameTime(),
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
@@ -202,6 +206,9 @@ Rune.initLogic({
     playerLeft:(playerId, {game}) => {
       delete game.playerState[playerId]
     },
+  }, 
+  update : ({game})=>{
+    game.onBoardTimer = 10-(Rune.gameTime()/1000  - game.gameStart)
   }
 })
 
