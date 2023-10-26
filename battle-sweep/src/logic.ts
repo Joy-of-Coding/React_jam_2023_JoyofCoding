@@ -42,7 +42,7 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-function endGame(playerWin:string, playerLose:string) {
+export function endGame(playerWin:string, playerLose:string) {
   Rune.gameOver({
     players: {
       [playerWin]: "WON",
@@ -204,3 +204,4 @@ Rune.initLogic({
     },
   }
 })
+

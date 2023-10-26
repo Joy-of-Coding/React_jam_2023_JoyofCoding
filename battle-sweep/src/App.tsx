@@ -116,7 +116,12 @@ function App() {
             key={id + "-timer"}
             initialTime={timerDuration}
             onTimerEnd={handleTimerEnd}
-          />
+            playerWin="YOU WIN!!!" // Replace with the actual value
+            playerLose="MAYBE NEXT TIME" // Replace with the actual value
+            endGame={function (playerWin: string, playerLose: string): void {
+              throw new Error("Function not implemented.");
+            }}          
+            />
           {gameFinished && <p>FINISHED!</p>}
           
           <Controls 
