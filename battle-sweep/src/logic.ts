@@ -26,7 +26,6 @@ function endTurn(game: GameState, playerId:string) {
 }
 
 function getScores(game:GameState, player:string) {
-  console.log(game.playerState[player].playerTurnTime)
   let playerScore = game.baselineScore;
   const totalBombs = game.setBombs;
   const bombsFound = game.playerState[player].bombsFound;
