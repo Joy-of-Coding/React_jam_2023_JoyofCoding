@@ -10,7 +10,7 @@ import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 import Timer from "./components/Timer.tsx"
-
+import StartPage from "./components/StartPage.tsx"
 function App() {
   const [game, setGame] = useState<GameState>();
   const [players, setPlayers] = useState<Players>({});
@@ -81,7 +81,9 @@ function App() {
   }
 
   return (
+
     <>
+      <StartPage game={game} />
       <InPlay
         game={game}
         playerId={yourPlayerId || ""}

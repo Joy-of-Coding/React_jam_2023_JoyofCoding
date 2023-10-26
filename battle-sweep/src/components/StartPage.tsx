@@ -3,17 +3,22 @@ import { motion } from 'framer-motion';
 import './StartPage.css';
 import HelpPopup from './HelpPopup';
 import Config from './Config';
+import { GameState } from '../helper/Types';
 
-const StartPage: React.FC = () => {
+interface StartPageProps {
+
+    game: GameState;
+  }
+const StartPage: React.FC<StartPageProps> = ({ game }) => {
     const [openHelp, setOpenHelp] = useState(false);
     const [openSettings, setOpenSettings] = useState(false);
-    const [game, setGame] = useState<any>(); // Define the game state here
+    
   
     return (
       <div>
         <h1>Start Game</h1>
         <div>
-          <motion.button
+          <motion.button 
             whileHover={{ scale: 1.1 }}
             className="helpButton"
             onClick={() => {
