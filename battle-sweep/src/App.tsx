@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { GameState } from "./logic.ts";
+import { GameState } from "./helper/Types.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
 import "./App.css";
@@ -95,7 +95,11 @@ function App() {
         </>
       ))}
 
-      <Controls onboarding={game.onboarding} toggleFlag={toggleFlagState} useFlag={useFlag}/>
+      <Controls
+        onboarding={game.onboarding}
+        toggleFlag={toggleFlagState}
+        useFlag={useFlag}
+      />
       <div>
         {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
         <motion.button

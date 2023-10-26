@@ -1,4 +1,4 @@
-import { TileProp } from "../logic";
+import { TileProp } from "./Types";
 
 const emptyCell = {
   isBomb: false,
