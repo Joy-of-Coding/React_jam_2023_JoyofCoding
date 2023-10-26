@@ -1,6 +1,5 @@
 import "./Player.css";
-import { GameState } from "../logic.ts";
-import Header from "./Header.tsx";
+import { GameState } from "../helper/Types";
 
 interface PlayerProps {
   players: Record<
@@ -14,17 +13,12 @@ interface PlayerProps {
 
 const Player = ({ players, playerId, display, game }: PlayerProps) => {
   return (
-    <div className="player">
+    <div>
       {display ? (
         <>
-
-          <div>
+          <h3>Battle Sweeper</h3>
           <img className="avatar" src={players[playerId].avatarUrl} alt="" />
-          <h3>
-            {game.onboarding ? players[playerId].displayName : "Opponent"}
-            's Board
-          </h3>
-          </div>
+          <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
         </>
       ) : (
         ""
