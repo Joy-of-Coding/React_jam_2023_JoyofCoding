@@ -37,7 +37,6 @@ const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:
     return flipAll(oldBoard, true)
   } else if (oldBoard[row][col].isBomb && oldBoard[row][col].isMarked) {
     game.playerState[player].bombsFound += 1;
-    console.log("add bomb found", game.playerState[player].bombsFound)
     return flipCell(row, col, oldBoard)
   } else if (oldBoard[row][col].value === 0) {
     // expand
@@ -99,7 +98,11 @@ Rune.initLogic({
     },
     swap: (_,{ game, allPlayerIds }) => {
       allPlayerIds.map((player) => {
-        const oldBoard = game.playerState[player].board
+        let oldBoard = game.playerState[player].board
+        if (game.playerState[player].bombsPlaced < game.setBombs) {
+          oldBoard = insertBombs(oldBoard, game.setBombs)
+          game.playerState[player].bombsPlaced = game.setBombs;
+        }
         const newBoard = flipAll(oldBoard, !game.onboarding)
         game.playerState[player].board = newBoard
       })

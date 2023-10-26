@@ -5,6 +5,7 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
+import InPlay from "./components/InPlay.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 
@@ -33,7 +34,12 @@ function App() {
       setOpen(false);
       clearTimeout(timerRef.current || 0);
     }
-  }, [game]);
+
+    if (game?.onboarding && playerIds.length < 2) {
+      console.log("here");
+      Rune.actions.swap();
+    }
+  }, [game, playerIds]);
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -70,8 +76,14 @@ function App() {
   if (!game) {
     return <div>Loading...</div>;
   }
+
   return (
     <>
+      <InPlay
+        game={game}
+        playerId={yourPlayerId || ""}
+        onboarding={game.onboarding}
+      />
       {playerIds.map((id) => (
         <>
           <Player
