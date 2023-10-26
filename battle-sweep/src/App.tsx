@@ -5,6 +5,7 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
+import InPlay from "./components/InPlay.tsx";
 import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
@@ -37,7 +38,11 @@ function App() {
       setOpenSettings(false);
       clearTimeout(timerRef.current || 0);
     }
-  }, [game]);
+
+    if (game?.onboarding && playerIds.length < 2) {
+      Rune.actions.swap();
+    }
+  }, [game, playerIds]);
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -74,13 +79,19 @@ function App() {
   if (!game) {
     return <div>Loading...</div>;
   }
+
   return (
     <>
+      <InPlay
+        game={game}
+        playerId={yourPlayerId || ""}
+        onboarding={game.onboarding}
+      />
       {playerIds.map((id) => (
         <>
           <Player
             key={id + "-player"}
-            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             players={players}
             playerId={id}
             game={game}
@@ -89,7 +100,7 @@ function App() {
             key={id}
             onPress={handleTilePress}
             onLongPress={handleLongTilePress}
-            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
         </>
