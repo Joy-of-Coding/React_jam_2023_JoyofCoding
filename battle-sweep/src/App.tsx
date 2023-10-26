@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GameState } from "./helper/Types.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
@@ -9,6 +9,7 @@ import InPlay from "./components/InPlay.tsx";
 import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
+import Timer from "./components/Timer.tsx"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -19,7 +20,6 @@ function App() {
   const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
-  console.log("app.tsx",game?.setBombs)
 
   useEffect(() => {
     Rune.initClient({
@@ -88,7 +88,7 @@ function App() {
         onboarding={game.onboarding}
       />
       {playerIds.map((id) => (
-        <>
+        <React.Fragment key={id + "-player-view"}>
           <Player
             key={id + "-player"}
             display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
@@ -97,15 +97,17 @@ function App() {
             game={game}
           />
           <Board
-            key={id}
+            key={id + -"board"}
             onPress={handleTilePress}
             onLongPress={handleLongTilePress}
             display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
-        </>
+        </React.Fragment>
       ))}
-
+      <Timer
+        game={game}
+      />
       <Controls
         onboarding={game.onboarding}
         toggleFlag={toggleFlagState}

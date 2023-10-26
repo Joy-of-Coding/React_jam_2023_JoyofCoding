@@ -11,6 +11,8 @@ export interface TileProp {
   }
   
   export interface GameState {
+    onBoardTimer: number,
+    gameStart: number,
     playerIds: PlayerId[],
     onboarding: boolean,
     isGameOver: boolean,
@@ -34,4 +36,5 @@ export interface TileProp {
     flag: (args: { row: number ; col: number }) => void,
     reveal: (args: { row: number ; col: number }) => void,
     revealReset: () => void,
+    endTimer: ()=>void,
   }

@@ -10,7 +10,7 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-function endGame(game:GameState) {
+export function endGame(game: GameState) {
   Rune.gameOver({
     players: Object.keys(game.playerState).reduce(
       (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
@@ -50,6 +50,8 @@ Rune.initLogic({
   minPlayers: 1,
   maxPlayers: 2,
   setup: (playerIds) => ({
+    onBoardTimer: 20,
+    gameStart: Rune.gameTime(),
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
@@ -181,6 +183,10 @@ Rune.initLogic({
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
     },
+    endTimer: (_, {game}) => {
+      console.log("Game Over Logic.ts!");
+      endGame(game)
+    }
   }
   ,
   events: {
@@ -195,5 +201,9 @@ Rune.initLogic({
     playerLeft:(playerId, {game}) => {
       delete game.playerState[playerId]
     },
+  }, 
+  update : ({game})=>{
+    game.onBoardTimer = 20-(Rune.gameTime()/1000  - game.gameStart)
   }
 })
+
