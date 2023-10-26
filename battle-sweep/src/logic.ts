@@ -55,7 +55,7 @@ Rune.initLogic({
     isGameOver: false,
     onBoardTime: 15,
     playTime: 30,
-    gameTimer: Rune.gameTimeInSeconds(),
+    gameTimer: Rune.gameTime()/1000,
     timeElapsed: 0,
     stopTimer: false,
     setBombs: 5,
@@ -192,15 +192,15 @@ Rune.initLogic({
   update : ({game})=>{
 
     if (game.onboarding && !game.stopTimer) {
-      game.timeElapsed = Rune.gameTimeInSeconds();
+      game.timeElapsed = Rune.gameTime()/1000;
       game.gameTimer = game.onBoardTime - game.timeElapsed
     } 
     if (!game.onboarding && !game.stopTimer) {
-      game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTimeInSeconds()
+      game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
     }
 
     if(game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      game.timeElapsed = game.timeElapsed - Rune.gameTimeInSeconds();
+      game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
       game.gameTimer = 0;
       game.stopTimer = true;
       game.gameTimer = 0;
