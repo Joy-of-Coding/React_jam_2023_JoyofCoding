@@ -47,15 +47,17 @@ const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:
   }}
 
 Rune.initLogic({
-  minPlayers: 1,
+  minPlayers: 2,
   maxPlayers: 2,
   setup: (playerIds) => ({
-    onBoardTimer: 20,
-    gameStart: Rune.gameTime(),
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
-
+    onBoardTime: 15,
+    playTime: 30,
+    gameTimer: Rune.gameTime()/1000,
+    timeElapsed: 0,
+    stopTimer: false,
     setBombs: 5,
     baselineScore: 100,
     playerState: playerIds.reduce<GameState["playerState"]>(
@@ -100,7 +102,6 @@ Rune.initLogic({
         }
       })
     },
-
     updateBombCount: ({amount}, { game }) => {
         return game.setBombs = amount;
   },
@@ -111,7 +112,7 @@ Rune.initLogic({
           oldBoard = insertBombs(oldBoard, game.setBombs)
           game.playerState[player].bombsPlaced = game.setBombs;
         }
-        const newBoard = flipAll(oldBoard, (game.onboarding = false))
+        const newBoard = flipAll(oldBoard, false)
         game.playerState[player].board = newBoard
       })
       game.onboarding = false;
@@ -184,11 +185,34 @@ Rune.initLogic({
           game.playerState[playerId].board = refreshBoard
     },
     endTimer: (_, {game}) => {
-      console.log("Game Over Logic.ts!");
       endGame(game)
-    }
+    },
   }
   ,
+  update : ({game})=>{
+
+    if (game.onboarding && !game.stopTimer) {
+      game.timeElapsed = Rune.gameTime()/1000;
+      game.gameTimer = game.onBoardTime - game.timeElapsed
+    } 
+    if (!game.onboarding && !game.stopTimer) {
+      game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
+    }
+
+    if(game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
+      game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
+      game.gameTimer = 0;
+      game.stopTimer = true;
+      game.gameTimer = 0;
+      Rune.actions.swap();
+    }
+    if(!game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
+      game.gameTimer = 0;
+      game.stopTimer = true;
+      game.gameTimer = 0;
+      Rune.actions.endTimer();
+    }
+  },
   events: {
     playerJoined: (playerId, {game}) => {
       game.playerIds.push(playerId)
@@ -201,9 +225,6 @@ Rune.initLogic({
     playerLeft:(playerId, {game}) => {
       delete game.playerState[playerId]
     },
-  }, 
-  update : ({game})=>{
-    game.onBoardTimer = 20-(Rune.gameTime()/1000  - game.gameStart)
-  }
+  },
 })
 
