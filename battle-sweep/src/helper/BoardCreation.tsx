@@ -20,7 +20,7 @@ export function createBoard(height: number, width: number): TileProp[][] {
   return matrix;
 }
 
-export function insertBombs(matrix: TileProp[][], bombs: number) {
+export function insertBombs(matrix: TileProp[][], bombs: number ) {
   let bombsToInsert = bombs;
   const refreshBoard = createBoard(matrix.length, matrix[0].length);
 

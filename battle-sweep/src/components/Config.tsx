@@ -13,11 +13,6 @@ interface ConfigProps {
 export const Config: React.FC<ConfigProps> = ({ closePopup, game }) => {
   const [open, setOpen] = useState(false);
 
-  const handleBombChange = (num) => {
-    console.log("handling change of bomb count", num)
-    Rune.actions.updateBombCount({num})
-
-  }
 
   
   return (
@@ -27,17 +22,18 @@ export const Config: React.FC<ConfigProps> = ({ closePopup, game }) => {
 
       className="popup-body">
 
-    <div>
+    {/* <div>
       <p>Total Bombs: {game?.setBombs} </p>
-    </div>
+    </div> */}
     <div>
-    <label>Bomb Count:</label>
+    <label>Bomb Count: {game?.setBombs}  </label>
         <input 
-        type="number" 
-        // min="2" 
-        // max="30" 
+        type="range" 
+        min="2" 
+        max="30" 
         value={game?.setBombs}
-        onChange={e => handleBombChange(e.target.value)}
+        // onChange={e => Rune.actions.updateBombCount({amount: e.target.value})}
+        onChange={e => Rune.actions.updateBombCount({amount: e.target.valueAsNumber})}
           ></input>
 
     </div>
