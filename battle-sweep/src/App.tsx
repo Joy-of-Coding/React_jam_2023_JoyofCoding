@@ -76,7 +76,7 @@ function App() {
         <>
           <Player
             key={id + "-player"}
-            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             players={players}
             playerId={id}
             game={game}
@@ -85,7 +85,7 @@ function App() {
             key={id}
             onPress={handleTilePress}
             onLongPress={handleLongTilePress}
-            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
         </>
