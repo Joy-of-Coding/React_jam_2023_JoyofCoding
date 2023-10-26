@@ -20,10 +20,10 @@ function Timer({ game }: TimerProps) {
   return (
     game.onBoardTimer > 0 ? 
       <div className={game.onBoardTimer <= 5 ? "timer-red-bold" : "timer"}>
-        Timer: {game.onBoardTimer} second(s)
+        Game Starts in: {game.onBoardTimer} second(s)
       </div> : 
       <div>
-          <b>Popup Alert here, "onboarding timer up" begin playing in 3...2...1...</b>
+          <b>Capture Monsters!</b>
 
         {/*<img src={explosionGif} alt="exploding fireball"/>*/}
         {/*<p>Game Over</p>*/}

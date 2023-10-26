@@ -14,7 +14,7 @@ const Controls = ({ onboarding, toggleFlag, useFlag }: ControlsProps) => {
           Add Bombs
         </button>
         <button className="button" onClick={() => Rune.actions.swap()}>
-          Swap Boards
+          Start Game?
         </button>
       </>
     );
