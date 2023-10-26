@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
 import './Config.css';
 import { motion, AnimatePresence} from "framer-motion"
-import { Credits } from './Credits';
-import { GameState } from "../logic.ts";
+import { GameState } from "../helper/Types";
 
 
 interface ConfigProps {
@@ -11,7 +9,6 @@ interface ConfigProps {
 }
 
 export const Config: React.FC<ConfigProps> = ({ closePopup, game }) => {
-  const [open, setOpen] = useState(false);
 
 
   
@@ -37,7 +34,6 @@ export const Config: React.FC<ConfigProps> = ({ closePopup, game }) => {
           ></input>
 
     </div>
-    <div>
         <motion.button  whileHover={{ scale: 1.1 }} onClick={closePopup}>Close</motion.button>
       </motion.div>
       </AnimatePresence>

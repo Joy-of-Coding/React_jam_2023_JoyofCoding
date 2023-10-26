@@ -27,6 +27,7 @@ export interface TileProp {
   
   export type GameActions = {
     addBombs: () => void,
+    updateBombCount: (paraps: {amount:number}) => void,
     userAddBomb: (args: { row: number ; col: number }) => void,
     swap: () => void,
     flip: (args: { row: number ; col: number }) => void,
