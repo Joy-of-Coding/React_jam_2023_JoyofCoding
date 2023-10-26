@@ -183,9 +183,10 @@ Rune.initLogic({
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
     },
-    // endTimer: (_, {_}) => {
-    //   console.log("Time!");
-    // }
+    endTimer: (_, {game}) => {
+      console.log("Game Over Logic.ts!");
+      endGame(game)
+    }
   }
   ,
   events: {

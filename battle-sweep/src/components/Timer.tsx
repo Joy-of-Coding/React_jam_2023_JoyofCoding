@@ -15,7 +15,7 @@ function Timer({ game, initialTime }: TimerProps) {
 
   useEffect(() => {
     if (game.onBoardTimer == 0) {
-      // Action to take on Timer End
+      Rune.actions.endTimer()
     }
   }, [game])
 
