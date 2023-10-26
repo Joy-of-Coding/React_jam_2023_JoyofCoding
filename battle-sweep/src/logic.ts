@@ -32,8 +32,6 @@ type GameActions = {
   updateBombCount: (params: { amount: number }) => void,
   addBombs: () => void,
   userAddBomb: (args: { row: number ; col: number }) => void,
-  // userSetBombCount: (args: {
-  //   setBombs: any; count: number }) => void,
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
   flag: (args: { row: number ; col: number }) => void,
