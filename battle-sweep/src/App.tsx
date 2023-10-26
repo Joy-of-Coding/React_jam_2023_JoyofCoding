@@ -5,6 +5,8 @@ import Board from "./components/Board.tsx";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
+import InPlay from "./components/InPlay.tsx";
+import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 import Timer from "./components/Timer.tsx"
@@ -15,12 +17,14 @@ function App() {
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
   const [useFlag, setUseFlag] = useState(false); // Add useFlag state
-  const [open, setOpen] = useState(false); // Add open state
+  const [openHelp, setOpenHelp] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false); // Add open state
   const [timerDuration, setTimerDuration] = useState<number>(20); // Define and initialize the timer duration
   const [gameFinished, setGameFinished] = useState(false); // Declare and initialize gameFinished
 
   
   const timerRef = useRef<number>(0);
+  console.log("app.tsx",game?.setBombs)
 
   useEffect(() => {
     Rune.initClient({
@@ -36,8 +40,13 @@ function App() {
     if (game?.isGameOver) {
       setUseFlag(false);
       setOpen(false);
+      clearTimeout(timerRef.current || 0);
     }
-  }, [game]);
+
+    if (game?.onboarding && playerIds.length < 2) {
+      Rune.actions.swap();
+    }
+  }, [game, playerIds]);
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -94,11 +103,16 @@ function App() {
   
   return (
     <>
+      <InPlay
+        game={game}
+        playerId={yourPlayerId || ""}
+        onboarding={game.onboarding}
+      />
       {playerIds.map((id) => (
         <>
           <Player
             key={id + "-player"}
-            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             players={players}
             playerId={id}
             game={game}
@@ -107,7 +121,7 @@ function App() {
             key={id}
             onPress={handleTilePress}
             onLongPress={handleLongTilePress}
-            display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
+            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
           
@@ -133,15 +147,29 @@ function App() {
         }}      
       />
       <div>
-        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
         <motion.button
           whileHover={{ scale: 1.1 }}
           className="helpButton"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenHelp(true)}
         >
           <b>Info</b>
         </motion.button>
+      </div> 
+      <div>
+        {openSettings && <Config game={game} closePopup={() => setOpenSettings(false)} />}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpenSettings(true)}
+                  >
+          <b>Settings</b>
+        </motion.button>
       </div>
+
+      <div>
+      <p>Total Bombs: {game.setBombs} </p>
+    </div>
     </>
   );
 }
