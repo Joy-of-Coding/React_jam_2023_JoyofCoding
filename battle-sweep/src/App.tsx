@@ -7,7 +7,7 @@ import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import Timer from "./components/timer.tsx"
+import Timer from "./components/Timer.tsx"
 
 function App() {
   const [game, setGame] = useState<GameState>();
