@@ -155,10 +155,10 @@ Rune.initLogic({
             let newBoard = refreshBoard
             for (const neighbor of neighbors) {
               const [row, col] = neighbor;
-              newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
-              if (refreshBoard[row][col].isBomb && refreshBoard[row][col].isMarked) {
+              if (refreshBoard[row][col].isBomb && refreshBoard[row][col].isMarked && !refreshBoard[row][col].isFlipped) {
                 game.playerState[playerId].bombsFound += 1
               }
+              newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
               if(refreshBoard[row][col].value == 0) {
                 newBoard = expand(row, col, newBoard)
               }
