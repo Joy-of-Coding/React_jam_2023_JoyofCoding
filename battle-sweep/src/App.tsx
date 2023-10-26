@@ -6,6 +6,7 @@ import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 import InPlay from "./components/InPlay.tsx";
+import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 
@@ -14,9 +15,11 @@ function App() {
   const [players, setPlayers] = useState<Players>({});
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
-  const [open, setOpen] = useState(false);
+  const [openHelp, setOpenHelp] = useState(false);
+  const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
+  console.log("app.tsx",game?.setBombs)
 
   useEffect(() => {
     Rune.initClient({
@@ -31,7 +34,8 @@ function App() {
   useEffect(() => {
     if (game?.isGameOver) {
       setUseFlag(false);
-      setOpen(false);
+      setOpenHelp(false);
+      setOpenSettings(false);
       clearTimeout(timerRef.current || 0);
     }
 
@@ -108,15 +112,29 @@ function App() {
         useFlag={useFlag}
       />
       <div>
-        {open && <HelpPopup closePopup={() => setOpen(false)} />}
+        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
         <motion.button
           whileHover={{ scale: 1.1 }}
           className="helpButton"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenHelp(true)}
         >
           <b>Info</b>
         </motion.button>
+      </div> 
+      <div>
+        {openSettings && <Config game={game} closePopup={() => setOpenSettings(false)} />}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpenSettings(true)}
+                  >
+          <b>Settings</b>
+        </motion.button>
       </div>
+
+      <div>
+      <p>Total Bombs: {game.setBombs} </p>
+    </div>
     </>
   );
 }

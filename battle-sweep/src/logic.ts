@@ -5,6 +5,7 @@ import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetRevea
 const boardWidth = 9;
 const boardHeight = 9;
 
+
 declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
@@ -52,6 +53,7 @@ Rune.initLogic({
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
+
     setBombs: 5,
     baselineScore: 100,
     playerState: playerIds.reduce<GameState["playerState"]>(
@@ -96,6 +98,10 @@ Rune.initLogic({
         }
       })
     },
+
+    updateBombCount: ({amount}, { game }) => {
+        return game.setBombs = amount;
+  },
     swap: (_,{ game, allPlayerIds }) => {
       allPlayerIds.map((player) => {
         let oldBoard = game.playerState[player].board
