@@ -1,22 +1,61 @@
-import React from 'react';
-import "./StartPage.css" 
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import './StartPage.css';
+import HelpPopup from './HelpPopup';
+import Config from './Config';
 
 const StartPage: React.FC = () => {
-    
-  return (
-    <div>
-      <h1>Start Game</h1>
-      
-      <h1>Settings</h1>
-      <h1>Help</h1>
-      {/* Add your Start Page content here */}
-    </div>
-
-  );
-};
-
-export default StartPage;
-
+    const [openHelp, setOpenHelp] = useState(false);
+    const [openSettings, setOpenSettings] = useState(false);
+    const [game, setGame] = useState<any>(); // Define the game state here
+  
+    return (
+      <div>
+        <h1>Start Game</h1>
+        <div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => {
+              // Handle the logic for starting the game
+              // For example, you can navigate to the main game page
+            }}
+          >
+            <b>Start Game</b>
+          </motion.button>
+        </div>
+        <h1>Settings</h1>
+        <div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => setOpenSettings(true)}
+          >
+            <b>Settings</b>
+          </motion.button>
+        </div>
+        <div>
+          {openSettings && (
+            <Config game={game} closePopup={() => setOpenSettings(false)} />
+          )}
+        </div>
+        <h1>Help</h1>
+        <div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => setOpenHelp(true)}
+          >
+            <b>Help</b>
+          </motion.button>
+        </div>
+        <div>
+          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+        </div>
+      </div>
+    );
+  };
+  
+  export default StartPage;
 
   
