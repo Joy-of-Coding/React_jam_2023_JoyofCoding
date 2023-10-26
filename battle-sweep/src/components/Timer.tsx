@@ -41,19 +41,22 @@ function Timer({ game, initialTime, onTimerEnd }: TimerProps) {
   //   }
   // }, [onTimerEnd, playerLose, playerWin, timer]);
 
-  useEffect(() => {
-    if (game.onBoardTimer == 0) {
-      // Rune.actions.timerEnd()
-      <img src ="./assets/Explosions/fire_ball_side_medium/fireball_side_medium_explosion.gif"/>
-    }
-  }, [game])
+  // useEffect(() => {
+  //   if (game.onBoardTimer == 0) {
+  //     // Rune.actions.timerEnd()
+  //     <img src="./assets/Explosions/fire_ball_side_medium/fireball_side_medium_explosion.gif"/>
+  //   }
+  // }, [game])
 
   return (
     game.onBoardTimer > 0 ? 
       <div className={game.onBoardTimer <= 5 ? "timer-red-bold" : "timer"}>
         Timer: {game.onBoardTimer} second(s)
       </div> : 
-      <p>Game Over</p>
+      <div>
+        <img src="./assets/Explosions/fire_ball_side_medium/fireball_side_medium_explosion.gif"/>
+        <p>Game Over</p>
+      </div>
   );
 }
 
