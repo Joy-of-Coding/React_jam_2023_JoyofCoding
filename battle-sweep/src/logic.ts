@@ -114,7 +114,6 @@ Rune.initLogic({
         const newBoard = flipAll(oldBoard, (game.onboarding = false))
         game.playerState[player].board = newBoard
       })
-      // game.onboarding = !game.onboarding;
       game.onboarding = false;
     },
     flip:({row, col}, { game, playerId }) => {
