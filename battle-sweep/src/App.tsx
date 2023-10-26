@@ -88,13 +88,12 @@ function App() {
         playerId={yourPlayerId || ""}
         onboarding={game.onboarding}
       />
+
+      <Header game={game}/>
+
       {playerIds.map((id) => (
         <>
-          <Header  key={id + "-header"}
-                   display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
-                   playerId={id}
-                   players={players}
-                   game={game}/>
+
           <Player
             key={id + "-player"}
             display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
