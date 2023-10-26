@@ -73,7 +73,7 @@ Rune.initLogic({
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
-    setBombs: 15,    // This sets the bomb count
+    setBombs: 10,   
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -106,14 +106,9 @@ Rune.initLogic({
         game.playerState[playerId].bombsPlaced = userBombs - 1;
       }
     },
-    // userSetBombCount: (game, count) => {
-    //   return game.setBombs = count;
-    
-    // },
 
     updateBombCount: ({amount}, { game }) => {
         return game.setBombs = amount;
-
   },
     swap: (_,{ game, allPlayerIds }) => {
       allPlayerIds.map((player) => {
