@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GameState } from "./helper/Types.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
@@ -16,15 +16,10 @@ function App() {
   const [players, setPlayers] = useState<Players>({});
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
-  const [useFlag, setUseFlag] = useState(false); // Add useFlag state
   const [openHelp, setOpenHelp] = useState(false);
-  const [openSettings, setOpenSettings] = useState(false); // Add open state
-  const [timerDuration, setTimerDuration] = useState<number>(20); // Define and initialize the timer duration
-  const [gameFinished, setGameFinished] = useState(false); // Declare and initialize gameFinished
-
-  
+  const [openSettings, setOpenSettings] = useState(false);
+  const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
-  console.log("app.tsx",game?.setBombs)
 
   useEffect(() => {
     Rune.initClient({
@@ -39,8 +34,8 @@ function App() {
   useEffect(() => {
     if (game?.isGameOver) {
       setUseFlag(false);
-      setOpenSettings(false);
       setOpenHelp(false);
+      setOpenSettings(false);
       clearTimeout(timerRef.current || 0);
     }
 
@@ -77,31 +72,14 @@ function App() {
     Rune.actions.reveal({ row, col });
   };
 
-  const toggleFlag = () => {
-    setUseFlag((prevUseFlag) => !prevUseFlag);
+  const toggleFlagState = () => {
+    setUseFlag(!useFlag);
   };
 
   if (!game) {
     return <div>Loading...</div>;
   }
 
-  const handleTimerEnd = () => {
-    // Set the game as finished when the timer ends
-    setGame((prevGame) => {
-      if (prevGame) {
-        setGameFinished(true); // Update the gameFinished state
-        
-        return {
-          ...prevGame,
-          isGameOver: true, // Set a property in your game state to indicate that the game is finished
-          playerIds: prevGame ? prevGame.playerIds || [] : [], // Ensure playerIds is an array
-          onboarding: prevGame.onboarding || false, // Ensure onboarding is a boolean
-        };
-      }
-      return prevGame;  // Return the original state if it's undefined
-    });
-  };
-  
   return (
     <>
       <InPlay
@@ -110,7 +88,7 @@ function App() {
         onboarding={game.onboarding}
       />
       {playerIds.map((id) => (
-        <>
+        <React.Fragment key={id + "-player-view"}>
           <Player
             key={id + "-player"}
             display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
@@ -119,15 +97,13 @@ function App() {
             game={game}
           />
           <Board
-            key={id}
+            key={id + -"board"}
             onPress={handleTilePress}
             onLongPress={handleLongTilePress}
             display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
-          
-          {gameFinished && <p>FINISHED!</p>}
-        </>
+        </React.Fragment>
       ))}
       <Timer
         game={game}
@@ -137,15 +113,12 @@ function App() {
         // playerLose="MAYBE NEXT TIME" // Replace with the actual value
         endGame={function (game: GameState): void {
           throw new Error("Function not implemented.");
-        }}          
+        }}
       />
       <Controls
         onboarding={game.onboarding}
-        toggleFlag={toggleFlag}
+        toggleFlag={toggleFlagState}
         useFlag={useFlag}
-        updateTimerDuration={function (): void {
-          throw new Error("Function not implemented.");
-        }}      
       />
       <div>
         {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
