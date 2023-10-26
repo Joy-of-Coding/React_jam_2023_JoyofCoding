@@ -107,13 +107,6 @@ function App() {
       ))}
       <Timer
         game={game}
-        initialTime={timerDuration}
-        onTimerEnd={handleTimerEnd}
-        // playerWin="YOU WIN!!!" // Replace with the actual value
-        // playerLose="MAYBE NEXT TIME" // Replace with the actual value
-        endGame={function (game: GameState): void {
-          throw new Error("Function not implemented.");
-        }}
       />
       <Controls
         onboarding={game.onboarding}

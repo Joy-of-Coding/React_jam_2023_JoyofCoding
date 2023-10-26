@@ -1,13 +1,12 @@
 import "./Controls.css";
 
 interface ControlsProps {
-  updateTimerDuration: (newDuration: number) => void;
   onboarding: boolean;
   toggleFlag: () => void;
   useFlag: boolean;
 }
 
-const Controls = ({ updateTimerDuration, onboarding, toggleFlag }: ControlsProps) => {
+const Controls = ({  onboarding, toggleFlag }: ControlsProps) => {
   if (onboarding) {
     return (
       <>

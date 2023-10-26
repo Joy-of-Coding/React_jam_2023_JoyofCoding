@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { endGame } from "../logic.ts";
+import React, {  useEffect } from "react";
 import { GameState } from "../helper/Types.ts"
 import "./Timer.css"
 import explosionGif from "../assets/Explosions/fire_ball_side_medium/fireball_side_medium_explode.gif"
 
 interface TimerProps {
   game: GameState;
-  initialTime: number;
-  endGame: (game: GameState) => void; // Add this prop
 
 }
 
-function Timer({ game, initialTime }: TimerProps) {
+function Timer({ game }: TimerProps) {
 
   useEffect(() => {
     if (game.onBoardTimer == 0) {
@@ -25,7 +22,7 @@ function Timer({ game, initialTime }: TimerProps) {
         Timer: {game.onBoardTimer} second(s)
       </div> : 
       <div>
-        <img src={explosionGif}/>
+        <img src={explosionGif} alt="exploding fireball"/>
         <p>Game Over</p>
       </div>
   );
