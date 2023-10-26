@@ -39,7 +39,8 @@ function App() {
   useEffect(() => {
     if (game?.isGameOver) {
       setUseFlag(false);
-      setOpen(false);
+      setOpenSettings(false);
+      setOpenHelp(false);
       clearTimeout(timerRef.current || 0);
     }
 
@@ -132,9 +133,9 @@ function App() {
         game={game}
         initialTime={timerDuration}
         onTimerEnd={handleTimerEnd}
-        playerWin="YOU WIN!!!" // Replace with the actual value
-        playerLose="MAYBE NEXT TIME" // Replace with the actual value
-        endGame={function (playerWin: string, playerLose: string): void {
+        // playerWin="YOU WIN!!!" // Replace with the actual value
+        // playerLose="MAYBE NEXT TIME" // Replace with the actual value
+        endGame={function (game: GameState): void {
           throw new Error("Function not implemented.");
         }}          
       />

@@ -8,13 +8,13 @@ interface TimerProps {
   game: GameState;
   initialTime: number;
   onTimerEnd: () => void;
-  playerWin: string; // Add this prop
-  playerLose: string; // Add this prop
-  endGame: (playerWin: string, playerLose: string) => void; // Add this prop
+  // playerWin: string; // Add this prop
+  // playerLose: string; // Add this prop
+  endGame: (game: GameState) => void; // Add this prop
 
 }
 
-function Timer({ game, initialTime, onTimerEnd, playerWin, playerLose }: TimerProps) {
+function Timer({ game, initialTime, onTimerEnd }: TimerProps) {
   const [timer, setTimer] = useState<number>(initialTime);
 
   // useEffect(() => {
@@ -44,7 +44,7 @@ function Timer({ game, initialTime, onTimerEnd, playerWin, playerLose }: TimerPr
   useEffect(() => {
     if (game.onBoardTimer == 0) {
       // Rune.actions.timerEnd()
-      
+      <img src ="./assets/Explosions/fire_ball_side_medium/fireball_side_medium_explosion.gif"/>
     }
   }, [game])
 
