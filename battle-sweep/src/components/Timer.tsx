@@ -12,7 +12,7 @@ function Timer({ game }: TimerProps) {
 
   useEffect(() => {
     if (game.onBoardTimer == 0) {
-      Rune.actions.endTimer()
+      Rune.actions.swap()
     }
   }, [game])
 
@@ -22,8 +22,10 @@ function Timer({ game }: TimerProps) {
         Timer: {game.onBoardTimer} second(s)
       </div> : 
       <div>
-        <img src={explosionGif} alt="exploding fireball"/>
-        <p>Game Over</p>
+          <b>Popup Alert here, "onboarding timer up" begin playing in 3...2...1...</b>
+
+        {/*<img src={explosionGif} alt="exploding fireball"/>*/}
+        {/*<p>Game Over</p>*/}
       </div>
   );
 }
