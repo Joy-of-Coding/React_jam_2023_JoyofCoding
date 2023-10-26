@@ -36,7 +36,6 @@ function App() {
     }
 
     if (game?.onboarding && playerIds.length < 2) {
-      console.log("here");
       Rune.actions.swap();
     }
   }, [game, playerIds]);
