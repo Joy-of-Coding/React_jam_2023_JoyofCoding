@@ -13,6 +13,7 @@ function Timer({ game }: TimerProps) {
   useEffect(() => {
     if (game.onBoardTimer == 0) {
       Rune.actions.swap()
+      
     }
   }, [game])
 
