@@ -11,11 +11,14 @@ export interface TileProp {
   }
   
   export interface GameState {
-    onBoardTimer: number,
-    gameStart: number,
     playerIds: PlayerId[],
     onboarding: boolean,
     isGameOver: boolean,
+    onBoardTime: number,
+    playTime: number,
+    gameTimer: number,
+    timeElapsed: number,
+    stopTimer: boolean,
     setBombs: number,
     baselineScore: number,
     playerState: {
