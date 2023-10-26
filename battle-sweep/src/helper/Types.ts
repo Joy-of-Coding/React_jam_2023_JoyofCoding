@@ -26,6 +26,8 @@ export interface TileProp {
         board: TileProp[][];
         bombsPlaced: number;
         bombsFound: number;
+        turnEnded: boolean;
+        playerTurnTime: number;
       }
     }
   }
