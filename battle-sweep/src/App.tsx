@@ -112,31 +112,24 @@ function App() {
             display={game.onboarding ? id == yourPlayerId : id != yourPlayerId}
             board={game.playerState[`${id}`].board}
           />
-          <Timer
-            key={id + "-timer"}
-            initialTime={timerDuration}
-            onTimerEnd={handleTimerEnd}
-            playerWin="YOU WIN!!!" // Replace with the actual value
-            playerLose="MAYBE NEXT TIME" // Replace with the actual value
-            endGame={function (playerWin: string, playerLose: string): void {
-              throw new Error("Function not implemented.");
-            }}          
-            />
-          {gameFinished && <p>FINISHED!</p>}
           
-          <Controls 
-            updateTimerDuration={setTimerDuration}
-            onboarding={game.onboarding}
-            toggleFlag={toggleFlag} // Pass the toggleFlag function
-            useFlag={false}          
-          />
+          {gameFinished && <p>FINISHED!</p>}
         </>
       ))}
-
-      <Controls 
+      <Timer
+        initialTime={timerDuration}
+        onTimerEnd={handleTimerEnd}
+        playerWin="YOU WIN!!!" // Replace with the actual value
+        playerLose="MAYBE NEXT TIME" // Replace with the actual value
+        endGame={function (playerWin: string, playerLose: string): void {
+          throw new Error("Function not implemented.");
+        }}          
+      />
+      <Controls
         onboarding={game.onboarding}
         toggleFlag={toggleFlag}
-        useFlag={useFlag} updateTimerDuration={function (): void {
+        useFlag={useFlag}
+        updateTimerDuration={function (): void {
           throw new Error("Function not implemented.");
         }}      
       />
