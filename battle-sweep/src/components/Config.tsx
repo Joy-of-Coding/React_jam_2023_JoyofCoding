@@ -2,14 +2,23 @@ import React, { useState } from 'react';
 import './Config.css';
 import { motion, AnimatePresence} from "framer-motion"
 import { Credits } from './Credits';
+import { GameState } from "../logic.ts";
 
 
 interface ConfigProps {
   closePopup: () => void;
+  game: GameState;
 }
 
-export const Config: React.FC<ConfigProps> = ({ closePopup }) => {
+export const Config: React.FC<ConfigProps> = ({ closePopup, game }) => {
   const [open, setOpen] = useState(false);
+
+  const handleBombChange = (num) => {
+    console.log("handling change of bomb count", num)
+    Rune.actions.updateBombCount({num})
+
+  }
+
   
   return (
     <div className="popup-container">
@@ -19,9 +28,24 @@ export const Config: React.FC<ConfigProps> = ({ closePopup }) => {
       className="popup-body">
 
     <div>
-    <button className="button" onClick={() => Rune.actions.userSetBombCount("5")}>
+      <p>Total Bombs: {game?.setBombs} </p>
+    </div>
+    <div>
+    <label>Bomb Count:</label>
+        <input 
+        type="number" 
+        // min="2" 
+        // max="30" 
+        value={game?.setBombs}
+        onChange={e => handleBombChange(e.target.value)}
+          ></input>
+
+    </div>
+    <div>
+      
+    {/* <button className="button" onClick={() => Rune.actions.userSetBombCount(5)}>
           Swap Boards
-        </button>
+        </button> */}
     </div>
 
 

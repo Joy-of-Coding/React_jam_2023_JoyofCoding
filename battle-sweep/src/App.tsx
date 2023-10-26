@@ -18,6 +18,7 @@ function App() {
   const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
+  console.log("app.tsx",game?.setBombs)
 
   useEffect(() => {
     Rune.initClient({
@@ -106,12 +107,12 @@ function App() {
         </motion.button>
       </div> 
       <div>
-        {openSettings && <Config closePopup={() => setOpenSettings(false)} />}
+        {openSettings && <Config game={game} closePopup={() => setOpenSettings(false)} />}
         <motion.button
           whileHover={{ scale: 1.1 }}
           className="helpButton"
           onClick={() => setOpenSettings(true)}
-        >
+                  >
           <b>Settings</b>
         </motion.button>
       </div>

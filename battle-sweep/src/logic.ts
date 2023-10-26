@@ -29,10 +29,11 @@ export interface GameState {
 
 type GameActions = {
   // increment: (params: { amount: number }) => void,
+  updateBombCount: (params: { amount: number }) => void,
   addBombs: () => void,
   userAddBomb: (args: { row: number ; col: number }) => void,
-  userSetBombCount: (args: {
-    setBombs: any; count: number }) => void,
+  // userSetBombCount: (args: {
+  //   setBombs: any; count: number }) => void,
   swap: () => void,
   flip: (args: { row: number ; col: number }) => void,
   flag: (args: { row: number ; col: number }) => void,
@@ -72,7 +73,7 @@ Rune.initLogic({
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
-    setBombs: 21,    // This sets the bomb count
+    setBombs: 15,    // This sets the bomb count
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
         ...acc,
@@ -105,8 +106,13 @@ Rune.initLogic({
         game.playerState[playerId].bombsPlaced = userBombs - 1;
       }
     },
-    userSetBombCount: (game, count) => {
-      return game.setBombs = count;
+    // userSetBombCount: (game, count) => {
+    //   return game.setBombs = count;
+    
+    // },
+
+    updateBombCount: ({amount}, { game }) => {
+        return game.setBombs = amount;
 
   },
     swap: (_,{ game, allPlayerIds }) => {
