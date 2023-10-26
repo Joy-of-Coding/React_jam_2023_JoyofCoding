@@ -4,7 +4,7 @@ import './StartPage.css';
 import HelpPopup from './HelpPopup';
 import Config from './Config';
 import { GameState } from '../helper/Types';
-
+//
 interface StartPageProps {
 
     game: GameState;
