@@ -7,8 +7,7 @@ import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import Timer from "./timer.tsx"; // Import the Timer component with correct casing
-
+import Timer from "./components/timer.tsx"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -37,7 +36,6 @@ function App() {
     if (game?.isGameOver) {
       setUseFlag(false);
       setOpen(false);
-      clearTimeout(timerRef.current || 0);
     }
   }, [game]);
 

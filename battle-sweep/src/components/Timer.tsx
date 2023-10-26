@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { GameState, endGame } from "./logic.ts";
-import "./timer.css"
+import { GameState, endGame } from "../logic.ts";
+import "./Timer.css"
 
 interface TimerProps {
   game: GameState;
@@ -39,9 +39,11 @@ function Timer({ game, initialTime, onTimerEnd, playerWin, playerLose }: TimerPr
   //   }
   // }, [onTimerEnd, playerLose, playerWin, timer]);
 
-  // useEffect(() => {
-
-  // }, [])
+  useEffect(() => {
+    if (game.onBoardTimer == 0) {
+      Rune.actions.timerEnd()
+    }
+  }, [game])
 
   return (
     game.onBoardTimer > 0 ? 

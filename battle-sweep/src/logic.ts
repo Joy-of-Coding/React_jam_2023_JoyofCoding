@@ -38,6 +38,7 @@ type GameActions = {
   flag: (args: { row: number ; col: number }) => void,
   reveal: (args: { row: number ; col: number }) => void,
   revealReset: () => void,
+  timerEnd: () => void,
 }
 
 declare global {
@@ -193,6 +194,9 @@ Rune.initLogic({
         }
       })
     },
+    endTimer: (_, {_}) => {
+      console.log("Time!");
+    }
   }
   ,
   events: {
