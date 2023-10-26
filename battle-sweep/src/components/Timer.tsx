@@ -1,7 +1,7 @@
 import React, {  useEffect } from "react";
 import { GameState } from "../helper/Types.ts"
 import "./Timer.css"
-import explosionGif from "../assets/Explosions/fire_ball_side_medium/fireball_side_medium_explode.gif"
+
 
 interface TimerProps {
   game: GameState;
@@ -11,23 +11,26 @@ interface TimerProps {
 function Timer({ game }: TimerProps) {
 
   useEffect(() => {
-    if (game.onBoardTimer == 0) {
+    if (game.onBoardTimer == 0 ) {
+      
       Rune.actions.swap()
+      
     }
   }, [game])
 
-  return (
-    game.onBoardTimer > 0 ? 
+  if (game.onboarding == true) {return (
+    game.onBoardTimer > 1 ? 
       <div className={game.onBoardTimer <= 5 ? "timer-red-bold" : "timer"}>
-        Timer: {game.onBoardTimer} second(s)
+        Game Starts in: {game.onBoardTimer} second(s)
       </div> : 
       <div>
-          <b>Popup Alert here, "onboarding timer up" begin playing in 3...2...1...</b>
+          <strong><b>Start!</b></strong>
 
         {/*<img src={explosionGif} alt="exploding fireball"/>*/}
         {/*<p>Game Over</p>*/}
       </div>
-  );
+  );}
+  return <b>Capture Monsters!!!</b>
 }
 
 export default Timer;
