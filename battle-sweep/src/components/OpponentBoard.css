@@ -1,0 +1,23 @@
+
+.opponentboard {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    gap: 1px;
+    background-color: #2C4EA4;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    position: absolute;
+    /*margin-top: 0;
+    margin-right: 0;*/
+    z-index: 1;
+    align-items: center;
+
+    /*background-color: #f0f0f0; !* Light gray background color *!*/
+    max-width: 200px; /* Adjust the max width as per your design */
+    top: 0px;
+    right: 5px;
+    padding: 4px; /* Add some padding around the board */
+    border-radius: 2px; /* Add some rounded corners to the board */
+    float:right;
+}
