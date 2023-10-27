@@ -9,9 +9,9 @@ import InPlay from "./components/InPlay.tsx";
 import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import OnboardTimer from "./components/OnboardTimer.tsx";
+import OnboardTimer from "./components/OnboardTimer.tsx"
 import StartPage from "./components/StartPage.tsx";
-import GameTimer from "./components/GameTimer.tsx";
+import GameTimer from "./components/GameTimer.tsx"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -122,6 +122,11 @@ console.log("Game Timer:", game?.gameTimer)
           ))}
             <OnboardTimer game={game} />
             <GameTimer game={game} />
+            <Controls
+                onboarding={game.onboarding}
+                toggleFlag={toggleFlagState}
+                useFlag={useFlag}
+            />
 
           <div>
             <p>Total Bombs: {game.setBombs} </p>
