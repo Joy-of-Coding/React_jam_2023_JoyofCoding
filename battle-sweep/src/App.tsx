@@ -9,7 +9,8 @@ import InPlay from "./components/InPlay.tsx";
 import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import Timer from "./components/Timer.tsx"
+import Timer from "./components/Timer.tsx";
+import StartPage from "./components/StartPage.tsx";
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -20,6 +21,10 @@ function App() {
   const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
+  // const [gameStarted, setGameStarted] = useState(false);
+  const [openStartModal, setOpenStartModal] = useState(true)
+
+
 
   useEffect(() => {
     Rune.initClient({
@@ -76,67 +81,80 @@ function App() {
     setUseFlag(!useFlag);
   };
 
+  // const startGame = () => {
+  //   // Handle the logic for starting the game
+  //   // For example, you can set gameStarted to true
+  //   setGameStarted(true);
+  // };
+
   if (!game) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      <InPlay
-        game={game}
-        playerId={yourPlayerId || ""}
-        onboarding={game.onboarding}
-      />
-      {playerIds.map((id) => (
-        <React.Fragment key={id + "-player-view"}>
-          <Player
-            key={id + "-player"}
-            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
-            players={players}
-            playerId={id}
+          {openStartModal &&
+             <StartPage game={game} closeStart={() => setOpenStartModal(false)}/>
+          }
+      {!openStartModal &&
+          <>
+          <InPlay
             game={game}
+            playerId={yourPlayerId || ""}
+            onboarding={game.onboarding}
           />
-          <Board
-            key={id + -"board"}
-            onPress={handleTilePress}
-            onLongPress={handleLongTilePress}
-            display={game.onboarding ? id != yourPlayerId : id == yourPlayerId}
-            board={game.playerState[`${id}`].board}
+          {playerIds.map((id) => (
+            <React.Fragment key={id + "-player-view"}>
+              <Player
+                key={id + "-player"}
+                display={game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
+                players={players}
+                playerId={id}
+                game={game}
+              />
+              <Board
+                key={id + "-board"}
+                onPress={handleTilePress}
+                onLongPress={handleLongTilePress}
+                display={game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
+                board={game.playerState[`${id}`].board}
+              />
+            </React.Fragment>
+          ))}
+          <Timer game={game} />
+          <Controls
+            onboarding={game.onboarding}
+            toggleFlag={toggleFlagState}
+            useFlag={useFlag}
           />
-        </React.Fragment>
-      ))}
-      <Timer
-        game={game}
-      />
-      <Controls
-        onboarding={game.onboarding}
-        toggleFlag={toggleFlagState}
-        useFlag={useFlag}
-      />
-      <div>
-        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => setOpenHelp(true)}
-        >
-          <b>Info</b>
-        </motion.button>
-      </div> 
-      <div>
-        {openSettings && <Config game={game} closePopup={() => setOpenSettings(false)} />}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => setOpenSettings(true)}
-                  >
-          <b>Settings</b>
-        </motion.button>
-      </div>
+          <div>
+            {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              className="helpButton"
+              onClick={() => setOpenHelp(true)}
+            >
+              <b>Info</b>
+            </motion.button>
+          </div>
+          <div>
+            {openSettings && (
+              <Config game={game} closePopup={() => setOpenSettings(false)} />
+            )}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              className="helpButton"
+              onClick={() => setOpenSettings(true)}
+            >
+              <b>Settings</b>
+            </motion.button>
+          </div>
+          <div>
+            <p>Total Bombs: {game.setBombs} </p>
+          </div>
+        </>
 
-      <div>
-      <p>Total Bombs: {game.setBombs} </p>
-    </div>
+}
     </>
   );
 }
