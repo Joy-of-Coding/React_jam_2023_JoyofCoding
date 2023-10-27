@@ -14,13 +14,14 @@ export interface TileProp {
     playerIds: PlayerId[],
     onboarding: boolean,
     isGameOver: boolean,
-    onBoardTime: number,
-    playTime: number,
+    onBoardTimer: number,
     gameTimer: number,
     timeElapsed: number,
     stopTimer: boolean,
     setBombs: number,
     baselineScore: number,
+    gameStart: number,
+    onBoardStart:number,
     playerState: {
       [key: string]: {
         board: TileProp[][];
@@ -42,4 +43,5 @@ export interface TileProp {
     reveal: (args: { row: number ; col: number }) => void,
     revealReset: () => void,
     endTimer: ()=>void,
+    setGameStart: ()=>void
   }

@@ -5,6 +5,10 @@ import { createBoard, flipAll, insertBombs, toggleFlag, turnEndCheck, resetRevea
 const boardWidth = 9;
 const boardHeight = 9;
 
+export const onboardingDuration = 10;
+export const gamePlayDuration = 60
+export const dangerTime = 7
+
 
 declare global {
   const Rune: RuneClient<GameState, GameActions>
@@ -36,9 +40,9 @@ function getScores(game:GameState, player:string) {
   // Need timing score calc as well, or penalty if timer ended game
   
   if (game.playerState[player].playerTurnTime > 0 && bombsFound == totalBombs) {
-    playerScore += ((game.playTime-game.playerState[player].playerTurnTime)/game.playTime*game.baselineScore)
+    playerScore += ((gamePlayDuration-game.playerState[player].playerTurnTime)/gamePlayDuration*game.baselineScore)
   } else {
-    const penalty = ((bombsNotFound/totalBombs*game.playTime) / 2)
+    const penalty = ((bombsNotFound/totalBombs*gamePlayDuration) / 2)
     playerScore = (playerScore - penalty) > 0 ? playerScore - penalty : 0
   }
   return playerScore
@@ -66,8 +70,10 @@ Rune.initLogic({
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
-    onBoardTime: 15,
-    playTime: 30,
+    onBoardDuration: 15,
+    onBoardTimer: 15,
+    gameStart: 0,
+    onBoardStart: Rune.gameTime()/1000,
     gameTimer: Rune.gameTime()/1000,
     timeElapsed: 0,
     stopTimer: false,
@@ -211,31 +217,32 @@ Rune.initLogic({
       })
       endGame(game)
     },
+    setGameStart: (_, {game})=> {
+      game.gameStart = Rune.gameTime()/1000
+    }
   }
   ,
   update : ({game})=>{
 
-    if (game.onboarding && !game.stopTimer) {
-      game.timeElapsed = Rune.gameTime()/1000;
-      game.gameTimer = game.onBoardTime - game.timeElapsed
-    } 
-    if (!game.onboarding && !game.stopTimer) {
-      game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
+    if (game.onboarding) {
+      // During onboarding decrement onboarding Timer
+      game.onBoardTimer = onboardingDuration - (Rune.gameTime()/1000 - game.onBoardStart);
+
+      if (game.onBoardTimer < 0) {
+        // Onboarding timer ran out
+        Rune.actions.setGameStart()
+        Rune.actions.swap();
+      }
+    } else {
+      // During play decrement gameTimer
+      game.gameTimer = gamePlayDuration - (Rune.gameTime()/1000 - game.gameStart);
+
+      if (game.gameTimer < 0) {
+        // If game timer ran out
+        Rune.actions.endTimer();
+      }
     }
 
-    if(game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
-      game.gameTimer = 0;
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      Rune.actions.swap();
-    }
-    if(!game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      game.gameTimer = 0;
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      Rune.actions.endTimer();
-    }
   },
   events: {
     playerJoined: (playerId, {game}) => {

@@ -9,8 +9,9 @@ import InPlay from "./components/InPlay.tsx";
 import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
-import Timer from "./components/Timer.tsx";
+import OnboardTimer from "./components/OnboardTimer.tsx";
 import StartPage from "./components/StartPage.tsx";
+import GameTimer from "./components/GameTimer.tsx";
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -24,7 +25,9 @@ function App() {
   // const [gameStarted, setGameStarted] = useState(false);
   const [openStartModal, setOpenStartModal] = useState(true)
 
-
+console.log("Game Timer:", game?.gameTimer)
+  console.log("OnBoarding Timer:", game?.onBoardTimer)
+  console.log("Game Start:", game?.gameStart)
 
   useEffect(() => {
     Rune.initClient({
@@ -81,11 +84,7 @@ function App() {
     setUseFlag(!useFlag);
   };
 
-  // const startGame = () => {
-  //   // Handle the logic for starting the game
-  //   // For example, you can set gameStarted to true
-  //   setGameStarted(true);
-  // };
+
 
   if (!game) {
     return <div>Loading...</div>;
@@ -121,34 +120,9 @@ function App() {
               />
             </React.Fragment>
           ))}
-          <Timer game={game} />
-          <Controls
-            onboarding={game.onboarding}
-            toggleFlag={toggleFlagState}
-            useFlag={useFlag}
-          />
-          <div>
-            {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="helpButton"
-              onClick={() => setOpenHelp(true)}
-            >
-              <b>Info</b>
-            </motion.button>
-          </div>
-          <div>
-            {openSettings && (
-              <Config game={game} closePopup={() => setOpenSettings(false)} />
-            )}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="helpButton"
-              onClick={() => setOpenSettings(true)}
-            >
-              <b>Settings</b>
-            </motion.button>
-          </div>
+            <OnboardTimer game={game} />
+            <GameTimer game={game} />
+
           <div>
             <p>Total Bombs: {game.setBombs} </p>
           </div>
