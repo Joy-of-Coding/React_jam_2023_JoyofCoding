@@ -202,7 +202,7 @@ Rune.initLogic({
                 game.playerState[playerId].bombsFound += 1
               }
               newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
-              if(refreshBoard[row][col].value == 0) {
+              if(refreshBoard[row][col].value == 0 && !refreshBoard[row][col].isBomb) {
                 newBoard = expand(row, col, newBoard)
               }
             }
