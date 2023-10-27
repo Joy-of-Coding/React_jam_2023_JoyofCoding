@@ -21,7 +21,10 @@ function App() {
   const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
-  const [gameStarted, setGameStarted] = useState(false);
+  // const [gameStarted, setGameStarted] = useState(false);
+  const [openStartModal, setOpenStartModal] = useState(true)
+
+
 
   useEffect(() => {
     Rune.initClient({
@@ -78,11 +81,11 @@ function App() {
     setUseFlag(!useFlag);
   };
 
-  const startGame = () => {
-    // Handle the logic for starting the game
-    // For example, you can set gameStarted to true
-    setGameStarted(true);
-  };
+  // const startGame = () => {
+  //   // Handle the logic for starting the game
+  //   // For example, you can set gameStarted to true
+  //   setGameStarted(true);
+  // };
 
   if (!game) {
     return <div>Loading...</div>;
@@ -90,10 +93,11 @@ function App() {
 
   return (
     <>
-      {!gameStarted ? (
-        <StartPage game={game} startGame={startGame} />
-      ) : (
-        <>
+          {openStartModal &&
+             <StartPage game={game} closeStart={() => setOpenStartModal(false)}/>
+          }
+      {!openStartModal &&
+          <>
           <InPlay
             game={game}
             playerId={yourPlayerId || ""}
@@ -149,7 +153,8 @@ function App() {
             <p>Total Bombs: {game.setBombs} </p>
           </div>
         </>
-      )}
+
+}
     </>
   );
 }

@@ -6,11 +6,11 @@ import Config from './Config';
 import { GameState } from '../helper/Types';
 //
 interface StartPageProps {
-
     game: GameState;
-    startGame: () => void;
+    closeStart: ()=> void;
+    // startGame: () => void;
   }
-const StartPage: React.FC<StartPageProps> = ({ game }) => {
+const StartPage: React.FC<StartPageProps> = ({ game,closeStart }) => {
     const [openHelp, setOpenHelp] = useState(false);
     const [openSettings, setOpenSettings] = useState(false);
     
@@ -22,10 +22,7 @@ const StartPage: React.FC<StartPageProps> = ({ game }) => {
           <motion.button 
             whileHover={{ scale: 1.1 }}
             className="helpButton"
-            onClick={() => {
-              // Handle the logic for starting the game
-              // For example, you can navigate to the main game page
-            }}
+            onClick={() =>closeStart()}
           >
             <b>Start Game</b>
           </motion.button>
