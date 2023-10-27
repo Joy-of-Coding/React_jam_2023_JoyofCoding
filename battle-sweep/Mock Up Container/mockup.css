@@ -1,0 +1,5 @@
+#top{
+    display: grid;
+    border: 5px;
+    grid-template-columns: 40%, 20%, 40%;
+}
