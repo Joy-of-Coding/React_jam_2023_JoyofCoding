@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { GameState } from "./helper/Types.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
+import OpponentBoard from "./components/OpponentBoard";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
@@ -103,6 +104,15 @@ function App() {
           />
           {playerIds.map((id) => (
             <React.Fragment key={id + "-player-view"}>
+              {!game.onboarding &&
+              <OpponentBoard
+                key={id + "-opponentboard"}
+                onPress={() => null}
+                onLongPress={() => null}
+                display={!game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
+                board={game.playerState[`${id}`].board}
+              />
+              }
               <Player
                 key={id + "-player"}
                 display={
