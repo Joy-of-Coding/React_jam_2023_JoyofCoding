@@ -36,7 +36,6 @@ function endGameCheck(game:GameState, allPlayerIds:string[]) {
 
 function getGameTime(game:GameState) {
   const getTime = game.playTime + game.timeElapsed - Rune.gameTime()/1000
-  console.log("get time", game.timeElapsed )
   return getTime
 }
 
