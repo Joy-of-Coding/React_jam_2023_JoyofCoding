@@ -3,8 +3,12 @@
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    gap: 2px;
-    background-color: #2C4EA4;
+    row-gap: 2px;
+    column-gap: 2px;
+    background-image: url('../assets/FireTheme/board-red-blank1.JPG');
+    background-position: center;
+    background-size:cover;
+    /*background-color: #2C4EA4;*/
     font-family: "Courier New", monospace;
     font-weight: bold;
     position: relative;

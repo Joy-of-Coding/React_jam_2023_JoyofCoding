@@ -7,7 +7,10 @@
 .isFlipped {
     background-color: #2C4EA4;
     border: solid 1.5px;
-    border-color: #2D4C9F #3D5AAC #3D5AAC #2D4C9F;
+    border-color: #140602 #3a2201 #492104 #0a0101;
+    background-image: url('../assets/FireTheme/cell-red-stonetile2.JPG');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .hidden {
