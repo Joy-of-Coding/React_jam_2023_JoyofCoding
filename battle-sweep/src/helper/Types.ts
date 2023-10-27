@@ -41,5 +41,6 @@ export interface TileProp {
     flag: (args: { row: number ; col: number }) => void,
     reveal: (args: { row: number ; col: number }) => void,
     revealReset: () => void,
+    setGameStart: ()=>void,
     endTimer: ()=>void,
   }
