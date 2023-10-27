@@ -8,9 +8,13 @@ interface TimerProps {
 function Timer({ game }: TimerProps) {
   return (
     <>
-      <div className={game.gameTimer <= 5 ? "timer-red-bold" : "timer"}>
-        Timer: {game.gameTimer} second(s)
-      </div>
+      {game.gameTimer > -1 ? (
+        <div className={game.gameTimer <= 5 ? "timer-red-bold" : "timer"}>
+          Timer: {game.gameTimer} second(s)
+        </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }

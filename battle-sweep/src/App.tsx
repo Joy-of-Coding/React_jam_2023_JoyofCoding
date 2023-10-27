@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { GameState } from "./helper/Types.ts";
 import type { Players, PlayerId } from "rune-games-sdk/multiplayer";
 import Board from "./components/Board.tsx";
+import OpponentBoard from "./components/OpponentBoard";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
@@ -22,9 +23,7 @@ function App() {
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
   // const [gameStarted, setGameStarted] = useState(false);
-  const [openStartModal, setOpenStartModal] = useState(true)
-
-
+  const [openStartModal, setOpenStartModal] = useState(true);
 
   useEffect(() => {
     Rune.initClient({
@@ -93,11 +92,11 @@ function App() {
 
   return (
     <>
-          {openStartModal &&
-             <StartPage game={game} closeStart={() => setOpenStartModal(false)}/>
-          }
-      {!openStartModal &&
-          <>
+      {openStartModal && (
+        <StartPage game={game} closeStart={() => setOpenStartModal(false)} />
+      )}
+      {!openStartModal && (
+        <>
           <InPlay
             game={game}
             playerId={yourPlayerId || ""}
@@ -105,9 +104,20 @@ function App() {
           />
           {playerIds.map((id) => (
             <React.Fragment key={id + "-player-view"}>
+              {!game.onboarding &&
+              <OpponentBoard
+                key={id + "-opponentboard"}
+                onPress={() => null}
+                onLongPress={() => null}
+                display={!game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
+                board={game.playerState[`${id}`].board}
+              />
+              }
               <Player
                 key={id + "-player"}
-                display={game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
+                display={
+                  game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                }
                 players={players}
                 playerId={id}
                 game={game}
@@ -116,7 +126,9 @@ function App() {
                 key={id + "-board"}
                 onPress={handleTilePress}
                 onLongPress={handleLongTilePress}
-                display={game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
+                display={
+                  game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                }
                 board={game.playerState[`${id}`].board}
               />
             </React.Fragment>
@@ -153,8 +165,7 @@ function App() {
             <p>Total Bombs: {game.setBombs} </p>
           </div>
         </>
-
-}
+      )}
     </>
   );
 }
