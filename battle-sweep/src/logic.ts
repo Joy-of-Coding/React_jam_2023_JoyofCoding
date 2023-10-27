@@ -36,7 +36,7 @@ function endGameCheck(game:GameState, allPlayerIds:string[]) {
 
 function getGameTime(game:GameState) {
   const getTime = game.playTime + game.timeElapsed - Rune.gameTime()/1000
-  console.log(getTime)
+  console.log("get time", game.timeElapsed )
   return getTime
 }
 
@@ -142,6 +142,7 @@ Rune.initLogic({
         return game.setBombs = amount;
   },
     swap: (_,{ game, allPlayerIds }) => {
+      game.stopTimer = true;
       allPlayerIds.map((player) => {
         let oldBoard = game.playerState[player].board
         if (game.playerState[player].bombsPlaced < game.setBombs) {
@@ -216,11 +217,8 @@ Rune.initLogic({
           const oldBoard = game.playerState[playerId].board
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
-    },setGameStart: (_, {game})=> {
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      const onBoardingBuffer = game.timeElapsed - Rune.gameTime()/1000;
-      game.timeElapsed = onBoardingBuffer
+    },setStopTimer: (_, {game})=> {
+      game.gameTimer = game.playTime;
       game.stopTimer = false;
     },
     endTimer: (_, {game, allPlayerIds}) => {
@@ -234,48 +232,33 @@ Rune.initLogic({
   }
   ,
   update : ({game})=>{
-    
+
     /*
-    if (game.onboarding && !game.stopTimer) {
-      game.timeElapsed = Rune.gameTime()/1000;
-      game.gameTimer = game.onBoardTime - game.timeElapsed
-    } 
-    if (!game.onboarding && !game.stopTimer) {
-      game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
-    }
-
-    if(game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
-      game.gameTimer = 0;
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      Rune.actions.swap();
-    }
-    if(!game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      game.gameTimer = 0;
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      Rune.actions.endTimer();
-    }
+      Things you MUST check if refactoring here:
+      - game play timer/numbers updates correctly, and swap boards, when oboarding timer hits 0
+      - game play timer/numbers updates correctly when when manually swapping boards via button
+      - time elapsed equals 15 in first scenario above or it equals onboarding timer - time swap clicked
+      - check in the get time function too
+      - game ends when play time clock reaches 0 with no errors
+      - game ends when both players turn ends, before clock, with no errors
     */
-
-    if (game.onboarding && !game.stopTimer) {
+    if (game.onboarding) {
       game.timeElapsed = Rune.gameTime()/1000;
       game.gameTimer = game.onBoardTime - game.timeElapsed
-    } 
-    if (!game.onboarding && !game.stopTimer) {
+      if(game.gameTimer < 0) {
+        Rune.actions.swap();
+      }
+    } else {
       game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
-      console.log(game.timeElapsed)
+      if(game.gameTimer < 0) {
+        Rune.actions.endTimer();
+      }
     }
 
-    if(game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
+    if(game.stopTimer) { 
+      Rune.actions.setStopTimer();
       game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
-      Rune.actions.swap();
     }
-    if(!game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      Rune.actions.endTimer();
-    }
-
   },
   events: {
     playerJoined: (playerId, {game}) => {

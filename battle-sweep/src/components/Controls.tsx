@@ -7,18 +7,13 @@ interface ControlsProps {
 }
 
 const Controls = ({ onboarding, toggleFlag, useFlag }: ControlsProps) => {
-  const swapEventHandler = () => {
-    Rune.actions.setGameStart();
-    Rune.actions.swap();
-  };
-
   if (onboarding) {
     return (
       <>
         <button className="button" onClick={() => Rune.actions.addBombs()}>
           Add Bombs
         </button>
-        <button className="button" onClick={() => swapEventHandler()}>
+        <button className="button" onClick={() => Rune.actions.swap()}>
           Ready!
         </button>
       </>
