@@ -20,7 +20,7 @@ export function createBoard(height: number, width: number): TileProp[][] {
   return matrix;
 }
 
-export function insertBombs(matrix: TileProp[][], bombs: number ) {
+export function insertBombs(matrix: TileProp[][], bombs: number) {
   let bombsToInsert = bombs;
   const refreshBoard = createBoard(matrix.length, matrix[0].length);
 
@@ -114,7 +114,7 @@ export function resetReveal(board: TileProp[][]) {
   return refreshBoard;
 }
 
-export function gameEndCheck(board: TileProp[][], gameBombs: number) {
+export function turnEndCheck(board: TileProp[][], gameBombs: number) {
   let count = 0;
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[0].length; col++) {

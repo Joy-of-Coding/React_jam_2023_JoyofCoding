@@ -1,6 +1,6 @@
 import type { RuneClient } from "rune-games-sdk/multiplayer"
 import { TileProp, GameActions, GameState } from "./helper/Types.ts";
-import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, turnEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -10,7 +10,7 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-export function endGame(game: GameState) {
+function endGame(game: GameState) {
   Rune.gameOver({
     players: Object.keys(game.playerState).reduce(
       (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
@@ -20,6 +20,11 @@ export function endGame(game: GameState) {
   })
 } 
 
+function endTurn(game: GameState, playerId:string) {
+  game.playerState[playerId].turnEnded = true;
+  game.playerState[playerId].playerTurnTime = game.gameTimer;
+}
+
 function getScores(game:GameState, player:string) {
   let playerScore = game.baselineScore;
   const totalBombs = game.setBombs;
@@ -27,14 +32,22 @@ function getScores(game:GameState, player:string) {
   // Lives represent bombs incorrectly triggered, totalbombs - lives
   // add lives bonus as well
   const bombsNotFound = totalBombs - bombsFound // - lives
-  playerScore = playerScore + (bombsFound/totalBombs*game.baselineScore) - (bombsNotFound/totalBombs*game.baselineScore)
+  playerScore += (bombsFound/totalBombs*game.baselineScore) - (bombsNotFound/totalBombs*game.baselineScore)
   // Need timing score calc as well, or penalty if timer ended game
+  
+  if (game.playerState[player].playerTurnTime > 0 && bombsFound == totalBombs) {
+    playerScore += ((game.playTime-game.playerState[player].playerTurnTime)/game.playTime*game.baselineScore)
+  } else {
+    const penalty = ((bombsNotFound/totalBombs*game.playTime) / 2)
+    playerScore = (playerScore - penalty) > 0 ? playerScore - penalty : 0
+  }
   return playerScore
 }
 
 const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:number, col:number ) => {
   if (oldBoard[row][col].isBomb && !oldBoard[row][col].isMarked) {
-    game.isGameOver = true
+    // game.isGameOver = true
+    endTurn(game, player)
     return flipAll(oldBoard, true)
   } else if (oldBoard[row][col].isBomb && oldBoard[row][col].isMarked) {
     game.playerState[player].bombsFound += 1;
@@ -67,6 +80,8 @@ Rune.initLogic({
           board: createBoard(boardHeight, boardWidth),
           bombsPlaced: 0,
           bombsFound: 0,
+          turnEnded: false,
+          playerTurnTime: 0,
         },
       }),
       {}
@@ -122,9 +137,11 @@ Rune.initLogic({
           const oldBoard = game.playerState[playerId].board
           const newBoard = flipHandler(game, playerId, oldBoard, row, col)
           game.playerState[playerId].board = newBoard
+          /*
           if (game.isGameOver) {
             endGame(game)
           }
+          */
     },
     flag:({row, col}, { game, playerId }) => {
           const oldBoard = game.playerState[playerId].board
@@ -157,9 +174,11 @@ Rune.initLogic({
             const [bombRow, bombCol] = bombs[0]
             const newBoard = flipHandler(game, playerId, oldBoard, bombRow, bombCol)
             game.playerState[playerId].board = newBoard
+            /*
             if (game.isGameOver) {
               endGame(game)
             }
+            */
           } else {
             let newBoard = refreshBoard
             for (const neighbor of neighbors) {
@@ -172,10 +191,10 @@ Rune.initLogic({
                 newBoard = expand(row, col, newBoard)
               }
             }
-            game.isGameOver = gameEndCheck(newBoard, game.setBombs)
+            //game.isGameOver = turnEndCheck(newBoard, game.setBombs)
             game.playerState[playerId].board = newBoard
-            if (game.isGameOver) {
-              endGame(game)
+            if (turnEndCheck(newBoard, game.setBombs)) {
+              endTurn(game, playerId)
             }
           }
     },
@@ -184,7 +203,12 @@ Rune.initLogic({
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
     },
-    endTimer: (_, {game}) => {
+    endTimer: (_, {game, allPlayerIds}) => {
+      allPlayerIds.map((player) => {
+        if (!game.playerState[player].turnEnded) {
+          endTurn(game, player)
+        }
+      })
       endGame(game)
     },
   }
@@ -220,6 +244,8 @@ Rune.initLogic({
         board: createBoard(boardHeight, boardWidth),
         bombsPlaced: 0,
         bombsFound: 0,
+        turnEnded: false,
+        playerTurnTime: 0,
       }
    },
     playerLeft:(playerId, {game}) => {
