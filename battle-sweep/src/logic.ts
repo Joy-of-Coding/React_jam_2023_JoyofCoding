@@ -9,30 +9,14 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-function endGame(game:GameState, allPlayerIds:string[]) {
-
-  const players:Array<any> = [];
-  allPlayerIds.map((player) => {
-    players.push([player, getScores(game, player)])
-  })
-
+function endGame(game:GameState) {
   Rune.gameOver({
-    players: {
-      [players[0][0]]: players[0][1],
-      [players[1][0]]: players[1][1],
-    },
-    delayPopUp: false,
-  })
-
-  /*
-  Rune.gameOver({
-    players: Object.keys(allPlayerIds).reduce(
+    players: Object.keys(game.playerState).reduce(
       (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
       {}
     ),
     delayPopUp: false,
   })
-  */
 } 
 
 function endGameCheck(game:GameState, allPlayerIds:string[]) {
@@ -44,22 +28,25 @@ function endGameCheck(game:GameState, allPlayerIds:string[]) {
   })
   if (allPlayersDone == allPlayerIds.length && !game.isGameOver) {
     game.isGameOver = true
-    console.log("here", game, allPlayerIds)
     if (game.baselineScore) {
-      endGame(game, allPlayerIds)
+      endGame(game)
     }
   }
 }
 
+function getGameTime(game:GameState) {
+  const getTime = game.playTime + game.timeElapsed - Rune.gameTime()/1000
+  return getTime
+}
+
 function endTurn(game: GameState, playerId:string) {
   game.playerState[playerId].turnEnded = true;
-  game.playerState[playerId].playerTurnTime = game.gameTimer;
+  game.playerState[playerId].playerTurnTime = getGameTime(game);
 }
 
 function getScores(game:GameState, player:string) {
   let playerScore = game.baselineScore;
   const totalBombs = game.setBombs;
-  console.log(game.playerState[player].bombsFound)
   const bombsFound = game.playerState[player].bombsFound;
   // Lives represent bombs incorrectly triggered, totalbombs - lives
   // add lives bonus as well
@@ -68,11 +55,12 @@ function getScores(game:GameState, player:string) {
   // Need timing score calc as well, or penalty if timer ended game
   
   if (game.playerState[player].playerTurnTime > 0 && bombsFound == totalBombs) {
-    playerScore += ((game.playTime-game.playerState[player].playerTurnTime)/game.playTime*game.baselineScore)
+    playerScore += game.playerState[player].playerTurnTime
   } else {
     const penalty = ((bombsNotFound/totalBombs*game.playTime) / 2)
     playerScore = (playerScore - penalty) > 0 ? playerScore - penalty : 0
   }
+
   return playerScore
 }
 
@@ -153,6 +141,7 @@ Rune.initLogic({
         return game.setBombs = amount;
   },
     swap: (_,{ game, allPlayerIds }) => {
+      game.stopTimer = true;
       allPlayerIds.map((player) => {
         let oldBoard = game.playerState[player].board
         if (game.playerState[player].bombsPlaced < game.setBombs) {
@@ -170,12 +159,6 @@ Rune.initLogic({
           const newBoard = flipHandler(game, playerId, oldBoard, row, col)
           game.playerState[playerId].board = newBoard
           endGameCheck(game, allPlayerIds)
-          /*
-          if (game.isGameOver) {
-            console.log(game.playerState[0])
-            endGame(game, allPlayerIds)
-          }
-          */
     },
     flag:({row, col}, { game, playerId }) => {
           const oldBoard = game.playerState[playerId].board
@@ -209,12 +192,6 @@ Rune.initLogic({
             const newBoard = flipHandler(game, playerId, oldBoard, bombRow, bombCol)
             game.playerState[playerId].board = newBoard
             endGameCheck(game, allPlayerIds)
-            /*
-            if (game.isGameOver) {
-              console.log(game.playerState[0])
-              endGame(game, allPlayerIds)
-            }
-            */
           } else {
             let newBoard = refreshBoard
             for (const neighbor of neighbors) {
@@ -233,18 +210,15 @@ Rune.initLogic({
               endTurn(game, playerId)
             }
             endGameCheck(game, allPlayerIds)
-            /*
-            if (game.isGameOver) {
-              console.log(game.playerState)
-              endGame(game, allPlayerIds)
-            }
-            */
           }
     },
     revealReset: (_, { game, playerId }) => {
           const oldBoard = game.playerState[playerId].board
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
+    },setStopTimer: (_, {game})=> {
+      game.gameTimer = game.playTime;
+      game.stopTimer = false;
     },
     endTimer: (_, {game, allPlayerIds}) => {
       allPlayerIds.map((player) => {
@@ -252,36 +226,38 @@ Rune.initLogic({
           endTurn(game, player)
         }
       })
-      console.log(game.playerState[0])
-      endGame(game, allPlayerIds)
-      
+      endGame(game)
     },
   }
   ,
   update : ({game})=>{
 
-    if (game.onboarding && !game.stopTimer) {
+    /*
+      Things you MUST check if refactoring here:
+      - game play timer/numbers updates correctly, and swap boards, when oboarding timer hits 0
+      - game play timer/numbers updates correctly when when manually swapping boards via button
+      - time elapsed equals 15 in first scenario above or it equals onboarding timer - time swap clicked
+      - check in the get time function too
+      - game ends when play time clock reaches 0 with no errors
+      - game ends when both players turn ends, before clock, with no errors
+    */
+    if (game.onboarding) {
       game.timeElapsed = Rune.gameTime()/1000;
       game.gameTimer = game.onBoardTime - game.timeElapsed
-    } 
-    if (!game.onboarding && !game.stopTimer) {
+      if(game.gameTimer < 0) {
+        Rune.actions.swap();
+      }
+    } else {
       game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
+      if(game.gameTimer < 0) {
+        Rune.actions.endTimer();
+      }
     }
 
-    if(game.onboarding && game.gameTimer < 0) {
+    if(game.stopTimer) { 
+      Rune.actions.setStopTimer();
       game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
-      game.gameTimer = 0;
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      Rune.actions.swap();
     }
-    if(!game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
-      game.gameTimer = 0;
-      game.stopTimer = true;
-      game.gameTimer = 0;
-      Rune.actions.endTimer();
-    }
-
   },
   events: {
     playerJoined: (playerId, {game}) => {
