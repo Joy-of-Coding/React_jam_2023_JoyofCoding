@@ -1,6 +1,6 @@
 import type { RuneClient } from "rune-games-sdk/multiplayer"
 import { TileProp, GameActions, GameState } from "./helper/Types.ts";
-import { createBoard, flipAll, insertBombs, toggleFlag, gameEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
+import { createBoard, flipAll, insertBombs, toggleFlag, turnEndCheck, resetReveal, getNeighbors, userInsertBomb, expand, flipCell } from "./helper/BoardCreation.tsx";
 
 const boardWidth = 9;
 const boardHeight = 9;
@@ -10,7 +10,7 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-export function endGame(game: GameState) {
+function endGame(game: GameState) {
   Rune.gameOver({
     players: Object.keys(game.playerState).reduce(
       (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
@@ -20,6 +20,11 @@ export function endGame(game: GameState) {
   })
 } 
 
+function endTurn(game: GameState, playerId:string) {
+  game.playerState[playerId].turnEnded = true;
+  game.playerState[playerId].playerTurnTime = game.gameTimer;
+}
+
 function getScores(game:GameState, player:string) {
   let playerScore = game.baselineScore;
   const totalBombs = game.setBombs;
@@ -27,14 +32,22 @@ function getScores(game:GameState, player:string) {
   // Lives represent bombs incorrectly triggered, totalbombs - lives
   // add lives bonus as well
   const bombsNotFound = totalBombs - bombsFound // - lives
-  playerScore = playerScore + (bombsFound/totalBombs*game.baselineScore) - (bombsNotFound/totalBombs*game.baselineScore)
+  playerScore += (bombsFound/totalBombs*game.baselineScore) - (bombsNotFound/totalBombs*game.baselineScore)
   // Need timing score calc as well, or penalty if timer ended game
+  
+  if (game.playerState[player].playerTurnTime > 0 && bombsFound == totalBombs) {
+    playerScore += ((game.playTime-game.playerState[player].playerTurnTime)/game.playTime*game.baselineScore)
+  } else {
+    const penalty = ((bombsNotFound/totalBombs*game.playTime) / 2)
+    playerScore = (playerScore - penalty) > 0 ? playerScore - penalty : 0
+  }
   return playerScore
 }
 
 const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:number, col:number ) => {
   if (oldBoard[row][col].isBomb && !oldBoard[row][col].isMarked) {
-    game.isGameOver = true
+    // game.isGameOver = true
+    endTurn(game, player)
     return flipAll(oldBoard, true)
   } else if (oldBoard[row][col].isBomb && oldBoard[row][col].isMarked) {
     game.playerState[player].bombsFound += 1;
@@ -47,15 +60,17 @@ const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:
   }}
 
 Rune.initLogic({
-  minPlayers: 1,
+  minPlayers: 2,
   maxPlayers: 2,
   setup: (playerIds) => ({
-    onBoardTimer: 20,
-    gameStart: Rune.gameTime(),
     playerIds: playerIds,
     onboarding: true,
     isGameOver: false,
-
+    onBoardTime: 15,
+    playTime: 30,
+    gameTimer: Rune.gameTime()/1000,
+    timeElapsed: 0,
+    stopTimer: false,
     setBombs: 5,
     baselineScore: 100,
     playerState: playerIds.reduce<GameState["playerState"]>(
@@ -65,6 +80,8 @@ Rune.initLogic({
           board: createBoard(boardHeight, boardWidth),
           bombsPlaced: 0,
           bombsFound: 0,
+          turnEnded: false,
+          playerTurnTime: 0,
         },
       }),
       {}
@@ -100,7 +117,6 @@ Rune.initLogic({
         }
       })
     },
-
     updateBombCount: ({amount}, { game }) => {
         return game.setBombs = amount;
   },
@@ -111,19 +127,21 @@ Rune.initLogic({
           oldBoard = insertBombs(oldBoard, game.setBombs)
           game.playerState[player].bombsPlaced = game.setBombs;
         }
-        const newBoard = flipAll(oldBoard, !game.onboarding)
+        const newBoard = flipAll(oldBoard, false)
         game.playerState[player].board = newBoard
       })
-      game.onboarding = !game.onboarding;
+      game.onboarding = false;
     },
     flip:({row, col}, { game, playerId }) => {
       
           const oldBoard = game.playerState[playerId].board
           const newBoard = flipHandler(game, playerId, oldBoard, row, col)
           game.playerState[playerId].board = newBoard
+          /*
           if (game.isGameOver) {
             endGame(game)
           }
+          */
     },
     flag:({row, col}, { game, playerId }) => {
           const oldBoard = game.playerState[playerId].board
@@ -156,9 +174,11 @@ Rune.initLogic({
             const [bombRow, bombCol] = bombs[0]
             const newBoard = flipHandler(game, playerId, oldBoard, bombRow, bombCol)
             game.playerState[playerId].board = newBoard
+            /*
             if (game.isGameOver) {
               endGame(game)
             }
+            */
           } else {
             let newBoard = refreshBoard
             for (const neighbor of neighbors) {
@@ -171,10 +191,10 @@ Rune.initLogic({
                 newBoard = expand(row, col, newBoard)
               }
             }
-            game.isGameOver = gameEndCheck(newBoard, game.setBombs)
+            //game.isGameOver = turnEndCheck(newBoard, game.setBombs)
             game.playerState[playerId].board = newBoard
-            if (game.isGameOver) {
-              endGame(game)
+            if (turnEndCheck(newBoard, game.setBombs)) {
+              endTurn(game, playerId)
             }
           }
     },
@@ -183,12 +203,40 @@ Rune.initLogic({
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
     },
-    endTimer: (_, {game}) => {
-      console.log("Game Over Logic.ts!");
+    endTimer: (_, {game, allPlayerIds}) => {
+      allPlayerIds.map((player) => {
+        if (!game.playerState[player].turnEnded) {
+          endTurn(game, player)
+        }
+      })
       endGame(game)
-    }
+    },
   }
   ,
+  update : ({game})=>{
+
+    if (game.onboarding && !game.stopTimer) {
+      game.timeElapsed = Rune.gameTime()/1000;
+      game.gameTimer = game.onBoardTime - game.timeElapsed
+    } 
+    if (!game.onboarding && !game.stopTimer) {
+      game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
+    }
+
+    if(game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
+      game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
+      game.gameTimer = 0;
+      game.stopTimer = true;
+      game.gameTimer = 0;
+      Rune.actions.swap();
+    }
+    if(!game.onboarding && game.gameTimer < 0 && !game.stopTimer) {
+      game.gameTimer = 0;
+      game.stopTimer = true;
+      game.gameTimer = 0;
+      Rune.actions.endTimer();
+    }
+  },
   events: {
     playerJoined: (playerId, {game}) => {
       game.playerIds.push(playerId)
@@ -196,14 +244,13 @@ Rune.initLogic({
         board: createBoard(boardHeight, boardWidth),
         bombsPlaced: 0,
         bombsFound: 0,
+        turnEnded: false,
+        playerTurnTime: 0,
       }
    },
     playerLeft:(playerId, {game}) => {
       delete game.playerState[playerId]
     },
-  }, 
-  update : ({game})=>{
-    game.onBoardTimer = 20-(Rune.gameTime()/1000  - game.gameStart)
-  }
+  },
 })
 
