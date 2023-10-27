@@ -177,6 +177,7 @@ export function expand(row: number, col: number, board: TileProp[][]) {
       }
     }
   }
+  newBoard[row][col] = { ...newBoard[row][col], isFlipped: true };
   return newBoard;
 }
 
