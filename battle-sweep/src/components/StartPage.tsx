@@ -8,6 +8,7 @@ import { GameState } from '../helper/Types';
 interface StartPageProps {
 
     game: GameState;
+    startGame: () => void;
   }
 const StartPage: React.FC<StartPageProps> = ({ game }) => {
     const [openHelp, setOpenHelp] = useState(false);
