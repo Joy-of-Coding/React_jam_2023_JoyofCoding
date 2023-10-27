@@ -104,7 +104,7 @@ function App() {
             onboarding={game.onboarding}
           />
 
-          <Header  game={game} players={players} yourPlayerId={yourPlayerId}/>
+          <Header  game={game} players={players} yourPlayerId={yourPlayerId} />
 
 
           {playerIds.map((id) => (

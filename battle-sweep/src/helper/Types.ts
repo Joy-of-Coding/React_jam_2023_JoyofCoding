@@ -28,6 +28,7 @@ export interface TileProp {
         bombsFound: number;
         turnEnded: boolean;
         playerTurnTime: number;
+        lives:number;
       }
     }
   }
