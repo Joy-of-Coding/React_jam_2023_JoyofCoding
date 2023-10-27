@@ -109,15 +109,6 @@ function App() {
 
           {playerIds.map((id) => (
             <React.Fragment key={id + "-player-view"}>
-              {/*{!game.onboarding &&*/}
-              {/*<OpponentBoard*/}
-              {/*  key={id + "-opponentboard"}*/}
-              {/*  onPress={() => null}*/}
-              {/*  onLongPress={() => null}*/}
-              {/*  display={!game.onboarding ? id !== yourPlayerId : id === yourPlayerId}*/}
-              {/*  board={game.playerState[`${id}`].board}*/}
-              {/*/>*/}
-              {/*}*/}
               <Player
                 key={id + "-player"}
                 display={

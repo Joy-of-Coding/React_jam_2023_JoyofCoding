@@ -70,6 +70,7 @@ const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:
   } else if (oldBoard[row][col].isBomb && oldBoard[row][col].isMarked) {
     // bomb found
     game.playerState[player].bombsFound += 1;
+    // lose a life here??
     return flipCell(row, col, oldBoard)
   } else if (oldBoard[row][col].value === 0) {
     // expand zeros

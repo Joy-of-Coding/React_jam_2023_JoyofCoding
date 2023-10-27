@@ -8,7 +8,6 @@ interface HeaderProps {
         string,
         { playerId: string; displayName: string; avatarUrl: string }
     >;
-    playerId: string;
     yourPlayerId: string | undefined;
     game: GameState;
 }
@@ -26,36 +25,42 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
         <div className="header">
             {yourPlayerId &&
                 <>
-                    <div className="avatar"><img className="avatar" src={players[yourPlayerId].avatarUrl} alt=""/></div>
+                    <div className="avatar">
+                        <img className="avatar" src={players[yourPlayerId].avatarUrl} alt="Crabby Avatar"/></div>
 
                     <div className="stats">
-                    {game.onboarding && opponentId &&
-                        <div>Bombs Placed: {game.playerState[opponentId].bombsPlaced}</div>}
 
-                    {!game.onboarding &&
-                        <>
-                            <div>Bombs Found: {game.playerState[yourPlayerId].bombsFound}</div>
-                            <div>Lives: {game.playerState[yourPlayerId].lives}</div>
-                        </>
-                    }
+                        {game.onboarding && opponentId &&
+                            <div className="stat-item">Bombs Placed: {game.playerState[opponentId].bombsPlaced}</div>
+                        }
+
+                        {!game.onboarding &&
+                            <>
+                                <div className="stat-item">Bombs Found: {game.playerState[yourPlayerId].bombsFound}</div>
+                            </>
+                        }
+
+                        <div className="stat-item">Lives: {game.playerState[yourPlayerId].lives}</div>
+
                     </div>
+
+
+                { opponentId &&
+                    <div className="opponent-board">
+                         {!game.onboarding &&
+                            <OpponentBoard
+                                onPress={() => null}
+                                onLongPress={() => null}
+                                display={true}
+                                board={game.playerState[`${opponentId}`].board}
+                            />
+                        }
+                    </div>
+                }
                 </>
             }
 
-            {/*// */}
-            {/*//
-    {/    <div className="dash-item"> {game.setBombs}</div>*/}
-            {/*//*/}
-            {/*//     {!game.onboarding &&*/}
-            {/*//         <OpponentBoard*/}
-            {/*//             onPress={() => null}*/}
-            {/*//             onLongPress={() => null}*/}
-            {/*//             display={!game.onboarding ? playerId !== yourPlayerId : playerId === yourPlayerId}*/}
-            {/*//             board={game.playerState[`${playerId}`].board}*/}
-            {/*//         />*/}
-            {/*//     }*/}
-            {/*//*/}
-            {/*// </div>*/}
+
         </div>
     )
 };
