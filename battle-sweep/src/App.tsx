@@ -104,19 +104,20 @@ function App() {
             onboarding={game.onboarding}
           />
 
-            <Header game={game}/>
+          <Header  game={game} players={players} yourPlayerId={yourPlayerId}/>
+
 
           {playerIds.map((id) => (
             <React.Fragment key={id + "-player-view"}>
-              {!game.onboarding &&
-              <OpponentBoard
-                key={id + "-opponentboard"}
-                onPress={() => null}
-                onLongPress={() => null}
-                display={!game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
-                board={game.playerState[`${id}`].board}
-              />
-              }
+              {/*{!game.onboarding &&*/}
+              {/*<OpponentBoard*/}
+              {/*  key={id + "-opponentboard"}*/}
+              {/*  onPress={() => null}*/}
+              {/*  onLongPress={() => null}*/}
+              {/*  display={!game.onboarding ? id !== yourPlayerId : id === yourPlayerId}*/}
+              {/*  board={game.playerState[`${id}`].board}*/}
+              {/*/>*/}
+              {/*}*/}
               <Player
                 key={id + "-player"}
                 display={
