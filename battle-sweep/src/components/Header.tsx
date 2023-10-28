@@ -9,21 +9,24 @@ interface HeaderProps {
         { playerId: string; displayName: string; avatarUrl: string }
     >;
     yourPlayerId: string | undefined;
-    opponentId: string ;
+    opponentId: string | null;
     game: GameState;
 }
 const Header = ({ game, players, yourPlayerId, opponentId}: HeaderProps) => {
 
     //get Hearts Icon
     const heartIcons = [];
-    for (let i = 0; i < game.playerState[yourPlayerId].lives; i++) {
-        heartIcons.push(
-            <img
-                key={i}
-                src="src/assets/Sprites/7-Objects/17-Heart/1-Idle/1.png"
-                alt="heart icon"
-            />
-        );
+
+    if (yourPlayerId) {
+        for (let i = 0; i < game.playerState[yourPlayerId].lives; i++) {
+            heartIcons.push(
+                <img
+                    key={i}
+                    src="src/assets/Sprites/7-Objects/17-Heart/1-Idle/1.png"
+                    alt="heart icon"
+                />
+            );
+        }
     }
 
 

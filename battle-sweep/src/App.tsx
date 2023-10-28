@@ -50,15 +50,20 @@ function App() {
     }
   }, [game, playerIds]);
 
-  const getOpponentId = () =>{
-    if (yourPlayerId && Object.keys(players).length>1) { //non spectator, more than one player
-      return Object.keys(players).filter((playerId) => playerId !== yourPlayerId)[0];
-    } else {
-      return null
+
+  let opponentId: string | null =null
+  if (yourPlayerId) {
+    const getOpponentId = () => {
+      if (yourPlayerId && Object.keys(players).length > 1) { //non spectator, more than one player
+        return Object.keys(players).filter((playerId) => playerId !== yourPlayerId)[0];
+      } else {
+        return null
+      }
     }
+    opponentId = getOpponentId() as string
   }
 
-  const opponentId = getOpponentId()
+
 
 
   const handleTilePress = (row: number, col: number) => {
@@ -115,6 +120,7 @@ function App() {
             playerId={yourPlayerId || ""}
             onboarding={game.onboarding}
           />
+
 
           <Header  game={game} players={players} yourPlayerId={yourPlayerId} opponentId={opponentId} />
 
