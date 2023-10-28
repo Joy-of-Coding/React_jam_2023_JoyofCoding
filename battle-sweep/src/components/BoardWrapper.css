@@ -1,14 +1,22 @@
 .board-wrapper {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
 }
 
 .board-notifications {
     display: flex;
-    align-items: center;
     height: 1.5em;
-    justify-content: space-between;
-    background-color: #efefef;
-    padding: 0 10px;
+   margin-bottom: 5px;
+
 }
 
+.item {
+    margin-right: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.board-item:last-child {
+    margin-right: 0;
+}

@@ -8,19 +8,11 @@ interface HeaderProps {
         string,
         { playerId: string; displayName: string; avatarUrl: string }
     >;
-    yourPlayerId: string | any;
+    yourPlayerId: string | undefined;
+    opponentId: string ;
     game: GameState;
 }
-const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
-   const getOpponentId = () =>{
-       if (yourPlayerId && Object.keys(players).length>1) { //non spectator, more than one player
-           return Object.keys(players).filter((playerId) => playerId !== yourPlayerId)[0];
-       } else {
-           return null
-       }
-   }
-
-   const opponentId = getOpponentId()
+const Header = ({ game, players, yourPlayerId, opponentId}: HeaderProps) => {
 
     //get Hearts Icon
     const heartIcons = [];
