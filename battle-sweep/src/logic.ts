@@ -227,6 +227,7 @@ Rune.initLogic({
           endTurn(game, player)
         }
       })
+      game.isGameOver = true
       endGame(game)
     },
   }
