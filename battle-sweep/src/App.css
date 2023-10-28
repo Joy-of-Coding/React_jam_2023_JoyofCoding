@@ -7,22 +7,26 @@
 
 body {
   margin: 0;
-  background-color: #405FAF;
+  /*background-color: #405FAF;*/
+  background-image: url('./assets/FireTheme/Scattered-Islands-lava.jpg');
+  /*background-size: contain;*/
+  background-repeat: no-repeat;
   display: flex;
   align-items: center;
   font-size: 1rem;
   flex-direction: column;
-  color: white;
+  /*color: white;*/
 
 }
 
 
 .button {
   margin-top: 8px;
-  background-color: #FF8A65;
-  color: #FFFFFF;
+  background-color: #f87809;
+  color: #ffffff;
   font-weight: bold;
-  border: none;
+  border: black;
+  border-width: thin;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4);
   transition: box-shadow 0.3s, transform 0.3s; /* Add transition for smoother effect */
 }
