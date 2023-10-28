@@ -35,6 +35,19 @@
     font-weight: bolder;
   }
 
+  .popup-body p{
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  .popup-body p ul{
+    list-style: none;;
+    padding-left: 0;
+  }
+
+  .popup-body p ul li:not(:last-child){
+      margin-bottom: 10px;
+  }
 
 .h1 {
   color: yellow
