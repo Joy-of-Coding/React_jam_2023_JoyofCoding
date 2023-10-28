@@ -19,11 +19,12 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
            return null
        }
    }
+
    const opponentId = getOpponentId()
 
+    //get Hearts Icon
     const heartIcons = [];
-   const numLives = game.playerState[yourPlayerId].lives
-    for (let i = 0; i < numLives; i++) {
+    for (let i = 0; i < game.playerState[yourPlayerId].lives; i++) {
         heartIcons.push(
             <img
                 key={i}
@@ -32,6 +33,32 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
             />
         );
     }
+
+    //get BombsFound Icons
+    const bombsFound = []
+    for (let i = 0; i < game.playerState[yourPlayerId].bombsFound; i++) {
+        bombsFound.push(
+            <img
+                key={i}
+                src="src/assets/png/Bomb-20.png"
+                alt="bomb icon"
+            />
+        );
+    }
+
+    //get BombsFound Icons
+    const bombsPlaced = []
+    for (let i = 0; i < game.playerState[opponentId].bombsPlaced; i++) {
+        bombsPlaced.push(
+            <img
+                key={i}
+                src="src/assets/png/Bomb-20.png"
+                alt="bomb icon"
+            />
+        );
+    }
+
+
 
        return (
         <div className="header">
@@ -44,16 +71,22 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
                         <div className="stats">
 
                         {game.onboarding && opponentId &&
-                            <div className="stat-item">Bombs Placed: {game.playerState[opponentId].bombsPlaced}</div>
+                            <div className="stat-item">Bombs Placed:
+                                {bombsPlaced}
+                                {/*{game.playerState[opponentId].bombsPlaced}*/}
+                            </div>
                         }
 
                         {!game.onboarding &&
                             <>
-                                <div className="stat-item">Bombs Found: {game.playerState[yourPlayerId].bombsFound}</div>
+                                <div className="stat-item">Bombs Found:
+                                    {bombsFound}
+                                    {/*{game.playerState[yourPlayerId].bombsFound}*/}
+                                </div>
                             </>
                         }
 
-                        <div className="stat-item">Lives: {game.playerState[yourPlayerId].lives}
+                        <div className="stat-item">Lives: 
                             {heartIcons}
 
                         </div>
