@@ -2,6 +2,7 @@
 .isMarked {
     /* background-color: yellow;
     color: yellow; */
+    content-visibility: hidden;
     background-image: url('../assets/Monsters/Cage/Cage_grey_standard_staying_3.png');
     background-size: contain;
 }
@@ -16,11 +17,10 @@
 }
 
 .hidden {
-    /*background-color: #3D5AAC;*/
-    background-image: url('../assets/png/snow_00.png');
-    /*color: #3D5AAC;
-    border: solid 1.5px;
-    border-color: #2D4C9F #3D5AAC #3D5AAC #2D4C9F;*/
+  content-visibility: hidden;
+  background-image: url('../assets/FireTheme/flipped-tile1.JPG');
+  border: solid 1.5px;
+  border-color: #0d0d0e #2e2e2e #302f2f #010101;
 }
 
 .tile {

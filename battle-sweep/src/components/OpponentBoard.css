@@ -4,7 +4,7 @@
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
     gap: 1px;
-    background-color: #2C4EA4;
+    background-image: url('../assets/FireTheme/board-red-lavarock1.JPG');
     font-family: "Courier New", monospace;
     font-weight: bold;
     position: absolute;
