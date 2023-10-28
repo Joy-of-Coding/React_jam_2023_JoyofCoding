@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 .avatar {
     margin-bottom: 10px; /* Add margin bottom to create space between avatar and stats */
@@ -44,4 +45,5 @@
 .right-section {
     display: flex;
     align-items: center;
+
 }

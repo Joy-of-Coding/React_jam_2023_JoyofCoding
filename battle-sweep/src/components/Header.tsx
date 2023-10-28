@@ -86,7 +86,7 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
                             </>
                         }
 
-                        <div className="stat-item">Lives: 
+                        <div className="stat-item">Lives:
                             {heartIcons}
 
                         </div>
