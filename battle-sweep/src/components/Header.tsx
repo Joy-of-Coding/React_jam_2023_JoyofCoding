@@ -78,16 +78,18 @@ const Header = ({ game, players, yourPlayerId, opponentId}: HeaderProps) => {
                 { opponentId &&
                     <div className="right-section">
                         <div className="section-wrapper">
+                            {!game.onboarding &&
                             <div className="opponent-board">
-                                 {!game.onboarding &&
+
                                     <OpponentBoard
                                         onPress={() => null}
                                         onLongPress={() => null}
                                         display={true}
                                         board={game.playerState[`${opponentId}`].board}
                                     />
-                                }
+
                             </div>
+                            }
                         </div>
                     </div>
                 }
