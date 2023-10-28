@@ -38,6 +38,7 @@
   .popup-body p{
     text-align: justify;
     text-justify: inter-word;
+    font-size: small;
   }
 
   .popup-body p ul{
