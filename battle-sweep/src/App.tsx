@@ -22,8 +22,6 @@ function App() {
   const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
-  // const [gameStarted, setGameStarted] = useState(false);
-  const [openStartModal, setOpenStartModal] = useState(true);
 
   useEffect(() => {
     Rune.initClient({
@@ -80,22 +78,19 @@ function App() {
     setUseFlag(!useFlag);
   };
 
-  // const startGame = () => {
-  //   // Handle the logic for starting the game
-  //   // For example, you can set gameStarted to true
-  //   setGameStarted(true);
-  // };
-
   if (!game) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      {openStartModal && (
-        <StartPage game={game} closeStart={() => setOpenStartModal(false)} />
+      {game.openStartModal && (
+        <StartPage
+          game={game}
+          closeStart={() => Rune.actions.startOnboarding()}
+        />
       )}
-      {!openStartModal && (
+      {!game.openStartModal && (
         <>
           <InPlay
             game={game}
@@ -104,15 +99,17 @@ function App() {
           />
           {playerIds.map((id) => (
             <React.Fragment key={id + "-player-view"}>
-              {!game.onboarding &&
-              <OpponentBoard
-                key={id + "-opponentboard"}
-                onPress={() => null}
-                onLongPress={() => null}
-                display={!game.onboarding ? id !== yourPlayerId : id === yourPlayerId}
-                board={game.playerState[`${id}`].board}
-              />
-              }
+              {!game.onboarding && (
+                <OpponentBoard
+                  key={id + "-opponentboard"}
+                  onPress={() => null}
+                  onLongPress={() => null}
+                  display={
+                    !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                  }
+                  board={game.playerState[`${id}`].board}
+                />
+              )}
               <Player
                 key={id + "-player"}
                 display={

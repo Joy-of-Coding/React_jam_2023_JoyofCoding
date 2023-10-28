@@ -83,11 +83,12 @@ Rune.initLogic({
   maxPlayers: 2,
   setup: (playerIds) => ({
     playerIds: playerIds,
-    onboarding: true,
+    openStartModal: true,
+    onboarding: false,
     isGameOver: false,
     onBoardTime: 15,
-    playTime: 80,
-    gameTimer: Rune.gameTime()/1000,
+    playTime: 30,
+    gameTimer: 15,
     timeElapsed: 0,
     stopTimer: false,
     setBombs: 5,
@@ -139,8 +140,14 @@ Rune.initLogic({
     updateBombCount: ({amount}, { game }) => {
         return game.setBombs = amount;
   },
+    startOnboarding: (_,{ game }) => {
+      game.openStartModal = false;
+      game.onboarding = true;
+      game.timeElapsed = Rune.gameTime()/1000;
+  },
     swap: (_,{ game, allPlayerIds }) => {
-      game.stopTimer = true;
+      game.timeElapsed = Rune.gameTime()/1000;
+      game.gameTimer = game.playTime;
       allPlayerIds.map((player) => {
         let oldBoard = game.playerState[player].board
         if (game.playerState[player].bombsPlaced < game.setBombs) {
@@ -244,21 +251,15 @@ Rune.initLogic({
       - game ends when both players turn ends, before clock, with no errors
     */
     if (game.onboarding) {
-      game.timeElapsed = Rune.gameTime()/1000;
-      game.gameTimer = game.onBoardTime - game.timeElapsed
+      game.gameTimer = game.onBoardTime + game.timeElapsed - Rune.gameTime()/1000;
       if(game.gameTimer < 0) {
         Rune.actions.swap();
       }
-    } else {
+    } else if (!game.openStartModal) {
       game.gameTimer = game.playTime + game.timeElapsed - Rune.gameTime()/1000
       if(game.gameTimer < 0) {
         Rune.actions.endTimer();
       }
-    }
-
-    if(game.stopTimer) { 
-      Rune.actions.setStopTimer();
-      game.timeElapsed = game.timeElapsed - Rune.gameTime()/1000;
     }
   },
   events: {
