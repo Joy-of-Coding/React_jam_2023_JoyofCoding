@@ -12,6 +12,7 @@ import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
+import Message from './components/Message.tsx'
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -122,6 +123,9 @@ function App() {
                 playerId={id}
                 game={game}
               />
+              <Message
+                  onboarding={game.onboarding}
+                  display={game.onboarding ? id !== yourPlayerId : id === yourPlayerId}/>
               <Board
                 key={id + "-board"}
                 onPress={handleTilePress}
