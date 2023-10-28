@@ -79,7 +79,7 @@ const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:
   }}
 
 Rune.initLogic({
-  minPlayers: 2,
+  minPlayers: 1,
   maxPlayers: 2,
   setup: (playerIds) => ({
     playerIds: playerIds,
