@@ -7,33 +7,42 @@ body {
 .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: 40% 60% 40% 40% 40%; /* Adjust the row heights as needed */
     gap: 10px;
     height: 100vh;
     background-color: #f0f0f0;
     padding: 10px;
+    border: 10px;
 }
 
 .row {
     display: flex;
     justify-content: space-between;
+    border: 10px;
 }
 
 .row-1 {
     display: flex;
     justify-content: space-between;
-    grid-column: 1 / -1; /* Span across all columns */
+    grid-column: 1 / -1;
+    grid-row: 1;
 }
 
-
-.row-2, .row-3, .row-4 {
+.row-2 {
     grid-column: 1 / -1;
+    grid-row: 2;
+}
+
+.row-3, .row-4 {
+    grid-column: 1 / -1;
+    grid-row: auto; /* Reset the row span for rows 3 and 4 */
 }
 
 .row-5 {
     display: flex;
     justify-content: space-between;
-    grid-column: 1 / -1; /* Span across all columns */
+    grid-column: 1 / -1;
+    grid-row: 5;
 }
 
 .box {
@@ -42,11 +51,34 @@ body {
     align-items: center;
     justify-content: center;
     background-color: #3498db;
-    color: #fff;
     font-size: 24px;
 }
 
 .square {
     padding: 0;
     aspect-ratio: 1;
+}
+
+#one {
+    background-color: red;
+}
+
+#two {
+    background-color: violet;
+}
+
+#three {
+    background-color: blueviolet;
+}
+
+#x {
+    background-color: green;
+}
+
+#y {
+    background-color: yellowgreen;
+}
+
+#z {
+    background-color: yellow;
 }
