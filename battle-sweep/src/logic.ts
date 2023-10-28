@@ -271,6 +271,7 @@ Rune.initLogic({
         bombsFound: 0,
         turnEnded: false,
         playerTurnTime: 0,
+        lives: 3
       }
    },
     playerLeft:(playerId, {game}) => {
