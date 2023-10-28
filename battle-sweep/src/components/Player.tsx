@@ -16,7 +16,7 @@ const Player = ({ players, playerId, display, game }: PlayerProps) => {
     <div>
       {display ? (
         <>
-          <h3>Battle Sweeper</h3>
+          <h3>Capture the Crabs</h3>
           <img className="avatar" src={players[playerId].avatarUrl} alt="" />
           <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
         </>
