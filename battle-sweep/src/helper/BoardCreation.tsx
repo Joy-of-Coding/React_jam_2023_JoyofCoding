@@ -148,9 +148,11 @@ export function toggleFlag(row: number, col: number, board: TileProp[][]) {
 export function flipCell(row: number, col: number, board: TileProp[][]) {
   const newBoard = board.slice();
   const cell = newBoard[row][col];
+  const markedState = cell.isMarked ? (cell.isBomb ? true : false) : false;
   const newCell = {
     ...cell,
     isFlipped: true,
+    isMarked: markedState,
   };
   newBoard[row][col] = newCell;
   return newBoard;
@@ -170,6 +172,7 @@ export function expand(row: number, col: number, board: TileProp[][]) {
       if (newBoard[row][col].isFlipped) continue;
       if (!newBoard[row][col].isBomb) {
         newBoard[row][col].isFlipped = true;
+        newBoard[row][col].isMarked = false;
         if (newBoard[row][col].value > 0) {
           continue;
         }
@@ -177,7 +180,11 @@ export function expand(row: number, col: number, board: TileProp[][]) {
       }
     }
   }
-  newBoard[row][col] = { ...newBoard[row][col], isFlipped: true };
+  newBoard[row][col] = {
+    ...newBoard[row][col],
+    isMarked: false,
+    isFlipped: true,
+  };
   return newBoard;
 }
 
