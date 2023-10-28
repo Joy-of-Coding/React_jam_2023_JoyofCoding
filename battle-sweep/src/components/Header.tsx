@@ -22,7 +22,8 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
    const opponentId = getOpponentId()
 
     const heartIcons = [];
-    for (let i = 0; i < game.playerState[yourPlayerId].lives; i++) {
+   const numLives = game.playerState[yourPlayerId].lives
+    for (let i = 0; i < numLives; i++) {
         heartIcons.push(
             <img
                 key={i}
