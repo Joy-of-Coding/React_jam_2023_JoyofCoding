@@ -14,7 +14,7 @@
 
 .hidden {
     /*background-color: #3D5AAC;*/
-    background-image: url('battle-sweep/src/assets/png/snow_00.png');
+    background-image: url('../assets/png/snow_00.png');
     /*color: #3D5AAC;
     border: solid 1.5px;
     border-color: #2D4C9F #3D5AAC #3D5AAC #2D4C9F;*/
