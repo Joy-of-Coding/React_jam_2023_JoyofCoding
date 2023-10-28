@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import Header from "./components/Header.tsx";
 import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
+import BoardWrapper from "./components/BoardWrapper.tsx";
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -105,29 +106,30 @@ function App() {
           />
 
           <Header  game={game} players={players} yourPlayerId={yourPlayerId} />
-
+          <h4>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h4>
 
           {playerIds.map((id) => (
             <React.Fragment key={id + "-player-view"}>
-              <Player
-                key={id + "-player"}
-                display={
-                  game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                }
-                players={players}
-                playerId={id}
-                game={game}
+              <BoardWrapper
+                  key={id + "-board"}
+                  onPress={handleTilePress}
+                  onLongPress={handleLongTilePress}
+                  display={
+                    game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                  }
+                  board={game.playerState[`${id}`].board}
               />
-              <Board
-                key={id + "-board"}
-                onPress={handleTilePress}
-                onLongPress={handleLongTilePress}
-                display={
-                  game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                }
-                board={game.playerState[`${id}`].board}
-              />
+              {/*<Board*/}
+              {/*  key={id + "-board"}*/}
+              {/*  onPress={handleTilePress}*/}
+              {/*  onLongPress={handleLongTilePress}*/}
+              {/*  display={*/}
+              {/*    game.onboarding ? id !== yourPlayerId : id === yourPlayerId*/}
+              {/*  }*/}
+              {/*  board={game.playerState[`${id}`].board}*/}
+              {/*/>*/}
             </React.Fragment>
+
           ))}
           <Timer game={game} />
           <Controls

@@ -1,18 +1,12 @@
 .header {
     display: flex;
     justify-content: space-between;
-    /*height: 120px;*/
-    /*flex-direction: column;*/
     margin-bottom:  8px;
-    width: 95%;
-    align-items: center;
-    background-color: rgb(107, 156, 248);
+    width: 100%;
+    align-items: stretch;
     color: #FFFFFF;
     font-weight: bold;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-
-
+    background: transparent;
 }
 
 .opponent-board {
@@ -20,17 +14,27 @@
     flex-grow: 1;
 }
 
-.left-section {
+
+.left-section, .right-section{
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    border: 1px solid black;
+    background-color: #981F14;
+    border-radius: 5px;
+    margin: 2px; /* Add a box shadow */
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);
+    padding: 2px;
 }
-.avatar {
-    margin-bottom: 10px; /* Add margin bottom to create space between avatar and stats */
+
+.section-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
 }
 
 .avatar-image {
+    padding-top: 8px;
     width: 50px;
     height: 50px;
 }
@@ -38,12 +42,8 @@
 .stats {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     margin-left: 10px;
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
 }
 
-.right-section {
-    display: flex;
-    align-items: center;
-
-}

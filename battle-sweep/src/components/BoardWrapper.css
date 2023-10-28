@@ -1,0 +1,14 @@
+.board-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.board-notifications {
+    display: flex;
+    align-items: center;
+    height: 1.5em;
+    justify-content: space-between;
+    background-color: #efefef;
+    padding: 0 10px;
+}
+

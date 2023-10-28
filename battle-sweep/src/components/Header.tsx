@@ -8,7 +8,7 @@ interface HeaderProps {
         string,
         { playerId: string; displayName: string; avatarUrl: string }
     >;
-    yourPlayerId: string | undefined;
+    yourPlayerId: string | any;
     game: GameState;
 }
 const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
@@ -34,29 +34,6 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
         );
     }
 
-    //get BombsFound Icons
-    const bombsFound = []
-    for (let i = 0; i < game.playerState[yourPlayerId].bombsFound; i++) {
-        bombsFound.push(
-            <img
-                key={i}
-                src="src/assets/png/Bomb-20.png"
-                alt="bomb icon"
-            />
-        );
-    }
-
-    //get BombsFound Icons
-    const bombsPlaced = []
-    for (let i = 0; i < game.playerState[opponentId].bombsPlaced; i++) {
-        bombsPlaced.push(
-            <img
-                key={i}
-                src="src/assets/png/Bomb-20.png"
-                alt="bomb icon"
-            />
-        );
-    }
 
 
 
@@ -65,23 +42,32 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
             {yourPlayerId &&
                 <>
                     <div className="left-section">
-                        <div className="avatar">
+                        <div className="section-wrapper">
                         <img className="avatar-image" src={players[yourPlayerId].avatarUrl} alt="Crabby Avatar"/></div>
 
                         <div className="stats">
 
                         {game.onboarding && opponentId &&
                             <div className="stat-item">Bombs Placed:
-                                {bombsPlaced}
-                                {/*{game.playerState[opponentId].bombsPlaced}*/}
+
+                                <img
+                                    src="src/assets/png/Bomb-20.png"
+                                    alt="bomb icon"
+                                />
+                                {game.playerState[opponentId].bombsPlaced}
                             </div>
                         }
 
                         {!game.onboarding &&
                             <>
                                 <div className="stat-item">Bombs Found:
-                                    {bombsFound}
-                                    {/*{game.playerState[yourPlayerId].bombsFound}*/}
+                                    <img
+
+                                        src="src/assets/png/Bomb-20.png"
+                                        alt="bomb icon"
+                                    />
+                                    {/*{bombsFound}*/}
+                                    {game.playerState[yourPlayerId].bombsFound}
                                 </div>
                             </>
                         }
@@ -96,16 +82,18 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
                     </div>
                 { opponentId &&
                     <div className="right-section">
-                    <div className="opponent-board">
-                         {!game.onboarding &&
-                            <OpponentBoard
-                                onPress={() => null}
-                                onLongPress={() => null}
-                                display={true}
-                                board={game.playerState[`${opponentId}`].board}
-                            />
-                        }
-                    </div>
+                        <div className="section-wrapper">
+                            <div className="opponent-board">
+                                 {!game.onboarding &&
+                                    <OpponentBoard
+                                        onPress={() => null}
+                                        onLongPress={() => null}
+                                        display={true}
+                                        board={game.playerState[`${opponentId}`].board}
+                                    />
+                                }
+                            </div>
+                        </div>
                     </div>
                 }
                 </>

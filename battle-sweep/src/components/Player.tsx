@@ -11,18 +11,12 @@ interface PlayerProps {
   game: GameState;
 }
 
-const Player = ({ players, playerId, display, game }: PlayerProps) => {
+const Player = ({ display, game }: PlayerProps) => {
   return (
     <div>
-      {display ? (
-        <>
-
-          {/*<img className="avatar" src={players[playerId].avatarUrl} alt="" />*/}
-          <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
-        </>
-      ) : (
-        ""
-      )}
+      {display &&
+          <h4>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h4>
+        }
     </div>
   );
 };
