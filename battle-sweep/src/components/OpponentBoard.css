@@ -7,7 +7,7 @@
     background-color: #2C4EA4;
     font-family: "Courier New", monospace;
     font-weight: bold;
-    position: absolute;
+    /*position: absolute;*/
     /*margin-top: 0;
     margin-right: 0;*/
     z-index: 1;
@@ -15,9 +15,10 @@
 
     /*background-color: #f0f0f0; !* Light gray background color *!*/
     max-width: 200px; /* Adjust the max width as per your design */
-    top: 0px; /* Place mini-board to the top of the screen */
-    right: 5px; /* Offset mini-board from the right of the screen */
+    /*top: 0px; !* Place mini-board to the top of the screen *!*/
+    /*right: 5px; !* Offset mini-board from the right of the screen *!*/
     padding: 4px; /* Add some padding around the board */
     border-radius: 2px; /* Add some rounded corners to the board */
-    float:right;
+    margin: 2px;
+    /*float:right;*/
 }

@@ -135,31 +135,7 @@ function App() {
             toggleFlag={toggleFlagState}
             useFlag={useFlag}
           />
-          <div>
-            {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="helpButton"
-              onClick={() => setOpenHelp(true)}
-            >
-              <b>Info</b>
-            </motion.button>
-          </div>
-          <div>
-            {openSettings && (
-              <Config game={game} closePopup={() => setOpenSettings(false)} />
-            )}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="helpButton"
-              onClick={() => setOpenSettings(true)}
-            >
-              <b>Settings</b>
-            </motion.button>
-          </div>
-          <div>
-            <p>Total Bombs: {game.setBombs} </p>
-          </div>
+        
         </>
       )}
     </>

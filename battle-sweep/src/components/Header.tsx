@@ -25,10 +25,11 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
         <div className="header">
             {yourPlayerId &&
                 <>
-                    <div className="avatar">
-                        <img className="avatar" src={players[yourPlayerId].avatarUrl} alt="Crabby Avatar"/></div>
+                    <div className="left-section">
+                        <div className="avatar">
+                        <img className="avatar-image" src={players[yourPlayerId].avatarUrl} alt="Crabby Avatar"/></div>
 
-                    <div className="stats">
+                        <div className="stats">
 
                         {game.onboarding && opponentId &&
                             <div className="stat-item">Bombs Placed: {game.playerState[opponentId].bombsPlaced}</div>
@@ -44,8 +45,9 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
 
                     </div>
 
-
+                    </div>
                 { opponentId &&
+                    <div className="right-section">
                     <div className="opponent-board">
                          {!game.onboarding &&
                             <OpponentBoard
@@ -55,6 +57,7 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
                                 board={game.playerState[`${opponentId}`].board}
                             />
                         }
+                    </div>
                     </div>
                 }
                 </>
