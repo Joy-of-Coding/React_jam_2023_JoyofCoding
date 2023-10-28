@@ -52,8 +52,6 @@ function getScores(game:GameState, player:string) {
   // add lives bonus as well
   const bombsNotFound = totalBombs - bombsFound // - lives
   playerScore += (bombsFound/totalBombs*game.baselineScore) - (bombsNotFound/totalBombs*game.baselineScore)
-  // Need timing score calc as well, or penalty if timer ended game
-  
   if (game.playerState[player].playerTurnTime > 0 && bombsFound == totalBombs) {
     playerScore += game.playerState[player].playerTurnTime
   } else {
@@ -66,14 +64,15 @@ function getScores(game:GameState, player:string) {
 
 const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:number, col:number ) => {
   if (oldBoard[row][col].isBomb && !oldBoard[row][col].isMarked) {
-    // game.isGameOver = true
+    // end turn
     endTurn(game, player)
     return flipAll(oldBoard, true)
   } else if (oldBoard[row][col].isBomb && oldBoard[row][col].isMarked) {
+    // bomb found
     game.playerState[player].bombsFound += 1;
     return flipCell(row, col, oldBoard)
   } else if (oldBoard[row][col].value === 0) {
-    // expand
+    // expand zeros
     return expand(row, col, oldBoard)
   } else {
     return flipCell(row, col, oldBoard)
@@ -158,6 +157,9 @@ Rune.initLogic({
           const oldBoard = game.playerState[playerId].board
           const newBoard = flipHandler(game, playerId, oldBoard, row, col)
           game.playerState[playerId].board = newBoard
+          if (turnEndCheck(oldBoard, game.setBombs)) {
+            endTurn(game, playerId)
+          }
           endGameCheck(game, allPlayerIds)
     },
     flag:({row, col}, { game, playerId }) => {
@@ -200,11 +202,10 @@ Rune.initLogic({
                 game.playerState[playerId].bombsFound += 1
               }
               newBoard[row][col] = {...refreshBoard[row][col], isFlipped: true}
-              if(refreshBoard[row][col].value == 0) {
+              if(refreshBoard[row][col].value == 0 && !refreshBoard[row][col].isBomb) {
                 newBoard = expand(row, col, newBoard)
               }
             }
-            //game.isGameOver = turnEndCheck(newBoard, game.setBombs)
             game.playerState[playerId].board = newBoard
             if (turnEndCheck(newBoard, game.setBombs)) {
               endTurn(game, playerId)
