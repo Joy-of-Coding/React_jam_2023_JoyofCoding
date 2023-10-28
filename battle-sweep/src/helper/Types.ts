@@ -12,6 +12,7 @@ export interface TileProp {
   
   export interface GameState {
     playerIds: PlayerId[],
+    openStartModal: boolean,
     onboarding: boolean,
     isGameOver: boolean,
     onBoardTime: number,
@@ -36,11 +37,11 @@ export interface TileProp {
     addBombs: () => void,
     updateBombCount: (paraps: {amount:number}) => void,
     userAddBomb: (args: { row: number ; col: number }) => void,
+    startOnboarding: () => void,
     swap: () => void,
     flip: (args: { row: number ; col: number }) => void,
     flag: (args: { row: number ; col: number }) => void,
     reveal: (args: { row: number ; col: number }) => void,
     revealReset: () => void,
-    setStopTimer: ()=>void,
     endTimer: ()=>void,
   }
