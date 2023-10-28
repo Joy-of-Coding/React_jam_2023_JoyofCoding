@@ -238,7 +238,7 @@ Rune.initLogic({
     /*
       Things you MUST check if refactoring here:
       - game play timer/numbers updates correctly, and swap boards, when oboarding timer hits 0
-      - game play timer/numbers updates correctly when when manually swapping boards via button
+      - game play timer/numbers updates correctly  when manually swapping boards via button
       - time elapsed equals 15 in first scenario above or it equals onboarding timer - time swap clicked
       - check in the get time function too
       - game ends when play time clock reaches 0 with no errors

@@ -21,6 +21,17 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
    }
    const opponentId = getOpponentId()
 
+    const heartIcons = [];
+    for (let i = 0; i < game.playerState[yourPlayerId].lives; i++) {
+        heartIcons.push(
+            <img
+                key={i}
+                src="src/assets/Sprites/7-Objects/17-Heart/1-Idle/1.png"
+                alt="heart icon"
+            />
+        );
+    }
+
        return (
         <div className="header">
             {yourPlayerId &&
@@ -41,7 +52,10 @@ const Header = ({ game, players, yourPlayerId}: HeaderProps) => {
                             </>
                         }
 
-                        <div className="stat-item">Lives: {game.playerState[yourPlayerId].lives}</div>
+                        <div className="stat-item">Lives: {game.playerState[yourPlayerId].lives}
+                            {heartIcons}
+
+                        </div>
 
                     </div>
 
