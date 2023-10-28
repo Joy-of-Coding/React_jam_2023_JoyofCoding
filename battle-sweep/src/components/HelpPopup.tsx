@@ -19,7 +19,7 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
       className="popup-body">
 
       <h2>Battle Sweep</h2>
-          <p>Competative Minesweeper!</p>
+          <p>Battle Sweeper is an exciting and strategic two-player board game that combines the classic elements of Minesweeper and Battleship. In this game, players become naval commanders who must strategically deploy hidden mines on their opponent's grid while also skillfully navigating their own minefield.</p>
           <h2>How To Play</h2>
           <p>Classic Minesweeper with a twist! You place mines then send the field to your opponent for them to sweep. </p>
 
