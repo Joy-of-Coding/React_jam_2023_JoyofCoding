@@ -5,14 +5,13 @@ import "./Board.css";
 
 interface BoardProps {
   board: TileProp[][];
-  display: boolean;
+  // display: boolean;
   onPress: (row: number, col: number) => void;
   onLongPress: (row: number, col: number) => void;
 }
 
 //add game props from rune SDK
-function Board({ board, display, onPress, onLongPress }: BoardProps) {
-  if (display) {
+function Board({ board, onPress, onLongPress }: BoardProps) {
     return (
       <>
         <div className="board">
@@ -29,7 +28,6 @@ function Board({ board, display, onPress, onLongPress }: BoardProps) {
         </div>
       </>
     );
-  }
 }
 
 export default Board;

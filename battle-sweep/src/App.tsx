@@ -108,16 +108,13 @@ function App() {
           <Header  game={game} players={players} yourPlayerId={yourPlayerId} />
           <h4>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h4>
 
-          {playerIds.map((id) => (
-            <React.Fragment key={id + "-player-view"}>
+          {/*{playerIds.map((id) => (*/}
+          {/*  <React.Fragment key={id + "-player-view"}>*/}
               <BoardWrapper
-                  key={id + "-board"}
                   onPress={handleTilePress}
                   onLongPress={handleLongTilePress}
-                  display={
-                    game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                  }
-                  board={game.playerState[`${id}`].board}
+                  board={game.playerState[`${yourPlayerId}`].board}
+                  opponentBoard={game.playerState}
               />
               {/*<Board*/}
               {/*  key={id + "-board"}*/}
@@ -128,9 +125,9 @@ function App() {
               {/*  }*/}
               {/*  board={game.playerState[`${id}`].board}*/}
               {/*/>*/}
-            </React.Fragment>
+            {/*</React.Fragment>*/}
 
-          ))}
+          {/*))}*/}
           <Timer game={game} />
           <Controls
             onboarding={game.onboarding}
