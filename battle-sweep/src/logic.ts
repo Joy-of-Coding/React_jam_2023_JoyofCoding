@@ -86,12 +86,12 @@ Rune.initLogic({
     openStartModal: true,
     onboarding: false,
     isGameOver: false,
-    onBoardTime: 15,
-    playTime: 30,
-    gameTimer: 15,
+    onBoardTime: 30,
+    playTime: 120,
+    gameTimer: 30,
     timeElapsed: 0,
     stopTimer: false,
-    setBombs: 5,
+    setBombs: 9,
     baselineScore: 100,
     playerState: playerIds.reduce<GameState["playerState"]>(
       (acc, playerId) => ({
@@ -224,9 +224,6 @@ Rune.initLogic({
           const oldBoard = game.playerState[playerId].board
           const refreshBoard = resetReveal(oldBoard)
           game.playerState[playerId].board = refreshBoard
-    },setStopTimer: (_, {game})=> {
-      game.gameTimer = game.playTime;
-      game.stopTimer = false;
     },
     endTimer: (_, {game, allPlayerIds}) => {
       allPlayerIds.map((player) => {
