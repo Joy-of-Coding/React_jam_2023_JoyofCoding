@@ -20,7 +20,7 @@ function App() {
   const [openHelp, setOpenHelp] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
-  
+
   useEffect(() => {
     Rune.initClient({
       onChange: ({ game, players, yourPlayerId }) => {
@@ -76,16 +76,16 @@ function App() {
   };
 
   const checkStartGame = () => {
-    if(game) {
-      if(playerIds.length >= 2) {
+    if (game) {
+      if (playerIds.length >= 2) {
         Rune.actions.setStartGame();
         game.playerIds.forEach((id) => {
-          if(id !== yourPlayerId) {
-            if(game.playerState[id].gameStarted === true) {
+          if (id !== yourPlayerId) {
+            if (game.playerState[id].gameStarted === true) {
               Rune.actions.startOnboarding();
             }
           }
-        })
+        });
       } else {
         Rune.actions.startOnboarding();
       }
@@ -97,12 +97,7 @@ function App() {
   }
 
   if (game.openStartModal) {
-    return (
-      <StartPage
-        game={game}
-        closeStart={checkStartGame}
-      />
-    );
+    return <StartPage game={game} closeStart={checkStartGame} />;
   }
 
   /*
@@ -114,6 +109,7 @@ function App() {
 
 */
   if (game.onboarding) {
+    ///////////// Onboarding /////////////////
     return (
       <>
         {playerIds.map((id) => (
@@ -128,27 +124,30 @@ function App() {
               // lastly if the current loop ID IS my ID show nothing - we want opponents avatar
               playerId={id != yourPlayerId ? yourPlayerId || id : ""}
             />
-            <h3>
-              {game.onboarding
-                ? "Opponent's Board"
-                : "Find and TRAP all Crabs!"}
-            </h3>
-            <Board
-              onPress={handleTilePress}
-              onLongPress={handleLongTilePress}
-              display={
-                game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-              }
-              board={game.playerState[`${id}`].board}
-            />
+            {id != yourPlayerId && (
+              <>
+                <h3>Place Crabs on Opponent's Board</h3>
+                <Timer game={game} />
+                <p>Total Crabs: {game.setBombs} </p>
+                {yourPlayerId && (
+                  <Controls
+                    onboarding={game.onboarding}
+                    toggleFlag={toggleFlagState}
+                    useFlag={useFlag}
+                  />
+                )}
+                <Board
+                  onPress={handleTilePress}
+                  onLongPress={handleLongTilePress}
+                  display={
+                    game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                  }
+                  board={game.playerState[`${id}`].board}
+                />
+              </>
+            )}
           </React.Fragment>
         ))}
-        <Timer game={game} />
-        <Controls
-          onboarding={game.onboarding}
-          toggleFlag={toggleFlagState}
-          useFlag={useFlag}
-        />
         <div>
           {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
           <motion.button
@@ -159,12 +158,10 @@ function App() {
             <b>Help</b>
           </motion.button>
         </div>
-        <div>
-          <p>Total Crabs: {game.setBombs} </p>
-        </div>
       </>
     );
   } else {
+    ///////////// Game Play  /////////////////
     return (
       <>
         {playerIds.map((id) => (
@@ -186,28 +183,32 @@ function App() {
               }
               board={game.playerState[`${id}`].board}
             />
-            <h3>
-              {game.onboarding
-                ? "Opponent's Board"
-                : "Find and TRAP all Crabs!"}
-            </h3>
-            <Board
-              key={id + "-board"}
-              onPress={handleTilePress}
-              onLongPress={handleLongTilePress}
-              display={
-                game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-              }
-              board={game.playerState[`${id}`].board}
-            />
+
+            {(id == yourPlayerId || !yourPlayerId) && (
+              <>
+                <h3>Find and TRAP all Crabs!</h3>
+                <p>Total Crabs: {game.setBombs} </p>
+                <Timer game={game} />
+                {yourPlayerId && (
+                  <Controls
+                    onboarding={game.onboarding}
+                    toggleFlag={toggleFlagState}
+                    useFlag={useFlag}
+                  />
+                )}
+                <Board
+                  key={id + "-board"}
+                  onPress={handleTilePress}
+                  onLongPress={handleLongTilePress}
+                  display={
+                    game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                  }
+                  board={game.playerState[`${id}`].board}
+                />
+              </>
+            )}
           </React.Fragment>
         ))}
-        <Timer game={game} />
-        <Controls
-          onboarding={game.onboarding}
-          toggleFlag={toggleFlagState}
-          useFlag={useFlag}
-        />
         <div>
           {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
           <motion.button
@@ -217,9 +218,6 @@ function App() {
           >
             <b>Help</b>
           </motion.button>
-        </div>
-        <div>
-          <p>Total Crabs: {game.setBombs} </p>
         </div>
       </>
     );
