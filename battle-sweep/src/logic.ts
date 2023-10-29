@@ -274,8 +274,16 @@ Rune.initLogic({
   events: {
     playerJoined: (playerId, {game}) => {
       game.playerIds.push(playerId)
+      let board;
+      if (game.openStartModal) {
+        board = createBoard(boardHeight, boardWidth)
+      } else {
+        board = insertBombs(createBoard(boardHeight, boardWidth), game.setBombs)
+        board = flipAll(board, false)
+      }
+      game.playerIds.push(playerId)
       game.playerState[playerId] = {
-        board: createBoard(boardHeight, boardWidth),
+        board: board,
         gameStarted: false,
         bombsPlaced: 0,
         bombsFound: 0,
