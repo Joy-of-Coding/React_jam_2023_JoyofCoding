@@ -25,6 +25,7 @@ export interface TileProp {
     playerState: {
       [key: string]: {
         board: TileProp[][];
+        gameStarted: boolean;
         bombsPlaced: number;
         bombsFound: number;
         turnEnded: boolean;
@@ -38,6 +39,7 @@ export interface TileProp {
     updateBombCount: (paraps: {amount:number}) => void,
     userAddBomb: (args: { row: number ; col: number }) => void,
     startOnboarding: () => void,
+    setStartGame: () => void,
     swap: () => void,
     flip: (args: { row: number ; col: number }) => void,
     flag: (args: { row: number ; col: number }) => void,
