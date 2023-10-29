@@ -152,10 +152,10 @@ function App() {
           {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
           <motion.button
             whileHover={{ scale: 1.1 }}
-            className="helpButton"
+            className="button"
             onClick={() => setOpenHelp(true)}
           >
-            <b>Help</b>
+            <b>?</b>
           </motion.button>
         </div>
       </>
@@ -242,10 +242,10 @@ function App() {
           {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
           <motion.button
             whileHover={{ scale: 1.1 }}
-            className="helpButton"
+            className="button"
             onClick={() => setOpenHelp(true)}
           >
-            <b>Help</b>
+            <b>?</b>
           </motion.button>
         </div>
       </>

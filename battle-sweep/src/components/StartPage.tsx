@@ -8,7 +8,6 @@ import { GameState } from "../helper/Types";
 interface StartPageProps {
   game: GameState;
   closeStart: () => void;
-  // startGame: () => void;
 }
 const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
   const [openHelp, setOpenHelp] = useState(false);
@@ -21,21 +20,19 @@ const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
       <div>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          className="helpButton"
+          className="button"
           onClick={() => closeStart()}
         >
           <b>Start Game</b>
         </motion.button>
       </div>
-      <h2>Set Dragon Count</h2>
-      {/* <h2>Settings</h2> */}
       <div>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          className="helpButton"
+          className="button"
           onClick={() => setOpenSettings(true)}
         >
-          <b>Settings</b>
+          <b>Dragon Count</b>
         </motion.button>
       </div>
       <div>
@@ -43,14 +40,13 @@ const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
           <Config game={game} closePopup={() => setOpenSettings(false)} />
         )}
       </div>
-      <h2>Help</h2>
       <div>
         <motion.button
           whileHover={{ scale: 1.1 }}
-          className="helpButton"
+          className="button"
           onClick={() => setOpenHelp(true)}
         >
-          <b>Help</b>
+          <b>How-to Play</b>
         </motion.button>
       </div>
       <div>
