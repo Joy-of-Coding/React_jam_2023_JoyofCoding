@@ -8,7 +8,7 @@ import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 // import InPlay from "./components/InPlay.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
 
@@ -166,6 +166,35 @@ function App() {
       <>
         {playerIds.map((id) => (
           <React.Fragment key={id + "-player-view"}>
+            {yourPlayerId &&
+              id != yourPlayerId &&
+              game.playerState[yourPlayerId].turnEnded &&
+              !game.isGameOver && (
+                <div className="popup-container">
+                  <AnimatePresence>
+                    <motion.div
+                      transition={{ duration: 0.5 }}
+                      animate={{ x: 0 }}
+                      initial={{ x: 250 }}
+                      className="popup-body"
+                    >
+                      <h2>You've been taken by the crabs!</h2>
+                      <h3>Waiting for opponent</h3>
+                      <Timer game={game} />
+                      <Board
+                        onPress={() => null}
+                        onLongPress={() => null}
+                        display={
+                          !game.onboarding
+                            ? id !== yourPlayerId
+                            : id === yourPlayerId
+                        }
+                        board={game.playerState[`${id}`].board}
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              )}
             <Player
               players={players}
               // if current loop ID is me, show me
