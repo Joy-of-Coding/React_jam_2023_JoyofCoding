@@ -23,7 +23,7 @@ export const Config: React.FC<ConfigProps> = ({ closePopup, game }) => {
       <p>Total Bombs: {game?.setBombs} </p>
     </div> */}
     <div>
-    <label>Bomb Count: {game?.setBombs}  </label>
+    <label>Dragon Count: {game?.setBombs}  </label>
         <input 
         type="range" 
         min="2" 

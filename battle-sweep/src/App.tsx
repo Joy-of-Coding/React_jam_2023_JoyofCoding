@@ -126,9 +126,9 @@ function App() {
             />
             {id != yourPlayerId && (
               <>
-                <h3>Place Crabs on Opponent's Board</h3>
+                <h3>Hide Dragons on Opponent's Board</h3>
                 <Timer game={game} />
-                <p>Total Crabs: {game.setBombs} </p>
+                <p>Total Dragons: {game.setBombs} </p>
                 {yourPlayerId && (
                   <Controls
                     onboarding={game.onboarding}
@@ -178,7 +178,7 @@ function App() {
                       initial={{ x: 250 }}
                       className="popup-body"
                     >
-                      <h2>You've been taken by the crabs!</h2>
+                      <h2>You've been bitten by the dragons!</h2>
                       <h3>Waiting for opponent</h3>
                       <Timer game={game} />
                       <Board
@@ -215,8 +215,8 @@ function App() {
 
             {(id == yourPlayerId || !yourPlayerId) && (
               <>
-                <h3>Find and TRAP all Crabs!</h3>
-                <p>Total Crabs: {game.setBombs} </p>
+                <h3>Find, Trap, and TAME all Dragons!</h3>
+                <p>Total Dragons: {game.setBombs} </p>
                 <Timer game={game} />
                 {yourPlayerId && (
                   <Controls

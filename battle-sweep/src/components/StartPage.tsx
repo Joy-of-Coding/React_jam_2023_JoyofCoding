@@ -16,8 +16,8 @@ const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
 
   return (
     <div>
-      <h1>Capture the Crabs</h1>
-      <h2>Start Game</h2>
+      <h1>Dragon Tamer</h1>
+      {/* <h2>Start Game</h2> */}
       <div>
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -27,7 +27,8 @@ const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
           <b>Start Game</b>
         </motion.button>
       </div>
-      <h2>Settings</h2>
+      <h2>Set Dragon Count</h2>
+      {/* <h2>Settings</h2> */}
       <div>
         <motion.button
           whileHover={{ scale: 1.1 }}
