@@ -5,7 +5,7 @@
     grid-template-rows: repeat(9, 1fr);
     row-gap: 2px;
     column-gap: 2px;
-    background-image: url('../assets/FireTheme/board-red-lavarock1.JPG');
+    background-image: url('../assets/DragonTheme/board-stone2.JPG');
     background-position: center;
     background-size:cover;
     /*background-color: #2C4EA4;*/
@@ -18,6 +18,6 @@
     /*background-color: #f0f0f0; !* Light gray background color *!*/
     max-width: 350px; /* Adjust the max width as per your design */
     margin: 0 auto; /* Center the board */
-    padding: 16px; /* Add some padding around the board */
+    padding: 10px; /* Add some padding around the board */
     border-radius: 8px; /* Add some rounded corners to the board */
 }

@@ -2,8 +2,9 @@
 .isMarked {
     /* background-color: yellow;
     color: yellow; */
-    content-visibility: hidden;
-    background-image: url('../assets/Monsters/Cage/Cage_grey_standard_staying_3.png');
+    color: #0c1618;
+    text-size-adjust: -5;
+    background-image: url('../assets/DragonTheme/Cage_gold_frontdoor_closed_staying_3.png');
     background-size: contain;
 }
 
@@ -11,14 +12,14 @@
     /*background-color: #2C4EA4;*/
     border: solid 1.5px;
     border-color: #140602 #3a2201 #492104 #0a0101;
-    background-image: url('../assets/FireTheme/cell-red-stonetile2.JPG');
+    background-image: url('../assets/DragonTheme/tile-stone6.JPG');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 .hidden {
-  content-visibility: hidden;
-  background-image: url('../assets/FireTheme/flipped-tile1.JPG');
+  
+  background-image: url('../assets/DragonTheme/tile-stone9.JPG');
   border: solid 1.5px;
   border-color: #0d0d0e #2e2e2e #302f2f #010101;
 }
@@ -26,9 +27,9 @@
 .tile {
     aspect-ratio: 1 / 1;
     border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    padding: 2px;
+    width: 25px;
+    height: 25px;
+    padding: 3px;
 
     /*!*padding: 5px 6px; !* Increase the padding for a cleaner look *!*!*/
     /*border: none; !* Remove the border *!*/
@@ -76,8 +77,8 @@
   }
 
 .isBomb {
-    background-color: #9D0814;
-    background-image: url('../assets/Monsters/crabs/MagmaCrab.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+  background-color: #786c6b;
+  background-image: url('../assets/DragonTheme/GreatRedWyrmIdleSide.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
 }
