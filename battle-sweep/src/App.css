@@ -7,15 +7,14 @@
 
 body {
   margin: 0;
-  /*background-color: #405FAF;*/
-  background-image: url('./assets/DragonTheme/cave-7459830_1280.jpg');
+  background-image: url('./assets/DragonTheme/green-cave.jpg');
   /*background-size: contain;*/
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
   font-size: 1rem;
   flex-direction: column;
-  /*color: white;*/
+
 
 }
 
