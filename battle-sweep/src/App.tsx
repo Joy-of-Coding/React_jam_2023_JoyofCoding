@@ -130,11 +130,25 @@ function App() {
                 <Timer game={game} />
                 <p>Total Dragons: {game.setBombs} </p>
                 {yourPlayerId && (
-                  <Controls
-                    onboarding={game.onboarding}
-                    toggleFlag={toggleFlagState}
-                    useFlag={useFlag}
-                  />
+                  <div className="flex">
+                    <Controls
+                      onboarding={game.onboarding}
+                      toggleFlag={toggleFlagState}
+                      useFlag={useFlag}
+                    />
+                    <div>
+                      {openHelp && (
+                        <HelpPopup closePopup={() => setOpenHelp(false)} />
+                      )}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        className="button"
+                        onClick={() => setOpenHelp(true)}
+                      >
+                        <b>?</b>
+                      </motion.button>
+                    </div>
+                  </div>
                 )}
                 <Board
                   onPress={handleTilePress}
@@ -148,16 +162,6 @@ function App() {
             )}
           </React.Fragment>
         ))}
-        <div>
-          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="button"
-            onClick={() => setOpenHelp(true)}
-          >
-            <b>?</b>
-          </motion.button>
-        </div>
       </>
     );
   } else {
@@ -219,11 +223,25 @@ function App() {
                 <p>Total Dragons: {game.setBombs} </p>
                 <Timer game={game} />
                 {yourPlayerId && (
-                  <Controls
-                    onboarding={game.onboarding}
-                    toggleFlag={toggleFlagState}
-                    useFlag={useFlag}
-                  />
+                  <div className="flex">
+                    <Controls
+                      onboarding={game.onboarding}
+                      toggleFlag={toggleFlagState}
+                      useFlag={useFlag}
+                    />
+                    <div>
+                      {openHelp && (
+                        <HelpPopup closePopup={() => setOpenHelp(false)} />
+                      )}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        className="button"
+                        onClick={() => setOpenHelp(true)}
+                      >
+                        <b>?</b>
+                      </motion.button>
+                    </div>
+                  </div>
                 )}
                 <Board
                   key={id + "-board"}
@@ -238,16 +256,6 @@ function App() {
             )}
           </React.Fragment>
         ))}
-        <div>
-          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="button"
-            onClick={() => setOpenHelp(true)}
-          >
-            <b>?</b>
-          </motion.button>
-        </div>
       </>
     );
   }

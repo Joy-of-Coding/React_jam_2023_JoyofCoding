@@ -25,6 +25,14 @@ body {
   padding: 3px;
 }
 
+.flex {
+display: flex;
+align-items: center;
+margin: auto;
+max-width: 350px;
+justify-content: center;
+}
+
 .button {
   margin: 8px;
   background-color: #f85b1d;
