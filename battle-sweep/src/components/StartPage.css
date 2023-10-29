@@ -33,12 +33,12 @@
     border: none;
     border-radius: 10px;
     font-weight: bold;
-    background-color: #007bff; /* Change to your preferred button color */
-    color: blue;
+    background-color: #fff200; /* Change to your preferred button color */
+    color: rgb(0, 0, 0);
     cursor: pointer;
     transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 .start-page-button:hover {
-    background-color: #0056b3; /* Change to your preferred button hover color */
+    background-color: #b32700; /* Change to your preferred button hover color */
 }
