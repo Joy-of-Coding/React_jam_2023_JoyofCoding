@@ -6,7 +6,7 @@ import OpponentBoard from "./components/OpponentBoard";
 import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
-import InPlay from "./components/InPlay.tsx";
+// import InPlay from "./components/InPlay.tsx";
 import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
@@ -82,43 +82,71 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  if (game.openStartModal) {
+    return (
+      <StartPage
+        game={game}
+        closeStart={() => Rune.actions.startOnboarding()}
+      />
+    );
+  }
+
+  /*
+<InPlay
+        game={game}
+        playerId={yourPlayerId || ""}
+        onboarding={game.onboarding}
+      />
+
+*/
+
   return (
     <>
-      {game.openStartModal && (
-        <StartPage
-          game={game}
-          closeStart={() => Rune.actions.startOnboarding()}
-        />
-      )}
-      {!game.openStartModal && (
-        <>
-          <InPlay
-            game={game}
-            playerId={yourPlayerId || ""}
-            onboarding={game.onboarding}
-          />
-          {playerIds.map((id) => (
-            <React.Fragment key={id + "-player-view"}>
-              {!game.onboarding && (
-                <OpponentBoard
-                  key={id + "-opponentboard"}
-                  onPress={() => null}
-                  onLongPress={() => null}
-                  display={
-                    !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                  }
-                  board={game.playerState[`${id}`].board}
-                />
-              )}
+      {playerIds.map((id) => (
+        <React.Fragment key={id + "-player-view"}>
+          {game.onboarding ? (
+            <>
               <Player
-                key={id + "-player"}
+                players={players}
+                playerId={id != yourPlayerId ? yourPlayerId || id : ""}
+              />
+              <h3>
+                {game.onboarding ? "Opponent's Board" : "Clear the Board!"}
+              </h3>
+              <Board
+                onPress={handleTilePress}
+                onLongPress={handleLongTilePress}
                 display={
                   game.onboarding ? id !== yourPlayerId : id === yourPlayerId
                 }
-                players={players}
-                playerId={id}
-                game={game}
+                board={game.playerState[`${id}`].board}
               />
+            </>
+          ) : (
+            <div>getting here later</div>
+            /*
+          <>
+              <Player
+                players={players}
+                playerId={
+                  game.onboarding
+                    ? id != yourPlayerId
+                      ? yourPlayerId || ""
+                      : ""
+                    : yourPlayerId || ""
+                }
+              />
+              <OpponentBoard
+                onPress={() => null}
+                onLongPress={() => null}
+                display={
+                  !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+                }
+                board={game.playerState[`${id}`].board}
+              />
+              <h3>
+                {game.onboarding ? "Opponent's Board" : "Clear the Board!"}
+              </h3>
               <Board
                 key={id + "-board"}
                 onPress={handleTilePress}
@@ -128,41 +156,42 @@ function App() {
                 }
                 board={game.playerState[`${id}`].board}
               />
-            </React.Fragment>
-          ))}
-          <Timer game={game} />
-          <Controls
-            onboarding={game.onboarding}
-            toggleFlag={toggleFlagState}
-            useFlag={useFlag}
-          />
-          <div>
-            {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="helpButton"
-              onClick={() => setOpenHelp(true)}
-            >
-              <b>Info</b>
-            </motion.button>
-          </div>
-          <div>
-            {openSettings && (
-              <Config game={game} closePopup={() => setOpenSettings(false)} />
-            )}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              className="helpButton"
-              onClick={() => setOpenSettings(true)}
-            >
-              <b>Settings</b>
-            </motion.button>
-          </div>
-          <div>
-            <p>Total Bombs: {game.setBombs} </p>
-          </div>
-        </>
-      )}
+            </>
+            */
+          )}
+        </React.Fragment>
+      ))}
+      <Timer game={game} />
+      <Controls
+        onboarding={game.onboarding}
+        toggleFlag={toggleFlagState}
+        useFlag={useFlag}
+      />
+      <div>
+        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpenHelp(true)}
+        >
+          <b>Info</b>
+        </motion.button>
+      </div>
+      <div>
+        {openSettings && (
+          <Config game={game} closePopup={() => setOpenSettings(false)} />
+        )}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          className="helpButton"
+          onClick={() => setOpenSettings(true)}
+        >
+          <b>Settings</b>
+        </motion.button>
+      </div>
+      <div>
+        <p>Total Bombs: {game.setBombs} </p>
+      </div>
     </>
   );
 }

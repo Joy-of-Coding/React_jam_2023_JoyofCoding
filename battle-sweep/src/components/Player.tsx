@@ -1,5 +1,4 @@
 import "./Player.css";
-import { GameState } from "../helper/Types";
 
 interface PlayerProps {
   players: Record<
@@ -7,18 +6,19 @@ interface PlayerProps {
     { playerId: string; displayName: string; avatarUrl: string }
   >;
   playerId: string;
-  display: boolean;
-  game: GameState;
 }
 
-const Player = ({ players, playerId, display, game }: PlayerProps) => {
+const Player = ({ players, playerId }: PlayerProps) => {
   return (
     <div>
-      {display ? (
+      {players[playerId] ? (
         <>
-          <h3>Capture the Crabs</h3>
-          <img className="avatar" src={players[playerId].avatarUrl} alt="" />
-          <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
+          <img
+            className="avatar"
+            src={players[playerId].avatarUrl}
+            alt={players[playerId].displayName}
+          />
+          <h3>{players[playerId].displayName}</h3>
         </>
       ) : (
         ""
