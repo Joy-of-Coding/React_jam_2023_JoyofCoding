@@ -80,7 +80,6 @@ function App() {
 
   const checkStartGame = () => {
     if(game) {
-      console.log(playerIds.length);
       if(playerIds.length >= 2) {
         Rune.actions.setStartGame();
         game.playerIds.forEach((id) => {
