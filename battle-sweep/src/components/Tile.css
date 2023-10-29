@@ -4,7 +4,7 @@
     color: yellow; */
     color: #0c1618;
     text-size-adjust: -5;
-    background-image: url('../assets/Monsters/Cage/Cage_grey_standard_staying_3.png');
+    background-image: url('../assets/DragonTheme/Cage_gold_frontdoor_closed_staying_3.png');
     background-size: contain;
 }
 
@@ -78,7 +78,7 @@
 
 .isBomb {
   background-color: #786c6b;
-  background-image: url('../assets/DragonTheme/AdultRedDragonIdleSide.gif');
+  background-image: url('../assets/DragonTheme/GreatRedWyrmIdleSide.gif');
   background-size: contain;
   background-repeat: no-repeat;
 }
