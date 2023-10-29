@@ -9,28 +9,54 @@ declare global {
   const Rune: RuneClient<GameState, GameActions>
 }
 
-function endGame(game:GameState) {
+function endGame(players: {
+  [playerId: string]: "WON" | "LOST";
+}) {
   Rune.gameOver({
-    players: Object.keys(game.playerState).reduce(
-      (acc, playerId) => ({ ...acc, [playerId]: getScores(game, playerId) }),
-      {}
-    ),
+    players: players,
     delayPopUp: false,
   })
 } 
 
+function singlePlayerEndCheck(game: GameState, player:string) {
+  if (!game.playerState[player].turnEnded) return 
+  game.isGameOver = true
+  if (game.playerState[player]. bombsFound == game.setBombs) {
+    endGame({[player]: "WON"})
+  } else {
+    endGame({[player]: "LOST"})
+  }
+}
+
+function multiPlayerEndCheck(game:GameState, allPlayerIds:string[]) {
+  const [playerOne, playerTwo] = allPlayerIds
+  if (game.playerState[playerOne].bombsFound > game.playerState[playerTwo].bombsFound) {
+    if (game.playerState[playerTwo].turnEnded || game.playerState[playerOne].bombsFound == game.setBombs) {
+      game.isGameOver = true
+      endGame({[playerOne]: "WON", [playerTwo]: "LOST"})
+    }
+  } else if (game.playerState[playerTwo].bombsFound > game.playerState[playerOne].bombsFound) {
+    if (game.playerState[playerOne].turnEnded || game.playerState[playerTwo].bombsFound == game.setBombs) {
+      game.isGameOver = true
+      endGame({[playerTwo]: "WON", [playerOne]: "LOST"})
+    }
+  } else if (game.playerState[playerOne].bombsFound == game.playerState[playerTwo].bombsFound) {
+    if (game.playerState[playerOne].turnEnded && game.playerState[playerTwo].turnEnded ) {
+      const playerOneWin = game.playerState[playerOne].playerTurnTime > game.playerState[playerTwo].playerTurnTime
+      game.isGameOver = true
+      endGame({[playerOneWin ? playerOne : playerTwo]: "WON", [playerOneWin ? playerTwo : playerOne]: "LOST"})
+    }
+  }
+}
+
+
 function endGameCheck(game:GameState, allPlayerIds:string[]) {
-  let allPlayersDone = 0;
-  allPlayerIds.map((player) => {
-    if (game.playerState[player].turnEnded) {
-      allPlayersDone += 1
-    }
-  })
-  if (allPlayersDone == allPlayerIds.length && !game.isGameOver) {
-    game.isGameOver = true
-    if (game.baselineScore) {
-      endGame(game)
-    }
+
+  const numPlayers = allPlayerIds.length
+  if (numPlayers == 1 ) {
+    singlePlayerEndCheck(game, allPlayerIds[0])
+  } else {
+    multiPlayerEndCheck(game, allPlayerIds)
   }
 }
 
@@ -42,24 +68,6 @@ function getGameTime(game:GameState) {
 function endTurn(game: GameState, playerId:string) {
   game.playerState[playerId].turnEnded = true;
   game.playerState[playerId].playerTurnTime = getGameTime(game);
-}
-
-function getScores(game:GameState, player:string) {
-  let playerScore = game.baselineScore;
-  const totalBombs = game.setBombs;
-  const bombsFound = game.playerState[player].bombsFound;
-  // Lives represent bombs incorrectly triggered, totalbombs - lives
-  // add lives bonus as well
-  const bombsNotFound = totalBombs - bombsFound // - lives
-  playerScore += (bombsFound/totalBombs*game.baselineScore) - (bombsNotFound/totalBombs*game.baselineScore)
-  if (game.playerState[player].playerTurnTime > 0 && bombsFound == totalBombs) {
-    playerScore += game.playerState[player].playerTurnTime
-  } else {
-    const penalty = ((bombsNotFound/totalBombs*game.playTime) / 2)
-    playerScore = (playerScore - penalty) > 0 ? playerScore - penalty : 0
-  }
-
-  return playerScore
 }
 
 const flipHandler = (game:GameState, player: string, oldBoard:TileProp[][], row:number, col:number ) => {
@@ -236,7 +244,7 @@ Rune.initLogic({
         }
       })
       game.isGameOver = true
-      endGame(game)
+      endGameCheck(game, allPlayerIds)
     },
   }
   ,
