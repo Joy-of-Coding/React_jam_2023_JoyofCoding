@@ -2,3 +2,7 @@
     width: 15%;
     border-radius: 50%;
 }
+
+.user-name {
+    margin-block: 0;
+}

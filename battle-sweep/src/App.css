@@ -49,3 +49,42 @@ justify-content: center;
   box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.4); /* Add an inset shadow for the pressed-in effect */
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom:  8px;
+  max-width: 350px;
+  align-items: center;
+  background-color: #112023;
+  color: #FFFFFF;
+  font-weight: bold;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+
+
+}
+
+.opponent-board {
+  display: flex;
+  flex-grow: 1;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+
+}

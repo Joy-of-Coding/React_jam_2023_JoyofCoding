@@ -19,6 +19,7 @@ function App() {
   const playerIds = Object.keys(players);
   const [openHelp, setOpenHelp] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
+  const [opponentId, setOpponentId] = useState("");
   const timerRef = useRef<number>(0);
 
   useEffect(() => {
@@ -41,7 +42,14 @@ function App() {
     if (game?.onboarding && playerIds.length < 2) {
       Rune.actions.swap();
     }
-  }, [game, playerIds]);
+    if (playerIds.length == 2 && game) {
+      game.playerIds.forEach((id) => {
+        if (id !== yourPlayerId) {
+          setOpponentId(id);
+        }
+      });
+    }
+  }, [game, playerIds, yourPlayerId]);
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -199,24 +207,24 @@ function App() {
                   </AnimatePresence>
                 </div>
               )}
-            <Player
-              players={players}
-              // if current loop ID is me, show me
-              // if current loop ID is not me, but my ID is defined show nothing
-              // // if my ID is undefined (spectator) show everything
-              playerId={
-                id == yourPlayerId ? yourPlayerId : yourPlayerId ? "" : id
-              }
-            />
-            <OpponentBoard
-              onPress={() => null}
-              onLongPress={() => null}
-              display={
-                !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-              }
-              board={game.playerState[`${id}`].board}
-            />
-
+            <div className="header">
+              <Player
+                players={players}
+                // if current loop ID is me, show me
+                // if current loop ID is not me, but my ID is defined show nothing
+                // // if my ID is undefined (spectator) show everything
+                playerId={
+                  id == yourPlayerId ? yourPlayerId : yourPlayerId ? "" : id
+                }
+              />
+              {id == yourPlayerId && opponentId && (
+                <OpponentBoard
+                  onPress={() => null}
+                  onLongPress={() => null}
+                  board={game.playerState[`${opponentId}`].board}
+                />
+              )}
+            </div>
             {(id == yourPlayerId || !yourPlayerId) && (
               <>
                 <h3>Find, Trap, and TAME all Dragons!</h3>
