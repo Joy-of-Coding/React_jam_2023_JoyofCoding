@@ -18,7 +18,7 @@ const Player = ({ players, playerId, display, game }: PlayerProps) => {
         <>
           <h3>Capture the Crabs</h3>
           <img className="avatar" src={players[playerId].avatarUrl} alt="" />
-          <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
+          <h3>{game.onboarding ? "Opponent's Board" : "Find and TRAP all Crabs!"}</h3>
         </>
       ) : (
         ""
