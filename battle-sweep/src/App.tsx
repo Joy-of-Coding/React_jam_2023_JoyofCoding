@@ -7,7 +7,6 @@ import "./App.css";
 import Player from "./components/Player.tsx";
 import Controls from "./components/Controls.tsx";
 // import InPlay from "./components/InPlay.tsx";
-import { Config } from "./components/Config.tsx";
 import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion } from "framer-motion";
 import Timer from "./components/Timer.tsx";
@@ -19,7 +18,6 @@ function App() {
   const [yourPlayerId, setYourPlayerId] = useState<PlayerId>();
   const playerIds = Object.keys(players);
   const [openHelp, setOpenHelp] = useState(false);
-  const [openSettings, setOpenSettings] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
 
@@ -37,7 +35,6 @@ function App() {
     if (game?.isGameOver) {
       setUseFlag(false);
       setOpenHelp(false);
-      setOpenSettings(false);
       clearTimeout(timerRef.current || 0);
     }
 
@@ -114,7 +111,11 @@ function App() {
               // lastly if the current loop ID IS my ID show nothing - we want opponents avatar
               playerId={id != yourPlayerId ? yourPlayerId || id : ""}
             />
-            <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
+            <h3>
+              {game.onboarding
+                ? "Opponent's Board"
+                : "Find and TRAP all Crabs!"}
+            </h3>
             <Board
               onPress={handleTilePress}
               onLongPress={handleLongTilePress}
@@ -138,23 +139,11 @@ function App() {
             className="helpButton"
             onClick={() => setOpenHelp(true)}
           >
-            <b>Info</b>
+            <b>Help</b>
           </motion.button>
         </div>
         <div>
-          {openSettings && (
-            <Config game={game} closePopup={() => setOpenSettings(false)} />
-          )}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="helpButton"
-            onClick={() => setOpenSettings(true)}
-          >
-            <b>Settings</b>
-          </motion.button>
-        </div>
-        <div>
-          <p>Total Bombs: {game.setBombs} </p>
+          <p>Total Crabs: {game.setBombs} </p>
         </div>
       </>
     );
@@ -180,7 +169,11 @@ function App() {
               }
               board={game.playerState[`${id}`].board}
             />
-            <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
+            <h3>
+              {game.onboarding
+                ? "Opponent's Board"
+                : "Find and TRAP all Crabs!"}
+            </h3>
             <Board
               key={id + "-board"}
               onPress={handleTilePress}
@@ -205,23 +198,11 @@ function App() {
             className="helpButton"
             onClick={() => setOpenHelp(true)}
           >
-            <b>Info</b>
+            <b>Help</b>
           </motion.button>
         </div>
         <div>
-          {openSettings && (
-            <Config game={game} closePopup={() => setOpenSettings(false)} />
-          )}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="helpButton"
-            onClick={() => setOpenSettings(true)}
-          >
-            <b>Settings</b>
-          </motion.button>
-        </div>
-        <div>
-          <p>Total Bombs: {game.setBombs} </p>
+          <p>Total Crabs: {game.setBombs} </p>
         </div>
       </>
     );
