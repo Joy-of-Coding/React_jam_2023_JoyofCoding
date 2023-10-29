@@ -143,10 +143,10 @@ function App() {
               className="helpButton"
               onClick={() => setOpenHelp(true)}
             >
-              <b>Info</b>
+              <b>Help</b>
             </motion.button>
           </div>
-          <div>
+          {/* <div> 
             {openSettings && (
               <Config game={game} closePopup={() => setOpenSettings(false)} />
             )}
@@ -157,9 +157,9 @@ function App() {
             >
               <b>Settings</b>
             </motion.button>
-          </div>
+          </div> */}   {/* I removed this DIV because you can change the number of crabs here, but it doesn't actually changes the number of crabs in play */}
           <div>
-            <p>Total Bombs: {game.setBombs} </p>
+            <p>Total Crabs: {game.setBombs} </p>
           </div>
         </>
       )}
