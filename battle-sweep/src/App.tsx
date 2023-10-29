@@ -20,7 +20,7 @@ function App() {
   const [openHelp, setOpenHelp] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
   const timerRef = useRef<number>(0);
-
+  
   useEffect(() => {
     Rune.initClient({
       onChange: ({ game, players, yourPlayerId }) => {
@@ -75,6 +75,23 @@ function App() {
     setUseFlag(!useFlag);
   };
 
+  const checkStartGame = () => {
+    if(game) {
+      if(playerIds.length >= 2) {
+        Rune.actions.setStartGame();
+        game.playerIds.forEach((id) => {
+          if(id !== yourPlayerId) {
+            if(game.playerState[id].gameStarted === true) {
+              Rune.actions.startOnboarding();
+            }
+          }
+        })
+      } else {
+        Rune.actions.startOnboarding();
+      }
+    }
+  };
+
   if (!game) {
     return <div>Loading...</div>;
   }
@@ -83,7 +100,7 @@ function App() {
     return (
       <StartPage
         game={game}
-        closeStart={() => Rune.actions.startOnboarding()}
+        closeStart={checkStartGame}
       />
     );
   }

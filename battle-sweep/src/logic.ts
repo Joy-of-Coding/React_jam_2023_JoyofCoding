@@ -106,6 +106,7 @@ Rune.initLogic({
         ...acc,
         [playerId]: {
           board: createBoard(boardHeight, boardWidth),
+          gameStarted: false,
           bombsPlaced: 0,
           bombsFound: 0,
           turnEnded: false,
@@ -146,8 +147,11 @@ Rune.initLogic({
       })
     },
     updateBombCount: ({amount}, { game }) => {
-        return game.setBombs = amount;
-  },
+      return game.setBombs = amount;
+    },
+    setStartGame: (_,{ game, playerId }) => {
+      game.playerState[playerId].gameStarted = true;
+    },
     startOnboarding: (_,{ game }) => {
       game.openStartModal = false;
       game.onboarding = true;
@@ -272,6 +276,7 @@ Rune.initLogic({
       game.playerIds.push(playerId)
       game.playerState[playerId] = {
         board: createBoard(boardHeight, boardWidth),
+        gameStarted: false,
         bombsPlaced: 0,
         bombsFound: 0,
         turnEnded: false,
