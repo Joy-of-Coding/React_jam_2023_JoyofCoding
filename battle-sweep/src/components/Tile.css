@@ -11,14 +11,14 @@
     /*background-color: #2C4EA4;*/
     border: solid 1.5px;
     border-color: #140602 #3a2201 #492104 #0a0101;
-    background-image: url('../assets/DragonTheme/tile-stone4.JPG');
+    background-image: url('../assets/DragonTheme/tile-stone6.JPG');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 .hidden {
   
-  background-image: url('../assets/DragonTheme/tile-stone4.JPG');
+  background-image: url('../assets/DragonTheme/tile-stone9.JPG');
   border: solid 1.5px;
   border-color: #0d0d0e #2e2e2e #302f2f #010101;
 }
