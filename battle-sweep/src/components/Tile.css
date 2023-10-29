@@ -76,9 +76,7 @@
   }
 
 .isBomb {
-    /*background-color: #9D0814;*/
-    /*background-image: url('../assets/png/red-bomb.png');*/
-    /*background-image: url('../assets/png/Bomb-20.png');*/
+    background-color: #9D0814;
     background-image: url('../assets/Monsters/crabs/MagmaCrab.png');
     background-size: contain;
     background-repeat: no-repeat;
