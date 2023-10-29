@@ -1,6 +1,7 @@
 
 .isMarked {
-  background-color: #413231;
+  background-color: #0c1618;
+  color: #0c1618;
   background-image: url('../assets/Monsters/Cage/Cage_grey_standard_staying_3.png');
   background-size: contain;
     /* background-color: yellow;

@@ -2,7 +2,8 @@
 .isMarked {
     /* background-color: yellow;
     color: yellow; */
-    content-visibility: hidden;
+    color: #0c1618;
+    text-size-adjust: -5;
     background-image: url('../assets/Monsters/Cage/Cage_grey_standard_staying_3.png');
     background-size: contain;
 }
