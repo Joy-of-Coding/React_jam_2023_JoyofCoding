@@ -19,8 +19,8 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
       className="popup-body">
 
       <h2>Capture the Crabs</h2>
-          <p>Capture the Crabs is an exciting and strategic two-player game that combines the classic elements of Minesweeper and Battleship. In this game, players must strategically deploy <b>hidden crabs</b> on their opponent's grid while also skillfully navigating their own lava field.</p>
-          <h2>How To Play</h2>
+          {/* <p>Capture the Crabs is an exciting and strategic two-player game that combines the classic elements of Minesweeper and Battleship. In this game, players must strategically deploy <b>hidden crabs</b> on their opponent's grid while also skillfully navigating their own lava field.</p> */}
+          <h3>How To Play</h3>
           <p>
             <ul>
               <li><b>Setting up the lava field:</b> At the start of the game, strategically place a limited number of crabs in secret locations on the opposing player's grid.</li>
