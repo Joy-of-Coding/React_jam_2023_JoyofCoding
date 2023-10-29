@@ -99,101 +99,133 @@ function App() {
       />
 
 */
-
-  return (
-    <>
-      {playerIds.map((id) => (
-        <React.Fragment key={id + "-player-view"}>
-          {game.onboarding ? (
-            <>
-              <Player
-                players={players}
-                playerId={id != yourPlayerId ? yourPlayerId || id : ""}
-              />
-              <h3>
-                {game.onboarding ? "Opponent's Board" : "Clear the Board!"}
-              </h3>
-              <Board
-                onPress={handleTilePress}
-                onLongPress={handleLongTilePress}
-                display={
-                  game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                }
-                board={game.playerState[`${id}`].board}
-              />
-            </>
-          ) : (
-            <div>getting here later</div>
-            /*
-          <>
-              <Player
-                players={players}
-                playerId={
-                  game.onboarding
-                    ? id != yourPlayerId
-                      ? yourPlayerId || ""
-                      : ""
-                    : yourPlayerId || ""
-                }
-              />
-              <OpponentBoard
-                onPress={() => null}
-                onLongPress={() => null}
-                display={
-                  !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                }
-                board={game.playerState[`${id}`].board}
-              />
-              <h3>
-                {game.onboarding ? "Opponent's Board" : "Clear the Board!"}
-              </h3>
-              <Board
-                key={id + "-board"}
-                onPress={handleTilePress}
-                onLongPress={handleLongTilePress}
-                display={
-                  game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                }
-                board={game.playerState[`${id}`].board}
-              />
-            </>
-            */
+  if (game.onboarding) {
+    return (
+      <>
+        {playerIds.map((id) => (
+          <React.Fragment key={id + "-player-view"}>
+            <Player
+              players={players}
+              // explaining because this is confusing: (onboarding)
+              // if the current ID in loop does not match my ID as the client loading page
+              // // show my ID because it will associate my avatar in line with opponents board
+              // if my ID (yourPlayerId) doesn't exist as a client (spectator), then show the current loop ID
+              // // (aka show show component for every ID in loop)
+              // lastly if the current loop ID IS my ID show nothing - we want opponents avatar
+              playerId={id != yourPlayerId ? yourPlayerId || id : ""}
+            />
+            <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
+            <Board
+              onPress={handleTilePress}
+              onLongPress={handleLongTilePress}
+              display={
+                game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+              }
+              board={game.playerState[`${id}`].board}
+            />
+          </React.Fragment>
+        ))}
+        <Timer game={game} />
+        <Controls
+          onboarding={game.onboarding}
+          toggleFlag={toggleFlagState}
+          useFlag={useFlag}
+        />
+        <div>
+          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => setOpenHelp(true)}
+          >
+            <b>Info</b>
+          </motion.button>
+        </div>
+        <div>
+          {openSettings && (
+            <Config game={game} closePopup={() => setOpenSettings(false)} />
           )}
-        </React.Fragment>
-      ))}
-      <Timer game={game} />
-      <Controls
-        onboarding={game.onboarding}
-        toggleFlag={toggleFlagState}
-        useFlag={useFlag}
-      />
-      <div>
-        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => setOpenHelp(true)}
-        >
-          <b>Info</b>
-        </motion.button>
-      </div>
-      <div>
-        {openSettings && (
-          <Config game={game} closePopup={() => setOpenSettings(false)} />
-        )}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => setOpenSettings(true)}
-        >
-          <b>Settings</b>
-        </motion.button>
-      </div>
-      <div>
-        <p>Total Bombs: {game.setBombs} </p>
-      </div>
-    </>
-  );
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => setOpenSettings(true)}
+          >
+            <b>Settings</b>
+          </motion.button>
+        </div>
+        <div>
+          <p>Total Bombs: {game.setBombs} </p>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        {playerIds.map((id) => (
+          <React.Fragment key={id + "-player-view"}>
+            <Player
+              players={players}
+              // if current loop ID is me, show me
+              // if current loop ID is not me, but my ID is defined show nothing
+              // // if my ID is undefined (spectator) show everything
+              playerId={
+                id == yourPlayerId ? yourPlayerId : yourPlayerId ? "" : id
+              }
+            />
+            <OpponentBoard
+              onPress={() => null}
+              onLongPress={() => null}
+              display={
+                !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+              }
+              board={game.playerState[`${id}`].board}
+            />
+            <h3>{game.onboarding ? "Opponent's Board" : "Clear the Board!"}</h3>
+            <Board
+              key={id + "-board"}
+              onPress={handleTilePress}
+              onLongPress={handleLongTilePress}
+              display={
+                game.onboarding ? id !== yourPlayerId : id === yourPlayerId
+              }
+              board={game.playerState[`${id}`].board}
+            />
+          </React.Fragment>
+        ))}
+        <Timer game={game} />
+        <Controls
+          onboarding={game.onboarding}
+          toggleFlag={toggleFlagState}
+          useFlag={useFlag}
+        />
+        <div>
+          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => setOpenHelp(true)}
+          >
+            <b>Info</b>
+          </motion.button>
+        </div>
+        <div>
+          {openSettings && (
+            <Config game={game} closePopup={() => setOpenSettings(false)} />
+          )}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="helpButton"
+            onClick={() => setOpenSettings(true)}
+          >
+            <b>Settings</b>
+          </motion.button>
+        </div>
+        <div>
+          <p>Total Bombs: {game.setBombs} </p>
+        </div>
+      </>
+    );
+  }
 }
 
 export default App;
