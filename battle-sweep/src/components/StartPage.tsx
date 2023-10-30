@@ -8,8 +8,15 @@ import { GameState } from "../helper/Types";
 interface StartPageProps {
   game: GameState;
   closeStart: () => void;
+  numPlayers: number;
+  playersReady: number;
 }
-const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
+const StartPage: React.FC<StartPageProps> = ({
+  game,
+  closeStart,
+  numPlayers,
+  playersReady,
+}) => {
   const [openHelp, setOpenHelp] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
 
@@ -18,6 +25,9 @@ const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
       <div>
         <h1>Dragon Tamer</h1>
         <div>
+          <p className="players-ready">
+            {playersReady}/{numPlayers} players ready
+          </p>
           <motion.button
             whileHover={{ scale: 1.1 }}
             className="button"

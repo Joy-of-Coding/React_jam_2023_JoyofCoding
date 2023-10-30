@@ -15,6 +15,9 @@
     align-items: center;
 }
 
+.players-ready {
+    margin-block: 0px;
+}
 .start-page-content {
     width: 80%;
     max-width: 500px;
