@@ -14,7 +14,7 @@ import StartPage from "./components/StartPage.tsx";
 import pound from "./assets/Sounds/pound.mp3"
 import swish from "./assets/Sounds/swish.wav"
 import glitter from "./assets/Sounds/glitter.mp3"
-import ascend from "./assets/Sounds/ascend.mp3"
+import ascend from "./assets/Sounds/ascend-logic-9-4.mp3"
 import sprite from "./assets/DragonTheme/GreatRedWyrmIdleSide.gif"
 
 function App() {
@@ -42,23 +42,41 @@ function App() {
   }, []);
 
 
+  // useEffect(() => {
+  //   if (game) {
+  //     game.playerIds.forEach((playerId) => {
+  //       if (
+  //           playerId === yourPlayerId &&
+  //           game.playerState[playerId]?.turnEnded &&
+  //           !game.isGameOver &&
+  //           !playedAudioForPlayer[playerId as keyof typeof playedAudioForPlayer]
+  //       ) {
+  //         const popAudio = new Audio(ascend);
+  //         popAudio.play();
+  //         setPlayedAudioForPlayer((prevPlayedAudioForPlayer) => ({
+  //           ...prevPlayedAudioForPlayer,
+  //           [playerId]: true,
+  //         }));
+  //       }
+  //     });
+  //   }
+  // }, [yourPlayerId, game, playedAudioForPlayer]);
+
   useEffect(() => {
-    if (game) {
-      game.playerIds.forEach((playerId) => {
-        if (
-            playerId !== yourPlayerId &&
-            game.playerState[playerId].turnEnded &&
-            !game.isGameOver &&
-            !playedAudioForPlayer[playerId as keyof typeof playedAudioForPlayer]
-        ) {
-          const popAudio = new Audio(ascend);
-          popAudio.play();
-          setPlayedAudioForPlayer((prevPlayedAudioForPlayer) => ({
-            ...prevPlayedAudioForPlayer,
-            [playerId]: true,
-          }));
-        }
-      });
+    if (game && yourPlayerId) {
+      if (
+          game.playerState[yourPlayerId]?.turnEnded &&
+          !game.isGameOver &&
+          !playedAudioForPlayer[yourPlayerId as keyof typeof playedAudioForPlayer]
+      ) {
+
+        const popAudio = new Audio(ascend);
+        popAudio.play();
+        setPlayedAudioForPlayer((prevPlayedAudioForPlayer) => ({
+          ...prevPlayedAudioForPlayer,
+          [yourPlayerId]: true,
+        }));
+      }
     }
   }, [yourPlayerId, game, playedAudioForPlayer]);
 
