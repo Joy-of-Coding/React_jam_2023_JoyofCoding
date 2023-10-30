@@ -10,20 +10,20 @@ interface PlayerProps {
 
 const Player = ({ players, playerId }: PlayerProps) => {
   return (
-    <div>
+    <>
       {players[playerId] ? (
-        <>
+        <div>
           <img
             className="avatar"
             src={players[playerId].avatarUrl}
             alt={players[playerId].displayName}
           />
-          <h3>{players[playerId].displayName}</h3>
-        </>
+          <h3 className="user-name">{players[playerId].displayName}</h3>
+        </div>
       ) : (
         ""
       )}
-    </div>
+    </>
   );
 };
 

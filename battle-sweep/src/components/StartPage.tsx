@@ -8,53 +8,60 @@ import { GameState } from "../helper/Types";
 interface StartPageProps {
   game: GameState;
   closeStart: () => void;
-  // startGame: () => void;
+  numPlayers: number;
+  playersReady: number;
 }
-const StartPage: React.FC<StartPageProps> = ({ game, closeStart }) => {
+const StartPage: React.FC<StartPageProps> = ({
+  game,
+  closeStart,
+  numPlayers,
+  playersReady,
+}) => {
   const [openHelp, setOpenHelp] = useState(false);
   const [openSettings, setOpenSettings] = useState(false);
 
   return (
-    <div>
-      <h1>Dragon Tamer</h1>
-      {/* <h2>Start Game</h2> */}
+    <div className="popup-container">
       <div>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => closeStart()}
-        >
-          <b>Start Game</b>
-        </motion.button>
-      </div>
-      <h2>Set Dragon Count</h2>
-      {/* <h2>Settings</h2> */}
-      <div>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => setOpenSettings(true)}
-        >
-          <b>Settings</b>
-        </motion.button>
-      </div>
-      <div>
-        {openSettings && (
-          <Config game={game} closePopup={() => setOpenSettings(false)} />
-        )}
-      </div>
-      <h2>Help</h2>
-      <div>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          className="helpButton"
-          onClick={() => setOpenHelp(true)}
-        >
-          <b>Help</b>
-        </motion.button>
-      </div>
-      <div>
-        {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+        <h1>Dragon Tamer</h1>
+        <div>
+          <p className="players-ready">
+            {playersReady}/{numPlayers} players ready
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="button"
+            onClick={() => closeStart()}
+          >
+            <b>Start Game</b>
+          </motion.button>
+        </div>
+        <div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="button"
+            onClick={() => setOpenSettings(true)}
+          >
+            <b>Dragon Count</b>
+          </motion.button>
+        </div>
+        <div>
+          {openSettings && (
+            <Config game={game} closePopup={() => setOpenSettings(false)} />
+          )}
+        </div>
+        <div>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            className="button"
+            onClick={() => setOpenHelp(true)}
+          >
+            <b>How-to Play</b>
+          </motion.button>
+        </div>
+        <div>
+          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
+        </div>
       </div>
     </div>
   );

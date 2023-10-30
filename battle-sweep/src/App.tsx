@@ -19,7 +19,9 @@ function App() {
   const playerIds = Object.keys(players);
   const [openHelp, setOpenHelp] = useState(false);
   const [useFlag, setUseFlag] = useState(false);
+  const [opponentId, setOpponentId] = useState("");
   const timerRef = useRef<number>(0);
+  const [playersReady, setPlayersReady] = useState(0);
 
   useEffect(() => {
     Rune.initClient({
@@ -36,12 +38,28 @@ function App() {
       setUseFlag(false);
       setOpenHelp(false);
       clearTimeout(timerRef.current || 0);
+      setPlayersReady(0);
+      setOpponentId("");
     }
 
     if (game?.onboarding && playerIds.length < 2) {
       Rune.actions.swap();
     }
-  }, [game, playerIds]);
+    if (playerIds.length == 2 && game) {
+      game.playerIds.forEach((id) => {
+        if (id !== yourPlayerId) {
+          setOpponentId(id);
+        }
+      });
+    }
+    if (game && game.openStartModal) {
+      setPlayersReady(
+        () =>
+          playerIds.filter((player) => game.playerState[player].gameStarted)
+            .length
+      );
+    }
+  }, [game, playerIds, yourPlayerId, playersReady]);
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -97,7 +115,14 @@ function App() {
   }
 
   if (game.openStartModal) {
-    return <StartPage game={game} closeStart={checkStartGame} />;
+    return (
+      <StartPage
+        game={game}
+        closeStart={checkStartGame}
+        numPlayers={opponentId ? 2 : 1}
+        playersReady={playersReady}
+      />
+    );
   }
 
   /*
@@ -128,13 +153,31 @@ function App() {
               <>
                 <h3>Hide Dragons on Opponent's Board</h3>
                 <Timer game={game} />
-                <p>Total Dragons: {game.setBombs} </p>
+                {opponentId && (
+                  <p>
+                    Dragons placed: {game.playerState[opponentId].bombsPlaced}{" "}
+                  </p>
+                )}
                 {yourPlayerId && (
-                  <Controls
-                    onboarding={game.onboarding}
-                    toggleFlag={toggleFlagState}
-                    useFlag={useFlag}
-                  />
+                  <div className="flex">
+                    <Controls
+                      onboarding={game.onboarding}
+                      toggleFlag={toggleFlagState}
+                      useFlag={useFlag}
+                    />
+                    <div>
+                      {openHelp && (
+                        <HelpPopup closePopup={() => setOpenHelp(false)} />
+                      )}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        className="button"
+                        onClick={() => setOpenHelp(true)}
+                      >
+                        <b>?</b>
+                      </motion.button>
+                    </div>
+                  </div>
                 )}
                 <Board
                   onPress={handleTilePress}
@@ -148,16 +191,6 @@ function App() {
             )}
           </React.Fragment>
         ))}
-        <div>
-          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="helpButton"
-            onClick={() => setOpenHelp(true)}
-          >
-            <b>Help</b>
-          </motion.button>
-        </div>
       </>
     );
   } else {
@@ -195,35 +228,53 @@ function App() {
                   </AnimatePresence>
                 </div>
               )}
-            <Player
-              players={players}
-              // if current loop ID is me, show me
-              // if current loop ID is not me, but my ID is defined show nothing
-              // // if my ID is undefined (spectator) show everything
-              playerId={
-                id == yourPlayerId ? yourPlayerId : yourPlayerId ? "" : id
-              }
-            />
-            <OpponentBoard
-              onPress={() => null}
-              onLongPress={() => null}
-              display={
-                !game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-              }
-              board={game.playerState[`${id}`].board}
-            />
-
+            <div className="header">
+              <Player
+                players={players}
+                // if current loop ID is me, show me
+                // if current loop ID is not me, but my ID is defined show nothing
+                // // if my ID is undefined (spectator) show everything
+                playerId={
+                  id == yourPlayerId ? yourPlayerId : yourPlayerId ? "" : id
+                }
+              />
+              {id == yourPlayerId && opponentId && (
+                <OpponentBoard
+                  onPress={() => null}
+                  onLongPress={() => null}
+                  board={game.playerState[`${opponentId}`].board}
+                />
+              )}
+            </div>
             {(id == yourPlayerId || !yourPlayerId) && (
               <>
                 <h3>Find, Trap, and TAME all Dragons!</h3>
-                <p>Total Dragons: {game.setBombs} </p>
+                {yourPlayerId && (
+                  <p>
+                    Dragons Found: {game.playerState[yourPlayerId].bombsFound}{" "}
+                  </p>
+                )}
                 <Timer game={game} />
                 {yourPlayerId && (
-                  <Controls
-                    onboarding={game.onboarding}
-                    toggleFlag={toggleFlagState}
-                    useFlag={useFlag}
-                  />
+                  <div className="flex">
+                    <Controls
+                      onboarding={game.onboarding}
+                      toggleFlag={toggleFlagState}
+                      useFlag={useFlag}
+                    />
+                    <div>
+                      {openHelp && (
+                        <HelpPopup closePopup={() => setOpenHelp(false)} />
+                      )}
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        className="button"
+                        onClick={() => setOpenHelp(true)}
+                      >
+                        <b>?</b>
+                      </motion.button>
+                    </div>
+                  </div>
                 )}
                 <Board
                   key={id + "-board"}
@@ -238,16 +289,6 @@ function App() {
             )}
           </React.Fragment>
         ))}
-        <div>
-          {openHelp && <HelpPopup closePopup={() => setOpenHelp(false)} />}
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            className="helpButton"
-            onClick={() => setOpenHelp(true)}
-          >
-            <b>Help</b>
-          </motion.button>
-        </div>
       </>
     );
   }

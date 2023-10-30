@@ -1,25 +1,24 @@
 
 .isMarked {
-    /* background-color: yellow;
-    color: yellow; */
-    color: #0c1618;
-    text-size-adjust: -5;
-    background-image: url('../assets/DragonTheme/Cage_gold_frontdoor_closed_staying_3.png');
-    background-size: contain;
+  background-color: #0c1618;
+  color: #0c1618;
+  background-image: url('../assets/DragonTheme/Cage_gold_frontdoor_closed_staying_3.png');
+  background-size: contain;
 }
 
 .isFlipped {
-    /*background-color: #2C4EA4;*/
     border: solid 1.5px;
-    border-color: #140602 #3a2201 #492104 #0a0101;
+    border-color: #140602;
     background-image: url('../assets/DragonTheme/tile-stone6.JPG');
     background-size: contain;
     background-repeat: no-repeat;
 }
 
 .hidden {
-  
-  background-image: url('../assets/DragonTheme/tile-stone9.JPG');
+  align-content: center;
+  color: #0c1618;
+  background-image: url('../assets/DragonTheme/tile-stone71.JPG');
+  background-size: contain;
   border: solid 1.5px;
   border-color: #0d0d0e #2e2e2e #302f2f #010101;
 }
@@ -29,13 +28,7 @@
     border-radius: 4px;
     width: 25px;
     height: 25px;
-    padding: 3px;
-
-    /*!*padding: 5px 6px; !* Increase the padding for a cleaner look *!*!*/
-    /*border: none; !* Remove the border *!*/
-    /*background-color: #ffffff; !* White background for tiles *!*/
-    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); !* Add a subtle shadow *!*/
-    /*border-radius: 2px; !* Add some rounded corners to the tiles *!*/
+    padding: 5px 3px 2px 3px
 }
 
 .gradient-border {  
@@ -77,7 +70,7 @@
   }
 
 .isBomb {
-  background-color: #786c6b;
+  background-color: #2d4d54;
   background-image: url('../assets/DragonTheme/GreatRedWyrmIdleSide.gif');
   background-size: contain;
   background-repeat: no-repeat;
