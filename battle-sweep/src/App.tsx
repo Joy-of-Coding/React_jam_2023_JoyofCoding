@@ -14,6 +14,8 @@ import StartPage from "./components/StartPage.tsx";
 import pound from "./assets/Sounds/pound.mp3"
 import swish from "./assets/Sounds/swish.wav"
 import glitter from "./assets/Sounds/glitter.wav"
+import pop from "./assets/Sounds/pop.wav"
+import click from "./assets/Sounds/click.wav"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -73,7 +75,7 @@ function App() {
     }
     if (useFlag) {
       //find different sound here
-      const popAudio = new Audio(swish)
+      const popAudio = new Audio(pop)
       popAudio.play()
       Rune.actions.flag({ row, col });
     } else {
@@ -89,10 +91,10 @@ function App() {
     }
     clearTimeout(timerRef.current || 0);
     timerRef.current = 0;
-
+    const popAudio = new Audio(glitter)
+    popAudio.play()
     timerRef.current = setTimeout(() => {
-      const popAudio = new Audio(glitter)
-      popAudio.play()
+
       Rune.actions.revealReset();
       clearTimeout(timerRef.current || 0);
       timerRef.current = 0;
@@ -102,6 +104,8 @@ function App() {
   };
 
   const toggleFlagState = () => {
+    const popAudio = new Audio(click)
+    popAudio.play()
     setUseFlag(!useFlag);
   };
 
