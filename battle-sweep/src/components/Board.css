@@ -1,9 +1,4 @@
 
-.board-container {
-    height: 300px; /* Set the desired height for your game board */
-    overflow-y: auto; /* Enable vertical scrolling when content overflows */
-}
-
 .board {
     display: grid;
     grid-template-columns: repeat(9, 1fr);

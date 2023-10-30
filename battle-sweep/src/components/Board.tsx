@@ -14,7 +14,7 @@ interface BoardProps {
 function Board({ board, display, onPress, onLongPress }: BoardProps) {
   if (display) {
     return (
-      <>
+      // <>
         <div className="board-container">
           <div className="board">
             {board.map((row) =>
@@ -29,7 +29,7 @@ function Board({ board, display, onPress, onLongPress }: BoardProps) {
             )}
           </div>
         </div>
-      </>
+      // </>
     );
   }
 }
