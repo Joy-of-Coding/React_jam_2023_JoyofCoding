@@ -16,6 +16,16 @@ body {
   flex-direction: column;
 }
 
+.sprite-count {
+  margin-right: 8px;
+}
+
+.control-wrapper {
+  background-image: url('src/assets/DragonTheme/board-stone2.JPG');
+  background-position: center;
+  background-size: auto;
+}
+
 .flag {
   display: inline-block;
   background-size: contain;

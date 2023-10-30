@@ -54,8 +54,9 @@ function App() {
         }
       });
     }
-    if (playerIds.length > 1) {
+    if (playerIds.length == 1) {
       setNumPlayers(() => playerIds.length);
+      setOpponentId("");
     } else {
       setNumPlayers(() => playerIds.length);
     }
@@ -160,40 +161,46 @@ function App() {
               <>
                 <h3>Hide Dragons on Opponent's Board</h3>
                 <Timer game={game} />
-                {opponentId && (
-                  <p>
-                    Dragons placed: {game.playerState[opponentId].bombsPlaced}{" "}
-                  </p>
-                )}
-                {yourPlayerId && (
-                  <div className="flex">
-                    <Controls
-                      onboarding={game.onboarding}
-                      toggleFlag={toggleFlagState}
-                      useFlag={useFlag}
-                    />
-                    <div>
-                      {openHelp && (
-                        <HelpPopup closePopup={() => setOpenHelp(false)} />
+                <div className="control-wrapper">
+                  {yourPlayerId && (
+                    <div className="flex">
+                      {opponentId && (
+                        <p className="sprite-count">
+                          <img src="src/assets/DragonTheme/GreatRedWyrmIdleSide.gif" />{" "}
+                          {game.playerState[opponentId].bombsPlaced}/
+                          {game.setBombs}
+                        </p>
                       )}
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        className="button"
-                        onClick={() => setOpenHelp(true)}
-                      >
-                        <b>?</b>
-                      </motion.button>
+                      <Controls
+                        onboarding={game.onboarding}
+                        toggleFlag={toggleFlagState}
+                        useFlag={useFlag}
+                      />
+                      <div>
+                        {openHelp && (
+                          <HelpPopup closePopup={() => setOpenHelp(false)} />
+                        )}
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          className="button"
+                          onClick={() => setOpenHelp(true)}
+                        >
+                          <b>?</b>
+                        </motion.button>
+                      </div>
                     </div>
-                  </div>
-                )}
-                <Board
-                  onPress={handleTilePress}
-                  onLongPress={handleLongTilePress}
-                  display={
-                    game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                  }
-                  board={game.playerState[`${id}`].board}
-                />
+                  )}
+                  <Board
+                    onPress={handleTilePress}
+                    onLongPress={handleLongTilePress}
+                    display={
+                      game.onboarding
+                        ? id !== yourPlayerId
+                        : id === yourPlayerId
+                    }
+                    board={game.playerState[`${id}`].board}
+                  />
+                </div>
               </>
             )}
           </React.Fragment>
@@ -256,42 +263,46 @@ function App() {
             {(id == yourPlayerId || !yourPlayerId) && (
               <>
                 <h3>Find, Trap, and TAME all Dragons!</h3>
-                {yourPlayerId && (
-                  <p>
-                    Dragons Found: {game.playerState[yourPlayerId].bombsFound}{" "}
-                  </p>
-                )}
                 <Timer game={game} />
-                {yourPlayerId && (
-                  <div className="flex">
-                    <Controls
-                      onboarding={game.onboarding}
-                      toggleFlag={toggleFlagState}
-                      useFlag={useFlag}
-                    />
-                    <div>
-                      {openHelp && (
-                        <HelpPopup closePopup={() => setOpenHelp(false)} />
-                      )}
-                      <motion.button
-                        whileHover={{ scale: 1.1 }}
-                        className="button"
-                        onClick={() => setOpenHelp(true)}
-                      >
-                        <b>?</b>
-                      </motion.button>
+                <div className="control-wrapper">
+                  {yourPlayerId && (
+                    <div className="flex">
+                      <p className="sprite-count">
+                        <img src="src/assets/DragonTheme/GreatRedWyrmIdleSide.gif" />{" "}
+                        {game.playerState[yourPlayerId].bombsFound}/
+                        {game.setBombs}
+                      </p>
+                      <Controls
+                        onboarding={game.onboarding}
+                        toggleFlag={toggleFlagState}
+                        useFlag={useFlag}
+                      />
+                      <div>
+                        {openHelp && (
+                          <HelpPopup closePopup={() => setOpenHelp(false)} />
+                        )}
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          className="button"
+                          onClick={() => setOpenHelp(true)}
+                        >
+                          <b>?</b>
+                        </motion.button>
+                      </div>
                     </div>
-                  </div>
-                )}
-                <Board
-                  key={id + "-board"}
-                  onPress={handleTilePress}
-                  onLongPress={handleLongTilePress}
-                  display={
-                    game.onboarding ? id !== yourPlayerId : id === yourPlayerId
-                  }
-                  board={game.playerState[`${id}`].board}
-                />
+                  )}
+                  <Board
+                    key={id + "-board"}
+                    onPress={handleTilePress}
+                    onLongPress={handleLongTilePress}
+                    display={
+                      game.onboarding
+                        ? id !== yourPlayerId
+                        : id === yourPlayerId
+                    }
+                    board={game.playerState[`${id}`].board}
+                  />
+                </div>
               </>
             )}
           </React.Fragment>
