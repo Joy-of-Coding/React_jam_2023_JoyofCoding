@@ -12,6 +12,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
 import pound from "./assets/Sounds/pound.mp3"
+import swish from "./assets/Sounds/swish.wav"
+import glitter from "./assets/Sounds/glitter.wav"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -64,14 +66,19 @@ function App() {
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
-      const popAudio = new Audio(pound)
+      const popAudio = new Audio(swish)
       popAudio.play()
       Rune.actions.userAddBomb({ row, col });
       return;
     }
     if (useFlag) {
+      //find different sound here
+      const popAudio = new Audio(swish)
+      popAudio.play()
       Rune.actions.flag({ row, col });
     } else {
+      const popAudio = new Audio(pound)
+      popAudio.play()
       Rune.actions.flip({ row, col });
     }
   };
@@ -84,6 +91,8 @@ function App() {
     timerRef.current = 0;
 
     timerRef.current = setTimeout(() => {
+      const popAudio = new Audio(glitter)
+      popAudio.play()
       Rune.actions.revealReset();
       clearTimeout(timerRef.current || 0);
       timerRef.current = 0;
