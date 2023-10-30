@@ -1,89 +1,17 @@
 
-.isMarked {
-  background-color: #413231;
-  background-image: url('../assets/Monsters/Cage/Cage_grey_standard_staying_3.png');
-  background-size: contain;
-  content-visibility: hidden;
-    /* background-color: yellow;
-    color: yellow; */
-}
-
 .isFlippedSmall {
     font-size: 5px;
     border: solid 1.5px;
     border-color: #140602 #3a2201 #492104 #0a0101;
-    background-image: url('../assets/FireTheme/cell-red-stonetile2.JPG');
+    background-image: url('../assets/DragonTheme/tile-stone6.JPG');
     background-size: contain;
     background-repeat: no-repeat;
-}
-
-.hidden {
-  content-visibility: hidden;
-  background-image: url('../assets/FireTheme/flipped-tile1.JPG');
-  border: solid 1.5px;
-  border-color: #0d0d0e #2e2e2e #302f2f #010101;
 }
 
 .opponenttile {
     aspect-ratio: 1 / 1;
-    border-radius: 2px;
-    width: 7px;
-    height: 7px;
-    padding: 0.7px;
-
-    /*!*padding: 5px 6px; !* Increase the padding for a cleaner look *!*!*/
-    /*border: none; !* Remove the border *!*/
-    /*background-color: #ffffff; !* White background for tiles *!*/
-    /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); !* Add a subtle shadow *!*/
-    /*border-radius: 2px; !* Add some rounded corners to the tiles *!*/
-}
-
-.gradient-border {  
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-    &::after {
-      position: absolute;
-      content: "";
-      top: calc(-1 * 2px);
-      left: calc(-1 * 2px);
-      z-index: -1;
-      width: calc(100% + 2px * 2);
-      height: calc(100% + 2px * 2);
-      background: linear-gradient(
-        60deg,
-        hsl(224, 85%, 66%),
-        hsl(269, 85%, 66%),
-        hsl(314, 85%, 66%),
-        hsl(359, 85%, 66%),
-        hsl(44, 85%, 66%),
-        hsl(89, 85%, 66%),
-        hsl(134, 85%, 66%),
-        hsl(179, 85%, 66%)
-      );
-      background-size: 300% 300%;
-      background-position: 0 50%;
-      border-radius: calc(2 * 2px);
-      animation: moveGradient 4s alternate infinite;
-    }
-  }
-  
-  @keyframes moveGradient {
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-.isBomb {
-    background-color: #940e02;
-    /*background-image: url('../assets/png/red-bomb.png');*/
-    /*background-image: url('../assets/png/Bomb-20.png');*/
-    /* background-image: url('../assets/png/explode.png');
-    background-size: contain;
-    background-repeat: no-repeat; */
-    background-image: url('../assets/Monsters/crabs/MagmaCrab.png');
-    background-size: contain;
-    background-repeat: no-repeat;
+    border-radius: 1px;
+    width: 5px;
+    height: 5px;
+    padding: 0.5px;
 }

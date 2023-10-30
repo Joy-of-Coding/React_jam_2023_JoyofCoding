@@ -11,7 +11,7 @@ const Controls = ({ onboarding, toggleFlag, useFlag }: ControlsProps) => {
     return (
       <>
         <button className="button" onClick={() => Rune.actions.addBombs()}>
-          Add Crabs
+          Randomize
         </button>
         <button className="button" onClick={() => Rune.actions.swap()}>
           Ready!
