@@ -15,6 +15,7 @@ function Board({ board, display, onPress, onLongPress }: BoardProps) {
   if (display) {
     return (
       <>
+        
         <div className="board">
           {board.map((row) =>
             row.map((tile, index) => (
@@ -27,6 +28,7 @@ function Board({ board, display, onPress, onLongPress }: BoardProps) {
             ))
           )}
         </div>
+      
       </>
     );
   }

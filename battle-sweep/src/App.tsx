@@ -202,7 +202,7 @@ function App() {
   if (game.onboarding) {
     ///////////// Onboarding /////////////////
     return (
-      <>
+      <div className="app-container">
         {playerIds.map((id) => (
           <React.Fragment key={id + "-player-view"}>
             <Player
@@ -263,12 +263,12 @@ function App() {
             )}
           </React.Fragment>
         ))}
-      </>
+      </div>
     );
   } else {
     ///////////// Game Play  /////////////////
     return (
-      <>
+      <div className="app-container">
         {playerIds.map((id) => (
           <React.Fragment key={id + "-player-view"}>
             {yourPlayerId &&
@@ -365,7 +365,7 @@ function App() {
             )}
           </React.Fragment>
         ))}
-      </>
+      </div>
     );
   }
 }
