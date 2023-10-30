@@ -27,7 +27,8 @@ function App() {
   const [opponentId, setOpponentId] = useState("");
   const timerRef = useRef<number>(0);
   const [playersReady, setPlayersReady] = useState(0);
-  
+  const [playedAudioForPlayer, setPlayedAudioForPlayer] = useState({});
+
 
   useEffect(() => {
     Rune.initClient({
@@ -42,14 +43,23 @@ function App() {
   useEffect(() => {
     if (game) {
       game.playerIds.forEach((playerId) => {
-        if (playerId !== yourPlayerId && game.playerState[playerId].turnEnded && !game.isGameOver) {
-          console.log("Gameover")
+        if (
+            playerId !== yourPlayerId &&
+            game.playerState[playerId].turnEnded &&
+            !game.isGameOver &&
+            !playedAudioForPlayer[playerId]
+        ) {
+          console.log("Game over");
           const popAudio = new Audio(ascend);
           popAudio.play();
+          setPlayedAudioForPlayer((prevPlayedAudioForPlayer) => ({
+            ...prevPlayedAudioForPlayer,
+            [playerId]: true,
+          }));
         }
-      })
-    };
-  }, [yourPlayerId, game?.playerIds, game?.playerState, game?.isGameOver]);
+      });
+    }
+  }, [yourPlayerId, game, playedAudioForPlayer]);
 
 
 
