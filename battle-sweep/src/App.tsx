@@ -50,7 +50,6 @@ function App() {
             !game.isGameOver &&
             !playedAudioForPlayer[playerId as keyof typeof playedAudioForPlayer]
         ) {
-          console.log("Game over");
           const popAudio = new Audio(ascend);
           popAudio.play();
           setPlayedAudioForPlayer((prevPlayedAudioForPlayer) => ({
