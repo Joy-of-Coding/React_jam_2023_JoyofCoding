@@ -14,22 +14,22 @@ interface BoardProps {
 function Board({ board, display, onPress, onLongPress }: BoardProps) {
   if (display) {
     return (
-      // <>
-        <div className="board-container">
-          <div className="board">
-            {board.map((row) =>
-              row.map((tile, index) => (
-                <Tile
-                  key={index}
-                  onPress={onPress}
-                  onLongPress={onLongPress}
-                  {...tile}
-                />
-              ))
-            )}
-          </div>
+      <>
+        
+        <div className="board">
+          {board.map((row) =>
+            row.map((tile, index) => (
+              <Tile
+                key={index}
+                onPress={onPress}
+                onLongPress={onLongPress}
+                {...tile}
+              />
+            ))
+          )}
         </div>
-      // </>
+      
+      </>
     );
   }
 }
