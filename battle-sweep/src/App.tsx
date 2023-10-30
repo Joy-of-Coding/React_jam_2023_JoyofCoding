@@ -11,6 +11,10 @@ import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion, AnimatePresence } from "framer-motion";
 import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
+import pound from "./assets/Sounds/pound.mp3"
+import swish from "./assets/Sounds/swish.wav"
+import glitter from "./assets/Sounds/glitter.mp3"
+import ascend from "./assets/Sounds/ascend.mp3"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -22,6 +26,8 @@ function App() {
   const [opponentId, setOpponentId] = useState("");
   const timerRef = useRef<number>(0);
   const [playersReady, setPlayersReady] = useState(0);
+  const [playedAudioForPlayer, setPlayedAudioForPlayer] = useState({});
+
   const [numPlayers, setNumPlayers] = useState(0);
 
   useEffect(() => {
@@ -33,6 +39,30 @@ function App() {
       },
     });
   }, []);
+
+
+  useEffect(() => {
+    if (game) {
+      game.playerIds.forEach((playerId) => {
+        if (
+            playerId !== yourPlayerId &&
+            game.playerState[playerId].turnEnded &&
+            !game.isGameOver &&
+            !playedAudioForPlayer[playerId as keyof typeof playedAudioForPlayer]
+        ) {
+          console.log("Game over");
+          const popAudio = new Audio(ascend);
+          popAudio.play();
+          setPlayedAudioForPlayer((prevPlayedAudioForPlayer) => ({
+            ...prevPlayedAudioForPlayer,
+            [playerId]: true,
+          }));
+        }
+      });
+    }
+  }, [yourPlayerId, game, playedAudioForPlayer]);
+
+
 
   useEffect(() => {
     if (game?.isGameOver) {
@@ -71,12 +101,19 @@ function App() {
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
+      const popAudio = new Audio(swish)
+      popAudio.play()
       Rune.actions.userAddBomb({ row, col });
       return;
     }
     if (useFlag) {
+      //find different sound here
+      const popAudio = new Audio(swish)
+      popAudio.play()
       Rune.actions.flag({ row, col });
     } else {
+      const popAudio = new Audio(pound)
+      popAudio.play()
       Rune.actions.flip({ row, col });
     }
   };
@@ -87,7 +124,8 @@ function App() {
     }
     clearTimeout(timerRef.current || 0);
     timerRef.current = 0;
-
+    const popAudio = new Audio(glitter)
+    popAudio.play()
     timerRef.current = setTimeout(() => {
       Rune.actions.revealReset();
       clearTimeout(timerRef.current || 0);
@@ -98,6 +136,8 @@ function App() {
   };
 
   const toggleFlagState = () => {
+    const popAudio = new Audio(swish)
+    popAudio.play()
     setUseFlag(!useFlag);
   };
 

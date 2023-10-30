@@ -2,6 +2,7 @@
 import { TileProp } from "../helper/Types";
 import Tile from "./Tile";
 import "./Board.css";
+import pounding from "../assets/Sounds/pounding.mp3"
 
 interface BoardProps {
   board: TileProp[][];

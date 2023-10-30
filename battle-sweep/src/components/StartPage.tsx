@@ -4,6 +4,8 @@ import "./StartPage.css";
 import HelpPopup from "./HelpPopup";
 import Config from "./Config";
 import { GameState } from "../helper/Types";
+import swish from "../assets/Sounds/swish.wav"
+
 //
 interface StartPageProps {
   game: GameState;
@@ -31,7 +33,11 @@ const StartPage: React.FC<StartPageProps> = ({
           <motion.button
             whileHover={{ scale: 1.1 }}
             className="button"
-            onClick={() => closeStart()}
+            onClick={() => {
+              closeStart()
+              const popAudio = new Audio(swish);
+              popAudio.play();
+            }}
           >
             <b>Start Game</b>
           </motion.button>
