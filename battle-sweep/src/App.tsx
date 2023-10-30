@@ -13,9 +13,8 @@ import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
 import pound from "./assets/Sounds/pound.mp3"
 import swish from "./assets/Sounds/swish.wav"
-import glitter from "./assets/Sounds/glitter.wav"
-import pop from "./assets/Sounds/pop.wav"
-import ascend from "./assets/Sounds/ascend.wav"
+import glitter from "./assets/Sounds/glitter.mp3"
+import ascend from "./assets/Sounds/ascend.mp3"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -40,6 +39,7 @@ function App() {
     });
   }, []);
 
+
   useEffect(() => {
     if (game) {
       game.playerIds.forEach((playerId) => {
@@ -47,7 +47,7 @@ function App() {
             playerId !== yourPlayerId &&
             game.playerState[playerId].turnEnded &&
             !game.isGameOver &&
-            !playedAudioForPlayer[playerId]
+            !playedAudioForPlayer[playerId as keyof typeof playedAudioForPlayer]
         ) {
           console.log("Game over");
           const popAudio = new Audio(ascend);
@@ -100,7 +100,7 @@ function App() {
     }
     if (useFlag) {
       //find different sound here
-      const popAudio = new Audio(pop)
+      const popAudio = new Audio(swish)
       popAudio.play()
       Rune.actions.flag({ row, col });
     } else {
@@ -129,7 +129,7 @@ function App() {
   };
 
   const toggleFlagState = () => {
-    const popAudio = new Audio(pop)
+    const popAudio = new Audio(swish)
     popAudio.play()
     setUseFlag(!useFlag);
   };
