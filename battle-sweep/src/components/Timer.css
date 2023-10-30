@@ -2,9 +2,16 @@
 .timer-red-bold {
     font-weight: bold;
     color: red;
-    background-color: darkblue;
+    background-color: #f2ad00;
     animation: pulse 1s infinite;
 }
+/*
+.timer{
+    color: #f2ad00;
+    background-color: black;
+    font-weight: 500;
+}
+*/
 
 @keyframes pulse {
     0% {
