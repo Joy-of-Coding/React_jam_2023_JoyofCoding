@@ -15,6 +15,7 @@ import pound from "./assets/Sounds/pound.mp3"
 import swish from "./assets/Sounds/swish.wav"
 import glitter from "./assets/Sounds/glitter.mp3"
 import ascend from "./assets/Sounds/ascend.mp3"
+import sprite from "./assets/DragonTheme/GreatRedWyrmIdleSide.gif"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -205,7 +206,7 @@ function App() {
                     <div className="flex">
                       {opponentId && (
                         <p className="sprite-count">
-                          <img src="src/assets/DragonTheme/GreatRedWyrmIdleSide.gif" />{" "}
+                          <img src={sprite} />{" "}
                           {game.playerState[opponentId].bombsPlaced}/
                           {game.setBombs}
                         </p>
@@ -307,7 +308,7 @@ function App() {
                   {yourPlayerId && (
                     <div className="flex">
                       <p className="sprite-count">
-                        <img src="src/assets/DragonTheme/GreatRedWyrmIdleSide.gif" />{" "}
+                        <img src={sprite} />{" "}
                         {game.playerState[yourPlayerId].bombsFound}/
                         {game.setBombs}
                       </p>
