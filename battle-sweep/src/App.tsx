@@ -15,7 +15,7 @@ import pound from "./assets/Sounds/pound.mp3"
 import swish from "./assets/Sounds/swish.wav"
 import glitter from "./assets/Sounds/glitter.wav"
 import pop from "./assets/Sounds/pop.wav"
-import click from "./assets/Sounds/click.wav"
+import ascend from "./assets/Sounds/ascend.wav"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -27,6 +27,7 @@ function App() {
   const [opponentId, setOpponentId] = useState("");
   const timerRef = useRef<number>(0);
   const [playersReady, setPlayersReady] = useState(0);
+  
 
   useEffect(() => {
     Rune.initClient({
@@ -37,6 +38,20 @@ function App() {
       },
     });
   }, []);
+
+  useEffect(() => {
+    if (game) {
+      game.playerIds.forEach((playerId) => {
+        if (playerId !== yourPlayerId && game.playerState[playerId].turnEnded && !game.isGameOver) {
+          console.log("Gameover")
+          const popAudio = new Audio(ascend);
+          popAudio.play();
+        }
+      })
+    };
+  }, [yourPlayerId, game?.playerIds, game?.playerState, game?.isGameOver]);
+
+
 
   useEffect(() => {
     if (game?.isGameOver) {
@@ -104,7 +119,7 @@ function App() {
   };
 
   const toggleFlagState = () => {
-    const popAudio = new Audio(click)
+    const popAudio = new Audio(pop)
     popAudio.play()
     setUseFlag(!useFlag);
   };
