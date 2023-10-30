@@ -22,6 +22,7 @@ function App() {
   const [opponentId, setOpponentId] = useState("");
   const timerRef = useRef<number>(0);
   const [playersReady, setPlayersReady] = useState(0);
+  const [numPlayers, setNumPlayers] = useState(0);
 
   useEffect(() => {
     Rune.initClient({
@@ -40,6 +41,7 @@ function App() {
       clearTimeout(timerRef.current || 0);
       setPlayersReady(0);
       setOpponentId("");
+      setNumPlayers(0);
     }
 
     if (game?.onboarding && playerIds.length < 2) {
@@ -51,6 +53,11 @@ function App() {
           setOpponentId(id);
         }
       });
+    }
+    if (playerIds.length > 1) {
+      setNumPlayers(() => playerIds.length);
+    } else {
+      setNumPlayers(() => playerIds.length);
     }
     if (game && game.openStartModal) {
       setPlayersReady(
@@ -119,7 +126,7 @@ function App() {
       <StartPage
         game={game}
         closeStart={checkStartGame}
-        numPlayers={opponentId ? 2 : 1}
+        numPlayers={numPlayers}
         playersReady={playersReady}
       />
     );
