@@ -52,7 +52,14 @@ function App() {
         }
       });
     }
-  }, [game, playerIds, yourPlayerId]);
+    if (game && game.openStartModal) {
+      setPlayersReady(
+        () =>
+          playerIds.filter((player) => game.playerState[player].gameStarted)
+            .length
+      );
+    }
+  }, [game, playerIds, yourPlayerId, playersReady]);
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
@@ -90,7 +97,6 @@ function App() {
     if (game) {
       if (playerIds.length >= 2) {
         Rune.actions.setStartGame();
-        setPlayersReady((playersReady) => playersReady + 1);
         game.playerIds.forEach((id) => {
           if (id !== yourPlayerId) {
             if (game.playerState[id].gameStarted === true) {
