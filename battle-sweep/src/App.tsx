@@ -136,7 +136,11 @@ function App() {
               <>
                 <h3>Hide Dragons on Opponent's Board</h3>
                 <Timer game={game} />
-                <p>Total Dragons: {game.setBombs} </p>
+                {opponentId && (
+                  <p>
+                    Dragons placed: {game.playerState[opponentId].bombsPlaced}{" "}
+                  </p>
+                )}
                 {yourPlayerId && (
                   <div className="flex">
                     <Controls
@@ -228,7 +232,11 @@ function App() {
             {(id == yourPlayerId || !yourPlayerId) && (
               <>
                 <h3>Find, Trap, and TAME all Dragons!</h3>
-                <p>Total Dragons: {game.setBombs} </p>
+                {yourPlayerId && (
+                  <p>
+                    Dragons Found: {game.playerState[yourPlayerId].bombsFound}{" "}
+                  </p>
+                )}
                 <Timer game={game} />
                 {yourPlayerId && (
                   <div className="flex">
