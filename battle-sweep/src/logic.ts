@@ -291,7 +291,19 @@ Rune.initLogic({
         playerTurnTime: 0,
       }
    },
-    playerLeft:(playerId, {game}) => {
+    playerLeft:(playerId, {game, allPlayerIds}) => {
+
+      let players = {};
+      allPlayerIds.forEach((id) => {
+        if (id != playerId) {
+          players = {...players, [id]: "WON"}
+        } else {
+          players = {...players, [id]: "LOST"}
+        }
+      });
+      game.isGameOver = true;
+      endGame(players)
+
       delete game.playerState[playerId]
     },
   },
