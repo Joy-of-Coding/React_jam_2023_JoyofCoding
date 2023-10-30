@@ -11,6 +11,7 @@ import { HelpPopup } from "./components/HelpPopup.tsx";
 import { motion, AnimatePresence } from "framer-motion";
 import Timer from "./components/Timer.tsx";
 import StartPage from "./components/StartPage.tsx";
+import pound from "./assets/Sounds/pound.mp3"
 
 function App() {
   const [game, setGame] = useState<GameState>();
@@ -63,6 +64,8 @@ function App() {
 
   const handleTilePress = (row: number, col: number) => {
     if (game?.onboarding) {
+      const popAudio = new Audio(pound)
+      popAudio.play()
       Rune.actions.userAddBomb({ row, col });
       return;
     }
