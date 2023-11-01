@@ -24,7 +24,7 @@ const Controls = ({ onboarding, toggleFlag, useFlag }: ControlsProps) => {
         className={`button ${useFlag ? "flagged" : ""}`}
         onClick={() => toggleFlag()}
       >
-        Trap
+      {useFlag ? "Trap Mode ⛓️" : "Find Mode 🔎"}
       </button>
     );
   }

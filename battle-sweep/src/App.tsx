@@ -278,9 +278,9 @@ function App() {
                 <div className="popup-container">
                   <AnimatePresence>
                     <motion.div
-                      transition={{ duration: 0.5 }}
+                      transition={{ duration: 2.5 }}
                       animate={{ x: 0 }}
-                      initial={{ x: 250 }}
+                      initial={{ x: 500 }}
                       className="popup-body"
                     >
                       <h2>You've been bitten by the dragons!</h2>
@@ -310,7 +310,7 @@ function App() {
                   id == yourPlayerId ? yourPlayerId : yourPlayerId ? "" : id
                 }
               />
-              {id == yourPlayerId && opponentId && (
+              {(id == yourPlayerId && opponentId) && (
                 <OpponentBoard
                   onPress={() => null}
                   onLongPress={() => null}
