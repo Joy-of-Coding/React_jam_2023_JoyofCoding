@@ -118,7 +118,33 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
 
             </div> {/* end bottom section container */ }
+            <div className='bottom-section'>
+            <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
+                    {numPlayers > 5 ? (
 
+                        <Player playerId={playerIds[5]} players={players} game={game} playerNum={6}  />
+
+                    ) : (
+                               <div className='player-flex player-4-name'>  
+                                   Waiting for player 6
+                               </div>
+                           )}
+            </motion.div>
+
+            <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
+
+            {numPlayers > 4 ? (
+
+                <Player playerId={playerIds[4]} players={players} game={game} playerNum={5} />
+
+            ) : (
+                <div className=" player-flex player-3-name ">
+                    <b>Waiting for player 5</b>
+                </div>
+            )}
+
+            </motion.div>
+            </div>
         </div> // full container
     );
 }
