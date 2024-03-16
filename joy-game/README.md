@@ -61,4 +61,7 @@ Then start the develpment build and run it on your local web browser using:
 
 `npm run dev`
 
-Follow the provided link using control+click or command+click to open the project locally
+Follow the provided link using control+click or command+click to open the project locally 
+
+UPDATE March 2024
+* Rune updated their system to allow for 6 players instead of 4 players - we need to account for more than 4 players
