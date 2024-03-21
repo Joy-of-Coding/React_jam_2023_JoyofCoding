@@ -117,6 +117,8 @@
     font-weight: 500;
     padding: 20px;
     background-color: rgba(153, 205, 50, 0.863);
+    background-image: url("../assets/pngs/diceQuantitiesImgs/dice-png-27640.png");
+    background-size: contain;
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
     border-radius: 10px;
     border: none;

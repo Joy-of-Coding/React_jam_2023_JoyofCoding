@@ -10,6 +10,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   /* background-image: url("../assets/pngs/diceQuantitiesImgs/dice-png-27640.png"); */
 }
 
 .handleEndTurn-button{

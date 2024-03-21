@@ -74,6 +74,24 @@
     height: 100%;
 }
 
+.player-5-name{
+
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    color: white;
+    background-color: #3D9970;
+    border-radius: 10px;
+    height: 100%;
+
+}
+
+.player-6-name{
+    background-color: #0074D9;
+    color: white;
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+    height: 100%;
+}
+
 .avatar{
 
     width: 60%;

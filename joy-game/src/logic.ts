@@ -121,7 +121,7 @@ declare global {
 
 Rune.initLogic({
   minPlayers: 1,
-  maxPlayers: 5,
+  maxPlayers: 6,
   setup: (playerIds): GameState => {
     const diceCount = Object.fromEntries(
         playerIds.map((playerId) => [
