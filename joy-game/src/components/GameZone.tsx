@@ -40,7 +40,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <div className='top-section'>
 
-                    <motion.div className="players" transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}} >
+                    <motion.div className="players" transition={{ duration: 2 }} animate={{x:0}} initial={{x:-150}} >
                     {numPlayers > 0 ? (
                         
                             
@@ -48,7 +48,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                         ) : (
                             <div className='player-1-name  player-flex'>
-                                Waiting for player 1
+                                Waiting on player 1
                             </div>
                         )}
                     </motion.div>
@@ -60,14 +60,14 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     </div>       
                     
                         
-                    <motion.div className="players"  transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}} >
+                    <motion.div className="players"  transition={{ duration: 2 }} animate={{x:0}} initial={{x:150}} >
                         {numPlayers > 1 ? (
 
                             <Player playerId={playerIds[1]} players={players} game={game} playerNum={2} />
 
                         ) : (
                             <div className='player-2-name player-flex'>
-                                Waiting for player 2
+                                Waiting on player 2
                             </div>
                         )}
                     </motion.div>
@@ -86,14 +86,14 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
              
             <div className='bottom-section'>
 
-                    <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
-                    {numPlayers > 3 ? (
+                    <motion.div className="players"   transition={{ duration: 2 }} animate={{x:0}} initial={{x:-150}}>
+                    {numPlayers > 5 ? (
 
-                        <Player playerId={playerIds[3]} players={players} game={game} playerNum={4}  />
+                        <Player playerId={playerIds[5]} players={players} game={game} playerNum={6}  />
 
                     ) : (
-                               <div className='player-flex player-4-name'>
-                                   Waiting for player 4
+                               <div className='player-flex player-6-name'>
+                                   Waiting on player 6
                                </div>
                            )}
                     </motion.div>
@@ -102,7 +102,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
                     <Controls game={game} players={players} yourPlayerId={yourPlayerId} />
 
 
-                    <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
+                    <motion.div className="players"   transition={{ duration: 2 }} animate={{x:0}} initial={{x:150}}>
 
                     {numPlayers > 2 ? (
 
@@ -110,7 +110,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                     ) : (
                         <div className=" player-flex player-3-name ">
-                            <b>Waiting for player 3</b>
+                            <b>Waiting on player 3</b>
                         </div>
                     )}
 
@@ -119,29 +119,29 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
             </div> {/* end bottom section container */ }
             <div className='bottom-section'>
-            <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:-150}}>
-                    {numPlayers > 5 ? (
+            <motion.div className="players"   transition={{ duration: 2 }} animate={{x:0}} initial={{x:-150}}>
+                    {numPlayers > 4 ? (
 
-                        <Player playerId={playerIds[5]} players={players} game={game} playerNum={6}  />
+                        <Player playerId={playerIds[4]} players={players} game={game} playerNum={5}  />
 
-                    ) : numPlayers > 3 ? (
-                               <div className='player-flex player-6-name'>  
-                                   Waiting for player 6
+                    ) : numPlayers > 0 ? (
+                               <div className='player-flex player-5-name'>  
+                                   Waiting on player 5
                                </div>
                            ) : (<div></div>)}
             </motion.div>
 
             <div className='placeholder'></div>
 
-            <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
+            <motion.div className="players"   transition={{ duration: 2 }} animate={{x:0}} initial={{x:150}}>
 
-            {numPlayers > 4 ? (
+            {numPlayers > 3 ? (
 
-                <Player playerId={playerIds[4]} players={players} game={game} playerNum={5} />
+                <Player playerId={playerIds[3]} players={players} game={game} playerNum={4} />
 
-            ) : numPlayers > 3 ? (
-                <div className=" player-flex player-5-name ">
-                    <b>Waiting for player 5</b>
+            ) : numPlayers > 0 ? (
+                <div className=" player-flex player-4-name ">
+                    <b>Waiting on player 4</b>
                 </div>
             ): (<div></div>)}
 
