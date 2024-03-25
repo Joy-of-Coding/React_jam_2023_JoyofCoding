@@ -56,7 +56,7 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                      <div>
                         {open && <HelpPopup closePopup={() => setOpen(false)} />}
-                        <motion.button  whileHover={{ scale: 1.1 }} className="helpButton" onClick={() => setOpen(true)}><b>Info</b></motion.button>
+                        <motion.button  whileHover={{ scale: 1.1 }} className="helpButton" onClick={() => setOpen(true)}><h1>?</h1></motion.button>
                     </div>       
                     
                         
