@@ -61,8 +61,21 @@ const Controls: React.FC<ControlProps> = ({
                         {game.playerToRoll && <div>
                             {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                 <div>
-                                    <motion.button className='handleRoll-button button-green' whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}>Roll</motion.button>
+                                    <motion.button className='handleRoll-button button-green' animate={{
+                              
+                            //   rotate: [0, 0, -50, 30, 0],
+                              scale:[1,1.5,1,1.3,1,1.1,1]
+                             
+                            }} 
+                            transition={{
+                                duration: 2.5,
+                                ease: "easeInOut",
+                                times: [0, 0.2, 0.5, 0.8, 1],
+                                repeat: Infinity,
+                                repeatDelay: 1
+                              }}
+                              whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleRollDice()}}></motion.button>
                                 </div>
                             }
                         </div>}
@@ -71,7 +84,20 @@ const Controls: React.FC<ControlProps> = ({
                         {game.playerPlaying && <div>
                             {(game.currentPlayerIndex===Object.keys(players).indexOf(yourPlayerId)) &&
                                 <div>
-                                    <motion.button className=' handleEndTurn-button button-red' whileHover={{ scale: 1.1 }}
+                                    <motion.button className=' handleEndTurn-button button-red' animate={{
+                              
+                                //rotate: [0, 0, -10, 5, 0],
+                                scale:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1.5,1,1.3,1,1.1,1]
+                               
+                              }} 
+                              transition={{
+                                  duration: 20,
+                                  ease: "easeInOut",
+                                  times: [0, 0.2, 0.5, 0.8, 1],
+                                  repeat: Infinity,
+                                  repeatDelay: 30
+                                }} 
+                                whileHover={{ scale: 1.1 }}
                                                    whileTap={{ scale: 0.9 }} onClick={()=>{handleEndTurn()}}>End Turn</motion.button>
                                 </div>
                             }

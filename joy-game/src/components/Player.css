@@ -51,7 +51,7 @@
   
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
      color: white;
-    background-color:#4542b1;
+    background-color:#5753c9;
     border-radius: 10px;
     height: 100%;
 }
@@ -60,7 +60,7 @@
 
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
     color: white;
-    background-color: #3D9970;
+    background-color: #0e9156;
     border-radius: 10px;
     height: 100%;
 
@@ -74,9 +74,27 @@
     height: 100%;
 }
 
+.player-5-name{
+
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    color: white;
+    background-color: #5aad0d;
+    border-radius: 10px;
+    height: 100%;
+
+}
+
+.player-6-name{
+    background-color: #d90077;
+    color: white;
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+    height: 100%;
+}
+
 .avatar{
 
-    width: 60%;
+    width: 30%;
     border-radius: 50%;
     
 }
@@ -92,7 +110,7 @@
 
 .dice-counter{
 
-    width: 100%;
+    width: 50%;
 }
 
 

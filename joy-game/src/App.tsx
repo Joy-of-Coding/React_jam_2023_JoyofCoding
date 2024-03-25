@@ -17,13 +17,18 @@ function App() {
 
   useEffect(() => {
     Rune.initClient({
-          onChange: ({ newGame, players, yourPlayerId,  }) => {
-              setGame(newGame)
-              setPlayers(players)
-              setYourPlayerId(yourPlayerId)
-              // if (action && action.action === "popBalloons") {
-              //   popSound.play()
-              // }
+      onChange: ({ game, players, yourPlayerId,  }) => {
+        setGame(game)
+        setPlayers(players)
+        setYourPlayerId(yourPlayerId)
+          // PRIOR ONCHANGE BEFORE RUNE UPDATE:
+          // onChange: ({ newGame, players, yourPlayerId,  }) => {
+          //     setGame(newGame)
+          //     setPlayers(players)
+          //     setYourPlayerId(yourPlayerId)
+          //    // if (action && action.action === "popBalloons") {
+          //    //   popSound.play()
+          //    // }
 
           },
         }

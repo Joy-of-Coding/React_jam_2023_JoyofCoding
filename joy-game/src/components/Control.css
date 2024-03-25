@@ -10,6 +10,7 @@
    display: flex;
    align-items: center;
    justify-content: center;
+   /* background-image: url("../assets/pngs/diceQuantitiesImgs/dice-png-27640.png"); */
 }
 
 .handleEndTurn-button{
@@ -17,7 +18,7 @@
     width: 70px;
     height: 70px;
     padding: 20px;
-    border-radius: 50%;
+    border-radius: 10%;
     color: white;
     font-size: 1.2rem;
     font-weight: bolder;
