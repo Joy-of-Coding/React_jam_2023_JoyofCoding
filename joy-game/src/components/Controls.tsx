@@ -9,7 +9,7 @@ import "./Control.css"
 interface ControlProps {
     game: GameState,
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
-    yourPlayerId: string
+    yourPlayerId: string | undefined
 }
 const Controls: React.FC<ControlProps> = ({
       game: game,
@@ -20,6 +20,7 @@ const Controls: React.FC<ControlProps> = ({
        // window.navigator.vibrate([50,50,50,50,50,50]);
        // console.log('Rolling')
         // const nextIndex = (game.currentPlayerIndex + 1) % Object.keys(players).length;
+        if (yourPlayerId === undefined ) return //to handle spectators not having buttons
         const numDice = game.diceCount[yourPlayerId]
         Rune.actions.rollDice({  numDice: numDice})
         //Check for challenge & resolution
@@ -105,7 +106,7 @@ const Controls: React.FC<ControlProps> = ({
 
                     </>
                 ) : (
-                    <>I am a spectator, so I don't have count</>
+                    <>I am a spectator, so I don't have buttons</>
                 )}</div>
 
         </div>
