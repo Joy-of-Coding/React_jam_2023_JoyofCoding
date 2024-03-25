@@ -124,12 +124,14 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                         <Player playerId={playerIds[5]} players={players} game={game} playerNum={6}  />
 
-                    ) : (
-                               <div className='player-flex player-4-name'>  
+                    ) : numPlayers > 3 ? (
+                               <div className='player-flex player-6-name'>  
                                    Waiting for player 6
                                </div>
-                           )}
+                           ) : (<div></div>)}
             </motion.div>
+
+            <div className='placeholder'></div>
 
             <motion.div className="players"   transition={{ duration: 1 }} animate={{x:0}} initial={{x:150}}>
 
@@ -137,11 +139,11 @@ const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPl
 
                 <Player playerId={playerIds[4]} players={players} game={game} playerNum={5} />
 
-            ) : (
-                <div className=" player-flex player-3-name ">
+            ) : numPlayers > 3 ? (
+                <div className=" player-flex player-5-name ">
                     <b>Waiting for player 5</b>
                 </div>
-            )}
+            ): (<div></div>)}
 
             </motion.div>
             </div>

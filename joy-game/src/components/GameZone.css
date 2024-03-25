@@ -86,7 +86,14 @@
 
 }
 
-
+.bottom-section{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
 
 
 
@@ -122,6 +129,14 @@
     box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
     border-radius: 10px;
     border: none;
+}
+
+.placeholder {
+    size:200px;
+    background-size: contain;
+    background-color: rgba(234, 97, 97, 0.986);
+    box-shadow: 7px 10px 6px 5px rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
 }
 /*End Player Turn button colors for visual clarity*/
 
