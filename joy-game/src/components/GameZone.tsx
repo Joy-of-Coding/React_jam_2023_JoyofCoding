@@ -21,8 +21,6 @@ interface GameZoneProps {
 const GameZone: React.FC<GameZoneProps> = ({game: game, players: players, yourPlayerId: yourPlayerId})=> {
     const [open, setOpen] = useState(false);
 
-    if(!yourPlayerId) return <div>loading</div>
-
     const playerIds = Object.keys(players)
     const numPlayers = playerIds.length
 
