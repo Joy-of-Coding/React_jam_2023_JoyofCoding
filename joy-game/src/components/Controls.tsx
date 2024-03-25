@@ -87,11 +87,11 @@ const Controls: React.FC<ControlProps> = ({
                                     <motion.button className=' handleEndTurn-button button-red' animate={{
                               
                                 //rotate: [0, 0, -10, 5, 0],
-                                scale:[1,1,1,1,1,1,1.5,1,1.3,1,1.1,1]
+                                scale:[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1.5,1,1.3,1,1.1,1]
                                
                               }} 
                               transition={{
-                                  duration: 10,
+                                  duration: 20,
                                   ease: "easeInOut",
                                   times: [0, 0.2, 0.5, 0.8, 1],
                                   repeat: Infinity,
