@@ -63,7 +63,7 @@ export const Credits: React.FC<Credits> = ({ closePopup }) => {
 
 
 
-            <motion.button  whileHover={{ scale: 1.1 }} onClick={closePopup}>Close</motion.button>
+            <motion.button  whileHover={{ scale: 1.1 }} onClick={closePopup}>Close (X)</motion.button>
 
         </div>
       
