@@ -109,7 +109,9 @@
 
 
 .dice-counter{
-
+    background-image: url("src/assets/pngs/diceQuantitiesImgs/dice-png-41782.png");
+    background-size: contain;
+    background-repeat: no-repeat;
     width: 50%;
 }
 
