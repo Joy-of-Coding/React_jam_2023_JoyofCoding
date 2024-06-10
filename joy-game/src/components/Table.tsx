@@ -6,7 +6,7 @@ import { GameState } from "../logic.ts";
 import pop from  "../assets/sounds/pop.mp3"
 import "./Table.css"
 import { motion } from "framer-motion";
-
+import getCurrentPlayerName from "./Player.tsx"
 import {useState} from "react";
 import SelectPlayer from "./SelectPlayer.tsx";
 import cake from "../assets/sounds/cake/nom_c_06-89142.mp3";
@@ -70,10 +70,22 @@ const Table: React.FC<TableProps> = ({ game, playerId, playerIds, yourPlayerId, 
 
 
 
+  function getCurrentPlayerName(): import("react").ReactNode {
+    throw new Error("Function not implemented.");
+  }
+
     return (
 
 
         <div className='middle-section'>
+
+{game.currentPlayerIndex !== undefined && (
+    <div className="turn-indicator">
+      {/* Call the getCurrentPlayerName function to get the display name of the current player */}
+      It's {getCurrentPlayerName()}'s turn!      
+    </div>
+  )}
+
           <div  className='dice-container'>
 
               {(showSelectPlayer && playerIds.length>1) &&
