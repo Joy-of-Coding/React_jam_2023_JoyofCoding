@@ -23,6 +23,11 @@ export const HelpPopup: React.FC<HelpPopupProps> = ({ closePopup }) => {
 
       <h2>Share the Joy!</h2>
         <Content />
+        {/* <Image URL={("src/assets/joygame instructions.png")}></Image> */}
+        <div className="container">
+        <img src="src/assets/joygame instructions 2.png" alt="HowToWin"></img>
+        <img src="src/assets/joygame instructions 3.png" alt="HowToPlay"></img>
+        </div>
 
         <div>
           {open && <Credits closePopup={() => setOpen(false)} />}

@@ -11,15 +11,23 @@ interface PlayerProps {
   playerId: string;
   game: GameState;
   playerNum: number;
+  definedPlayerIds: string[];
 }
 
-const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum }) => {
+const Player: React.FC<PlayerProps> = ({ game, players, playerId, playerNum, definedPlayerIds }) => {
     const handlePlayerClick = (playerId: string) => {
-
-        //console.log("clicked Player ",playerId )
+        console.log("Current Player is ", getCurrentPlayerName)
+        console.log("clicked Player ", playerId )
         Rune.actions.setSelectedPlayerId({playerId})
 
     }
+    const getCurrentPlayerName = () => {
+      const currentPlayerIndex = definedPlayerIds.indexOf(playerId);
+      if (currentPlayerIndex !== -1) {  // Check if playerId is in the array of defined players
+        return players[definedPlayerIds[currentPlayerIndex]].displayName;
+      }
+      return ''; // Default return value if playerId is not found
+    };
 
 
 
