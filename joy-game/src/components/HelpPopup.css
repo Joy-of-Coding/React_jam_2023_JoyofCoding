@@ -1,61 +1,74 @@
-
-
-
 .popup-container {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Darken the background with alpha transparency */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .popup-body {
-    width: 80%;
-    max-width: 500px;
-    text-align: center;
-    color: white; /* Set the text color to white */
-    padding: 20px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.8); /* Semi-transparent dark background for the popup body */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
-  }
-
-
-  .popup-body button{
-    padding: 10px;
-    margin: 5px;
-    width: 100px;
-    border: none;
-    border-radius: 10px;
-    font-weight: bolder;
-  }
-
-
-.h1 {
-  color: yellow
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+.popup-body {
+  width: 80%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.35);
+}
 
+.popup-content {
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
 
-  @media only screen and (max-width: 480px) {
-  
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.popup-body button {
+  padding: 10px;
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+/* Scrollbar styles */
+.popup-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.popup-content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.popup-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+@media only screen and (max-width: 480px) {
+  .popup-body {
+    width: 90%;
+    padding: 15px;
   }
-  
-  @media only screen and (max-width: 768px) {
-    
-  }
-  
-  @media only screen and (max-width: 1024px) {
-    
-  }
-  
-  @media only screen and (max-width: 600px) {
-    
-  }
+}
