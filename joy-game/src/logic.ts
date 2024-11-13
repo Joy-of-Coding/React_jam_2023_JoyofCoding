@@ -58,6 +58,7 @@ export interface GameState {
   playerPlaying: boolean,
   gameOver: boolean,
   showHelp: boolean,
+  spectators: string[],
   selectedDieIndex: number;
 }
 
@@ -121,7 +122,7 @@ declare global {
 
 Rune.initLogic({
   minPlayers: 1,
-  maxPlayers: 4,
+  maxPlayers: 3,
   setup: (playerIds): GameState => {
     const diceCount = Object.fromEntries(
         playerIds.map((playerId) => [
@@ -149,6 +150,7 @@ Rune.initLogic({
       playerPlaying: false,
       gameOver: false,
       showHelp: false,
+      spectators: [],
       selectedDieIndex: -1
     }
   },
