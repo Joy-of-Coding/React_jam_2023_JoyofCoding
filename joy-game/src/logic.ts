@@ -374,3 +374,33 @@ Rune.initLogic({
     },
   }
 })
+
+// Add this in to alter the cake to give 3 flat to one player instead of one to everyone
+// shareCake: ({playerId, selectedPlayerId, dieIndex}, {game}) => {
+//   if (playerId === undefined){
+//     playerId = "spectator"
+//   } else if (game.diceCount[playerId] === undefined) {
+//     throw Rune.invalidAction();
+//   }
+
+//   // Give 3 dice to the selected player
+//   if (game.diceCount[selectedPlayerId] !== undefined) {
+//     game.diceCount[selectedPlayerId] += 3;
+    
+//     // Visual notification
+//     game.lastAction = {
+//       type: 'cake',
+//       from: playerId,
+//       to: selectedPlayerId,
+//       amount: 3
+//     };
+//   }
+
+//   game.diceCount[playerId] += -1;
+//   game.gameDice.splice(dieIndex, 1);
+
+//   // Clear notification after 2 seconds
+//   setTimeout(() => {
+//     game.lastAction = null;
+//   }, 2000);
+// }
