@@ -110,7 +110,9 @@ type GameActions = {
   // }) => boolean,
   // eslint-disable-next-line @typescript-eslint/ban-types
   setPreviousPlayer: (params:
-  {playerIndex: number}) => void
+  {playerIndex: number}) => void,
+  toggleSpectator: (params: 
+    {playerId: string | undefined } ) => void,
 }
 
 
@@ -332,6 +334,22 @@ Rune.initLogic({
     },
     setPreviousPlayer: ({playerIndex}, {game})=> {
       game.previousPlayerIndex = playerIndex
+    },
+    toggleSpectator: ({ playerId }, { game }) => {
+      if (!playerId) return;
+      
+      const isSpectator = game.spectators.includes(playerId);
+      
+      if (isSpectator) {
+        // Remove from spectators and add back to players
+        game.spectators = game.spectators.filter(id => id !== playerId);
+        game.diceCount[playerId] = startingDiceCount;
+      } else {
+        // Remove from players and add to spectators
+        game.spectators.push(playerId);
+        delete game.diceCount[playerId];
+      }
+      
     },
     setSelectedPlayerId: ({playerId }, {game} ) => {
       game.selectedPlayerId = playerId

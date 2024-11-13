@@ -9,13 +9,14 @@ import Player from "./Player.tsx";
 import {useState} from  'react'
 import {HelpPopup} from './HelpPopup.tsx'
 
+
 interface GameZoneProps {
     numPlayers: number,
     playerIds: string[],
     game: GameState,
     players: Record<string, { playerId: string, displayName: string, avatarUrl: string }>,
     yourPlayerId: string | undefined,
-    spectators?: string[],
+    //spectators?: string[],
     avatarUrl: string,
 }
 
