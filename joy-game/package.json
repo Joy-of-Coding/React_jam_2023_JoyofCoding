@@ -9,7 +9,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "exit 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "upload": "npm run build && npx rune-games-cli@latest upload"
   },
   "dependencies": {
     "@types/react-transition-group": "^4.4.6",
